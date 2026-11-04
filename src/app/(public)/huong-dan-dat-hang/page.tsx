@@ -7,9 +7,9 @@ export const metadata = { title: 'Đặt hàng, vận chuyển và bảo hành',
 export default function OrderingGuide() {
   return <main id="main" className="public-page secondary-page order-page">
     <DisclosureAnchor/>
-    <section className="page-intro"><div className="container"><nav className="breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><span aria-current="page">Hướng dẫn đặt hàng</span></nav><h1>Chuẩn bị đơn giản. Trao đổi rõ ràng.</h1><p>Những thông tin cần biết từ lúc đặt bể đến khi nhận hàng.</p></div></section>
+    <section className="page-intro"><div className="container"><nav className="breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><span aria-current="page">Hướng dẫn đặt hàng</span></nav><h1>Hướng dẫn đặt hàng</h1><p>Những thông tin cần biết từ lúc đặt bể đến khi nhận hàng.</p></div></section>
     <article className="reading support-reading">
-      <h2>Gửi bốn thông tin để bắt đầu</h2>
+      <h2>Thông tin cần có khi đặt hàng</h2>
       <ul className="order-preparation"><li>Mục đích sử dụng</li><li>Kích thước hoặc dung tích</li><li>Số lượng dự kiến</li><li>Địa điểm lắp đặt</li></ul>
       <p>Chưa có quy cách? Mô tả cách sử dụng; bản vẽ hoặc ảnh tham khảo có thể bổ sung khi tư vấn.</p>
       <Link className="button" href="/lien-he#gui-yeu-cau">Gửi nhu cầu của bạn</Link>

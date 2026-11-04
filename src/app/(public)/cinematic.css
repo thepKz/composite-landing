@@ -52,3 +52,19 @@
 @media(min-width:801px) and (max-height:839px){.cinematic-hero{height:calc(100svh - 116px);min-height:560px}.cinematic-heading{padding-top:24px}.hero-title-main{font-size:66px}.hero-title-message{font-size:clamp(78px,8.5vw,108px)}.cinematic-image{top:14%;left:42%}.cinematic-bottom{padding-bottom:24px}.cinematic-intro p{font-size:14px;line-height:1.7;margin-bottom:16px}.hero-scroll{width:76px;height:76px;margin-bottom:32px}.hero-secondary{padding-top:14px}}
 @media(max-width:800px){.cinematic-hero{display:flex;flex-direction:column}.cinematic-heading{order:0}.cinematic-bottom{order:1;padding-block:20px 26px}.cinematic-image{order:2;margin-top:0;width:100%;height:390px}.hero-title-main{font-size:clamp(44px,8vw,68px)}.hero-title-message{font-size:clamp(58px,12vw,100px)}.cinematic-intro p{margin-bottom:16px}.hero-scroll{display:none}}
 @media(max-width:520px){.hero-title-main{font-size:44px}.hero-title-message{font-size:clamp(48px,13vw,66px)}.cinematic-image{height:320px}.cinematic-heading{padding-top:24px}.hero-secondary{padding-top:12px}}
+.home-page .explorer-options{border-top:0;display:grid;gap:8px}
+.home-page .explorer-item{padding:0 22px;border:1px solid #ccd6c5;border-radius:12px;background:transparent;overflow:hidden}
+.home-page .explorer-item[open]{background:#fff;border:1px solid #779f80}
+.home-page .explorer-item summary{padding:20px 0;font-size:20px;line-height:1.45}
+.home-page .explorer-content{padding:0 0 22px}
+.home-page .explorer-content>p{margin:0 0 20px;max-width:55ch;font-size:15px;line-height:1.75;text-align:left}
+.home-page .explorer-content dl{margin:0 0 22px}
+.home-page .explorer-content dl>div{display:grid;grid-template-columns:90px 1fr;gap:16px;align-items:start}
+.home-page .explorer-toggle{display:grid;place-items:center;width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#e8efdf;color:#175b40}
+.home-page .explorer-item summary svg{transform:none}
+.explorer-toggle .explorer-minus{display:none}
+.explorer-item[open] .explorer-toggle .explorer-minus{display:block}
+.explorer-item[open] .explorer-toggle .explorer-plus{display:none}
+.explorer-sizes{display:flex;flex-wrap:wrap;gap:8px}
+.explorer-sizes>span{display:inline-block;padding:6px 10px;background:#edf2e7;border-radius:5px;font-size:14px;line-height:1.4;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:520px){.home-page .explorer-item{padding-inline:18px}.home-page .explorer-item summary{font-size:18px}.home-page .explorer-content dl>div{grid-template-columns:1fr;gap:10px}.home-page .explorer-content>p{font-size:14px}}

@@ -55,7 +55,7 @@ export default async function News({ searchParams }: Props) {
   return <main id="main" className="public-page secondary-page news-page">
     <section className="page-intro"><div className="container">
       <nav className="breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><span aria-current="page">Tin tức</span></nav>
-      <h1>Hiểu sản phẩm. Chọn phù hợp.</h1>
+      <h1>Tin tức và kiến thức composite</h1>
       <p>Kiến thức composite và những công trình Thành Lợi chia sẻ.</p>
     </div></section>
     <section className="section container news-layout">
@@ -78,7 +78,7 @@ export default async function News({ searchParams }: Props) {
         </nav>}
       </div>
       <aside className="news-sidebar" aria-label="Khám phá thêm">
-        <section><h2>Cần chọn bồn bể?</h2><p>Trao đổi mục đích sử dụng để chọn quy cách phù hợp.</p><Link href="/lien-he" className="button">Nhận tư vấn</Link></section>
+        <section><h2>Tư vấn chọn bồn bể</h2><p>Trao đổi mục đích sử dụng để chọn quy cách phù hợp.</p><Link href="/lien-he" className="button">Nhận tư vấn</Link></section>
         <details className="secondary-disclosure"><summary>Xem theo dòng sản phẩm</summary><nav aria-label="Sản phẩm">{items.map(product => <Link key={product.slug} href={`/san-pham/${product.slug}`}>{product.name}</Link>)}</nav></details>
       </aside>
     </section>

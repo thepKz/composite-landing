@@ -20,7 +20,7 @@ export default async function ContactPage() {
   return <main id="main" className="public-page secondary-page contact-page">
     <section className="page-intro"><div className="container">
       <nav className="breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><span aria-current="page">Liên hệ</span></nav>
-      <h1>Bắt đầu từ nhu cầu của bạn.</h1>
+      <h1>Liên hệ tư vấn và báo giá</h1>
       <p>Để lại thông tin. Thành Lợi sẽ trao đổi quy cách trước khi báo giá.</p>
     </div></section>
     <section className="contact-section" id="gui-yeu-cau"><div className="container contact-layout">

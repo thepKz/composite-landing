@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { productAssetBySlug } from '@/lib/customer-product-assets';
 import Link from 'next/link';
-import { ArrowUpRight, Plus } from 'lucide-react';
+import { ArrowUpRight, Plus, Minus } from 'lucide-react';
 import type { Product } from '@/lib/catalogue';
 
 export default function ProductExplorer({ products }: { products: Product[] }) {
@@ -17,11 +17,11 @@ export default function ProductExplorer({ products }: { products: Product[] }) {
     </figure>
     <div className="explorer-options">
       {products.map((product, index) => <details className="explorer-item" name="product-choice" key={product.slug} open={index === 0} onToggle={event => { if(event.currentTarget.open) setSelected(product.slug); }}>
-        <summary><span>{product.name}</span><Plus size={22} aria-hidden="true"/></summary>
+        <summary><span>{product.name}</span><span className="explorer-toggle" aria-hidden="true"><Plus className="explorer-plus" size={20}/><Minus className="explorer-minus" size={20}/></span></summary>
         <div className="explorer-content">
           <p>{product.description}</p>
-          <dl>{product.specifications.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>
-          <Link href={`/san-pham/${product.slug}`} className="text-link dark">Xem chi tiết <ArrowUpRight size={19}/></Link>
+          <dl>{product.specifications.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{/^[\d,.\s/]+ m$/.test(spec.value) && spec.value.includes('/') ? <span className="explorer-sizes">{spec.value.replace(/ m$/, '').split('/').map(size => <span key={size}>{size.trim()} m</span>)}</span> : spec.value}</dd></div>)}</dl>
+          <Link href={`/san-pham/${product.slug}`} className="text-link dark">Xem sản phẩm <ArrowUpRight size={19}/></Link>
         </div>
       </details>)}
     </div>

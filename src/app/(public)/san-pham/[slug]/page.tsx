@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: Props) {
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
     <nav className="container breadcrumb detail-breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span>/</span><Link href="/san-pham">Sản phẩm</Link><span>/</span><span>{product.category}</span></nav>
     <section className="container product-focus-top">
-      {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : <aside className="product-spec-portrait"><h2>Chế tạo theo điều kiện sử dụng.</h2><p>{guidance.selection.join('. ')}.</p><Link href="#tu-van" className="text-link">Trao đổi mẫu phù hợp <ArrowUpRight size={20}/></Link></aside>}
+      {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : <aside className="product-spec-portrait"><h2>Tư vấn thiết kế bể</h2><p>{guidance.selection.join('. ')}.</p><Link href="#tu-van" className="text-link">Trao đổi mẫu phù hợp <ArrowUpRight size={20}/></Link></aside>}
       <div className="product-focus-copy">
         <h1>{product.name}</h1>
         <p>{product.description}</p>
@@ -53,15 +53,15 @@ export default async function ProductPage({ params }: Props) {
       </div>
     </section>
     <section className="detail-reading"><div className="container detail-reading-grid">
-      <h2>Thông tin đặt hàng.</h2>
+      <h2>Thông tin đặt hàng</h2>
       <div className="detail-disclosures">
-        <details><summary>Ứng dụng & điểm phù hợp</summary><ul>{guidance.benefits.map(text => <li key={text}>{text}</li>)}</ul></details>
+        <details><summary>Công dụng sản phẩm</summary><ul>{guidance.benefits.map(text => <li key={text}>{text}</li>)}</ul></details>
         <details><summary>Cần chuẩn bị gì để nhận báo giá?</summary><ul>{guidance.selection.map(text => <li key={text}>{text}</li>)}</ul><p>Chưa có kích thước cụ thể? Gửi mục đích sử dụng và mặt bằng dự kiến để được tư vấn.</p></details>
         <details><summary>Lắp đặt & vận hành</summary><ul>{guidance.installation.map(text => <li key={text}>{text}</li>)}</ul><p>Cấu hình và phụ kiện được xác nhận theo từng đơn hàng.</p></details>
         <details><summary>Giao hàng & bảo hành</summary><p>Phạm vi vận chuyển, lắp đặt và thời hạn bảo hành được thống nhất trong báo giá hoặc hợp đồng.</p><p><Link href="/huong-dan-dat-hang#van-chuyen">Xem hướng dẫn giao nhận</Link> · <Link href="/huong-dan-dat-hang#bao-hanh">Điều kiện bảo hành</Link></p></details>
       </div>
     </div></section>
-    <section id="tu-van" className="contact-section"><div className="container contact-layout"><div><h2>Nhận báo giá cho nhu cầu của bạn.</h2><p>Để lại số liên hệ và quy cách dự kiến. Thành Lợi sẽ trao đổi về {product.name.toLowerCase()}.</p></div><InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact/></div></section>
+    <section id="tu-van" className="contact-section"><div className="container contact-layout"><div><h2>Nhận tư vấn và báo giá</h2><p>Để lại số liên hệ và quy cách dự kiến. Thành Lợi sẽ trao đổi về {product.name.toLowerCase()}.</p></div><InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact/></div></section>
     <section className="container detail-related"><h2>Các dòng sản phẩm khác</h2><div className="detail-related-links">{items.filter(item => item.slug !== slug).slice(0,3).map(item => <Link key={item.slug} href={`/san-pham/${item.slug}`}>{item.name}<ArrowUpRight size={20}/></Link>)}</div></section>
   </main>;
 }
