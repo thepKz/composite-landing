@@ -1,0 +1,11 @@
+node_modules
+.next
+.env*
+data
+backups
+.impeccable
+.git
+test-results
+playwright-report
+assets/customer-originals
+*.tsbuildinfo

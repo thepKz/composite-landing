@@ -1,0 +1,44 @@
+{
+  "title": "Hướng thiết kế Thành Lợi Composite",
+  "question": "Chọn cách trình bày sản phẩm. Cả ba hướng đều giữ xanh đậm, xanh lá và trắng của Thành Lợi, có 3D và admin dễ dùng.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Phòng trưng bày vật liệu",
+      "thesis": "Một bể composite lớn ở trung tâm, thông tin gọn như nhãn trong phòng trưng bày.",
+      "palette": ["#103B50", "#177447", "#F4F5EF"],
+      "materials": ["bề mặt composite", "nền trắng ấm", "đường phân khu mảnh"],
+      "viewport": "Tiêu đề bên trái, bể 3D chiếm vùng lớn bên phải, bộ chọn đường kính ngay dưới mô hình.",
+      "risk": "Cần mô hình và ánh sáng tốt để thể hiện chất liệu thuyết phục.",
+      "raised": [{"from":"Bìa đĩa jazz","raise":"Giữ một mảng màu chủ đạo đủ lớn, không chia trang thành nhiều thẻ nhỏ."},{"from":"Tháp đất nung","raise":"Cho thấy hình dáng và cấu tạo của bể qua các góc nhìn có chủ đích."}],
+      "wireframe":{"cols":12,"rows":10,"regions":[{"label":"Thành Lợi / Điều hướng","x":0,"y":0,"w":12,"h":1},{"label":"Sản phẩm đúng nhu cầu / Tư vấn","x":0,"y":2,"w":5,"h":5},{"label":"Bể composite 3D","x":5,"y":1,"w":7,"h":7,"accent":true},{"label":"Chọn đường kính","x":5,"y":8,"w":7,"h":2}]}
+    },
+    {
+      "id":"model-pick",
+      "label":"Catalogue kỹ thuật",
+      "thesis":"Ưu tiên chọn loại bể và thông số, với 3D hỗ trợ việc so sánh.",
+      "palette":["#103B50","#177447","#FFFFFF"],
+      "materials":["catalogue sản phẩm","bảng thông số","ảnh vật liệu"],
+      "viewport":"Danh mục và thông số đặt cạnh mô hình, các ứng dụng xếp thành hàng rõ ràng.",
+      "risk":"Quen thuộc với khách công nghiệp nhưng ít bất ngờ hơn hướng trưng bày.",
+      "wireframe":{"cols":12,"rows":10,"regions":[{"label":"Điều hướng","x":0,"y":0,"w":12,"h":1},{"label":"Danh mục","x":0,"y":1,"w":3,"h":7},{"label":"3D sản phẩm","x":3,"y":1,"w":6,"h":7,"accent":true},{"label":"Thông số","x":9,"y":1,"w":3,"h":7},{"label":"Ứng dụng","x":0,"y":8,"w":12,"h":2}]}
+    },
+    {
+      "id":"construction",
+      "label":"Cấu tạo và ứng dụng",
+      "verdict":"competitive",
+      "thesis":"Dẫn khách từ hình dáng bể đến cách sử dụng trong từng nhu cầu.",
+      "palette":["#103B50","#177447","#F4F5EF"],
+      "materials":["mặt cắt minh họa","băng nội dung ngang","nhãn thông số"],
+      "viewport":"Mô hình trải ngang, các điểm chú thích có thể mở, nội dung ứng dụng tiếp nối bên dưới.",
+      "case":"Mạnh về giải thích sản phẩm nhưng cần bản vẽ thật nếu muốn mô tả cấu tạo kỹ thuật chính xác.",
+      "risk":"Hiện chỉ có thể ghi rõ mô hình minh họa vì chưa có bản vẽ của nhà sản xuất.",
+      "wireframe":{"cols":12,"rows":10,"regions":[{"label":"Điều hướng","x":0,"y":0,"w":12,"h":1},{"label":"Tiêu đề","x":0,"y":1,"w":12,"h":2},{"label":"Khám phá 3D","x":0,"y":3,"w":12,"h":5,"accent":true},{"label":"Ứng dụng và tư vấn","x":0,"y":8,"w":12,"h":2}]}
+    }
+  ],
+  "buildPath":{"value":"code","toggle":false},
+  "reroll":{"registers":["safer","bolder"]},
+  "canon":true,
+  "canonCard":{"label":"Bố cục doanh nghiệp quen thuộc","thesis":"Banner đầu trang, danh mục sản phẩm, bài viết và liên hệ.","palette":["#103B50","#177447","#FFFFFF"],"materials":["banner","lưới catalogue"],"viewport":"Banner lớn phía trên, các sản phẩm thành hàng phía dưới.","risk":"Dễ dùng nhưng khó tạo khác biệt với website tham chiếu."},
+  "steer":true
+}

@@ -1,0 +1,16 @@
+node_modules/
+.next/
+.env
+.env.local
+.env.*
+!.env.example
+data/
+backups/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.impeccable/review/
+.impeccable/asset-staging/
+.impeccable/questions/
+assets/customer-originals/
+deliverables/

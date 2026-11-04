@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T06:55:39.438057+00:00",
+  "title": "Design System: Thanh Loi Composite",
+  "extensions": {
+    "breakpoints": [
+      {
+        "name": "public-phone",
+        "value": "520px"
+      },
+      {
+        "name": "public-tablet",
+        "value": "800px"
+      },
+      {
+        "name": "public-navigation",
+        "value": "960px"
+      },
+      {
+        "name": "public-compact",
+        "value": "1100px"
+      },
+      {
+        "name": "admin-phone",
+        "value": "600px"
+      },
+      {
+        "name": "admin-navigation",
+        "value": "700px"
+      },
+      {
+        "name": "admin-editor",
+        "value": "900px"
+      },
+      {
+        "name": "admin-compact",
+        "value": "1000px"
+      },
+      {
+        "name": "admin-editor-compact",
+        "value": "1200px"
+      }
+    ],
+    "motion": [
+      {
+        "name": "public-entry",
+        "value": "850ms power3.out",
+        "purpose": "GSAP route heading and hero studio entry; rounded clip reveal on studio."
+      },
+      {
+        "name": "public-scroll",
+        "value": "800ms power3.out",
+        "purpose": "ScrollTrigger once at top 94%; 26px rise. MatchMedia limits to no-preference and reverts on cleanup."
+      },
+      {
+        "name": "slide-crossfade",
+        "value": "800ms ease",
+        "purpose": "Real-photo opacity transition."
+      },
+      {
+        "name": "slideshow-interval",
+        "value": "6000ms",
+        "purpose": "Pauses on hover, focus, offscreen, hidden tab, reduced motion or manual choice."
+      },
+      {
+        "name": "public-card-hover",
+        "value": "250ms",
+        "purpose": "Card shadow and upward translation; disabled for reduced motion."
+      }
+    ],
+    "focus": {
+      "value": "3px solid #d69b29",
+      "offset": "4px",
+      "purpose": "Shared visible keyboard focus."
+    },
+    "shadows": [
+      {
+        "name": "hero-frame",
+        "value": "0 28px 55px #03232d44",
+        "purpose": "Level rounded cream photo frame."
+      },
+      {
+        "name": "public-card",
+        "value": "0 12px 30px #183e3a0c",
+        "purpose": "Product cards at rest."
+      },
+      {
+        "name": "public-card-hover",
+        "value": "0 18px 34px #183e3a20",
+        "purpose": "Product card hover."
+      },
+      {
+        "name": "public-form",
+        "value": "0 16px 45px #183e3a0b",
+        "purpose": "Consultation form."
+      }
+    ],
+    "photoFrames": {
+      "heroRotation": "0deg",
+      "detailRotation": "5deg",
+      "galleryRotation": "0deg",
+      "purpose": "Real photographs; level rounded cards. Product covers require explicit CMS assignment."
+    },
+    "publicFocus": {
+      "value": "3px solid #d4a633",
+      "offset": "5px",
+      "headerValue": "2px solid #187447",
+      "headerOffset": "4px"
+    }
+  },
+  "components": [
+    {
+      "name": "Shared consultation button",
+      "kind": "button",
+      "html": "<button class=\"ds-primary\">Yeu cau tu van</button>",
+      "css": ".ds-primary{font:500 14px/1.5 \"Be Vietnam Pro\",sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:20px;background:var(--green,#187447);color:#fff;border:1px solid transparent;padding:16px 24px;min-height:52px;border-radius:5px;transition:background .2s,transform .2s}.ds-primary:hover{background:#105a35;transform:translateY(-1px)}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}.ds-primary:focus-visible{outline:3px solid #d69b29;outline-offset:4px}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Shared outline button",
+      "kind": "button",
+      "html": "<button class=\"ds-outline\">Xem them</button>",
+      "css": ".ds-outline{font:500 14px/1.5 \"Be Vietnam Pro\",sans-serif;background:transparent;color:var(--ink,#153b4b);border:1px solid var(--line,#d5dfd9);padding:16px 24px;min-height:52px;border-radius:5px}.ds-outline:hover{background:var(--paper,#f5f6f0)}.ds-outline:focus-visible{outline:3px solid #d69b29;outline-offset:4px}"
+    },
+    {
+      "name": "Shared text field",
+      "kind": "input",
+      "html": "<input class=\"ds-input\" aria-label=\"Ho ten\" placeholder=\"Ho ten\">",
+      "css": ".ds-input{font:14px/1.6 \"Be Vietnam Pro\",sans-serif;width:100%;min-width:0;border:1px solid #adbcaf;background:#fff;color:var(--ink,#153b4b);padding:12px 14px;border-radius:5px}.ds-input::placeholder{color:#4a665a}.ds-input:focus-visible{outline:3px solid #d69b29;outline-offset:4px}",
+      "refersTo": "input"
+    },
+    {
+      "name": "Shared public navigation",
+      "kind": "nav",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#products\">San pham</a><a class=\"ds-nav-link\" href=\"#contact\">Lien he</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:28px;font:500 13px \"Be Vietnam Pro\",sans-serif;color:var(--ink,#153b4b)}.ds-nav-link{padding-block:12px;color:inherit;text-decoration:none}.ds-nav-link:hover{color:var(--green,#187447)}.ds-nav-link:focus-visible{outline:3px solid #d69b29;outline-offset:4px}"
+    },
+    {
+      "name": "Administration panel",
+      "kind": "card",
+      "html": "<section class=\"ds-panel\"><h2>Noi dung website</h2></section>",
+      "css": ".ds-panel{font-family:\"Be Vietnam Pro\",sans-serif;background:#fff;color:var(--ink,#153b4b);border:1px solid var(--line,#d5dfd9);padding:32px;border-radius:12px}.ds-panel h2{font-size:23px;font-weight:500;margin:0}.ds-panel:focus-visible{outline:3px solid #d69b29;outline-offset:4px}",
+      "refersTo": "admin-panel"
+    },
+    {
+      "name": "Published status",
+      "kind": "chip",
+      "html": "<span class=\"ds-status\">Da xuat ban</span>",
+      "css": ".ds-status{display:inline-block;padding:4px 10px;border-radius:4px;font:500 11px \"Be Vietnam Pro\",sans-serif;white-space:nowrap;color:#135e3d;background:#e0efdf}.ds-status:focus-visible{outline:3px solid #d69b29;outline-offset:4px}"
+    },
+    {
+      "name": "Public product card",
+      "kind": "card",
+      "refersTo": "public-card",
+      "html": "<article class=\"ds-public-card\"><div class=\"ds-material\"><span>Composite</span><strong>Quy cach theo nhu cau</strong></div><div class=\"ds-public-copy\"><h3>San pham</h3><p>Thong tin tu danh muc san pham.</p></div></article>",
+      "css": ".ds-public-card{background:#fff;color:#113d4c;border-radius:16px;overflow:hidden;font-family:\"Be Vietnam Pro\",sans-serif;box-shadow:0 12px 30px #183e3a0c;transition:box-shadow .25s,translate .25s}.ds-public-card:hover{translate:0 -5px;box-shadow:0 18px 34px #183e3a20}.ds-material{min-height:190px;padding:24px;color:#fff;background:linear-gradient(125deg,#124b59f2,#21715ec9);display:flex;flex-direction:column;justify-content:space-between}.ds-material strong{font-size:25px;font-weight:500}.ds-public-copy{padding:26px}.ds-public-copy h3{font-size:23px;font-weight:500}.ds-public-copy p{font-size:14px;color:#44636b}@media(prefers-reduced-motion:reduce){.ds-public-card{transition:none}.ds-public-card:hover{translate:none}}"
+    }
+  ]
+}

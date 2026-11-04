@@ -1,0 +1,2 @@
+export async function api<T=unknown>(url:string,options?:RequestInit):Promise<T>{const response=await fetch(url,options);let data;try{data=await response.json();}catch{throw new Error('Không đọc được phản hồi. Vui lòng thử lại.');}if(!response.ok)throw new Error(data.error||'Thao tác chưa thành công.');return data as T;}
+export function jsonOptions(method:string,value:unknown):RequestInit{return {method,headers:{'Content-Type':'application/json'},body:JSON.stringify(value)};}

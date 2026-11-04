@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: ${APP_DATABASE:-thanhloi}
+      PGUSER: thanhloi
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      SITE_URL: ${SITE_URL:?Set the public HTTPS origin}
+      UPLOAD_DIR: /app/data/uploads
+      TRUST_PROXY: "false"
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    volumes:
+      - ./data/uploads:/app/data/uploads
+    depends_on:
+      db:
+        condition: service_healthy
