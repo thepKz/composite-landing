@@ -1,3 +1,4 @@
+import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { postPath } from '@/lib/post-path';
@@ -8,7 +9,7 @@ import RichContent from '@/components/rich-content';
 import { cleanDocument } from '@/lib/rich-text';
 import './post-detail.css';
 
-const getPost = cache(async (slug: string, kind: string) => (await db.query("SELECT p.*,m.alt AS cover_alt FROM posts p LEFT JOIN media_assets m ON m.id=p.cover_id WHERE p.slug=$1 AND p.status='published' AND p.published_at<=now() AND ($2='' OR p.kind=$2)", [slug, kind])).rows[0]);
+const getPost = cache(async (slug: string, kind: string) => isDemoMode() ? undefined : (await db.query("SELECT p.*,m.alt AS cover_alt FROM posts p LEFT JOIN media_assets m ON m.id=p.cover_id WHERE p.slug=$1 AND p.status='published' AND p.published_at<=now() AND ($2='' OR p.kind=$2)", [slug, kind])).rows[0]);
 type Props = { slug: string; kind?: 'article' | 'project' };
 
 export async function postMetadata({ slug, kind }: Props) {

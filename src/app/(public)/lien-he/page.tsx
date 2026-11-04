@@ -1,3 +1,4 @@
+import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import InquiryForm from '@/components/inquiry-form';
 import { company } from '@/lib/content';
@@ -34,7 +35,7 @@ export default async function ContactPage() {
           {validZalo && <div><dt>Zalo</dt><dd><a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer">Trao đổi qua Zalo</a></dd></div>}
         </dl>
       </div>
-      <InquiryForm/>
+      <InquiryForm demo={isDemoMode()}/>
     </div></section>
     <section className="container contact-map"><h2>Vị trí Thành Lợi Composite</h2><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.4447580971832!2d104.9893577759779!3d21.4902923717653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313361007146b3f1%3A0xf4a42a90f4187fad!2zVGjDoG5oIEzhu6NpIENvbXBvc2l0ZQ!5e0!3m2!1svi!2s!4v1793708025019!5m2!1svi!2s" title="Bản đồ Thành Lợi Composite" width="1200" height="400" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></section>
   </main>;

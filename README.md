@@ -4,6 +4,14 @@ Vietnamese product website and content administration. The public catalogue, cus
 
 ## Local development
 
+## Vercel demo without a database
+
+Import the GitHub repository using the Next.js preset. With no `DATABASE_URL`, the public website automatically serves the supplied catalogue and bundled photos. Set `DEMO_MODE=true` to force this mode even when database variables exist. No database is needed for the demo build or runtime. News/projects retain their empty states, unknown articles return 404, and admin/API writes are unavailable. Inquiry forms explicitly state that they do not send or store information.
+
+`SITE_URL` is optional on Vercel: canonical URLs use the production deployment domain. To enable the full CMS later, provision/migrate/seed PostgreSQL, configure `DATABASE_URL`, disable forced demo mode and adapt uploads to persistent object storage before accepting live content.
+
+## Local development setup
+
 Requirements: Node.js 24+, Docker Desktop (or a separate PostgreSQL 17 database).
 
 1. `npm ci`

@@ -1,3 +1,4 @@
+import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowUpRight } from 'lucide-react';
@@ -60,7 +61,7 @@ export default async function ProductPage({ params }: Props) {
         <details><summary>Giao hàng & bảo hành</summary><p>Phạm vi vận chuyển, lắp đặt và thời hạn bảo hành được thống nhất trong báo giá hoặc hợp đồng.</p><p><Link href="/huong-dan-dat-hang#van-chuyen">Xem hướng dẫn giao nhận</Link> · <Link href="/huong-dan-dat-hang#bao-hanh">Điều kiện bảo hành</Link></p></details>
       </div>
     </div></section>
-    <section id="tu-van" className="contact-section"><div className="container contact-layout"><div><h2>Nhận báo giá cho nhu cầu của bạn.</h2><p>Để lại số liên hệ và quy cách dự kiến. Thành Lợi sẽ trao đổi về {product.name.toLowerCase()}.</p></div><InquiryForm key={slug} product={product.name} compact/></div></section>
+    <section id="tu-van" className="contact-section"><div className="container contact-layout"><div><h2>Nhận báo giá cho nhu cầu của bạn.</h2><p>Để lại số liên hệ và quy cách dự kiến. Thành Lợi sẽ trao đổi về {product.name.toLowerCase()}.</p></div><InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact/></div></section>
     <section className="container detail-related"><h2>Các dòng sản phẩm khác</h2><div className="detail-related-links">{items.filter(item => item.slug !== slug).slice(0,3).map(item => <Link key={item.slug} href={`/san-pham/${item.slug}`}>{item.name}<ArrowUpRight size={20}/></Link>)}</div></section>
   </main>;
 }

@@ -1,8 +1,10 @@
+import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
 import LoginForm from '@/components/admin/login-form';
 export default async function Login(){
+  if(isDemoMode()) return <main className="login-page"><div className="login-card"><h1>Bản xem thử website</h1><p>Quản trị và lưu dữ liệu sẽ được bật khi website kết nối database. Anh/chị có thể xem giao diện và sản phẩm ngay trên bản demo.</p><Link href="/" className="button">Về trang chủ</Link></div></main>;
   let user;
   let unavailable=false;
   try { user=await currentUser(); } catch { unavailable=true; }

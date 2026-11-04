@@ -1,12 +1,21 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { db } from '@/lib/db';
+import { isDemoMode } from '@/lib/demo-mode';
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  if (pathname.startsWith('/api/') || pathname === '/admin' || pathname.startsWith('/admin/')) {
+    if (isDemoMode()) {
+      if (pathname.startsWith('/api/')) return NextResponse.json({ error: 'Bản xem thử chưa kết nối dữ liệu. Chức năng này chưa được bật.' }, { status: 503 });
+      if (pathname !== '/admin/login') return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+    return NextResponse.next();
+  }
   if (pathname === '/kien-thuc') {
     const target = request.nextUrl.clone(); target.pathname = '/tin-tuc';
     return NextResponse.redirect(target, 301);
   }
+  if (isDemoMode()) return NextResponse.next();
   if (/^\/(kien-thuc|tin-tuc|du-an)\/[a-z0-9-]+$/.test(pathname)) {
     const canonical = pathname.replace(/^\/(kien-thuc|du-an)\//, '/tin-tuc/');
     // Normalize both namespaces while resolving aliases, without rewriting stored history.
@@ -34,4 +43,4 @@ export async function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = { matcher: ['/kien-thuc', '/kien-thuc/:slug', '/tin-tuc/:slug', '/du-an/:slug', '/san-pham/:slug'] };
+export const config = { matcher: ['/api/:path*', '/admin/:path*', '/kien-thuc', '/kien-thuc/:slug', '/tin-tuc/:slug', '/du-an/:slug', '/san-pham/:slug'] };

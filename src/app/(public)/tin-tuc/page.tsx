@@ -1,3 +1,4 @@
+import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { postPath } from '@/lib/post-path';
 import type { Metadata } from 'next';
@@ -41,12 +42,12 @@ export default async function News({ searchParams }: Props) {
   const { q, kind, page } = filters(await searchParams);
   const pattern = `%${q.replace(/[\\%_]/g, '\\$&')}%`;
   const where = "p.status='published' AND p.published_at<=now() AND ($1='' OR p.title ILIKE $2 OR p.excerpt ILIKE $2) AND ($3='' OR p.kind=$3)";
-  const count = await db.query(`SELECT count(*)::integer AS total FROM posts p WHERE ${where}`, [q, pattern, kind]);
+  const count = isDemoMode() ? { rows: [{ total: 0 }] } : await db.query(`SELECT count(*)::integer AS total FROM posts p WHERE ${where}`, [q, pattern, kind]);
   const total: number = count.rows[0].total;
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
   if (page > pageCount) notFound();
   const [result, items] = await Promise.all([
-    db.query<NewsItem>(`SELECT p.id,p.title,p.slug,p.excerpt,p.kind,p.cover_id,p.published_at FROM posts p WHERE ${where} ORDER BY p.published_at DESC,p.id DESC LIMIT $4 OFFSET $5`, [q, pattern, kind, pageSize, (page - 1) * pageSize]),
+    isDemoMode() ? Promise.resolve({ rows: [] as NewsItem[] }) : db.query<NewsItem>(`SELECT p.id,p.title,p.slug,p.excerpt,p.kind,p.cover_id,p.published_at FROM posts p WHERE ${where} ORDER BY p.published_at DESC,p.id DESC LIMIT $4 OFFSET $5`, [q, pattern, kind, pageSize, (page - 1) * pageSize]),
     products(),
   ]);
   const pageNumbers = Array.from(new Set([1, pageCount, page - 1, page, page + 1].filter(value => value >= 1 && value <= pageCount))).sort((a, b) => a - b);

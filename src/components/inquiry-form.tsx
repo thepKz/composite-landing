@@ -3,12 +3,12 @@ import { useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { catalogue } from '@/lib/catalogue';
 
-export default function InquiryForm({product='',compact=false}:{product?:string;compact?:boolean}) {
+export default function InquiryForm({product='',compact=false,demo=false}:{product?:string;compact?:boolean;demo?:boolean}) {
   const [state,setState]=useState<'idle'|'busy'|'done'|'error'>('idle');
   const [error,setError]=useState('');
   const submitting=useRef(false);
   async function submit(event:FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if(submitting.current)return; submitting.current=true; setState('busy');setError('');
+    event.preventDefault(); if(demo)return; if(submitting.current)return; submitting.current=true; setState('busy');setError('');
     const data=Object.fromEntries(new FormData(event.currentTarget));
     try {
       const response=await fetch('/api/inquiries',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
@@ -23,6 +23,7 @@ export default function InquiryForm({product='',compact=false}:{product?:string;
     <div className="form-row"><label>Kích thước / dung tích<input name="dimensions" maxLength={160} placeholder="Ví dụ: 2 m × 1 m × 1 m"/></label><label>Địa điểm lắp đặt / giao hàng<input name="location" maxLength={200} placeholder="Tỉnh/thành, địa điểm dự kiến"/></label></div>
   </>;
   return <form onSubmit={submit} className="inquiry-form">
+    {demo&&<p role="note">Bản xem thử: biểu mẫu chưa gửi hoặc lưu thông tin.</p>}
     <div className="form-row"><label>Họ và tên<input name="name" required maxLength={100} autoComplete="name" placeholder="Tên của anh/chị"/></label><label>Số điện thoại<input name="phone" type="tel" required minLength={9} maxLength={20} autoComplete="tel" placeholder="Số điện thoại liên hệ"/></label></div>
     <label>Sản phẩm quan tâm<select name="product" defaultValue={product}><option value="">Tôi cần được tư vấn thêm</option>{catalogue.map(p=><option key={p.slug} value={p.name}>{p.name}</option>)}</select></label>
     {compact ? <details className="inquiry-optional" onInvalidCapture={event => { event.currentTarget.open = true; }}><summary>Thêm quy cách, địa điểm hoặc email</summary>{optionalFields}</details> : optionalFields}
@@ -30,6 +31,6 @@ export default function InquiryForm({product='',compact=false}:{product?:string;
     <label className="honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off"/></label>
     <label className="checkbox-label"><input type="checkbox" name="consent" value="yes" required/><span>Tôi đồng ý để Thành Lợi sử dụng thông tin này nhằm liên hệ tư vấn. <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a></span></label>
     {state==='error'&&<p className="error-message" role="alert">{error}</p>}
-    <button className="button" disabled={state==='busy'}>{state==='busy'?'Đang gửi…':'Gửi yêu cầu tư vấn'}<ArrowUpRight size={18}/></button>
+    <button className="button" disabled={demo||state==='busy'}>{demo?'Chưa mở nhận yêu cầu':state==='busy'?'Đang gửi…':'Gửi yêu cầu tư vấn'}<ArrowUpRight size={18}/></button>
   </form>;
 }
