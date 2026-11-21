@@ -1,0 +1,248 @@
+{
+ "menuEsc": {
+  "openState": "true",
+  "afterEsc": "false",
+  "focusAfterOpen": "<button type=\"button\" class=\"tl-menu-trigger pressable\" data-active=\"false\" aria",
+  "focusAfterEsc": "<button type=\"button\" class=\"tl-menu-trigger pressable\" data-active=\"false\" aria"
+ },
+ "menuClickOutside": "false",
+ "menuHover": {
+  "opened": "true",
+  "afterLeave": "false"
+ },
+ "heroAuto": [
+  "1 trên 3",
+  "1 trên 3",
+  "2 trên 3",
+  "2 trên 3",
+  "3 trên 3",
+  "3 trên 3"
+ ],
+ "cards": [
+  {
+   "href": "/san-pham/be-biogas-composite",
+   "txt": "Bể biogas compositeTừ 1,",
+   "w": 397,
+   "h": 72,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/be-phot-va-xu-ly-nuoc-thai",
+   "txt": "Bể phốt và xử lý nước th",
+   "w": 397,
+   "h": 72,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/be-nuoi-trong-thuy-san",
+   "txt": "Bể cá và thủy sảnHồ cá K",
+   "w": 397,
+   "h": 72,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/bon-chua-hoa-chat",
+   "txt": "Bồn chứa hóa chất compos",
+   "w": 312,
+   "h": 44,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/thung-cho-tom-ca",
+   "txt": "Thùng chở thủy hải sản s",
+   "w": 312,
+   "h": 44,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/xe-gom-rac",
+   "txt": "Thùng rác và xe gom rác",
+   "w": 312,
+   "h": 44,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/composite-theo-yeu-cau",
+   "txt": "Composite theo yêu cầu",
+   "w": 312,
+   "h": 44,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/be-biogas-composite",
+   "txt": "Bể biogas composite",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/be-phot-va-xu-ly-nuoc-thai",
+   "txt": "Bể phốt và xử lý nước th",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/be-nuoi-trong-thuy-san",
+   "txt": "Bể cá và thủy sản",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/bon-chua-hoa-chat",
+   "txt": "Bồn chứa hóa chất compos",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/thung-cho-tom-ca",
+   "txt": "Thùng chở thủy hải sản s",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/xe-gom-rac",
+   "txt": "Thùng rác và xe gom rác",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  },
+  {
+   "href": "/san-pham/composite-theo-yeu-cau",
+   "txt": "Composite theo yêu cầu",
+   "w": 0,
+   "h": 0,
+   "op": "1",
+   "vis": "hidden"
+  }
+ ],
+ "cardCount": 3,
+ "hover": "TimeoutError: locator.hover: Timeout 5000ms exceeded. | Call log: | \u001b[2m  - waiting for locator('a[href=\"/san-pham/be-biogas-composite\"]').filter({ hasText: /Bể biogas composite/ }).first()\u001b[22m | \u001b[2m    - locator resolved to <a class=\"tl-feature\" href=\"/san-pham/be-biogas-composite\">…</a>\u001b[22m | \u001b[2m  - attempting hover action\u001b[22m | \u001b[2m    2 × waiting for element to be visible and stable\u001b[22m",
+ "revealAfterUp": {
+  "total": 36,
+  "hidden": 0
+ },
+ "revealJump": {
+  "after250ms": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "after1450ms": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ "revealBottomStuck": [],
+ "lightboxTab": [
+  "BUTTON(trong hộp):Ảnh trước",
+  "BUTTON(trong hộp):Ảnh sau",
+  "BODY(NGOÀI):Đến nội dung chính",
+  "BUTTON(trong hộp):Đóng ảnh",
+  "BUTTON(trong hộp):Ảnh trước",
+  "BUTTON(trong hộp):Ảnh sau",
+  "BODY(NGOÀI):Đến nội dung chính",
+  "BUTTON(trong hộp):Đóng ảnh",
+  "BUTTON(trong hộp):Ảnh trước",
+  "BUTTON(trong hộp):Ảnh sau"
+ ],
+ "floating": [],
+ "maps": [
+  "200 https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.44475809718",
+  "200 https://maps.gstatic.com/maps-api-v3/embed/js/67/1d/intl/vi_ALL/init_e",
+  "200 https://maps.googleapis.com/maps/api/js?key=AIzaSyCmL18misQw9KdwqGaw3z",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/geome",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/searc",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/main.",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/commo",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/util.",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/map.j",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/contr",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/place",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/place",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/onion",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/searc",
+  "200 https://fonts.googleapis.com/css?family=Google+Sans+Text:400&text=%E2%",
+  "200 https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+",
+  "200 https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+  "200 https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.44475809718",
+  "200 https://maps.gstatic.com/maps-api-v3/embed/js/67/1d/intl/vi_ALL/init_e",
+  "200 https://maps.googleapis.com/maps/api/js?key=AIzaSyCmL18misQw9KdwqGaw3z",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/geome",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/searc",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/main.",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/commo",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/util.",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/map.j",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/contr",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/place",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/place",
+  "200 https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/onion",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/searc",
+  "200 https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+  "200 https://maps.googleapis.com/maps-api-v3/api/js/67/1d/intl/vi_ALL/log.j",
+  "200 https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUA",
+  "200 https://maps.gstatic.com/mapfiles/openhand_8_8.cur",
+  "200 https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJs",
+  "200 https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJs",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51879!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51880!3i28760!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51880!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51881!3i28760!4i256!",
+  "200 https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJs",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51880!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51882!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51882!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51881!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51883!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51882!3i28760!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51878!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51881!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51879!3i28760!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51879!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51883!3i28761!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51883!3i28760!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51878!3i28760!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i16!2i51878!3i28759!4i256!",
+  "200 https://www.google.com/maps/vt?pb=!1m4!1m3!1i16!2i51878!3i28759!1m4!1m",
+  "200 https://www.google.com/maps/vt?pb=!1m4!1m3!1i16!2i51881!3i28760!1m4!1m",
+  "200 https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUA",
+  "200 https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUA",
+  "200 https://places.googleapis.com/$rpc/google.maps.places.v1.Places/GetPla",
+  "200 https://fonts.gstatic.com/s/googlesanstext/v29/5aUu9-KzpRiLCAt4Unrc-xI",
+  "200 https://fonts.gstatic.com/s/googlesanstext/v29/5aUu9-KzpRiLCAt4Unrc-xI",
+  "200 https://fonts.gstatic.com/s/googlesanstext/v29/5aUp9-KzpRiLCAt4Unrc-xI",
+  "200 https://fonts.gstatic.com/s/googlesanstext/v29/5aUp9-KzpRiLCAt4Unrc-xI",
+  "200 https://fonts.gstatic.com/s/googlesanstext/v29/5aUu9-KzpRiLCAt4Unrc-xI",
+  "200 https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJs",
+  "200 https://www.google.com/maps/vt?pb=!1m5!1m4!1i13!2i6485!3i3595!4i256!2m"
+ ]
+}

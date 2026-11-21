@@ -1,0 +1,36 @@
+--- nền #FFFFFF chữ #153b4b
+#153B4B trên #FFFFFF: 11.94:1  AAA chữ thường         APCA Lc   97.2
+--- nền #F5F6F0 chữ #315a69
+#315A69 trên #F5F6F0:  6.91:1  ĐẠT chữ thường         APCA Lc   80.2
+--- nền #FFFFFF chữ #315a69
+#315A69 trên #FFFFFF:  7.51:1  AAA chữ thường         APCA Lc   86.0
+--- nền #FFFFFF chữ #b94918
+#B94918 trên #FFFFFF:  5.21:1  ĐẠT chữ thường         APCA Lc   75.0
+--- nền #FFFFFF chữ #187447
+#187447 trên #FFFFFF:  5.79:1  ĐẠT chữ thường         APCA Lc   78.6
+--- nền #082b3e chữ #d3f56b
+#D3F56B trên #082B3E: 11.96:1  AAA chữ thường         APCA Lc  -89.0
+--- nền #082b3e chữ #e4eee6
+#E4EEE6 trên #082B3E: 12.40:1  AAA chữ thường         APCA Lc  -91.4
+--- nền #0e3a50 chữ #dbe8df
+#DBE8DF trên #0E3A50:  9.55:1  AAA chữ thường         APCA Lc  -83.8
+--- nền #082b3e chữ #dbe8df
+#DBE8DF trên #082B3E: 11.66:1  AAA chữ thường         APCA Lc  -87.2
+--- nền #eaf4e6 chữ #14573b
+#14573B trên #EAF4E6:  7.57:1  AAA chữ thường         APCA Lc   80.7
+--- nền #eaf4e6 chữ #187447
+#187447 trên #EAF4E6:  5.12:1  ĐẠT chữ thường         APCA Lc   70.2
+--- nền #FFFFFF chữ #a32c24
+#A32C24 trên #FFFFFF:  7.14:1  AAA chữ thường         APCA Lc   83.5
+--- nền #FFFFFF chữ #5a7480
+#5A7480 trên #FFFFFF:  4.95:1  ĐẠT chữ thường         APCA Lc   74.2
+--- nền #d3f56b chữ #153825
+#153825 trên #D3F56B: 10.49:1  AAA chữ thường         APCA Lc   85.1
+--- nền #FFFFFF chữ #7a978a
+#7A978A trên #FFFFFF:  3.17:1  chỉ chữ lớn/đồ họa     APCA Lc   58.9
+--- nền #f5f6f0 chữ #153b4b
+#153B4B trên #F5F6F0: 10.98:1  AAA chữ thường         APCA Lc   91.4
+--- nền #FFFFFF chữ #0b5fc1
+#0B5FC1 trên #FFFFFF:  6.14:1  ĐẠT chữ thường         APCA Lc   79.9
+--- nền #082b3e chữ #3d6a80
+#3D6A80 trên #082B3E:  2.51:1  KHÔNG ĐẠT              APCA Lc  -18.9

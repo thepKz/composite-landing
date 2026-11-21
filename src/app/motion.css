@@ -1,0 +1,29 @@
+/* Token chuyển động dùng chung cho trang công khai và admin.
+   Luật: không nảy, ra nhanh hơn vào, chỉ hoạt họa transform và opacity, luôn có bản giảm chuyển động. */
+:root{
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-in:cubic-bezier(.55,0,1,.45);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --dur-press:110ms;
+  --dur-fast:180ms;
+  --dur-base:280ms;
+  --dur-slow:520ms;
+  --dur-scene:900ms;
+}
+/* Phản hồi nhấn cho mọi nút và liên kết dạng nút */
+.pressable{transition:transform var(--dur-press) var(--ease-out),background-color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.pressable:active{transform:scale(.97)}
+/* Hiện dần khi cuộn tới: thêm data-reveal, script đặt data-revealed="true" */
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out);transition-delay:calc(var(--reveal-index,0)*70ms)}
+[data-reveal][data-revealed="true"]{opacity:1;transform:none}
+.no-js [data-reveal]{opacity:1;transform:none}
+@keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes scale-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes slide-in-right{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  [data-reveal]{opacity:1;transform:none}
+  .pressable:active{transform:none}
+}

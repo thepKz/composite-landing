@@ -1,0 +1,170 @@
+[
+  {
+    "size": "1366",
+    "scene": 1,
+    "element": "kicker",
+    "worstContrast": 9.09,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 1,
+    "element": "title",
+    "worstContrast": 9.79,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 1,
+    "element": "text",
+    "worstContrast": 8.38,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 1,
+    "element": "call",
+    "worstContrast": 5.91,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 2,
+    "element": "kicker",
+    "worstContrast": 10.16,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 2,
+    "element": "title",
+    "worstContrast": 7.09,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 2,
+    "element": "text",
+    "worstContrast": 6.42,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 2,
+    "element": "call",
+    "worstContrast": 5.99,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 3,
+    "element": "kicker",
+    "worstContrast": 5.26,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 3,
+    "element": "title",
+    "worstContrast": 7.67,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 3,
+    "element": "text",
+    "worstContrast": 6.54,
+    "pass": true
+  },
+  {
+    "size": "1366",
+    "scene": 3,
+    "element": "call",
+    "worstContrast": 5.69,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 1,
+    "element": "kicker",
+    "worstContrast": 7.87,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 1,
+    "element": "title",
+    "worstContrast": 10.31,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 1,
+    "element": "text",
+    "worstContrast": 12.17,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 1,
+    "element": "call",
+    "worstContrast": 11.2,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 2,
+    "element": "kicker",
+    "worstContrast": 9.59,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 2,
+    "element": "title",
+    "worstContrast": 11.48,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 2,
+    "element": "text",
+    "worstContrast": 11.63,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 2,
+    "element": "call",
+    "worstContrast": 10.77,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 3,
+    "element": "kicker",
+    "worstContrast": 9.16,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 3,
+    "element": "title",
+    "worstContrast": 11.83,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 3,
+    "element": "text",
+    "worstContrast": 11.68,
+    "pass": true
+  },
+  {
+    "size": "390",
+    "scene": 3,
+    "element": "call",
+    "worstContrast": 11.06,
+    "pass": true
+  }
+]

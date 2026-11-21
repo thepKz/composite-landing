@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "size": "1366",
+      "step": "chọn quy mô",
+      "rows": 1,
+      "lead": "TLC-BIO-2.25",
+      "suggest": "Bể 6 m³",
+      "scrolledFrom": 1110,
+      "formTopAfterClick": 236,
+      "prefilled": null,
+      "overflowX": 0
+    },
+    {
+      "size": "1366",
+      "step": "ảnh phóng to",
+      "changedByArrow": true,
+      "closedByEscape": true,
+      "focusReturnedTo": "Phóng to"
+    },
+    {
+      "size": "1366",
+      "step": "thanh dính",
+      "visible": true
+    },
+    {
+      "size": "1366",
+      "step": "lọc thủy sản",
+      "cards": 2
+    },
+    {
+      "size": "1366",
+      "step": "404",
+      "status": 404
+    },
+    {
+      "size": "390",
+      "step": "chọn quy mô",
+      "rows": 1,
+      "lead": "TLC-BIO-2.25",
+      "suggest": "Bể 6 m³",
+      "scrolledFrom": 1984,
+      "formTopAfterClick": 189,
+      "prefilled": null,
+      "overflowX": 0
+    },
+    {
+      "size": "390",
+      "step": "ảnh phóng to",
+      "changedByArrow": true,
+      "closedByEscape": true,
+      "focusReturnedTo": "Phóng to"
+    },
+    {
+      "size": "390",
+      "step": "bảng dạng thẻ",
+      "overflowX": 0
+    },
+    {
+      "size": "390",
+      "step": "404",
+      "status": 404
+    }
+  ],
+  "errors": [
+    "1366: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "1366: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "390: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

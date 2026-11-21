@@ -1,0 +1,46 @@
+/* Thẻ bài viết dùng chung cho trang danh sách và khối bài liên quan.
+   Chỉ hoạt họa transform và opacity. Có bản giảm chuyển động. */
+.public-site .pc-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #b4c8ba;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px #103e350f,0 8px 24px -16px #103e3540;transition:transform var(--dur-base,280ms) var(--ease-out,ease-out),border-color var(--dur-fast,180ms) var(--ease-out,ease-out),box-shadow var(--dur-base,280ms) var(--ease-out,ease-out)}
+.public-site .pc-card:hover{transform:translateY(-4px);border-color:#16714e;box-shadow:0 2px 4px #103e3514,0 22px 40px -22px #103e3566}
+.public-site .pc-card:active{transform:translateY(-1px) scale(.995)}
+.public-site .pc-card:has(a:focus-visible){outline:3px solid #d4a633;outline-offset:3px}
+.pc-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#dbe6d8;flex:none}
+.pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
+.pc-card:hover .pc-media img{transform:scale(1.035)}
+.pc-media-empty{display:grid;place-items:center;color:#2f7a5d;background:linear-gradient(135deg,#e1ebdb,#cfe0d3)}
+.pc-body{display:flex;flex-direction:column;gap:12px;padding:20px 24px 24px;flex:1}
+.pc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:14px;line-height:1.5;color:#113d4c}
+.pc-kind{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:8px;border:1px solid #9fc0aa;background:#fff;color:#0f5c3f;font-weight:600;font-size:14px}
+.pc-kind.kind-project{border-color:#e0a98f;color:#9a3d12}
+.public-site .pc-title{margin:0;font-size:20px;line-height:1.4;font-weight:600;letter-spacing:-.01em;color:#0f3a31;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pc-title a{color:inherit;text-decoration:none}
+.pc-title a::after{content:'';position:absolute;inset:0;z-index:1}
+.public-site .pc-excerpt{margin:0;font-size:16px;line-height:1.7;color:#113d4c;text-align:left;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-more{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#0f5c3f}
+.pc-more svg{transition:transform var(--dur-fast,180ms) var(--ease-out,ease-out)}
+.pc-card:hover .pc-more svg{transform:translateX(5px)}
+
+.public-site .pc-card.is-featured{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:minmax(340px,420px);max-height:420px}
+.pc-card.is-featured .pc-media{aspect-ratio:auto;min-height:0;height:100%}
+.pc-card.is-featured .pc-body{justify-content:center;gap:16px;padding:32px 40px 32px 36px;overflow:hidden}
+.public-site .pc-card.is-featured .pc-title{font-size:clamp(24px,2.4vw,32px);line-height:1.3;-webkit-line-clamp:3}
+.public-site .pc-card.is-featured .pc-excerpt{font-size:17px;-webkit-line-clamp:3}
+.pc-card.is-featured .pc-more{margin-top:8px}
+
+/* Hiện dần khi cuộn tới. Chỉ ẩn khi đã có JavaScript, bản giảm chuyển động hiện đủ. */
+.art-js [data-art-reveal]:not(.is-in){opacity:0;transform:translateY(18px)}
+[data-art-reveal].is-in{animation:art-rise var(--dur-slow,520ms) var(--ease-out,ease-out) backwards;animation-delay:calc(var(--i,0)*70ms)}
+@keyframes art-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+@media(max-width:900px){
+  .public-site .pc-card.is-featured{grid-template-columns:1fr;grid-template-rows:none;max-height:none}
+  .pc-card.is-featured .pc-media{min-height:0;aspect-ratio:16/10;height:auto}
+  .pc-card.is-featured .pc-body{padding:24px}
+}
+@media(max-width:600px){.pc-body{padding:20px}.public-site .pc-title{font-size:19px}}
+@media(prefers-reduced-motion:reduce){
+  .art-js [data-art-reveal]:not(.is-in){opacity:1;transform:none}
+  [data-art-reveal].is-in{animation:none}
+  .public-site .pc-card:hover,.public-site .pc-card:active{transform:none}
+  .pc-card:hover .pc-media img,.pc-card:hover .pc-more svg{transform:none}
+}

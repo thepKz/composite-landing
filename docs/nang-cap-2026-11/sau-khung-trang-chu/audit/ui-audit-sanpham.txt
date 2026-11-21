@@ -1,0 +1,172 @@
+**Kết luận kiểm cơ học: CHƯA ĐẠT.** 1 chặn, 114 cần sửa, 50 xem lại.
+Đã kiểm: 1 file, kiểm tĩnh, đo trên Chromium ở 1440, 768, 390 px kèm lượt font rộng. Chưa kiểm: thông điệp, tiêu điểm, nhịp bố cục, ảnh, trạng thái tương tác, bàn phím, trình duyệt khác.
+
+| # | Mức | Mã | Vị trí | Vấn đề và cách sửa |
+|---|---|---|---|---|
+| 1 | CHẶN | R-CLIP | sanpham.html p.tl-sr "Bước 3 trên 4: Quy mô chăn nuôi" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 2 | CẦN SỬA | MOT-LAYOUTPROP | sanpham.html:3846 | hoạt họa thuộc tính bố cục (rộng, cao, vị trí, lề): giật và xô bố cục; dùng transform và opacity |
+| 3 | CẦN SỬA | MOT-LAYOUTPROP | sanpham.html:534 | hoạt họa thuộc tính bố cục (rộng, cao, vị trí, lề): giật và xô bố cục; dùng transform và opacity |
+| 4 | CẦN SỬA | R-FAINT | sanpham.html a.tp-btn.tp-btn-ghost "Nhắn Zalo" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 5 | CẦN SỬA | R-FAINT | sanpham.html h2 "Hỏi đáp liên quan" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 6 | CẦN SỬA | R-FAINT | sanpham.html h2 "Sản phẩm liên quan" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 7 | CẦN SỬA | R-FAINT | sanpham.html h2 "Thông tin cần cung cấp khi đặt hàng" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 8 | CẦN SỬA | R-FAINT | sanpham.html h3 "Bể cá Koi và bể nuôi thủy sản" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 9 | CẦN SỬA | R-FAINT | sanpham.html h3 "Bể phốt composite" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 10 | CẦN SỬA | R-FAINT | sanpham.html h3 "Bể xử lý nước thải" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 11 | CẦN SỬA | R-FAINT | sanpham.html h3 "Chưa có đủ thông tin" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 12 | CẦN SỬA | R-FAINT | sanpham.html li "Hồ cá Koi" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 13 | CẦN SỬA | R-FAINT | sanpham.html li "Khoảng cách từ chuồng đến vị trí đặt bể và bếp, " @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 14 | CẦN SỬA | R-FAINT | sanpham.html li "Khu đô thị" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 15 | CẦN SỬA | R-FAINT | sanpham.html li "Loại vật nuôi, số lượng hiện tại và dự kiến tăng" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 16 | CẦN SỬA | R-FAINT | sanpham.html li "Mặt bằng hạ bể: đất vườn khô, ruộng trũng có nướ" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 17 | CẦN SỬA | R-FAINT | sanpham.html li "Nhà hàng hải sản" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 18 | CẦN SỬA | R-FAINT | sanpham.html li "Nhà hàng" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 19 | CẦN SỬA | R-FAINT | sanpham.html li "Nhà máy" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 20 | CẦN SỬA | R-FAINT | sanpham.html li "Nhà trọ" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 21 | CẦN SỬA | R-FAINT | sanpham.html li "Nhà ở" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 22 | CẦN SỬA | R-FAINT | sanpham.html li "Trường học" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 23 | CẦN SỬA | R-FAINT | sanpham.html li "Trại giống" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 24 | CẦN SỬA | R-FAINT | sanpham.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 25 | CẦN SỬA | R-FAINT | sanpham.html p "Composite FRP không gỉ, không nứt ngầm do co ngó" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 26 | CẦN SỬA | R-FAINT | sanpham.html p "Có. Kỹ thuật viên mài nhám và đắp vá bằng chính " @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 27 | CẦN SỬA | R-FAINT | sanpham.html p "Hút cạn nước trong hố, gia cố đáy bằng cát đầm c" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 28 | CẦN SỬA | R-FAINT | sanpham.html p "Mô tả cách sử dụng là đủ. Kỹ thuật sẽ kết bạn Za" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 29 | CẦN SỬA | R-FAINT | sanpham.html span "Báo giá" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 30 | CẦN SỬA | R-FAINT | sanpham.html span "Bể bị va đập nứt vỡ có sửa được không?" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 31 | CẦN SỬA | R-FAINT | sanpham.html span "Bể composite có bền hơn bể xây xi măng không?" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 32 | CẦN SỬA | R-FAINT | sanpham.html span "Chat Zalo" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 33 | CẦN SỬA | R-FAINT | sanpham.html span "Gọi ngay" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 34 | CẦN SỬA | R-FAINT | sanpham.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 35 | CẦN SỬA | R-FAINT | sanpham.html span "Thời gian báo giá, sản xuất và giao hàng thế nào" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 36 | CẦN SỬA | R-FAINT | sanpham.html span.tp-card-category "Dân dụng" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 37 | CẦN SỬA | R-FAINT | sanpham.html span.tp-card-category "Môi trường" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 38 | CẦN SỬA | R-FAINT | sanpham.html span.tp-card-category "Thủy sản" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 39 | CẦN SỬA | R-FAINT | sanpham.html span.tp-card-more "Xem quy cách" @ 1440px, 768px, 390px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 40 | CẦN SỬA | R-FONT | sanpham.html font "font" | font chưa nạp, trình duyệt đang dùng font thay thế: vị trí ngắt dòng chỉ gần đúng; nhúng font rồi đo lại |
+| 41 | CẦN SỬA | R-OVERFLOW | sanpham.html th "Khí và bảo hành" @ 390px, 390px · font rộng +9% | chữ tràn khỏi khung chứa |
+| 42 | CẦN SỬA | R-OVERFLOW | sanpham.html th "Mã sản phẩm" @ 390px, 390px · font rộng +9% | chữ tràn khỏi khung chứa |
+| 43 | CẦN SỬA | R-OVERFLOW | sanpham.html th "Quy mô đàn" @ 390px, 390px · font rộng +9% | chữ tràn khỏi khung chứa |
+| 44 | CẦN SỬA | R-OVERFLOW | sanpham.html th "Đường kính, dung tích" @ 390px, 390px · font rộng +9% | chữ tràn khỏi khung chứa |
+| 45 | CẦN SỬA | R-OVERFLOW | sanpham.html th "Đối tượng phù hợp" @ 390px, 390px · font rộng +9% | chữ tràn khỏi khung chứa |
+| 46 | CẦN SỬA | TXT-COMPOUND | sanpham.html h2 "Chọn dung tích theo quy mô đàn" @ 390px · font rộng +9% | tách từ ghép "quy \| mô" |
+| 47 | CẦN SỬA | TXT-COMPOUND | sanpham.html h2 "Thông tin cần cung cấp khi đặt hàng" @ 1440px · font rộng +9%, 768px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "cung \| cấp" |
+| 48 | CẦN SỬA | TXT-COMPOUND | sanpham.html h3 "Bể cá Koi và bể nuôi thủy sản" @ 768px · font rộng +9% | tách từ ghép "thủy \| sản" |
+| 49 | CẦN SỬA | TXT-COMPOUND | sanpham.html li "Bảo hành đến 10 năm tùy dòng sản phẩm" @ 390px | tách từ ghép "sản \| phẩm" |
+| 50 | CẦN SỬA | TXT-COMPOUND | sanpham.html li "Hỗ trợ vận chuyển và lắp đặt toàn quốc" @ 390px, 390px · font rộng +9% | tách từ ghép "toàn \| quốc" |
+| 51 | CẦN SỬA | TXT-COMPOUND | sanpham.html li "Khoảng cách từ chuồng đến vị trí đặt bể và bếp, " @ 390px · font rộng +9% | tách từ ghép "vị \| trí" |
+| 52 | CẦN SỬA | TXT-COMPOUND | sanpham.html li "Loại vật nuôi, số lượng hiện tại và dự kiến tăng" @ 390px · font rộng +9% | tách từ ghép "tại \| và" |
+| 53 | CẦN SỬA | TXT-COMPOUND | sanpham.html li "Mặt bằng hạ bể: đất vườn khô, ruộng trũng có nướ" @ 390px, 390px · font rộng +9% | tách từ ghép "hay \| đất" |
+| 54 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Không nứt ngầm hay rò khí khi đất sụt lún. Giữ n" @ 768px · font rộng +9% | tách từ ghép "khí \| hoạt" |
+| 55 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Mô tả cách sử dụng là đủ. Kỹ thuật sẽ kết bạn Za" @ 1440px | tách từ ghép "bạn \| Zalo" |
+| 56 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Mô tả cách sử dụng là đủ. Kỹ thuật sẽ kết bạn Za" @ 390px | tách từ ghép "thuật \| sẽ" |
+| 57 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 390px | tách từ ghép "công \| composite" |
+| 58 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 390px | tách từ ghép "cầu, \| đúng" |
+| 59 | CẦN SỬA | TXT-COMPOUND | sanpham.html p "Áp suất khí đẩy bã ra hố chứa làm phân hữu cơ, k" @ 768px · font rộng +9% | tách từ ghép "công. \| Hạ" |
+| 60 | CẦN SỬA | TXT-COMPOUND | sanpham.html p#tp-scale-question "Đàn của bạn đang nuôi bao nhiêu?" @ 390px · font rộng +9% | tách từ ghép "bao \| nhiêu?" |
+| 61 | CẦN SỬA | TXT-COMPOUND | sanpham.html span "Bể composite có bền hơn bể xây xi măng không?" @ 390px | tách từ ghép "xi \| măng" |
+| 62 | CẦN SỬA | TXT-COMPOUND | sanpham.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 768px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "lưu \| mọi" |
+| 63 | CẦN SỬA | TXT-COMPOUND | sanpham.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 390px · font rộng +9% | tách từ ghép "Lợi \| Composite" |
+| 64 | CẦN SỬA | TXT-COMPOUND | sanpham.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | tách từ ghép "Sản \| phẩm" |
+| 65 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "80 – 120 con lợn mỗi bể, ghép nối tiếp 2 – 10 bể" @ 390px | tách từ ghép "tiếp \| 2" |
+| 66 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "80 – 120 con lợn mỗi bể, ghép nối tiếp 2 – 10 bể" @ 390px · font rộng +9% | tách từ ghép "nối \| tiếp" |
+| 67 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Gia trại quy mô vừa, hộ nuôi lợn nái kết hợp lợn" @ 390px · font rộng +9% | tách từ ghép "nái \| kết" |
+| 68 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Hộ nhỏ lẻ tận dụng thức ăn thừa, kết hợp xử lý v" @ 1440px · font rộng +9% | tách từ ghép "sinh \| gia" |
+| 69 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Nông hộ chăn nuôi bán chuyên ở trung du, miền nú" @ 768px, 390px | tách từ ghép "trung \| du," |
+| 70 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Trang trại công nghiệp quy mô lớn, dự án nông ng" @ 1440px · font rộng +9% | tách từ ghép "quy \| mô" |
+| 71 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Trang trại công nghiệp quy mô lớn, dự án nông ng" @ 1440px · font rộng +9% | tách từ ghép "nghiệp \| sạch" |
+| 72 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Trang trại tập trung quy mô vừa, hợp tác xã nông" @ 768px | tách từ ghép "tác \| xã" |
+| 73 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Đun nấu cho gia đình 4 – 6 người và nấu cám. Bảo" @ 1440px · font rộng +9% | tách từ ghép "hành \| đến" |
+| 74 | CẦN SỬA | TXT-COMPOUND | sanpham.html td "Đun nấu, thắp sáng, sưởi úm heo con và gà con mù" @ 390px | tách từ ghép "10 \| năm" |
+| 75 | CẦN SỬA | TXT-ORPHAN | sanpham.html dd "Từ 5 con lợn đến trại 1.000 con" @ 1440px · font rộng +9% | dòng cuối chỉ có một từ "con": viết lại câu hoặc đổi bề rộng khung |
+| 76 | CẦN SỬA | TXT-ORPHAN | sanpham.html h2 "Chọn dung tích theo quy mô đàn" @ 390px | dòng cuối chỉ có một từ "đàn": viết lại câu hoặc đổi bề rộng khung |
+| 77 | CẦN SỬA | TXT-ORPHAN | sanpham.html h3 "Bể cá Koi và bể nuôi thủy sản" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "sản": viết lại câu hoặc đổi bề rộng khung |
+| 78 | CẦN SỬA | TXT-ORPHAN | sanpham.html li "Bảo hành đến 10 năm tùy dòng sản phẩm" @ 390px | dòng cuối chỉ có một từ "phẩm": viết lại câu hoặc đổi bề rộng khung |
+| 79 | CẦN SỬA | TXT-ORPHAN | sanpham.html li "Hỗ trợ vận chuyển và lắp đặt toàn quốc" @ 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "quốc": viết lại câu hoặc đổi bề rộng khung |
+| 80 | CẦN SỬA | TXT-ORPHAN | sanpham.html li "Mặt bằng hạ bể: đất vườn khô, ruộng trũng có nướ" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "đá": viết lại câu hoặc đổi bề rộng khung |
+| 81 | CẦN SỬA | TXT-ORPHAN | sanpham.html p "Có. Kỹ thuật viên mài nhám và đắp vá bằng chính " @ 1440px, 768px | dòng cuối chỉ có một từ "đầu.": viết lại câu hoặc đổi bề rộng khung |
+| 82 | CẦN SỬA | TXT-ORPHAN | sanpham.html p "Không nứt ngầm hay rò khí khi đất sụt lún. Giữ n" @ 390px | dòng cuối chỉ có một từ "Bắc.": viết lại câu hoặc đổi bề rộng khung |
+| 83 | CẦN SỬA | TXT-ORPHAN | sanpham.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 768px | dòng cuối chỉ có một từ "gian.": viết lại câu hoặc đổi bề rộng khung |
+| 84 | CẦN SỬA | TXT-ORPHAN | sanpham.html p "Áp suất khí đẩy bã ra hố chứa làm phân hữu cơ, k" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "chuồng.": viết lại câu hoặc đổi bề rộng khung |
+| 85 | CẦN SỬA | TXT-ORPHAN | sanpham.html p#tp-scale-question "Đàn của bạn đang nuôi bao nhiêu?" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "nhiêu?": viết lại câu hoặc đổi bề rộng khung |
+| 86 | CẦN SỬA | TXT-ORPHAN | sanpham.html p.tp-pd-lead "Bể composite FRP đúc liền khối để xử lý chất thả" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "trại.": viết lại câu hoặc đổi bề rộng khung |
+| 87 | CẦN SỬA | TXT-ORPHAN | sanpham.html p.tp-pd-tagline "Thay hầm xây gạch và túi ủ bạt nhựa" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "nhựa": viết lại câu hoặc đổi bề rộng khung |
+| 88 | CẦN SỬA | TXT-ORPHAN | sanpham.html small "Gợi ý bể 10 – 13 m³ hoặc ghép dãy" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "dãy": viết lại câu hoặc đổi bề rộng khung |
+| 89 | CẦN SỬA | TXT-ORPHAN | sanpham.html span ", 0943.924.816" @ 1440px, 1440px · font rộng +9% | dòng cuối chỉ có một từ "0943.924.816": viết lại câu hoặc đổi bề rộng khung |
+| 90 | CẦN SỬA | TXT-ORPHAN | sanpham.html span "Bể bị va đập nứt vỡ có sửa được không?" @ 390px | dòng cuối chỉ có một từ "không?": viết lại câu hoặc đổi bề rộng khung |
+| 91 | CẦN SỬA | TXT-ORPHAN | sanpham.html span "Nhà máy: Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú T" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "Thọ": viết lại câu hoặc đổi bề rộng khung |
+| 92 | CẦN SỬA | TXT-ORPHAN | sanpham.html span "THÀNH LỢI COMPOSITE" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "COMPOSITE": viết lại câu hoặc đổi bề rộng khung |
+| 93 | CẦN SỬA | TXT-ORPHAN | sanpham.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 768px | dòng cuối chỉ có một từ "quyền.": viết lại câu hoặc đổi bề rộng khung |
+| 94 | CẦN SỬA | TXT-ORPHAN | sanpham.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "phẩm": viết lại câu hoặc đổi bề rộng khung |
+| 95 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "2,9 – 3,0 m (10 – 13 m³)" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9% | dòng cuối chỉ có một từ "m³)": viết lại câu hoặc đổi bề rộng khung |
+| 96 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "5 – 10 con lợn, hoặc 1 – 2 con trâu bò" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "bò": viết lại câu hoặc đổi bề rộng khung |
+| 97 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "50 – 80 con lợn, hoặc 8 – 12 con bò" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "bò": viết lại câu hoặc đổi bề rộng khung |
+| 98 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "80 – 120 con lợn mỗi bể, ghép nối tiếp 2 – 10 bể" @ 390px | dòng cuối chỉ có một từ "lên": viết lại câu hoặc đổi bề rộng khung |
+| 99 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Hộ nhỏ lẻ tận dụng thức ăn thừa, kết hợp xử lý v" @ 1440px | dòng cuối chỉ có một từ "đình": viết lại câu hoặc đổi bề rộng khung |
+| 100 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Trang trại công nghiệp quy mô lớn, dự án nông ng" @ 1440px · font rộng +9%, 768px | dòng cuối chỉ có một từ "sạch": viết lại câu hoặc đổi bề rộng khung |
+| 101 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Trang trại tập trung quy mô vừa, hợp tác xã nông" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "nghiệp": viết lại câu hoặc đổi bề rộng khung |
+| 102 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Xử lý mùi hôi trang trại lớn, chạy máy phát biog" @ 1440px, 390px · font rộng +9% | dòng cuối chỉ có một từ "năm": viết lại câu hoặc đổi bề rộng khung |
+| 103 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Đun nấu cho gia đình 2 – 4 người. Bảo hành đến 1" @ 768px, 768px · font rộng +9% | dòng cuối chỉ có một từ "năm": viết lại câu hoặc đổi bề rộng khung |
+| 104 | CẦN SỬA | TXT-ORPHAN | sanpham.html td "Đun nấu, thắp sáng, sưởi úm heo con và gà con mù" @ 390px | dòng cuối chỉ có một từ "năm": viết lại câu hoặc đổi bề rộng khung |
+| 105 | CẦN SỬA | TXT-UNIT | sanpham.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 1440px · font rộng +9%, 768px · font rộng +9% | tách số khỏi đơn vị "2–3 \| ngày" |
+| 106 | CẦN SỬA | TXT-UNIT | sanpham.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 390px | tách số khỏi đơn vị "10–25 \| ngày" |
+| 107 | CẦN SỬA | TXT-UNIT | sanpham.html td "Xử lý mùi hôi trang trại lớn, chạy máy phát biog" @ 1440px, 390px · font rộng +9% | tách số khỏi đơn vị "10 \| năm" |
+| 108 | CẦN SỬA | TXT-UNIT | sanpham.html td "Đun nấu cho gia đình 2 – 4 người. Bảo hành đến 1" @ 768px, 768px · font rộng +9% | tách số khỏi đơn vị "10 \| năm" |
+| 109 | CẦN SỬA | TXT-UNIT | sanpham.html td "Đun nấu, thắp sáng, sưởi úm heo con và gà con mù" @ 768px, 390px | tách số khỏi đơn vị "10 \| năm" |
+| 110 | CẦN SỬA | TXT-WRAP1 | sanpham.html span "Bể bị va đập nứt vỡ có sửa được không?" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 111 | CẦN SỬA | TXT-WRAP1 | sanpham.html span "Bể composite có bền hơn bể xây xi măng không?" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 112 | CẦN SỬA | TXT-WRAP1 | sanpham.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 113 | CẦN SỬA | TXT-WRAP1 | sanpham.html span "THÀNH LỢI COMPOSITE" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 114 | CẦN SỬA | TXT-WRAP1 | sanpham.html span "Thời gian báo giá, sản xuất và giao hàng thế nào" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 115 | CẦN SỬA | TXT-WRAP1 | sanpham.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 116 | XEM LẠI | COPY-CTALEN | sanpham.html <button> "15 – 30 con lợn" | nhãn nút dài (15 ký tự): rút về 1–3 từ |
+| 117 | XEM LẠI | COPY-CTALEN | sanpham.html <button> "30 – 50 con lợn" | nhãn nút dài (15 ký tự): rút về 1–3 từ |
+| 118 | XEM LẠI | COPY-CTALEN | sanpham.html <button> "5 – 10 con lợn" | nhãn nút dài (14 ký tự): rút về 1–3 từ |
+| 119 | XEM LẠI | COPY-CTALEN | sanpham.html <button> "50 – 80 con lợn" | nhãn nút dài (15 ký tự): rút về 1–3 từ |
+| 120 | XEM LẠI | COPY-SPACEPUNCT | sanpham.html <p> "0964.444.2626 , 0943.924.816" | khoảng trắng trước dấu câu |
+| 121 | XEM LẠI | COPY-SPACEPUNCT | sanpham.html <p> "Nhà máy tại Phú Thọ, sản xuất và gia công composit" | khoảng trắng trước dấu câu |
+| 122 | XEM LẠI | LAY-ALIGN | sanpham.html "5 – 10 con lợn, hoặc 1 – 2 con" và "Đường kính" @ 768px | mép trái lệch 3.5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 123 | XEM LẠI | LAY-ALIGN | sanpham.html "Báo giá trong 15 – 60 phút kể " và "Bấm một quy mô để xem gợi ý du" @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 124 | XEM LẠI | LAY-ALIGN | sanpham.html "Bấm một quy mô để xem gợi ý du" và "Dưới 15 con lợn" @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 125 | XEM LẠI | LAY-ALIGN | sanpham.html "Bể biogas composite" và "Hút cạn nước trong hố, gia cố " @ 768px, 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 126 | XEM LẠI | LAY-ALIGN | sanpham.html "Bể composite dạng cầu" và "Hình cầu, nhiều lớp" @ 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 127 | XEM LẠI | LAY-ALIGN | sanpham.html "Bể cá Koi và bể nuôi thủy sản" và "Tự đẩy bã, lắp nhanh" @ 1440px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 128 | XEM LẠI | LAY-ALIGN | sanpham.html "Bể phốt composite" và "Vuốt ngang để xem đủ các cột" @ 768px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 129 | XEM LẠI | LAY-ALIGN | sanpham.html "Bể xử lý nước thải" và "Đúc liền khối, kín khí" @ 1440px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 130 | XEM LẠI | LAY-ALIGN | sanpham.html "Chăn nuôi" và "Dung tích" @ 768px, 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 131 | XEM LẠI | LAY-ALIGN | sanpham.html "Chăn nuôi" và "Hộ nhỏ lẻ tận dụng thức ăn thừ" @ 1440px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 132 | XEM LẠI | LAY-ALIGN | sanpham.html "Dung tích" và "Bể composite dạng cầu" @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 133 | XEM LẠI | LAY-ALIGN | sanpham.html "Dung tích" và "Nhà máy: Khu Tiên Sơn, xã Tiên" @ 768px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 134 | XEM LẠI | LAY-ALIGN | sanpham.html "Dung tích" và "Đàn của bạn đang nuôi bao nhiê" @ 1440px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 135 | XEM LẠI | LAY-ALIGN | sanpham.html "Hình cầu, nhiều lớp" và "Báo giá trong 15 – 60 phút kể " @ 1440px, 768px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 136 | XEM LẠI | LAY-ALIGN | sanpham.html "Hình cầu, nhiều lớp" và "Nhà máy: Khu Tiên Sơn, xã Tiên" @ 390px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 137 | XEM LẠI | LAY-ALIGN | sanpham.html "Hộ nhỏ lẻ tận dụng thức ăn thừ" và "Dung tích" @ 1440px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 138 | XEM LẠI | LAY-ALIGN | sanpham.html "Nhà máy tại Phú Thọ, sản xuất " và "Bể biogas composite" @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 139 | XEM LẠI | LAY-ALIGN | sanpham.html "Nhà máy: Khu Tiên Sơn, xã Tiên" và "Bể composite dạng cầu" @ 768px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 140 | XEM LẠI | LAY-ALIGN | sanpham.html "Nhà máy: Khu Tiên Sơn, xã Tiên" và "Phụ kiện đi kèm" @ 390px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 141 | XEM LẠI | LAY-ALIGN | sanpham.html "Phụ kiện đi kèm" và "Báo giá trong 15 – 60 phút kể " @ 390px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 142 | XEM LẠI | LAY-ALIGN | sanpham.html "Vuốt ngang để xem đủ các cột" và "Hình cầu, nhiều lớp" @ 768px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 143 | XEM LẠI | LAY-ALIGN | sanpham.html "Đun nấu cho gia đình 2 – 4 ngư" và "Khu Tiên Sơn, xã Tiên Lương, t" @ 1440px | mép trái lệch 1.5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 144 | XEM LẠI | LAY-ALIGN | sanpham.html "Đàn của bạn đang nuôi bao nhiê" và "Bể phốt composite" @ 768px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 145 | XEM LẠI | MOT-LOOP | sanpham.html:6254 | hoạt họa lặp vô hạn: chỉ khi là chỉ báo đang tải; nội dung tự chạy quá 5 s phải dừng được (WCAG 2.2.2) |
+| 146 | XEM LẠI | R-BGIMAGE | sanpham.html @ 1440px, 768px, 390px | có khối chữ nằm trên ảnh hoặc gradient: script không đo được tương phản, phải nhìn ảnh chụp và đo vùng nền xấu nhất |
+| 147 | XEM LẠI | R-TARGET44 | sanpham.html a "0943.924.816" @ 390px | vùng bấm 95×36px dưới 44px trên điện thoại |
+| 148 | XEM LẠI | R-TARGET44 | sanpham.html a "0964.444.2626" @ 390px | vùng bấm 104×36px dưới 44px trên điện thoại |
+| 149 | XEM LẠI | R-TARGET44 | sanpham.html a "Chính sách bảo hành" @ 390px | vùng bấm 148×36px dưới 44px trên điện thoại |
+| 150 | XEM LẠI | R-TARGET44 | sanpham.html a "Chính sách bảo mật" @ 390px | vùng bấm 139×36px dưới 44px trên điện thoại |
+| 151 | XEM LẠI | R-TARGET44 | sanpham.html a "Quản trị" @ 390px | vùng bấm 55×36px dưới 44px trên điện thoại |
+| 152 | XEM LẠI | R-TARGET44 | sanpham.html a "Sản phẩm" @ 390px | vùng bấm 71×24px dưới 44px trên điện thoại |
+| 153 | XEM LẠI | R-TARGET44 | sanpham.html a "Trang chủ" @ 390px | vùng bấm 69×24px dưới 44px trên điện thoại |
+| 154 | XEM LẠI | R-TARGET44 | sanpham.html a "info@thanhloicomposite.com" @ 390px | vùng bấm 228×26px dưới 44px trên điện thoại |
+| 155 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-gallery-expand.pressable "Phóng to" @ 390px | vùng bấm 121×40px dưới 44px trên điện thoại |
+| 156 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-row-pick "TLC-BIO-1.5" @ 390px | vùng bấm 107×26px dưới 44px trên điện thoại |
+| 157 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-row-pick "TLC-BIO-2.25" @ 390px | vùng bấm 117×26px dưới 44px trên điện thoại |
+| 158 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-row-pick "TLC-BIO-2.40" @ 390px | vùng bấm 117×26px dưới 44px trên điện thoại |
+| 159 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-row-pick "TLC-BIO-2.60" @ 390px | vùng bấm 117×26px dưới 44px trên điện thoại |
+| 160 | XEM LẠI | R-TARGET44 | sanpham.html button.tp-row-pick "TLC-BIO-3.00" @ 390px | vùng bấm 117×26px dưới 44px trên điện thoại |
+| 161 | XEM LẠI | R-TARGET44 | sanpham.html h3#_R_2h4lritpdnd5rlb_-title "Quy mô chăn nuôi" @ 390px | vùng bấm 316×26px dưới 44px trên điện thoại |
+| 162 | XEM LẠI | TXT-ORPHAN | sanpham.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 390px | dòng cuối chỉ có một từ "quốc.": viết lại câu hoặc đổi bề rộng khung |
+| 163 | XEM LẠI | TXT-ORPHAN | sanpham.html p "Composite FRP không gỉ, không nứt ngầm do co ngó" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "thải.": viết lại câu hoặc đổi bề rộng khung |
+| 164 | XEM LẠI | TXT-ORPHAN | sanpham.html td "Đun nấu, thắp sáng, sưởi úm heo con và gà con mù" @ 768px | dòng cuối chỉ có một từ "năm": viết lại câu hoặc đổi bề rộng khung |
+| 165 | XEM LẠI | TXT-SHORTLAST | sanpham.html h2 "Chọn dung tích theo quy mô đàn" @ 390px · font rộng +9% | dòng cuối tiêu đề quá ngắn "mô đàn" |
+
+Script có thể báo nhầm: xác minh từng dòng CHẶN và CẦN SỬA trước khi đưa vào báo cáo. Script không thay mắt người: thông điệp, tiêu điểm, nhịp bố cục, ảnh và gu phải nhìn bản render.

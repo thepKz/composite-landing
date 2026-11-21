@@ -1,0 +1,146 @@
+[
+  {
+    "size": "1366",
+    "check": "Esc đóng menu và trả tiêu điểm",
+    "ok": true
+  },
+  {
+    "size": "1366",
+    "screen": "home sau khi cuộn hết",
+    "scrollWidth": 1366,
+    "innerWidth": 1366,
+    "wide": [],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  },
+  {
+    "size": "1366",
+    "check": "Biểu mẫu: quay lại giữ lựa chọn, lỗi mạng giữ dữ liệu",
+    "keptScale": 1,
+    "stillThere": true
+  },
+  {
+    "size": "1366",
+    "screen": "gioi-thieu cuối trang",
+    "scrollWidth": 1366,
+    "innerWidth": 1366,
+    "wide": [],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  },
+  {
+    "size": "1366",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  {
+    "size": "1366",
+    "mode": "giảm chuyển động",
+    "scrollWidth": 1366,
+    "innerWidth": 1366,
+    "wide": [],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0,
+    "heroMoving": 0
+  },
+  {
+    "size": "1366",
+    "mode": "tắt JavaScript",
+    "scrollWidth": 1366,
+    "innerWidth": 1366,
+    "wide": [],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  },
+  {
+    "size": "390",
+    "check": "Ngăn kéo: tiêu điểm vào trong, Tab giữ bên trong, Esc đóng và trả tiêu điểm",
+    "inside": true,
+    "trapped": true,
+    "returned": true
+  },
+  {
+    "size": "390",
+    "screen": "home sau khi cuộn hết",
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "wide": [
+      "DIV.tl-bento-leads",
+      "A.tl-bento-card pressable is-lead",
+      "DIV.tl-bento-photo",
+      "DIV.pt-tile",
+      "svg.[object SVGAnimatedString]"
+    ],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  },
+  {
+    "size": "390",
+    "check": "Biểu mẫu: quay lại giữ lựa chọn, lỗi mạng giữ dữ liệu",
+    "keptScale": 1,
+    "stillThere": true
+  },
+  {
+    "size": "390",
+    "screen": "gioi-thieu cuối trang",
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "wide": [],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  },
+  {
+    "size": "390",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_FAILED"
+    ]
+  },
+  {
+    "size": "390",
+    "mode": "giảm chuyển động",
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "wide": [
+      "DIV.tl-bento-leads",
+      "A.tl-bento-card pressable is-lead",
+      "DIV.tl-bento-photo",
+      "DIV.pt-tile",
+      "svg.[object SVGAnimatedString]"
+    ],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0,
+    "heroMoving": 0
+  },
+  {
+    "size": "390",
+    "mode": "tắt JavaScript",
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "wide": [
+      "DIV.tl-bento-leads",
+      "A.tl-bento-card pressable is-lead",
+      "DIV.tl-bento-photo",
+      "DIV.pt-tile",
+      "svg.[object SVGAnimatedString]"
+    ],
+    "hiddenReveal": [],
+    "smallText": 0,
+    "smallTargets": [],
+    "banned": 0
+  }
+]

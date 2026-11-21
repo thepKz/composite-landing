@@ -43,3 +43,58 @@ export async function savePost(input:unknown){
     return {...result.rows[0],server_now:now.toISOString(),publication_state:publicationState(data.status,publishedAt,now.getTime())};
   });
 }
+
+// ---------------------------------------------------------------------------
+// Thao tác nhanh trên danh sách bài viết (khu quản trị).
+// ---------------------------------------------------------------------------
+
+/** Tạo bản sao dạng nháp với tiêu đề và đường dẫn mới, không trùng đường dẫn hay chuyển hướng cũ. */
+export async function duplicatePost(id: string) {
+  const source = await transaction(async client => {
+    const row = (await client.query('SELECT * FROM posts WHERE id=$1', [id])).rows[0];
+    if (!row) throw new RequestError('Không tìm thấy bài viết.', 404);
+    return row;
+  });
+  const title = `Bản sao của ${source.title}`.slice(0, 200);
+  const base = String(source.slug).slice(0, 100).replace(/-$/, '');
+  for (let attempt = 2; attempt < 50; attempt++) {
+    const slug = `${base}-ban-sao${attempt === 2 ? '' : `-${attempt}`}`;
+    try {
+      return await savePost({
+        title, slug, excerpt: source.excerpt, content: source.content, kind: source.kind, status: 'draft',
+        cover_id: source.cover_id, seo_title: source.seo_title, seo_description: source.seo_description,
+      });
+    } catch (error) {
+      const taken = error instanceof RequestError ? error.status === 409 : (error as { code?: string })?.code === '23505';
+      if (!taken) throw error;
+    }
+  }
+  throw new RequestError('Không tạo được bản sao. Hãy thử lại sau.', 409);
+}
+
+/** Đưa bài về nháp, giữ khoá phiên bản và lưu lại bản trước vào lịch sử. */
+export async function setPostDraft(id: string, version: number) {
+  return transaction(async client => {
+    const previous = (await client.query('SELECT * FROM posts WHERE id=$1 FOR UPDATE', [id])).rows[0];
+    if (!previous) throw new RequestError('Không tìm thấy bài viết.', 404);
+    if (previous.version !== version) throw new RequestError('Bài viết vừa được cập nhật ở nơi khác. Hãy tải lại danh sách rồi thử lại.', 409);
+    await client.query('INSERT INTO post_revisions(id,post_id,snapshot) VALUES ($1,$2,$3)', [randomUUID(), id, JSON.stringify(previous)]);
+    const result = await client.query(
+      "UPDATE posts SET status='draft',published_at=CASE WHEN published_at<=now() THEN published_at ELSE NULL END,updated_at=now(),version=version+1 WHERE id=$1 RETURNING *",
+      [id],
+    );
+    return result.rows[0];
+  });
+}
+
+/** Xoá bài cùng lịch sử sửa và liên kết ảnh. Gỡ luôn các chuyển hướng trỏ về bài này để không dẫn khách tới trang trống. */
+export async function deletePost(id: string) {
+  return transaction(async client => {
+    const post = (await client.query('SELECT id,slug,kind FROM posts WHERE id=$1 FOR UPDATE', [id])).rows[0];
+    if (!post) throw new RequestError('Không tìm thấy bài viết.', 404);
+    const targets = [`/tin-tuc/${post.slug}`, `/du-an/${post.slug}`, `/kien-thuc/${post.slug}`];
+    await client.query('DELETE FROM redirects WHERE target_path=ANY($1::text[]) OR source_path=ANY($1::text[])', [targets]);
+    await client.query('DELETE FROM posts WHERE id=$1', [id]);
+    return { id };
+  });
+}

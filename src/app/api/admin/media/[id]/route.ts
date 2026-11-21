@@ -1,5 +1,69 @@
+import { unlink } from 'node:fs/promises';
+import path from 'node:path';
+import sharp from 'sharp';
 import { z } from 'zod';
 import { requireAdmin, apiError } from '@/lib/admin-api';
-import { db } from '@/lib/db';
-import { readJson,RequestError } from '@/lib/http';
-export async function PATCH(request:Request,{params}:{params:Promise<{id:string}>}){try{await requireAdmin(request);const id=z.uuid().parse((await params).id);const data=z.object({alt:z.string().max(500),caption:z.string().max(500)}).parse(await readJson(request));const result=await db.query('UPDATE media_assets SET alt=$2,caption=$3,updated_at=now() WHERE id=$1 RETURNING *',[id,data.alt,data.caption]);if(!result.rowCount)throw new RequestError('Tệp không còn tồn tại.',404);return Response.json(result.rows[0]);}catch(error){return apiError(error);}}
+import { db, transaction } from '@/lib/db';
+import { readJson, RequestError } from '@/lib/http';
+import { uploadRoot } from '@/lib/upload';
+
+export const runtime = 'nodejs';
+const safeKey = /^[a-f0-9-]+\.(webp|mp4|webm)$/;
+
+async function usage(id: string) {
+  const posts = await db.query(
+    'SELECT p.id,p.title,p.status FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=$1 ORDER BY p.updated_at DESC',
+    [id],
+  );
+  const products = await db.query('SELECT id,name FROM products WHERE cover_id=$1 ORDER BY name', [id]);
+  return { posts: posts.rows, products: products.rows };
+}
+
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    await requireAdmin(request);
+    const id = z.uuid().parse((await params).id);
+    const media = (await db.query('SELECT * FROM media_assets WHERE id=$1', [id])).rows[0];
+    if (!media) throw new RequestError('Tệp không còn tồn tại.', 404);
+    let size: { width: number; height: number } | null = null;
+    if (media.mime_type.startsWith('image/') && safeKey.test(media.storage_key)) {
+      const meta = await sharp(path.join(uploadRoot(), media.storage_key)).metadata().catch(() => null);
+      if (meta?.width && meta.height) size = { width: meta.width, height: meta.height };
+    }
+    const used = await usage(id);
+    return Response.json({ ...media, used_count: used.posts.length + used.products.length, used_in: used, dimensions: size });
+  } catch (error) { return apiError(error); }
+}
+
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    await requireAdmin(request);
+    const id = z.uuid().parse((await params).id);
+    const data = z.object({ alt: z.string().max(500), caption: z.string().max(500) }).parse(await readJson(request));
+    const result = await db.query('UPDATE media_assets SET alt=$2,caption=$3,updated_at=now() WHERE id=$1 RETURNING *', [id, data.alt, data.caption]);
+    if (!result.rowCount) throw new RequestError('Tệp không còn tồn tại.', 404);
+    return Response.json(result.rows[0]);
+  } catch (error) { return apiError(error); }
+}
+
+/** Xoá tệp chỉ khi không bài viết hay sản phẩm nào đang dùng. Khoá dòng để không có bài kịp chèn giữa chừng. */
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    await requireAdmin(request);
+    const id = z.uuid().parse((await params).id);
+    const removed = await transaction(async client => {
+      const media = (await client.query('SELECT * FROM media_assets WHERE id=$1 FOR UPDATE', [id])).rows[0];
+      if (!media) throw new RequestError('Tệp không còn tồn tại.', 404);
+      const inPosts = (await client.query('SELECT p.title FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=$1 LIMIT 3', [id])).rows;
+      const inProducts = (await client.query('SELECT name FROM products WHERE cover_id=$1 LIMIT 3', [id])).rows;
+      if (inPosts.length || inProducts.length) {
+        const names = [...inPosts.map(row => row.title), ...inProducts.map(row => row.name)].join(', ');
+        throw new RequestError(`Tệp đang được dùng trong: ${names}. Hãy gỡ tệp khỏi nội dung đó trước khi xoá.`, 409);
+      }
+      await client.query('DELETE FROM media_assets WHERE id=$1', [id]);
+      return media;
+    });
+    if (safeKey.test(removed.storage_key)) await unlink(path.join(uploadRoot(), removed.storage_key)).catch(() => {});
+    return Response.json({ ok: true });
+  } catch (error) { return apiError(error); }
+}

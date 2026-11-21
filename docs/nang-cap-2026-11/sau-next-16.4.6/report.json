@@ -1,0 +1,182 @@
+[
+  {
+    "name": "admin-dang-nhap",
+    "path": "/admin/login",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 768,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-tong-quan",
+    "path": "/admin",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 868,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet",
+    "path": "/admin/bai-viet",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 768,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet-moi",
+    "path": "/admin/bai-viet/moi",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 893,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet-sua",
+    "path": "/admin/bai-viet/432e58e8-c659-4d37-8c33-f2aa1301a69a",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 3077,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-san-pham",
+    "path": "/admin/san-pham",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1022,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-thu-vien",
+    "path": "/admin/thu-vien",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1720,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-yeu-cau",
+    "path": "/admin/yeu-cau",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 768,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-cai-dat",
+    "path": "/admin/cai-dat",
+    "size": "1366",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1122,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-dang-nhap",
+    "path": "/admin/login",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 844,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-tong-quan",
+    "path": "/admin",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1688,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet",
+    "path": "/admin/bai-viet",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 971,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet-moi",
+    "path": "/admin/bai-viet/moi",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1834,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-bai-viet-sua",
+    "path": "/admin/bai-viet/432e58e8-c659-4d37-8c33-f2aa1301a69a",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 4174,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-san-pham",
+    "path": "/admin/san-pham",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 2508,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-thu-vien",
+    "path": "/admin/thu-vien",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 3197,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-yeu-cau",
+    "path": "/admin/yeu-cau",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 844,
+    "brokenImages": [],
+    "errors": []
+  },
+  {
+    "name": "admin-cai-dat",
+    "path": "/admin/cai-dat",
+    "size": "390",
+    "status": 200,
+    "overflowX": 0,
+    "height": 1238,
+    "brokenImages": [],
+    "errors": []
+  }
+]

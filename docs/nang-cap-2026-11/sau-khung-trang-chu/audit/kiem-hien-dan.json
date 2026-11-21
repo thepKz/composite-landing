@@ -1,0 +1,44 @@
+[
+ {
+  "khung": "1366x768",
+  "trang": "home",
+  "soLanNhay": 4,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ },
+ {
+  "khung": "1366x768",
+  "trang": "biogas",
+  "soLanNhay": 2,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ },
+ {
+  "khung": "1366x768",
+  "trang": "du-an",
+  "soLanNhay": 1,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ },
+ {
+  "khung": "390x844",
+  "trang": "home",
+  "soLanNhay": 5,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ },
+ {
+  "khung": "390x844",
+  "trang": "biogas",
+  "soLanNhay": 5,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ },
+ {
+  "khung": "390x844",
+  "trang": "du-an",
+  "soLanNhay": 2,
+  "khoiMoToiDa": 0,
+  "chiTiet": []
+ }
+]

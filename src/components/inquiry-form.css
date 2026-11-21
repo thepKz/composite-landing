@@ -1,0 +1,111 @@
+/* Biểu mẫu báo giá bốn bước. Tự đủ kiểu để đặt vào nền sáng hay tối đều đọc được. */
+.tl-form{display:flex;flex-direction:column;gap:20px;padding:28px;background:#fff;color:#153b4b;border:1px solid #cfddd5;border-radius:24px;box-shadow:0 18px 44px #082f4318;font-size:16px;line-height:1.6;text-align:left}
+.tl-form *{box-sizing:border-box}
+.tl-form .tl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tl-form-demo{margin:0;padding:12px 16px;border:1px solid #e3c36a;border-radius:12px;background:#fff6d9;font-size:15px;max-width:none}
+
+/* Chỉ báo bước */
+.tl-form-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.tl-form-steps li{position:relative}
+.tl-form-steps li:not(:last-child)::after{content:'';position:absolute;top:27px;left:calc(50% + 24px);right:calc(-50% + 24px);height:2px;background:#cfddd5;transition:background-color var(--dur-base,280ms) var(--ease-out,ease)}
+.tl-form-steps li[data-state=done]:not(:last-child)::after{background:#187447}
+.tl-form-steps button{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;min-height:56px;padding:8px 4px;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.tl-form-steps button:disabled{cursor:default}
+.tl-form-dot{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid #9fb6a9;background:#fff;color:#113d4c;font-size:16px;font-weight:700;transition:background-color var(--dur-base,280ms) var(--ease-out,ease),border-color var(--dur-base,280ms) var(--ease-out,ease),color var(--dur-base,280ms) var(--ease-out,ease)}
+.tl-form-steps [data-state=current] .tl-form-dot{background:#187447;border-color:#187447;color:#fff}
+.tl-form-steps [data-state=done] .tl-form-dot{background:#eaf4e6;border-color:#187447;color:#187447}
+.tl-form-step-name{font-size:14px;font-weight:500;line-height:1.2}
+.tl-form-steps [data-state=current] .tl-form-step-name{font-weight:700;color:#187447}
+
+/* Khung bước */
+.tl-form-panel{min-height:300px;animation:tl-step-in .34s var(--ease-out,ease) both}
+.tl-form-panel[data-direction=back]{--from:-24px}
+@keyframes tl-step-in{from{opacity:0;transform:translateX(var(--from,24px))}to{opacity:1;transform:none}}
+.tl-form-title{margin:0 0 16px;font-size:22px;font-weight:700;line-height:1.3;letter-spacing:-.02em;outline:none}
+.tl-form-fields{display:flex;flex-direction:column;gap:16px}
+
+/* Ô nhập */
+.tl-field{display:flex;flex-direction:column}
+.tl-field>label{display:block;margin-bottom:6px;font-size:16px;font-weight:700;color:#153b4b}
+.tl-form .tl-input{display:block;width:100%;min-height:52px;padding:12px 16px;border:1.5px solid #7a978a;border-radius:12px;background:#fff;color:#153b4b;font-size:17px;line-height:1.5;transition:border-color var(--dur-fast,180ms) var(--ease-out,ease),box-shadow var(--dur-fast,180ms) var(--ease-out,ease)}
+.tl-form textarea.tl-input{min-height:104px;resize:vertical}
+.tl-form .tl-input::placeholder{color:#5a7480}
+.tl-form .tl-input:hover{border-color:#187447}
+.tl-form .tl-input:focus{outline:none;border-color:#187447;box-shadow:0 0 0 4px #bfe3c6}
+.tl-field[data-invalid=true] .tl-input{border-color:#a32c24;box-shadow:0 0 0 3px #f3d0cc}
+.tl-field-error{margin:6px 0 0;font-size:15px;line-height:1.45;color:#a32c24;font-weight:500;max-width:none;animation:fade-up var(--dur-fast,180ms) var(--ease-out,ease) both}
+.tl-form-alert{margin:0;padding:14px 16px;border:1px solid #a32c24;border-radius:12px;background:#fdecea;color:#7d1f19;font-size:16px;font-weight:500;max-width:none}
+
+/* Nút chọn lớn */
+.tl-choices{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;border:0;min-width:0}
+.tl-choices-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.tl-choice{position:relative;display:block;font-size:16px;font-weight:400;cursor:pointer}
+.tl-choice input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+.tl-choice-body{display:flex;flex-direction:column;gap:2px;justify-content:center;min-height:56px;padding:14px 18px;border:1.5px solid #9fb6a9;border-radius:14px;background:#fff;transition:border-color var(--dur-fast,180ms) var(--ease-out,ease),background-color var(--dur-fast,180ms) var(--ease-out,ease),box-shadow var(--dur-fast,180ms) var(--ease-out,ease),transform var(--dur-press,110ms) var(--ease-out,ease)}
+.tl-choice-body strong{font-size:16px;font-weight:700;line-height:1.4}
+.tl-choice-body small{font-size:15px;line-height:1.45;color:#113d4c}
+.tl-choice:hover .tl-choice-body{border-color:#187447}
+.tl-choice:active .tl-choice-body{transform:scale(.985)}
+.tl-choice input:checked+.tl-choice-body{border-color:#187447;background:#eaf4e6;box-shadow:inset 0 0 0 1px #187447}
+.tl-choice input:focus-visible+.tl-choice-body{outline:3px solid #d4a633;outline-offset:2px}
+.tl-choice-product .tl-choice-body{align-items:center;justify-content:center;gap:10px;min-height:120px;text-align:center}
+.tl-choice-product svg{color:#187447}
+.tl-hint{display:flex;align-items:center;gap:12px;min-height:56px;margin-top:12px;padding:12px 16px;border-radius:14px;border:1px solid transparent;font-size:16px;font-weight:700;color:#14573b;transition:background-color var(--dur-base,280ms) var(--ease-out,ease),border-color var(--dur-base,280ms) var(--ease-out,ease)}
+.tl-hint[data-visible=true]{background:#eaf4e6;border-color:#b9d8bd}
+.tl-hint svg{flex-shrink:0;color:#187447}
+.tl-hint[data-visible=true]>*{animation:fade-up var(--dur-base,280ms) var(--ease-out,ease) both}
+.tl-form-note{margin:0;font-size:16px;max-width:none}
+.tl-summary{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tl-summary li{padding:6px 14px;border:1px solid #b9d8bd;border-radius:10px;background:#eaf4e6;font-size:15px;font-weight:500;line-height:1.4}
+
+/* Đồng ý, bẫy chống tự động */
+.tl-field>label.tl-consent,.tl-consent{display:flex;flex-direction:row;align-items:flex-start;gap:12px;margin:0;font-size:15px;font-weight:400;line-height:1.55;cursor:pointer}
+.tl-consent input{flex-shrink:0;width:24px;height:24px;margin:2px 0 0;accent-color:#187447;cursor:pointer}
+.tl-consent a{color:#187447;text-decoration:underline;text-underline-offset:3px;font-weight:500}
+.tl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Nút */
+.tl-form-actions{display:flex;gap:12px;flex-wrap:wrap}
+.tl-form-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 24px;border:2px solid transparent;border-radius:12px;font:inherit;font-size:17px;font-weight:700;line-height:1.2;cursor:pointer;text-decoration:none}
+.tl-form-button.is-solid{flex:1;background:#187447;color:#fff}
+.tl-form-button.is-solid:hover:not(:disabled){background:#14573b}
+.tl-form-button.is-cta{flex:1;background:#b94918;color:#fff}
+.tl-form-button.is-cta:hover:not(:disabled){background:#963711}
+.tl-form-button.is-line{background:#fff;border-color:#7a978a;color:#153b4b}
+.tl-form-button.is-line:hover:not(:disabled){border-color:#187447;color:#187447}
+.tl-form-button:disabled{opacity:.55;cursor:not-allowed}
+.tl-form-button:focus-visible{outline:3px solid #d4a633;outline-offset:3px}
+.tl-spin{animation:spin .8s linear infinite}
+.tl-form-promise{margin:-4px 0 0;font-size:15px;text-align:center;color:#113d4c;max-width:none}
+
+/* Thành công */
+.tl-form-success{align-items:center;text-align:center;gap:12px;padding:40px 28px}
+.tl-form-success>svg{color:#187447;animation:scale-in var(--dur-slow,520ms) var(--ease-out,ease) both}
+.tl-form-success h3{margin:0;font-size:26px;font-weight:700;outline:none}
+.tl-form-success p{margin:0;font-size:17px;max-width:40ch;text-align:center}
+.tl-form-success dl{width:100%;margin:12px 0 0;padding:4px 20px;border:1px solid #cfddd5;border-radius:16px;background:#f5f6f0;text-align:left}
+.tl-form-success dl>div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid #d5dfd9}
+.tl-form-success dl>div:last-child{border-bottom:0}
+.tl-form-success dt{font-weight:700;flex-shrink:0}
+.tl-form-success dd{margin:0;text-align:right}
+.tl-form-success .tl-form-hours{font-size:15px;color:#113d4c}
+.tl-form-success .tl-form-actions{width:100%;margin-top:8px}
+
+@media(max-width:480px){
+  .tl-form{padding:20px 16px;border-radius:20px}
+  .tl-choice-product .tl-choice-body{min-height:112px;padding:12px 8px}
+  .tl-form-title{font-size:20px}
+  .tl-form-actions{flex-direction:column-reverse}
+  .tl-form-button{width:100%}
+  .tl-form-success{padding:32px 16px}
+}
+@media(prefers-reduced-motion:reduce){.tl-form-panel,.tl-field-error,.tl-hint>*,.tl-form-success>svg{animation:none}.tl-spin{animation-duration:2s}}
+
+/* Vòng ba: nút dạng liên kết giữ chữ trắng, căn giữa màn thành công, nới khoảng thở */
+.tl-form a.tl-form-button.is-solid,.tl-form a.tl-form-button.is-cta{color:#fff}
+.tl-form a.tl-form-button.is-line{color:#113d4c}
+.tl-form a.tl-form-button.is-solid svg{color:#fff}
+.tl-form.tl-form-success p{text-align:center}
+.tl-form-title{margin-bottom:20px}
+.tl-summary{margin-bottom:4px}
+.tl-form-actions .tl-form-button.is-solid{text-decoration:none}

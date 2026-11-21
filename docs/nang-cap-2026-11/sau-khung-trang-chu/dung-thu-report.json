@@ -1,0 +1,78 @@
+[
+  {
+    "size": "1366",
+    "step": "cuộn hết trang chủ",
+    "pageHeight": 7905,
+    "khoiKetAn": []
+  },
+  {
+    "size": "1366",
+    "step": "bấm quy mô rồi Nhận báo giá",
+    "checkedLabel": "15 – 30 con lợnGợi ý bể 6 m³",
+    "title": "Quy mô chăn nuôi"
+  },
+  {
+    "size": "1366",
+    "step": "nút Gọi hotline ở màn thành công",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(24, 116, 71)",
+    "tuongPhan": 5.79,
+    "dat": true
+  },
+  {
+    "size": "1366",
+    "step": "bản ghi trong cơ sở dữ liệu",
+    "found": true,
+    "product": "Bể biogas composite",
+    "coTinhThanh": true,
+    "coQuyMo": true,
+    "message": "Nội dung liên hệ: Yêu cầu báo giá\nTỉnh thành: Phú Thọ\nQuy mô: 15 – 30 con lợn (gợi ý bể 6 m³)\nYêu cầu thử từ kịch bản kiểm giao diện, sẽ bị xoá."
+  },
+  {
+    "size": "1366",
+    "step": "xoá bản ghi thử theo id",
+    "deleted": 1
+  },
+  {
+    "size": "1366",
+    "consoleErrors": []
+  },
+  {
+    "size": "390",
+    "step": "cuộn hết trang chủ",
+    "pageHeight": 9751,
+    "khoiKetAn": []
+  },
+  {
+    "size": "390",
+    "step": "bấm quy mô rồi Nhận báo giá",
+    "checkedLabel": "15 – 30 con lợnGợi ý bể 6 m³",
+    "title": "Quy mô chăn nuôi"
+  },
+  {
+    "size": "390",
+    "step": "nút Gọi hotline ở màn thành công",
+    "color": "rgb(255, 255, 255)",
+    "background": "rgb(24, 116, 71)",
+    "tuongPhan": 5.79,
+    "dat": true
+  },
+  {
+    "size": "390",
+    "step": "bản ghi trong cơ sở dữ liệu",
+    "found": true,
+    "product": "Bể biogas composite",
+    "coTinhThanh": true,
+    "coQuyMo": true,
+    "message": "Nội dung liên hệ: Yêu cầu báo giá\nTỉnh thành: Phú Thọ\nQuy mô: 15 – 30 con lợn (gợi ý bể 6 m³)\nYêu cầu thử từ kịch bản kiểm giao diện, sẽ bị xoá."
+  },
+  {
+    "size": "390",
+    "step": "xoá bản ghi thử theo id",
+    "deleted": 1
+  },
+  {
+    "size": "390",
+    "consoleErrors": []
+  }
+]

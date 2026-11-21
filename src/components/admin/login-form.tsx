@@ -2,7 +2,7 @@
 
 import { useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -14,7 +14,8 @@ export default function LoginForm() {
   async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting.current) return;
-    const data = Object.fromEntries(new FormData(event.currentTarget));
+    const form = new FormData(event.currentTarget);
+    const data = { email: String(form.get('email') ?? '').trim(), password: String(form.get('password') ?? '') };
     submitting.current = true;
     setBusy(true);
     setError('');
@@ -40,12 +41,19 @@ export default function LoginForm() {
     }
   }
 
-  return <form onSubmit={login} className="inquiry-form" aria-busy={busy}>
-    <label>Email quản trị<input name="email" type="email" required autoComplete="username" autoCapitalize="none" spellCheck={false} maxLength={254} readOnly={busy}/></label>
-    <label>Mật khẩu<input id="admin-password" name="password" type={showPassword ? 'text' : 'password'} required autoComplete="current-password" maxLength={256} readOnly={busy}/></label>
-    <label className="checkbox-label"><input type="checkbox" checked={showPassword} onChange={event => setShowPassword(event.target.checked)} aria-controls="admin-password" disabled={busy}/><span>Hiện mật khẩu</span></label>
+  return <form onSubmit={login} className="adm-login-form" aria-busy={busy} noValidate={false}>
+    <label>Email quản trị<input name="email" type="email" required autoComplete="username" autoCapitalize="none" spellCheck={false} maxLength={254} readOnly={busy} /></label>
+    <div className="adm-field">
+      <label htmlFor="admin-password">Mật khẩu</label>
+      <span className="adm-password">
+        <input id="admin-password" name="password" type={showPassword ? 'text' : 'password'} required autoComplete="current-password" maxLength={256} readOnly={busy} />
+        <button type="button" onClick={() => setShowPassword(value => !value)} aria-controls="admin-password" aria-pressed={showPassword} disabled={busy}>
+          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}{showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+        </button>
+      </span>
+    </div>
     {error && <p className="error-message" role="alert">{error}</p>}
-    {busy && <p role="status">Đang kiểm tra thông tin đăng nhập…</p>}
-    <button type="submit" className="button" disabled={busy}>{busy ? 'Đang đăng nhập…' : 'Đăng nhập'}<ArrowRight size={18}/></button>
+    <button type="submit" className="button pressable" disabled={busy}>{busy ? <><span className="adm-spinner" aria-hidden="true" />Đang đăng nhập</> : <>Đăng nhập<ArrowRight size={18} /></>}</button>
+    {busy && <p role="status" className="field-help">Đang kiểm tra thông tin đăng nhập.</p>}
   </form>;
 }

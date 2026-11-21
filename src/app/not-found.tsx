@@ -1,2 +1,4 @@
-import Link from 'next/link';
-export default function NotFound(){return <main className="container reading"><h1>Không tìm thấy trang này.</h1><p>Đường dẫn có thể đã thay đổi hoặc nội dung chưa được xuất bản.</p><Link href="/">Về trang chủ</Link></main>;}
+import NotFoundView from '@/components/pages/not-found-view';
+
+// Trang 404 gốc: dự phòng khi lỗi xảy ra ngoài khu vực công khai. Khu công khai dùng not-found riêng có đầu và chân trang.
+export default function NotFound() { return <div className="public-site"><NotFoundView/></div>; }

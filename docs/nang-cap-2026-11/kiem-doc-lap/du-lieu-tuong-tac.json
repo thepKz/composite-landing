@@ -1,0 +1,357 @@
+{
+ "log": [
+  {
+   "size": "1366",
+   "step": "tràn ngang trang chủ",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "1366",
+   "step": "menu Sản phẩm mở bằng chuột",
+   "ok": false,
+   "note": "Error: Esc không đóng"
+  },
+  {
+   "size": "1366",
+   "step": "banner đổi cảnh",
+   "ok": true,
+   "note": "đổi tay ok (3 cảnh); tự chuyển sau 9s: KHÔNG (cùng cảnh)"
+  },
+  {
+   "size": "1366",
+   "step": "cuộn hết trang chủ, khung hình",
+   "ok": false,
+   "note": "Error: kẹt ẩn 4: 4Sản xuất, kiểm địnhGia công t | 5Lắp đặt, bảo hànhGiao hàng to | Nhận báo giá nhanhBốn bước ngắ; khung {\"n\":204,\"p95\":10.1,\"max\":10.2,\"over50\":0,\"over100\":0,\"animMax\":16}"
+  },
+  {
+   "size": "1366",
+   "step": "bấm thẻ sản phẩm trang chủ",
+   "ok": false,
+   "note": "TimeoutError: locator.hover: Timeout 30000ms exceeded."
+  },
+  {
+   "size": "1366",
+   "step": "hộp xem ảnh",
+   "ok": false,
+   "note": "Error: tiêu điểm: vào trong=true, Tab thoát=true, về nút mở=true"
+  },
+  {
+   "size": "1366",
+   "step": "chọn quy mô trên trang sản phẩm",
+   "ok": true,
+   "note": "Gợi ý cho bạn Bể 6 m³ Xem trong bảng"
+  },
+  {
+   "size": "1366",
+   "step": "biểu mẫu báo giá đi hết bước",
+   "ok": true,
+   "note": "bước đầu \"Bước 3: Quy mô\", lỗi hiện khi bỏ trống: Nhập họ tên từ 2 chữ cái trở lên./Nhập số điện thoại có ít nhất 9 chữ số, ví dụ "
+  },
+  {
+   "size": "1366",
+   "step": "hỏi đáp mở/đóng",
+   "ok": true,
+   "note": "chiều cao 0 -> 81,119,146,158,167,170,171,171 -> 171 -> sau đóng 0; chuyển mượt: có"
+  },
+  {
+   "size": "1366",
+   "step": "Tab qua header và biểu mẫu",
+   "ok": true,
+   "note": "Đến nội dung chính > 0964.444.2626 > 0943.924.816 > info@thanhloicomposite > THÀNH LỢICOMPOSITE > Trang chủ > Giới thiệu > Sản phẩm > Dự án > Tin tức > Liên hệ > Nhận báo giá"
+  },
+  {
+   "size": "1366",
+   "step": "mục lục bài viết",
+   "ok": false,
+   "note": "TimeoutError: locator.click: Timeout 30000ms exceeded."
+  },
+  {
+   "size": "1366",
+   "step": "bài viết: khung hình khi cuộn",
+   "ok": true,
+   "note": "{\"n\":83,\"p95\":10.1,\"max\":10.3,\"over50\":0,\"over100\":0,\"animMax\":3}"
+  },
+  {
+   "size": "1366",
+   "step": "admin: soạn bài và xuất bản",
+   "ok": true,
+   "note": "menu gạch chéo: thấy, tự lưu hiện chữ trạng thái: true"
+  },
+  {
+   "size": "1366",
+   "step": "admin: các màn không tràn ngang",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "390",
+   "step": "tràn ngang trang chủ",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "390",
+   "step": "menu điện thoại mở/đóng",
+   "ok": true,
+   "note": "tiêu điểm vào trong=true, sau đóng tiêu điểm về \"Mở menu\""
+  },
+  {
+   "size": "390",
+   "step": "banner đổi cảnh",
+   "ok": true,
+   "note": "đổi tay ok (3 cảnh); tự chuyển sau 9s: KHÔNG (cùng cảnh)"
+  },
+  {
+   "size": "390",
+   "step": "cuộn hết trang chủ, khung hình",
+   "ok": false,
+   "note": "Error: kẹt ẩn 1: 1Liên hệ2Sản phẩm3Quy mô4GửiBư; khung {\"n\":321,\"p95\":10.1,\"max\":10.2,\"over50\":0,\"over100\":0,\"animMax\":10}"
+  },
+  {
+   "size": "390",
+   "step": "bấm thẻ sản phẩm trang chủ",
+   "ok": false,
+   "note": "TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 29972.670999999973ms exceeded."
+  },
+  {
+   "size": "390",
+   "step": "hộp xem ảnh",
+   "ok": false,
+   "note": "Error: tiêu điểm: vào trong=true, Tab thoát=true, về nút mở=true"
+  },
+  {
+   "size": "390",
+   "step": "chọn quy mô trên trang sản phẩm",
+   "ok": true,
+   "note": "Gợi ý cho bạn Bể 6 m³ Xem trong bảng"
+  },
+  {
+   "size": "390",
+   "step": "biểu mẫu báo giá đi hết bước",
+   "ok": true,
+   "note": "bước đầu \"Bước 3: Quy mô\", lỗi hiện khi bỏ trống: Nhập họ tên từ 2 chữ cái trở lên./Nhập số điện thoại có ít nhất 9 chữ số, ví dụ "
+  },
+  {
+   "size": "390",
+   "step": "hỏi đáp mở/đóng",
+   "ok": true,
+   "note": "chiều cao 0 -> 105,163,203,222,235,240,241,241 -> 241 -> sau đóng 0; chuyển mượt: có"
+  },
+  {
+   "size": "390",
+   "step": "Tab qua header và biểu mẫu",
+   "ok": false,
+   "note": "Error: 1 điểm dừng không thấy viền: Đến nội dung chính > 0964.444.2626 > 0943.924.816 > THÀNH LỢICOMPOSITE > Mở menu > Trang chủ > 0964.444.2626 > Nhắn Zalo > 0964.444.2626 > 0943.924.816 > info@thanhloicomposite > 1Liên"
+  },
+  {
+   "size": "390",
+   "step": "mục lục bài viết",
+   "ok": false,
+   "note": "TimeoutError: locator.click: Timeout 30000ms exceeded."
+  },
+  {
+   "size": "390",
+   "step": "bài viết: khung hình khi cuộn",
+   "ok": true,
+   "note": "{\"n\":112,\"p95\":10.2,\"max\":10.2,\"over50\":0,\"over100\":0,\"animMax\":2}"
+  },
+  {
+   "size": "390",
+   "step": "admin: soạn bài và xuất bản",
+   "ok": true,
+   "note": "menu gạch chéo: thấy, tự lưu hiện chữ trạng thái: true"
+  },
+  {
+   "size": "390",
+   "step": "admin: các màn không tràn ngang",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "600",
+   "step": "tràn ngang trang chủ",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "600",
+   "step": "menu điện thoại mở/đóng",
+   "ok": true,
+   "note": "tiêu điểm vào trong=true, sau đóng tiêu điểm về \"Mở menu\""
+  },
+  {
+   "size": "600",
+   "step": "banner đổi cảnh",
+   "ok": true,
+   "note": "đổi tay ok (3 cảnh); tự chuyển sau 9s: KHÔNG (cùng cảnh)"
+  },
+  {
+   "size": "600",
+   "step": "cuộn hết trang chủ, khung hình",
+   "ok": true,
+   "note": "khung hình {\"n\":315,\"p95\":10.1,\"max\":10.2,\"over50\":0,\"over100\":0,\"animMax\":8}"
+  },
+  {
+   "size": "600",
+   "step": "bấm thẻ sản phẩm trang chủ",
+   "ok": false,
+   "note": "TimeoutError: locator.scrollIntoViewIfNeeded: Timeout 29974.358000000007ms exceeded."
+  },
+  {
+   "size": "600",
+   "step": "hộp xem ảnh",
+   "ok": false,
+   "note": "Error: tiêu điểm: vào trong=true, Tab thoát=true, về nút mở=true"
+  },
+  {
+   "size": "600",
+   "step": "chọn quy mô trên trang sản phẩm",
+   "ok": true,
+   "note": "Gợi ý cho bạn Bể 6 m³ Xem trong bảng"
+  },
+  {
+   "size": "600",
+   "step": "biểu mẫu báo giá đi hết bước",
+   "ok": true,
+   "note": "bước đầu \"Bước 3: Quy mô\", lỗi hiện khi bỏ trống: Nhập họ tên từ 2 chữ cái trở lên./Nhập số điện thoại có ít nhất 9 chữ số, ví dụ "
+  },
+  {
+   "size": "600",
+   "step": "hỏi đáp mở/đóng",
+   "ok": true,
+   "note": "chiều cao 0 -> 81,112,142,158,166,170,171,171 -> 171 -> sau đóng 0; chuyển mượt: có"
+  },
+  {
+   "size": "600",
+   "step": "Tab qua header và biểu mẫu",
+   "ok": true,
+   "note": "Đến nội dung chính > 0964.444.2626 > 0943.924.816 > THÀNH LỢICOMPOSITE > Mở menu > Trang chủ > 0964.444.2626 > Nhắn Zalo > 0964.444.2626 [ngoài khung] > 0943.924.816 > info@thanhloicomposite > 1Liên hệ [ngoài khung]"
+  },
+  {
+   "size": "600",
+   "step": "admin: soạn bài và xuất bản",
+   "ok": true,
+   "note": "menu gạch chéo: thấy, tự lưu hiện chữ trạng thái: true"
+  },
+  {
+   "size": "600",
+   "step": "admin: các màn không tràn ngang",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "1920",
+   "step": "tràn ngang trang chủ",
+   "ok": true,
+   "note": ""
+  },
+  {
+   "size": "1920",
+   "step": "menu Sản phẩm mở bằng chuột",
+   "ok": false,
+   "note": "Error: Esc không đóng"
+  },
+  {
+   "size": "1920",
+   "step": "banner đổi cảnh",
+   "ok": true,
+   "note": "đổi tay ok (3 cảnh); tự chuyển sau 9s: KHÔNG (cùng cảnh)"
+  },
+  {
+   "size": "1920",
+   "step": "cuộn hết trang chủ, khung hình",
+   "ok": false,
+   "note": "Error: kẹt ẩn 4: 4Sản xuất, kiểm địnhGia công t | 5Lắp đặt, bảo hànhGiao hàng to | Nhận báo giá nhanhBốn bước ngắ; khung {\"n\":260,\"p95\":10.1,\"max\":10.3,\"over50\":0,\"over100\":0,\"animMax\":7}"
+  },
+  {
+   "size": "1920",
+   "step": "bấm thẻ sản phẩm trang chủ",
+   "ok": false,
+   "note": "TimeoutError: locator.hover: Timeout 30000ms exceeded."
+  },
+  {
+   "size": "1920",
+   "step": "hộp xem ảnh",
+   "ok": false,
+   "note": "Error: tiêu điểm: vào trong=true, Tab thoát=true, về nút mở=true"
+  },
+  {
+   "size": "1920",
+   "step": "chọn quy mô trên trang sản phẩm",
+   "ok": true,
+   "note": "Gợi ý cho bạn Bể 6 m³ Xem trong bảng"
+  },
+  {
+   "size": "1920",
+   "step": "biểu mẫu báo giá đi hết bước",
+   "ok": true,
+   "note": "bước đầu \"Bước 3: Quy mô\", lỗi hiện khi bỏ trống: Nhập họ tên từ 2 chữ cái trở lên./Nhập số điện thoại có ít nhất 9 chữ số, ví dụ "
+  },
+  {
+   "size": "1920",
+   "step": "hỏi đáp mở/đóng",
+   "ok": true,
+   "note": "chiều cao 0 -> 75,112,137,156,166,169,171,171 -> 171 -> sau đóng 0; chuyển mượt: có"
+  },
+  {
+   "size": "1920",
+   "step": "Tab qua header và biểu mẫu",
+   "ok": true,
+   "note": "Đến nội dung chính > 0964.444.2626 > 0943.924.816 > info@thanhloicomposite > THÀNH LỢICOMPOSITE > Trang chủ > Giới thiệu > Sản phẩm > Dự án > Tin tức > Liên hệ > Nhận báo giá"
+  },
+  {
+   "size": "1920",
+   "step": "admin: soạn bài và xuất bản",
+   "ok": true,
+   "note": "menu gạch chéo: thấy, tự lưu hiện chữ trạng thái: true"
+  },
+  {
+   "size": "1920",
+   "step": "admin: các màn không tràn ngang",
+   "ok": true,
+   "note": ""
+  }
+ ],
+ "consoleErrors": {
+  "390": [
+   "/tin-tuc: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/trang-khong-ton-tai: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/tin-tuc/kiem-doc-lap-c6a7b0de: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "600": [
+   "/tin-tuc: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/trang-khong-ton-tai: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "1366": [
+   "/trang-khong-ton-tai: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/tin-tuc/kiem-doc-lap-c6a7b0de: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "1920": [
+   "/tin-tuc: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/trang-khong-ton-tai: Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "/: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+ },
+ "netFail": {
+  "390": [
+   "404 http://127.0.0.1:3002/api/media/1adf0869-0ce3-4eb9-a8db-e2e6a516eaf6",
+   "404 http://127.0.0.1:3002/trang-khong-ton-tai",
+   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.4447580971832!2d104.9893577759779!3d21.490292371765 net::ERR_ABORTED"
+  ],
+  "600": [
+   "404 http://127.0.0.1:3002/api/media/1adf0869-0ce3-4eb9-a8db-e2e6a516eaf6",
+   "404 http://127.0.0.1:3002/trang-khong-ton-tai"
+  ],
+  "1366": [
+   "404 http://127.0.0.1:3002/trang-khong-ton-tai",
+   "404 http://127.0.0.1:3002/api/media/1adf0869-0ce3-4eb9-a8db-e2e6a516eaf6"
+  ],
+  "1920": [
+   "404 http://127.0.0.1:3002/api/media/1adf0869-0ce3-4eb9-a8db-e2e6a516eaf6",
+   "404 http://127.0.0.1:3002/trang-khong-ton-tai"
+  ]
+ }
+}

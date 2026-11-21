@@ -1,0 +1,8 @@
+/* Ô thay thế cho nhóm chưa có ảnh: nền vật liệu trang trí phủ màu thương hiệu, hình vẽ nét, thông số lớn. Cùng tỉ lệ khung với thẻ ảnh. */
+.pt-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%;padding:16px;overflow:hidden;color:#fff;text-align:center;background:linear-gradient(135deg,#103b50ee,#187447e0),url('/images/material-background.webp') center/cover}
+.pt-art{display:block;width:min(64%,210px);height:auto;flex:0 1 auto;min-height:0}
+.pt-stat{font-size:clamp(20px,2.2vw,30px);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:#fff;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pt-label{font-size:15px;font-weight:500;line-height:1.4;color:#e4eee6}
+.pt-tile.is-compact{padding:8px;gap:0}
+.pt-tile.is-compact .pt-art{width:84%}
+.pt-tile.is-compact .pt-stat,.pt-tile.is-compact .pt-label{display:none}

@@ -1,0 +1,179 @@
+**Kết luận kiểm cơ học: CHƯA ĐẠT.** 13 chặn, 115 cần sửa, 44 xem lại.
+Đã kiểm: 1 file, kiểm tĩnh, đo trên Chromium ở 1440, 768, 390 px kèm lượt font rộng. Chưa kiểm: thông điệp, tiêu điểm, nhịp bố cục, ảnh, trạng thái tương tác, bàn phím, trình duyệt khác.
+
+| # | Mức | Mã | Vị trí | Vấn đề và cách sửa |
+|---|---|---|---|---|
+| 1 | CHẶN | R-CLIP | home.html p.tl-sr "Bước 1 trên 4: Thông tin liên hệ" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 2 | CHẶN | R-CLIP | home.html span.tl-sr "10" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 3 | CHẶN | R-CLIP | home.html span.tl-sr "100+" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 4 | CHẶN | R-CLIP | home.html span.tl-sr "15+" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 5 | CHẶN | R-CLIP | home.html span.tl-sr "25+" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 6 | CHẶN | R-CLIP | home.html span.tl-sr "30+" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 7 | CHẶN | R-CLIP | home.html span.tl-sr "Tiêu chí" @ 1440px, 1440px · font rộng +9% | chữ bị cắt bởi overflow: nới khung hoặc rút chữ |
+| 8 | CHẶN | R-OFFSCREEN | home.html p "Nhìn gần kết cấu, nắp mở và bề mặt thành phẩm." @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 9 | CHẶN | R-OFFSCREEN | home.html p "Trao đổi quy cách trước khi thống nhất bàn giao." @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 10 | CHẶN | R-OFFSCREEN | home.html p "Đối chiếu kích thước sản phẩm với không gian sử " @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 11 | CHẶN | R-OFFSCREEN | home.html strong "Kiểu dáng và kết cấu" @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 12 | CHẶN | R-OFFSCREEN | home.html strong "Phù hợp không gian vận chuyển" @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 13 | CHẶN | R-OFFSCREEN | home.html strong "Thành phẩm tại xưởng" @ 768px, 768px · font rộng +9% | chữ vượt mép phải màn hình |
+| 14 | CẦN SỬA | MOT-LAYOUTPROP | home.html:3846 | hoạt họa thuộc tính bố cục (rộng, cao, vị trí, lề): giật và xô bố cục; dùng transform và opacity |
+| 15 | CẦN SỬA | MOT-LAYOUTPROP | home.html:534 | hoạt họa thuộc tính bố cục (rộng, cao, vị trí, lề): giật và xô bố cục; dùng transform và opacity |
+| 16 | CẦN SỬA | R-FAINT | home.html span "Báo giá" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 17 | CẦN SỬA | R-FAINT | home.html span "Chat Zalo" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 18 | CẦN SỬA | R-FAINT | home.html span "Gọi ngay" @ 1440px, 768px | chữ giảm độ đục: dùng màu đặc đủ tương phản |
+| 19 | CẦN SỬA | R-FONT | home.html font "font" | font chưa nạp, trình duyệt đang dùng font thay thế: vị trí ngắt dòng chỉ gần đúng; nhúng font rồi đo lại |
+| 20 | CẦN SỬA | TXT-COMPOUND | home.html dd "Dễ bị axit hữu cơ và nước thải bào mòn, mục vữa" @ 390px | tách từ ghép "bào \| mòn," |
+| 21 | CẦN SỬA | TXT-COMPOUND | home.html dd "Phải sơn chống gỉ và kiểm tra ăn mòn định kỳ" @ 390px, 390px · font rộng +9% | tách từ ghép "ăn \| mòn" |
+| 22 | CẦN SỬA | TXT-COMPOUND | home.html dd "Rất nặng, tốn chi phí gia cố móng và xây dựng" @ 390px · font rộng +9% | tách từ ghép "cố \| móng" |
+| 23 | CẦN SỬA | TXT-COMPOUND | home.html h3 "Bể cá Koi và bể nuôi thủy sản" @ 1440px · font rộng +9% | tách từ ghép "thủy \| sản" |
+| 24 | CẦN SỬA | TXT-COMPOUND | home.html li "Hỗ trợ vận chuyển và lắp đặt toàn quốc" @ 390px, 390px · font rộng +9% | tách từ ghép "toàn \| quốc" |
+| 25 | CẦN SỬA | TXT-COMPOUND | home.html p "Chưa thấy câu bạn cần? Gọi hotline để kỹ sư trả " @ 1440px · font rộng +9% | tách từ ghép "sư \| trả" |
+| 26 | CẦN SỬA | TXT-COMPOUND | home.html p "Dung tích từ 1,5 m³ đến trên 13 m³, từ hộ nuôi n" @ 1440px · font rộng +9%, 390px | tách từ ghép "sinh \| gas" |
+| 27 | CẦN SỬA | TXT-COMPOUND | home.html p "Gia công theo bản vẽ hoặc ý tưởng: bọc phủ chống" @ 1440px, 1440px · font rộng +9%, 768px · font rộng +9%, 390px | tách từ ghép "ý \| tưởng:" |
+| 28 | CẦN SỬA | TXT-COMPOUND | home.html p "Gia công theo bản vẽ hoặc ý tưởng: bọc phủ chống" @ 768px | tách từ ghép "khí, \| vỏ" |
+| 29 | CẦN SỬA | TXT-COMPOUND | home.html p "Kháng axit, kiềm, muối và dung dịch ăn mòn cho n" @ 1440px | tách từ ghép "sản \| xuất" |
+| 30 | CẦN SỬA | TXT-COMPOUND | home.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 390px | tách từ ghép "công \| composite" |
+| 31 | CẦN SỬA | TXT-COMPOUND | home.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 390px | tách từ ghép "cầu, \| đúng" |
+| 32 | CẦN SỬA | TXT-COMPOUND | home.html p "Nhựa nền Polyester, Vinyl Ester kết hợp sợi thủy" @ 768px | tách từ ghép "khẩu, \| không" |
+| 33 | CẦN SỬA | TXT-COMPOUND | home.html p "So sánh nhanh với bể xây và bồn kim loại." @ 390px | tách từ ghép "kim \| loại." |
+| 34 | CẦN SỬA | TXT-COMPOUND | home.html p "Trao đổi quy cách trước khi thống nhất bàn giao." @ 1440px, 768px, 390px | tách từ ghép "thống \| nhất" |
+| 35 | CẦN SỬA | TXT-COMPOUND | home.html p "Trao đổi quy cách trước khi thống nhất bàn giao." @ 1440px · font rộng +9%, 768px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "quy \| cách" |
+| 36 | CẦN SỬA | TXT-COMPOUND | home.html p "Trao đổi quy cách trước khi thống nhất bàn giao." @ 1440px · font rộng +9%, 768px, 390px · font rộng +9% | tách từ ghép "bàn \| giao." |
+| 37 | CẦN SỬA | TXT-COMPOUND | home.html p "Từ 1 m³ cho gia đình 3 đến 6 người đến trên 100 " @ 1440px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "sạn, \| trường" |
+| 38 | CẦN SỬA | TXT-COMPOUND | home.html p "Từ hộ gia đình, nhà hàng, trang trại vừa đến dự " @ 1440px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "hàng, \| trang" |
+| 39 | CẦN SỬA | TXT-COMPOUND | home.html p "Từ hộ gia đình, nhà hàng, trang trại vừa đến dự " @ 390px · font rộng +9% | tách từ ghép "công \| nghiệp" |
+| 40 | CẦN SỬA | TXT-COMPOUND | home.html p "Đối chiếu kích thước sản phẩm với không gian sử " @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | tách từ ghép "không \| gian" |
+| 41 | CẦN SỬA | TXT-COMPOUND | home.html p.tl-about-extra "Mỗi sản phẩm được kỹ sư tính kết cấu, chọn nhựa " @ 1440px · font rộng +9% | tách từ ghép "hợp \| và" |
+| 42 | CẦN SỬA | TXT-COMPOUND | home.html p.tl-metric-label "Công trình, trang trại đã bàn giao và vận hành ổ" @ 1440px · font rộng +9% | tách từ ghép "hành \| ổn" |
+| 43 | CẦN SỬA | TXT-COMPOUND | home.html p.tl-metric-label "Khách hàng, đại lý, trang trại và nhà máy trên t" @ 1440px · font rộng +9% | tách từ ghép "lý, \| trang" |
+| 44 | CẦN SỬA | TXT-COMPOUND | home.html p.tl-metric-label "Tuổi thọ thiết kế trong điều kiện tiêu chuẩn" @ 390px, 390px · font rộng +9% | tách từ ghép "tiêu \| chuẩn" |
+| 45 | CẦN SỬA | TXT-COMPOUND | home.html p.tl-rise.tl-hero-text "Bể biogas, bể phốt, bể xử lý nước thải, bồn hóa " @ 1440px · font rộng +9%, 768px · font rộng +9% | tách từ ghép "thủy \| sản" |
+| 46 | CẦN SỬA | TXT-COMPOUND | home.html p.workshop-story-note "Kiểu dáng, không gian sử dụng và quy cách được t" @ 1440px · font rộng +9%, 768px · font rộng +9% | tách từ ghép "đổi \| cùng" |
+| 47 | CẦN SỬA | TXT-COMPOUND | home.html span "Dễ bị axit hữu cơ và nước thải bào mòn, mục vữa" @ 1440px, 1440px · font rộng +9% | tách từ ghép "bào \| mòn," |
+| 48 | CẦN SỬA | TXT-COMPOUND | home.html span "Hàng tuần đến hàng tháng, phụ thuộc thời tiết" @ 1440px | tách từ ghép "thuộc \| thời" |
+| 49 | CẦN SỬA | TXT-COMPOUND | home.html span "Linh hoạt theo bản vẽ và mặt bằng thực tế" @ 390px · font rộng +9% | tách từ ghép "mặt \| bằng" |
+| 50 | CẦN SỬA | TXT-COMPOUND | home.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 390px · font rộng +9% | tách từ ghép "ý \| gì?" |
+| 51 | CẦN SỬA | TXT-COMPOUND | home.html span "Nhẹ, dễ vận chuyển đến vùng sâu, vùng đồi núi" @ 1440px, 1440px · font rộng +9%, 390px | tách từ ghép "sâu, \| vùng" |
+| 52 | CẦN SỬA | TXT-COMPOUND | home.html span "Phải sơn chống gỉ và kiểm tra ăn mòn định kỳ" @ 1440px, 1440px · font rộng +9% | tách từ ghép "ăn \| mòn" |
+| 53 | CẦN SỬA | TXT-COMPOUND | home.html span "Rất thấp, không cần sơn phủ chống gỉ định kỳ" @ 1440px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "phủ \| chống" |
+| 54 | CẦN SỬA | TXT-COMPOUND | home.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 768px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "lưu \| mọi" |
+| 55 | CẦN SỬA | TXT-COMPOUND | home.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 390px · font rộng +9% | tách từ ghép "Lợi \| Composite" |
+| 56 | CẦN SỬA | TXT-COMPOUND | home.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | tách từ ghép "Sản \| phẩm" |
+| 57 | CẦN SỬA | TXT-COMPOUND | home.html span.tl-metric-unit "dự án" @ 1440px · font rộng +9%, 390px · font rộng +9% | tách từ ghép "dự \| án" |
+| 58 | CẦN SỬA | TXT-COMPOUND | home.html span.tl-metric-unit "tỉnh thành" @ 1440px · font rộng +9%, 390px, 390px · font rộng +9% | tách từ ghép "tỉnh \| thành" |
+| 59 | CẦN SỬA | TXT-COMPOUND | home.html strong "Phù hợp không gian vận chuyển" @ 1440px, 768px, 390px | tách từ ghép "vận \| chuyển" |
+| 60 | CẦN SỬA | TXT-ORPHAN | home.html h3 "Bể biogas composite" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "composite": viết lại câu hoặc đổi bề rộng khung |
+| 61 | CẦN SỬA | TXT-ORPHAN | home.html h3 "Bể cá Koi và bể nuôi thủy sản" @ 1440px · font rộng +9% | dòng cuối chỉ có một từ "sản": viết lại câu hoặc đổi bề rộng khung |
+| 62 | CẦN SỬA | TXT-ORPHAN | home.html li "Hỗ trợ vận chuyển và lắp đặt toàn quốc" @ 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "quốc": viết lại câu hoặc đổi bề rộng khung |
+| 63 | CẦN SỬA | TXT-ORPHAN | home.html p "Bảo hành đến 10 năm tùy dòng sản phẩm, tuổi thọ " @ 390px | dòng cuối chỉ có một từ "năm.": viết lại câu hoặc đổi bề rộng khung |
+| 64 | CẦN SỬA | TXT-ORPHAN | home.html p "Bốn bước ngắn, khoảng 15 giây. Kỹ sư gọi lại để " @ 390px · font rộng +9% | dòng cuối chỉ có một từ "nhất.": viết lại câu hoặc đổi bề rộng khung |
+| 65 | CẦN SỬA | TXT-ORPHAN | home.html p "Có. Kỹ thuật viên mài nhám và đắp vá bằng chính " @ 1440px | dòng cuối chỉ có một từ "đầu.": viết lại câu hoặc đổi bề rộng khung |
+| 66 | CẦN SỬA | TXT-ORPHAN | home.html p "Gia công theo bản vẽ hoặc ý tưởng: bọc phủ chống" @ 1440px, 1440px · font rộng +9%, 390px | dòng cuối chỉ có một từ "bơi.": viết lại câu hoặc đổi bề rộng khung |
+| 67 | CẦN SỬA | TXT-ORPHAN | home.html p "Hồ cá Koi có vách lọc sân vườn, bể trữ hải sản n" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "cao.": viết lại câu hoặc đổi bề rộng khung |
+| 68 | CẦN SỬA | TXT-ORPHAN | home.html p "Kháng axit, kiềm, muối và dung dịch ăn mòn cho n" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "nước.": viết lại câu hoặc đổi bề rộng khung |
+| 69 | CẦN SỬA | TXT-ORPHAN | home.html p "Nhà máy tại Phú Thọ, sản xuất và gia công compos" @ 768px | dòng cuối chỉ có một từ "gian.": viết lại câu hoặc đổi bề rộng khung |
+| 70 | CẦN SỬA | TXT-ORPHAN | home.html p "So sánh nhanh với bể xây và bồn kim loại." @ 390px | dòng cuối chỉ có một từ "loại.": viết lại câu hoặc đổi bề rộng khung |
+| 71 | CẦN SỬA | TXT-ORPHAN | home.html p "Sản phẩm chụp tại xưởng Phú Thọ và trên đường gi" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "hàng.": viết lại câu hoặc đổi bề rộng khung |
+| 72 | CẦN SỬA | TXT-ORPHAN | home.html p "Thùng 60 L đến 240 L, xe gom 400 L đến 1000 L, k" @ 1440px, 390px | dòng cuối chỉ có một từ "gỉ.": viết lại câu hoặc đổi bề rộng khung |
+| 73 | CẦN SỬA | TXT-ORPHAN | home.html p "Trao đổi quy cách trước khi thống nhất bàn giao." @ 1440px · font rộng +9%, 768px, 390px · font rộng +9% | dòng cuối chỉ có một từ "giao.": viết lại câu hoặc đổi bề rộng khung |
+| 74 | CẦN SỬA | TXT-ORPHAN | home.html p "Tư vấn dung tích, thiết kế, sản xuất, vận chuyển" @ 1440px · font rộng +9%, 768px | dòng cuối chỉ có một từ "quốc.": viết lại câu hoặc đổi bề rộng khung |
+| 75 | CẦN SỬA | TXT-ORPHAN | home.html p "Từ 1 m³ cho gia đình 3 đến 6 người đến trên 100 " @ 768px | dòng cuối chỉ có một từ "thấm.": viết lại câu hoặc đổi bề rộng khung |
+| 76 | CẦN SỬA | TXT-ORPHAN | home.html p "Từ hộ gia đình, nhà hàng, trang trại vừa đến dự " @ 1440px, 390px | dòng cuối chỉ có một từ "lớn.": viết lại câu hoặc đổi bề rộng khung |
+| 77 | CẦN SỬA | TXT-ORPHAN | home.html p.tl-metric-label "Bảo hành tối đa, theo từng dòng sản phẩm" @ 768px, 768px · font rộng +9% | dòng cuối chỉ có một từ "phẩm": viết lại câu hoặc đổi bề rộng khung |
+| 78 | CẦN SỬA | TXT-ORPHAN | home.html p.tl-metric-label "Công trình, trang trại đã bàn giao và vận hành ổ" @ 1440px, 390px | dòng cuối chỉ có một từ "định": viết lại câu hoặc đổi bề rộng khung |
+| 79 | CẦN SỬA | TXT-ORPHAN | home.html p.tl-metric-label "Khách hàng, đại lý, trang trại và nhà máy trên t" @ 1440px, 390px | dòng cuối chỉ có một từ "quốc": viết lại câu hoặc đổi bề rộng khung |
+| 80 | CẦN SỬA | TXT-ORPHAN | home.html p.tl-metric-label "Sản xuất và gia công composite FRP, từ năm 2010" @ 1440px, 1440px · font rộng +9%, 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "2010": viết lại câu hoặc đổi bề rộng khung |
+| 81 | CẦN SỬA | TXT-ORPHAN | home.html p.tl-metric-label "Tuổi thọ thiết kế trong điều kiện tiêu chuẩn" @ 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "chuẩn": viết lại câu hoặc đổi bề rộng khung |
+| 82 | CẦN SỬA | TXT-ORPHAN | home.html p.workshop-story-note "Kiểu dáng, không gian sử dụng và quy cách được t" @ 1440px, 768px | dòng cuối chỉ có một từ "nhau.": viết lại câu hoặc đổi bề rộng khung |
+| 83 | CẦN SỬA | TXT-ORPHAN | home.html span ", 0943.924.816" @ 1440px, 1440px · font rộng +9% | dòng cuối chỉ có một từ "0943.924.816": viết lại câu hoặc đổi bề rộng khung |
+| 84 | CẦN SỬA | TXT-ORPHAN | home.html span "Bể bị va đập nứt vỡ có sửa được không?" @ 390px | dòng cuối chỉ có một từ "không?": viết lại câu hoặc đổi bề rộng khung |
+| 85 | CẦN SỬA | TXT-ORPHAN | home.html span "Cố định, không thể di dời khi đổi mặt bằng" @ 1440px | dòng cuối chỉ có một từ "bằng": viết lại câu hoặc đổi bề rộng khung |
+| 86 | CẦN SỬA | TXT-ORPHAN | home.html span "Dễ nứt ngầm, thấm rò do lún lệch địa chất" @ 1440px | dòng cuối chỉ có một từ "chất": viết lại câu hoặc đổi bề rộng khung |
+| 87 | CẦN SỬA | TXT-ORPHAN | home.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "gì?": viết lại câu hoặc đổi bề rộng khung |
+| 88 | CẦN SỬA | TXT-ORPHAN | home.html span "Lắp đặt trong 1–2 ngày, dùng ngay" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "ngay": viết lại câu hoặc đổi bề rộng khung |
+| 89 | CẦN SỬA | TXT-ORPHAN | home.html span "Nhà máy: Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú T" @ 768px · font rộng +9% | dòng cuối chỉ có một từ "Thọ": viết lại câu hoặc đổi bề rộng khung |
+| 90 | CẦN SỬA | TXT-ORPHAN | home.html span "THÀNH LỢI COMPOSITE" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "COMPOSITE": viết lại câu hoặc đổi bề rộng khung |
+| 91 | CẦN SỬA | TXT-ORPHAN | home.html span "© 2026 Công ty Cổ phần Thành Lợi Composite . Mã " @ 768px | dòng cuối chỉ có một từ "quyền.": viết lại câu hoặc đổi bề rộng khung |
+| 92 | CẦN SỬA | TXT-ORPHAN | home.html span "Đúc liền khối, kín khí và chống thấm" @ 1440px · font rộng +9%, 390px · font rộng +9% | dòng cuối chỉ có một từ "thấm": viết lại câu hoặc đổi bề rộng khung |
+| 93 | CẦN SỬA | TXT-ORPHAN | home.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | dòng cuối chỉ có một từ "phẩm": viết lại câu hoặc đổi bề rộng khung |
+| 94 | CẦN SỬA | TXT-ORPHAN | home.html span.tl-metric-unit "dự án" @ 1440px · font rộng +9%, 390px · font rộng +9% | dòng cuối chỉ có một từ "án": viết lại câu hoặc đổi bề rộng khung |
+| 95 | CẦN SỬA | TXT-ORPHAN | home.html span.tl-metric-unit "tỉnh thành" @ 1440px · font rộng +9%, 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "thành": viết lại câu hoặc đổi bề rộng khung |
+| 96 | CẦN SỬA | TXT-ORPHAN | home.html strong "Phù hợp không gian vận chuyển" @ 1440px, 768px, 390px | dòng cuối chỉ có một từ "chuyển": viết lại câu hoặc đổi bề rộng khung |
+| 97 | CẦN SỬA | TXT-ORPHAN | home.html strong "Thành phẩm tại xưởng" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | dòng cuối chỉ có một từ "xưởng": viết lại câu hoặc đổi bề rộng khung |
+| 98 | CẦN SỬA | TXT-ORPHAN | home.html th "Hình dạng, kích thước" @ 1440px, 1440px · font rộng +9% | dòng cuối chỉ có một từ "thước": viết lại câu hoặc đổi bề rộng khung |
+| 99 | CẦN SỬA | TXT-UNIT | home.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 1440px · font rộng +9%, 768px | tách số khỏi đơn vị "2–3 \| ngày" |
+| 100 | CẦN SỬA | TXT-UNIT | home.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 390px · font rộng +9% | tách số khỏi đơn vị "10–25 \| ngày" |
+| 101 | CẦN SỬA | TXT-UNIT | home.html p "Bảo hành đến 10 năm tùy dòng sản phẩm, tuổi thọ " @ 390px | tách số khỏi đơn vị "30 \| năm." |
+| 102 | CẦN SỬA | TXT-UNIT | home.html p "Gửi báo giá chi tiết trong 1–24 giờ, thống nhất " @ 1440px, 768px, 390px | tách số khỏi đơn vị "1–24 \| giờ," |
+| 103 | CẦN SỬA | TXT-WRAP1 | home.html p "Ba lớp bảo ôn PU Foam, vách chắn sóng, vừa xe từ" @ 1440px, 1440px · font rộng +9%, 768px · font rộng +9%, 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 104 | CẦN SỬA | TXT-WRAP1 | home.html p "Ba lớp bảo ôn PU Foam, vách chắn sóng, vừa xe từ" @ 768px | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 105 | CẦN SỬA | TXT-WRAP1 | home.html p "Dung tích từ 1,5 m³ đến trên 13 m³, từ hộ nuôi n" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 106 | CẦN SỬA | TXT-WRAP1 | home.html p "Dung tích từ 1,5 m³ đến trên 13 m³, từ hộ nuôi n" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 4 dòng: rút nhãn hoặc nới khung |
+| 107 | CẦN SỬA | TXT-WRAP1 | home.html p "Gia công theo bản vẽ hoặc ý tưởng: bọc phủ chống" @ 1440px, 1440px · font rộng +9%, 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 4 dòng: rút nhãn hoặc nới khung |
+| 108 | CẦN SỬA | TXT-WRAP1 | home.html p "Gia công theo bản vẽ hoặc ý tưởng: bọc phủ chống" @ 768px, 768px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 109 | CẦN SỬA | TXT-WRAP1 | home.html p "Hồ cá Koi có vách lọc sân vườn, bể trữ hải sản n" @ 1440px, 1440px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 110 | CẦN SỬA | TXT-WRAP1 | home.html p "Hồ cá Koi có vách lọc sân vườn, bể trữ hải sản n" @ 768px, 768px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 111 | CẦN SỬA | TXT-WRAP1 | home.html p "Hồ cá Koi có vách lọc sân vườn, bể trữ hải sản n" @ 390px | thành phần một dòng bị xuống 4 dòng: rút nhãn hoặc nới khung |
+| 112 | CẦN SỬA | TXT-WRAP1 | home.html p "Hồ cá Koi có vách lọc sân vườn, bể trữ hải sản n" @ 390px · font rộng +9% | thành phần một dòng bị xuống 5 dòng: rút nhãn hoặc nới khung |
+| 113 | CẦN SỬA | TXT-WRAP1 | home.html p "Kháng axit, kiềm, muối và dung dịch ăn mòn cho n" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 114 | CẦN SỬA | TXT-WRAP1 | home.html p "Kháng axit, kiềm, muối và dung dịch ăn mòn cho n" @ 390px · font rộng +9% | thành phần một dòng bị xuống 4 dòng: rút nhãn hoặc nới khung |
+| 115 | CẦN SỬA | TXT-WRAP1 | home.html p "Thùng 60 L đến 240 L, xe gom 400 L đến 1000 L, k" @ 1440px, 1440px · font rộng +9%, 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 116 | CẦN SỬA | TXT-WRAP1 | home.html p "Thùng 60 L đến 240 L, xe gom 400 L đến 1000 L, k" @ 768px, 768px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 117 | CẦN SỬA | TXT-WRAP1 | home.html p "Từ 1 m³ cho gia đình 3 đến 6 người đến trên 100 " @ 1440px, 1440px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 118 | CẦN SỬA | TXT-WRAP1 | home.html p "Từ 1 m³ cho gia đình 3 đến 6 người đến trên 100 " @ 768px, 768px · font rộng +9%, 390px | thành phần một dòng bị xuống 4 dòng: rút nhãn hoặc nới khung |
+| 119 | CẦN SỬA | TXT-WRAP1 | home.html p "Từ 1 m³ cho gia đình 3 đến 6 người đến trên 100 " @ 390px · font rộng +9% | thành phần một dòng bị xuống 5 dòng: rút nhãn hoặc nới khung |
+| 120 | CẦN SỬA | TXT-WRAP1 | home.html span "Bể bị va đập nứt vỡ có sửa được không?" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 121 | CẦN SỬA | TXT-WRAP1 | home.html span "Bể composite có bền hơn bể xây xi măng không?" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 122 | CẦN SỬA | TXT-WRAP1 | home.html span "Làm sao biết bể dùng đúng loại nhựa và đủ độ dày" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 123 | CẦN SỬA | TXT-WRAP1 | home.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 390px | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 124 | CẦN SỬA | TXT-WRAP1 | home.html span "Lắp bể ở vùng đất trũng, nhiều nước ngầm cần lưu" @ 390px · font rộng +9% | thành phần một dòng bị xuống 3 dòng: rút nhãn hoặc nới khung |
+| 125 | CẦN SỬA | TXT-WRAP1 | home.html span "THÀNH LỢI COMPOSITE" @ 1440px, 1440px · font rộng +9%, 768px, 768px · font rộng +9%, 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 126 | CẦN SỬA | TXT-WRAP1 | home.html span "Thời gian báo giá, sản xuất và giao hàng thế nào" @ 390px, 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 127 | CẦN SỬA | TXT-WRAP1 | home.html span.tl-form-step-name "Sản phẩm" @ 390px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 128 | CẦN SỬA | TXT-WRAP1 | home.html th "Hình dạng, kích thước" @ 1440px, 1440px · font rộng +9% | thành phần một dòng bị xuống 2 dòng: rút nhãn hoặc nới khung |
+| 129 | XEM LẠI | COPY-SPACEPUNCT | home.html <p> "0964.444.2626 , 0943.924.816" | khoảng trắng trước dấu câu |
+| 130 | XEM LẠI | COPY-SPACEPUNCT | home.html <p> "Nhà máy tại Phú Thọ, sản xuất và gia công composit" | khoảng trắng trước dấu câu |
+| 131 | XEM LẠI | COPY-SPACEPUNCT | home.html <p> "Thành lập từ năm 2010 , nhà máy đặt tại Khu Tiên S" | khoảng trắng trước dấu câu |
+| 132 | XEM LẠI | LAY-ALIGN | home.html "1" và "Chọn nhựa nền theo môi trường " @ 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 133 | XEM LẠI | LAY-ALIGN | home.html "1" và "Chống ăn mòn" @ 768px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 134 | XEM LẠI | LAY-ALIGN | home.html "100 +" và "sản" @ 1440px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 135 | XEM LẠI | LAY-ALIGN | home.html "15 +" và "Bước 1 trên 4: Thông tin liên " @ 768px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 136 | XEM LẠI | LAY-ALIGN | home.html "15 +" và "Composite FRP không gỉ, không " @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 137 | XEM LẠI | LAY-ALIGN | home.html "2" và "100 +" @ 1440px | mép trái lệch 2.5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 138 | XEM LẠI | LAY-ALIGN | home.html "2010" và "1" @ 390px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 139 | XEM LẠI | LAY-ALIGN | home.html "2010" và "Chọn nhựa nền theo môi trường " @ 768px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 140 | XEM LẠI | LAY-ALIGN | home.html "25 +" và "3" @ 1440px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 141 | XEM LẠI | LAY-ALIGN | home.html "3" và "Composite FRP không gỉ, không " @ 1440px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 142 | XEM LẠI | LAY-ALIGN | home.html "Báo giá trong 15 đến 60 phút k" và "Bể xi măng, xây gạch" @ 768px, 390px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 143 | XEM LẠI | LAY-ALIGN | home.html "Báo giá, ký hợp đồng" và "Hỗ trợ" @ 768px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 144 | XEM LẠI | LAY-ALIGN | home.html "Bước 1 trên 4: Thông tin liên " và "Nhà máy: Khu Tiên Sơn, xã Tiên" @ 768px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 145 | XEM LẠI | LAY-ALIGN | home.html "Bể biogas composite" và "Nhà máy: Khu Tiên Sơn, xã Tiên" @ 390px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 146 | XEM LẠI | LAY-ALIGN | home.html "Bể xi măng, xây gạch" và "2010" @ 768px, 390px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 147 | XEM LẠI | LAY-ALIGN | home.html "Chống ăn mòn" và "15 +" @ 768px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 148 | XEM LẠI | LAY-ALIGN | home.html "Chống ăn mòn" và "Bể biogas composite" @ 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 149 | XEM LẠI | LAY-ALIGN | home.html "Composite FRP không gỉ, không " và "Chống ăn mòn" @ 390px | mép trái lệch 2 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 150 | XEM LẠI | LAY-ALIGN | home.html "Lắp đặt, bảo hành" và "Nhà máy: Khu Tiên Sơn, xã Tiên" @ 1440px | mép trái lệch 2.5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 151 | XEM LẠI | LAY-ALIGN | home.html "Nhà máy: Khu Tiên Sơn, xã Tiên" và "30 +" @ 1440px | mép trái lệch 2.5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 152 | XEM LẠI | LAY-ALIGN | home.html "Nhà máy: Khu Tiên Sơn, xã Tiên" và "Báo giá trong 15 đến 60 phút k" @ 768px, 390px | mép trái lệch 4 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 153 | XEM LẠI | LAY-ALIGN | home.html "Tư vấn dung tích" và "Sản phẩm chủ lực" @ 768px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 154 | XEM LẠI | LAY-ALIGN | home.html "môi" và "xuất" @ 390px | mép trái lệch 5 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 155 | XEM LẠI | LAY-ALIGN | home.html "sản" và "Phù hợp không gian vận chuyển" @ 1440px | mép trái lệch 3 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 156 | XEM LẠI | LAY-ALIGN | home.html "Đúng yêu cầu, đúng tiến độ, bề" và "1" @ 768px | mép trái lệch 1 px: gần thẳng hàng mà không thẳng; cho trùng cạnh hoặc lệch hẳn có chủ ý |
+| 157 | XEM LẠI | MOT-LOOP | home.html:6254 | hoạt họa lặp vô hạn: chỉ khi là chỉ báo đang tải; nội dung tự chạy quá 5 s phải dừng được (WCAG 2.2.2) |
+| 158 | XEM LẠI | R-BGIMAGE | home.html @ 1440px, 768px, 390px | có khối chữ nằm trên ảnh hoặc gradient: script không đo được tương phản, phải nhìn ảnh chụp và đo vùng nền xấu nhất |
+| 159 | XEM LẠI | R-TARGET44 | home.html a "0943.924.816" @ 390px | vùng bấm 95×36px dưới 44px trên điện thoại |
+| 160 | XEM LẠI | R-TARGET44 | home.html a "0964.444.2626" @ 390px | vùng bấm 104×36px dưới 44px trên điện thoại |
+| 161 | XEM LẠI | R-TARGET44 | home.html a "Chính sách bảo hành" @ 390px | vùng bấm 148×36px dưới 44px trên điện thoại |
+| 162 | XEM LẠI | R-TARGET44 | home.html a "Chính sách bảo mật" @ 390px | vùng bấm 139×36px dưới 44px trên điện thoại |
+| 163 | XEM LẠI | R-TARGET44 | home.html a "Quản trị" @ 390px | vùng bấm 55×36px dưới 44px trên điện thoại |
+| 164 | XEM LẠI | R-TARGET44 | home.html a "info@thanhloicomposite.com" @ 390px | vùng bấm 228×26px dưới 44px trên điện thoại |
+| 165 | XEM LẠI | R-TARGET44 | home.html h3#_R_2n5dnd5rlb_-title "Thông tin liên hệ" @ 390px | vùng bấm 320×29px dưới 44px trên điện thoại |
+| 166 | XEM LẠI | TXT-ORPHAN | home.html p "Báo giá trong 15–60 phút kể từ khi nhận đủ thông" @ 390px | dòng cuối chỉ có một từ "quốc.": viết lại câu hoặc đổi bề rộng khung |
+| 167 | XEM LẠI | TXT-ORPHAN | home.html p "Có. Kỹ thuật viên mài nhám và đắp vá bằng chính " @ 390px · font rộng +9% | dòng cuối chỉ có một từ "đầu.": viết lại câu hoặc đổi bề rộng khung |
+| 168 | XEM LẠI | TXT-ORPHAN | home.html p "Mọi đơn hàng ghi rõ độ dày thành bồn, chủng loại" @ 390px | dòng cuối chỉ có một từ "thu.": viết lại câu hoặc đổi bề rộng khung |
+| 169 | XEM LẠI | TYPE-SIZES | home.html @ 1440px | 16 cỡ chữ ([14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 36, 38, 42, 52, 56, 59]): gom về một thang 5–6 bậc |
+| 170 | XEM LẠI | TYPE-SIZES | home.html @ 768px | 13 cỡ chữ ([14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 26, 36, 40]): gom về một thang 5–6 bậc |
+| 171 | XEM LẠI | TYPE-SIZES | home.html @ 390px | 11 cỡ chữ ([14, 15, 16, 17, 18, 19, 20, 21, 22, 26, 36]): gom về một thang 5–6 bậc |
+| 172 | XEM LẠI | UI-CTAINTENT | home.html | nhiều nhãn cho cùng ý định liên hệ: "tư vấn miễn phí", "1 liên hệ": chọn một nhãn |
+
+Script có thể báo nhầm: xác minh từng dòng CHẶN và CẦN SỬA trước khi đưa vào báo cáo. Script không thay mắt người: thông điệp, tiêu điểm, nhịp bố cục, ảnh và gu phải nhìn bản render.

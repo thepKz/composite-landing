@@ -151,3 +151,17 @@ Supersedes the earlier partial-pass status. See docs/landing-redesign-audit-2026
 - Media search `dang cau` finds the Vietnamese spherical-tank description. Shared search normalization preserves stored text.
 - TypeScript and production build pass. No customer data saved/modified.
 - Screenshots: admin-search-mobile.png and admin-search-desktop.png in .impeccable/review/.
+
+## Admin verification scripts — 2026-11-20
+
+Three new checks (plus one for inquiries) run on the dev site and clean up after themselves. Run each with `SITE_URL=http://127.0.0.1:3002 node --env-file=.env --import tsx scripts/<name>.ts`.
+
+| Script | What it proves | Result |
+|---|---|---|
+| verify-editor-flow.ts | Full editor flow at 1366 and 390 including autosave, preview, publish, schedule, change schedule, cancel schedule, restore revision, crop-frame drag, list actions, library delete rules, mobile bottom bar | Pass |
+| verify-article-render.ts | Public article shows all three image alignments and four widths without horizontal overflow; editor preview matches the public article head, cover, table of contents and body height at 1366 | Pass |
+| verify-admin-text.ts | No forbidden characters, no text under 14px, no overflow, tap targets 36px desktop and 44px mobile on all admin screens | Pass |
+| verify-inquiry-ui.ts | Inquiry detail shows province, scale, size, location and a multi-line message at 1366 and 390 | Pass |
+| verify-admin-short.ts | Admin screens and editor at 600x360: writable area 273px while scrolled, settings drawer, no overflow | Pass |
+
+Not checked: production build, Safari and Firefox, real touch devices.

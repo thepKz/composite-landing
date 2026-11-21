@@ -8,16 +8,16 @@
 .workshop-story-photo img{display:block;width:100%;height:400px;object-fit:cover;object-position:center}
 .workshop-story-frame:last-child img{object-position:center 62%}
 .workshop-story-frame figcaption{padding:20px 0 0}
-.workshop-story-frame figcaption strong{display:block;font-size:21px;font-weight:500;line-height:1.4;letter-spacing:-.025em;text-wrap:balance}
-.workshop-story-frame figcaption p{margin-top:10px;max-width:40ch;font-size:14px;line-height:1.7;text-align:left}
-.workshop-story-note{margin:30px auto 0;max-width:55ch;text-align:center!important;font-size:14px;line-height:1.75}
+.workshop-story-frame figcaption strong{display:block;font-size:21px;font-weight:500;line-height:1.4;letter-spacing:-.025em}
+.workshop-story-frame figcaption p{margin-top:10px;max-width:40ch;font-size:16px;line-height:1.7;text-align:left}
+.workshop-story-note{margin:30px auto 0;max-width:55ch;text-align:center!important;font-size:16px;line-height:1.75}
 .workshop-story-thread{display:none}
 .workshop-story[data-story-motion=stack] .workshop-story-stage{display:block;height:min(500px,calc(100svh - 170px));min-height:400px}
 .workshop-story[data-story-motion=stack] .workshop-story-frame{position:absolute;left:50%;top:50%;width:62%;padding:12px;background:var(--story-paper);box-shadow:0 18px 45px #092e3226;backface-visibility:hidden}
 .workshop-story[data-story-motion=stack] .workshop-story-photo img{height:clamp(200px,calc(100svh - 460px),350px)}
 .workshop-story[data-story-motion=stack] .workshop-story-frame figcaption{padding:18px 12px 12px}
 .workshop-story[data-story-motion=stack] .workshop-story-frame figcaption strong{font-size:21px}
-.workshop-story[data-story-motion=stack] .workshop-story-frame figcaption p{font-size:14px;max-width:none}
+.workshop-story[data-story-motion=stack] .workshop-story-frame figcaption p{font-size:16px;max-width:none}
 .workshop-story[data-story-motion=stack] .workshop-story-thread{display:block;position:absolute;top:50%;left:2%;right:2%;height:2px;background:#94ab72;transform-origin:left;z-index:-1}
 @media(max-width:999px){.workshop-story-stage{grid-template-columns:1fr 1fr;gap:32px}.workshop-story-frame:nth-of-type(2){padding-top:60px}.workshop-story-frame:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.workshop-story-photo img{height:340px}.workshop-story-frame:last-child figcaption{padding:0}.workshop-story-frame figcaption strong{font-size:22px}}
 @media(max-width:600px){.workshop-story-stage{display:flex;flex-direction:column;gap:36px}.workshop-story-frame:nth-of-type(2){padding-top:0}.workshop-story-frame:last-child{display:block}.workshop-story-frame:last-child figcaption{padding-top:20px}.workshop-story-photo img{height:330px}.workshop-story-frame figcaption strong{font-size:23px}.workshop-story-note{margin-top:36px;text-align:left!important}}
@@ -25,11 +25,22 @@
 .workshop-story-dialog::backdrop{background:#031b22eb}
 .workshop-story-dialog figure{margin:0}
 .workshop-story-dialog figure>img{display:block;width:auto;height:auto;max-width:100%;max-height:65svh;margin:auto;object-fit:contain}
-.workshop-story-dialog figcaption{display:flex;align-items:start;justify-content:space-between;gap:20px;padding-top:20px;font-size:15px;line-height:1.6}
+.workshop-story-dialog figcaption{display:flex;align-items:start;justify-content:space-between;gap:20px;padding-top:20px;font-size:16px;line-height:1.6}
 .workshop-story-dialog figcaption>span:last-child{flex-shrink:0;font-variant-numeric:tabular-nums}
 .workshop-story-close{position:absolute;right:8px;top:8px;display:grid;place-items:center;width:40px;height:40px;padding:0;background:none;border:0;color:#fff}
 .workshop-story-controls{display:flex;justify-content:space-between;gap:16px;margin-top:24px}
-.workshop-story-controls button{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 14px;background:none;border:1px solid #78968b;color:#fff;font:inherit;font-size:14px}
+.workshop-story-controls button{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 16px;background:none;border:1px solid #78968b;color:#fff;font:inherit;font-size:16px}
 .workshop-story-controls button:hover,.workshop-story-close:hover{background:#17483d}
 @media(max-width:600px){.workshop-story-dialog{padding:52px 18px 20px}.workshop-story-dialog figcaption{font-size:14px}.workshop-story-controls button{padding:10px;font-size:13px}}
 @media(prefers-reduced-motion:reduce){.workshop-story-expand{transition:none}.workshop-story-photo:hover .workshop-story-expand,.workshop-story-photo:focus-visible .workshop-story-expand{transform:none}}
+
+/* Điện thoại: ba ảnh thành dải cuộn ngang có chỉ báo */
+@media(max-width:760px){
+  .workshop-story .workshop-story-stage{display:flex;flex-direction:row;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;margin-inline:-20px;padding:4px 20px 8px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .workshop-story .workshop-story-stage::-webkit-scrollbar{display:none}
+  .workshop-story .workshop-story-frame,.workshop-story .workshop-story-frame:nth-of-type(n),.workshop-story .workshop-story-frame:last-child{flex:0 0 80%;display:block;grid-column:auto;padding-top:0;scroll-snap-align:start}
+  .workshop-story-photo img{height:220px}
+  .workshop-story-frame figcaption{padding-top:12px}
+  .workshop-story-frame figcaption strong{font-size:18px}
+  .workshop-story-note{display:none}
+}

@@ -1,29 +1,65 @@
 import Link from 'next/link';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { company, products } from '@/lib/content';
 import { productGroups } from '@/lib/product-groups';
+import { footerLabel } from '@/lib/nav-labels';
+import { facts } from '@/lib/site-facts';
+import { resolveContact } from '@/lib/contact-info';
+
+const quick = [
+  ['/', 'Trang chủ'],
+  ['/gioi-thieu', 'Giới thiệu'],
+  ['/san-pham', 'Sản phẩm'],
+  ['/du-an', 'Dự án tiêu biểu'],
+  ['/tin-tuc', 'Tin tức'],
+  ['/lien-he', 'Liên hệ'],
+] as const;
 
 export default async function SiteFooter() {
   const [info, items] = await Promise.all([company(), products()]);
-  const phone = info?.phone?.replace(/[\s.()-]/g, '');
-  const validPhone = phone && /^(?:0\d{9}|\+84\d{9})$/.test(phone);
-  const email = info?.email?.trim();
-  const validEmail = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  return <footer className="site-footer">
-    <div className="container footer-finale">
+  const { address, email, zalo, hotlines, hours } = resolveContact(info);
+  return <footer className="tl-footer">
+    <div className="container tl-footer-cta">
       <div>
-        <Link href="/" className="footer-signature" aria-label="Thành Lợi Composite - Trang chủ"><span>Thành Lợi</span><span>Composite.</span></Link>
-        <p>Sản xuất bồn bể và sản phẩm composite theo yêu cầu.</p>
+        <h2>Cần báo giá nhanh</h2>
+        <p>Gửi nhu cầu, kỹ sư Thành Lợi phản hồi trong 15 đến 60 phút.</p>
       </div>
-      <img className="footer-workshop" src={editorialAssets.footer.src} alt={editorialAssets.footer.alt} loading="lazy" width="1280" height="960"/>
+      <Link href="/lien-he#gui-yeu-cau" className="tl-footer-button pressable">Nhận báo giá<ArrowUpRight size={20} aria-hidden="true" /></Link>
     </div>
-    <div className="container footer-grid footer-directory">
-      <div><Link href="/lien-he#gui-yeu-cau" className="footer-inquiry">Liên hệ tư vấn và báo giá <ArrowUpRight size={24}/></Link><p>Công ty Cổ phần Thành Lợi Composite</p><p>Mã số thuế: 2600665401</p><p>{info?.address || 'Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ'}</p>{validPhone && <a href={`tel:${phone}`}>{info?.phone}</a>}{validEmail && <a href={`mailto:${email}`}>{email}</a>}<div className="footer-social"><a href="https://www.facebook.com/thanhloicompositevn/" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.tiktok.com/@thnh.li.composite" target="_blank" rel="noopener noreferrer">TikTok</a></div></div>
-      <nav aria-label="Thông tin công ty"><h3>Công ty</h3><Link href="/">Trang chủ</Link><Link href="/gioi-thieu">Về chúng tôi</Link><Link href="/du-an">Dự án</Link><Link href="/tin-tuc">Tin tức & kiến thức</Link><Link href="/lien-he">Liên hệ</Link></nav>
-      <nav aria-label="Danh mục ở chân trang"><h3>Sản phẩm</h3>{productGroups(items).map(item => <Link key={item.slug} href={`/san-pham/${item.slug}`}>{item.name}</Link>)}</nav>
-      <nav aria-label="Hỗ trợ khách hàng"><h3>Hỗ trợ</h3><Link href="/huong-dan-dat-hang">Quy trình đặt hàng</Link><Link href="/huong-dan-dat-hang#van-chuyen">Vận chuyển & lắp đặt</Link><Link href="/huong-dan-dat-hang#bao-hanh">Thông tin bảo hành</Link><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/lien-he#gui-yeu-cau">Nhận báo giá</Link></nav>
+    <div className="container tl-footer-grid">
+      <div className="tl-footer-about">
+        <Link href="/" className="tl-footer-brand" aria-label="Thành Lợi Composite, về trang chủ">
+          <img src="/images/thanh-loi-logo.png" alt="" width="48" height="48" loading="lazy" />
+          <span>THÀNH LỢI<small>COMPOSITE</small></span>
+        </Link>
+        <p>Nhà máy tại Phú Thọ, sản xuất và gia công composite FRP từ năm {facts.founded}. Đúng yêu cầu, đúng tiến độ, bền vững theo thời gian.</p>
+        <div className="tl-footer-social">
+          <a href={facts.facebook} target="_blank" rel="noopener noreferrer" className="pressable">Facebook</a>
+          <a href={facts.tiktok} target="_blank" rel="noopener noreferrer" className="pressable">TikTok</a>
+          <a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer" className="pressable">Zalo</a>
+        </div>
+      </div>
+      <nav aria-label="Liên kết nhanh"><h3>Liên kết nhanh</h3>{quick.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
+      <nav aria-label="Sản phẩm chủ lực"><h3>Sản phẩm chủ lực</h3>{productGroups(items).map(group => <Link key={group.slug} href={`/san-pham/${group.slug}`}>{footerLabel(group.slug, group.name)}</Link>)}</nav>
+      <nav aria-label="Chính sách và hỗ trợ"><h3>Hỗ trợ</h3>
+        <Link href="/huong-dan-dat-hang">Cách đặt hàng</Link>
+        <Link href="/hoi-dap">Hỏi đáp</Link>
+        <Link href="/chinh-sach-bao-hanh">Bảo hành</Link>
+        <Link href="/chinh-sach-bao-mat">Bảo mật</Link>
+        <Link href="/lien-he#gui-yeu-cau">Nhận báo giá</Link>
+      </nav>
+      <div className="tl-footer-contact">
+        <h3>Liên hệ</h3>
+        <p><MapPin size={18} aria-hidden="true" /><span>Nhà máy: {address}</span></p>
+        <p><Phone size={18} aria-hidden="true" /><span>{hotlines.map((line, index) => <span key={line.tel}>{index > 0 && ', '}<a href={`tel:${line.tel}`}>{line.display}</a></span>)}</span></p>
+        <p><Mail size={18} aria-hidden="true" /><a href={`mailto:${email}`}>{email}</a></p>
+        <p><Clock size={18} aria-hidden="true" /><span>{hours}</span></p>
+        <div className="tl-footer-map"><iframe title="Bản đồ nhà máy Thành Lợi Composite" src={facts.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen /></div>
+      </div>
     </div>
-    <div className="container footer-bottom"><span>© {new Date().getFullYear()} {info?.name || 'Thành Lợi Composite'}</span><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/admin">Quản trị</Link></div>
+    <div className="container tl-footer-bottom">
+      <span>© {new Date().getFullYear()} {facts.legalName}. Mã số thuế: {facts.taxCode}. Bảo lưu mọi quyền.</span>
+      <div><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/chinh-sach-bao-hanh">Chính sách bảo hành</Link><Link href="/admin">Quản trị</Link></div>
+    </div>
   </footer>;
 }

@@ -1,29 +1,30 @@
 import { isDemoMode } from '@/lib/demo-mode';
-import Link from 'next/link';
-import { postPath } from '@/lib/post-path';
-import { ArrowUpRight, ArrowRight, Check } from 'lucide-react';
 import InquiryForm from '@/components/inquiry-form';
 import WorkshopStory from '@/components/workshop-story';
-import CinematicHero from '@/components/cinematic-hero';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import './cinematic.css';
-import ProductExplorer from '@/components/product-explorer';
-import { products, publishedPosts } from '@/lib/content';
+import ArticleReveal from '@/components/article/reveal';
+import HeroSlider from '@/components/home/hero-slider';
+import MetricsStrip from '@/components/home/metrics-strip';
+import { AboutSection, FaqSection, NewsSection, ProcessSection, ProductBento, QuoteSection, RealPhotosSection, WhySection } from '@/components/home/sections';
+import { metrics } from '@/lib/site-facts';
+import { productGroups } from '@/lib/product-groups';
+import { contact, products, publishedPosts } from '@/lib/content';
+import './home.css';
 
 export const metadata = { alternates: { canonical: '/' } };
+
 export default async function Home() {
-  const [items, posts] = await Promise.all([products(), publishedPosts(3)]);
+  const [items, posts, info] = await Promise.all([products(), publishedPosts(3), contact()]);
   return <main id="main" className="public-page home-page">
-    <CinematicHero/>
-    <section className="material-story section" id="cau-chuyen"><div className="container story-layout"><div className="story-origin"><strong>2010</strong><span>Khởi đầu tại Phú Thọ</span><Link href="/gioi-thieu" className="text-link dark">Về Thành Lợi <ArrowUpRight size={20}/></Link></div><div><h2 className="story-statement">{['Sản xuất composite', 'theo yêu cầu', 'từ năm 2010'].map(text=><span className="story-phrase" key={text}>{text} </span>)}</h2><p>Thành Lợi thiết kế và sản xuất sản phẩm composite phục vụ nông nghiệp, thủy sản, môi trường và công nghiệp. Kích thước và kết cấu được lựa chọn theo mục đích sử dụng và vị trí lắp đặt.</p></div></div></section>
-    <section className="product-section section" id="san-pham"><div className="container"><div className="section-heading"><div><h2>Sản phẩm của Thành Lợi</h2><p>Xem công dụng, hình ảnh và kích thước của từng dòng sản phẩm.</p></div><Link href="/san-pham" className="text-link dark">Tất cả sản phẩm <ArrowUpRight size={20}/></Link></div><ProductExplorer products={items}/></div></section>
-    <section className="photo-bridge" aria-labelledby="bridge-title"><div className="photo-bridge-frame"><div className="photo-bridge-visual"><img src={editorialAssets.bridge.src} alt={editorialAssets.bridge.alt} loading="lazy"/></div><div className="container photo-bridge-copy"><h2 id="bridge-title">Sản xuất theo yêu cầu lắp đặt</h2><p>Thành Lợi tư vấn kích thước, vật liệu và kết cấu bể dựa trên mục đích sử dụng, mặt bằng và điều kiện vận chuyển.</p><a className="text-link" href="#quy-cach">Xem các kích thước <ArrowRight size={20}/></a></div></div></section>
-    <section className="fit-section" id="quy-cach"><div className="container fit-grid"><div className="fit-image" data-reveal><img src={editorialAssets.fit.src} alt={editorialAssets.fit.alt} loading="lazy" width="2568" height="1926"/></div><div className="fit-copy"><h2>Chọn kích thước bể</h2><p>Chưa biết chọn bể bao nhiêu? Gửi nhu cầu sử dụng và diện tích lắp đặt để Thành Lợi tư vấn.</p><h3>Đường kính bể biogas</h3><div className="dimension-options">{['2,70','2,45','2,40','2,25','1,90'].map(size=><span key={size}>{size}<small>m</small></span>)}</div><p className="fit-fact"><Check size={21}/> Bể phốt có dung tích từ 1 m³, nhận sản xuất theo kích thước yêu cầu.</p><Link href="/lien-he" className="button button-light">Tư vấn quy cách <ArrowUpRight size={20}/></Link></div></div></section>
-    <section className="workshop-section section"><div className="container"><div className="section-heading"><div><h2>Hình ảnh sản phẩm thực tế</h2><p>Xem sản phẩm tại xưởng và khi vận chuyển.</p></div><Link href="/gioi-thieu" className="text-link dark">Về Thành Lợi <ArrowUpRight size={20}/></Link></div><WorkshopStory/></div></section>
-    {posts.length>0&&<section className="section home-news"><div className="container"><div className="section-heading"><h2>Tin tức & chia sẻ</h2><Link href="/tin-tuc" className="text-link dark">Xem bài viết <ArrowUpRight size={20}/></Link></div><div className="home-products">{posts.map(post=><article className="news-card" key={post.id}>{post.cover_id&&<img src={`/api/media/${post.cover_id}`} alt="" loading="lazy"/>}<h3><Link href={postPath(post)}>{post.title}</Link></h3><p>{post.excerpt}</p></article>)}</div></div></section>}
-    <section className="process-section"><div className="container process-grid"><div className="process-intro"><h2>Quy trình đặt hàng</h2><p>Bạn chưa cần có sẵn bản vẽ. Hãy bắt đầu bằng mục đích sử dụng, dung tích dự kiến và vị trí lắp đặt.</p><a href="#tu-van" className="button button-light">Trao đổi phương án <ArrowUpRight size={20}/></a></div><ol className="process-steps">{[['Tiếp nhận nhu cầu','Chọn dòng sản phẩm, mô tả cách sử dụng và quy cách dự kiến.'],['Khảo sát & tư vấn','Trao đổi điều kiện lắp đặt, vật liệu và phương án phù hợp.'],['Báo giá & thống nhất','Làm rõ quy cách, số lượng và nội dung thực hiện.'],['Sản xuất & kiểm tra','Thực hiện theo phương án đã thống nhất và kiểm tra sản phẩm.'],['Giao hàng & hướng dẫn','Thống nhất việc giao, lắp đặt và hướng dẫn sử dụng.']].map(([title,description])=><li key={title}><h3>{title}</h3><p>{description}</p></li>)}</ol></div></section>
-    <section className="faq-section"><div className="container faq-grid"><div><h2>Trước khi đặt hàng</h2><p>Giải đáp về kích thước, vật liệu và thông tin cần có khi đặt bể.</p></div><div>{[['Có nhận làm theo kích thước riêng?','Bể phốt có dung tích từ 1 m³ và nhận theo kích thước đặt. Với các dòng bể khác, gửi quy cách để Thành Lợi kiểm tra và tư vấn.'],['Cần chuẩn bị gì để nhận báo giá?','Loại bể, mục đích sử dụng, kích thước hoặc dung tích dự kiến và địa điểm giao hàng. Chưa có thông số? Bạn có thể bắt đầu bằng việc mô tả nhu cầu.'],['Chọn bồn chứa hóa chất như thế nào?','Cần xác nhận loại hóa chất, nồng độ, nhiệt độ sử dụng và dung tích trước khi lựa chọn vật liệu.'],['Đặt thùng vận chuyển thủy sản cần thông tin gì?','Cho biết loại xe, tải trọng, kích thước lòng thùng, loại thủy sản và quãng đường vận chuyển. Nhu cầu sục khí cũng cần được trao đổi khi tư vấn.']].map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
-    <section className="contact-section" id="tu-van"><div className="container contact-layout"><div><h2>Tư vấn sản phẩm và báo giá</h2><p>Chọn sản phẩm và để lại thông tin. Thành Lợi sẽ trao đổi quy cách trước khi báo giá.</p><img className="contact-photo" src={editorialAssets.contact.src} alt={editorialAssets.contact.alt} loading="lazy"/></div><InquiryForm demo={isDemoMode()}/></div></section>
+    <ArticleReveal />
+    <HeroSlider hotline={info.hotlines[0]} />
+    <MetricsStrip items={metrics} />
+    <AboutSection address={info.address} />
+    <WhySection />
+    <ProductBento groups={productGroups(items)} />
+    <RealPhotosSection><WorkshopStory /></RealPhotosSection>
+    <ProcessSection />
+    <FaqSection hotline={info.hotlines[0]} />
+    <NewsSection posts={posts} />
+    <QuoteSection form={<InquiryForm demo={isDemoMode()} hours={info.hours} hotlineTel={info.hotlines[0].tel} />} />
   </main>;
 }
-

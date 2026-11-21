@@ -1,47 +1,99 @@
 import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { postPath } from '@/lib/post-path';
 import { cache } from 'react';
 import { db } from '@/lib/db';
+import { products } from '@/lib/content';
 import { siteUrl, jsonLd } from '@/lib/seo';
-import RichContent from '@/components/rich-content';
 import { cleanDocument } from '@/lib/rich-text';
+import PostCard from '@/components/article/post-card';
+import ArticleEnhancer from '@/components/article/article-enhancer';
+import Reveal from '@/components/article/reveal';
+import ArticleView from '@/components/article/article-view';
+import { buildToc, kindLabel, readingMinutes, relatedProductSlug, wordCount } from '@/components/article/article-utils';
+import '@/components/article/cards.css';
 import './post-detail.css';
 
 const getPost = cache(async (slug: string, kind: string) => isDemoMode() ? undefined : (await db.query("SELECT p.*,m.alt AS cover_alt FROM posts p LEFT JOIN media_assets m ON m.id=p.cover_id WHERE p.slug=$1 AND p.status='published' AND p.published_at<=now() AND ($2='' OR p.kind=$2)", [slug, kind])).rows[0]);
 type Props = { slug: string; kind?: 'article' | 'project' };
+type Neighbour = { id: string; title: string; slug: string; kind: string; cover_id: string | null };
 
-export async function postMetadata({ slug, kind }: Props) {
+export async function postMetadata({ slug, kind }: Props): Promise<Metadata> {
   const post = await getPost(slug, kind === 'project' ? 'project' : '');
   if (!post) return { title: 'Không tìm thấy bài viết', robots: { index: false, follow: false } };
-  return { title: post.seo_title || post.title, description: post.seo_description || post.excerpt, alternates: { canonical: postPath(post) }, openGraph: { type: 'article', locale: 'vi_VN', title: post.seo_title || post.title, description: post.seo_description || post.excerpt, url: siteUrl(postPath(post)), publishedTime: new Date(post.published_at).toISOString(), modifiedTime: new Date(post.updated_at).toISOString(), images: post.cover_id ? [{ url: siteUrl(`/api/media/${post.cover_id}`), alt: post.cover_alt || post.title }] : [] } };
+  const title = post.seo_title || post.title;
+  const description = post.seo_description || post.excerpt;
+  const images = post.cover_id ? [{ url: siteUrl(`/api/media/${post.cover_id}`), alt: post.cover_alt || post.title }] : [];
+  return {
+    title, description,
+    alternates: { canonical: postPath(post) },
+    openGraph: { type: 'article', locale: 'vi_VN', siteName: 'Thành Lợi Composite', title, description, url: siteUrl(postPath(post)), section: kindLabel(post.kind), publishedTime: new Date(post.published_at).toISOString(), modifiedTime: new Date(post.updated_at).toISOString(), images },
+    twitter: { card: images.length ? 'summary_large_image' : 'summary', title, description, images: images.map(image => image.url) },
+  };
+}
+
+function NeighbourLink({ post, direction }: { post: Neighbour; direction: 'prev' | 'next' }) {
+  return <Link href={postPath(post)} className={`art-neighbour is-${direction} pressable`}>
+    <span className="art-neighbour-label">{direction === 'prev' ? <><ArrowLeft size={18} aria-hidden="true" />Bài trước</> : <>Bài sau<ArrowRight size={18} aria-hidden="true" /></>}</span>
+    <span className="art-neighbour-title">{post.title}</span>
+  </Link>;
 }
 
 export default async function PostDetail({ slug, kind = 'article' }: Props) {
   const post = await getPost(slug, kind === 'project' ? 'project' : '');
   if (!post) notFound();
   if (kind === 'article' && post.kind === 'project') permanentRedirect(postPath(post));
-  const related = (await db.query("SELECT id,title,slug,excerpt,kind,cover_id FROM posts WHERE id<>$1 AND status='published' AND published_at<=now() ORDER BY (kind=$2) DESC,published_at DESC,id DESC LIMIT 3", [post.id, post.kind])).rows;
-  const schema = { '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: new Date(post.published_at).toISOString(), dateModified: new Date(post.updated_at).toISOString(), inLanguage: 'vi', author: { '@type': 'Organization', name: 'Thành Lợi Composite' }, publisher: { '@type': 'Organization', name: 'Thành Lợi Composite' }, mainEntityOfPage: siteUrl(postPath(post)), ...(post.cover_id ? { image: siteUrl(`/api/media/${post.cover_id}`) } : {}) };
-  return <main id="main" className="public-page editorial-page">
-    <article>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
-      <header className="editorial-heading"><div className="container">
-      <nav className="breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><Link href={post.kind === 'project' ? '/du-an' : '/tin-tuc'}>{post.kind === 'project' ? 'Dự án' : 'Tin tức'}</Link></nav>
-      <div className={post.cover_id ? 'editorial-intro has-photo' : 'editorial-intro'}><div>
-      <h1>{post.title}</h1><div className="article-meta"><Link href={post.kind === 'project' ? '/du-an' : '/tin-tuc?kind=article'}>{post.kind === 'project' ? 'Công trình thực tế' : 'Kiến thức sản phẩm'}</Link><time dateTime={new Date(post.published_at).toISOString()}>{new Date(post.published_at).toLocaleDateString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'})}</time></div>
-      {post.excerpt && <p className="article-excerpt">{post.excerpt}</p>}
-      </div>{post.cover_id && <figure className="editorial-cover"><img className="article-cover" src={`/api/media/${post.cover_id}`} alt={post.cover_alt || post.title}/></figure>}</div>
-      </div></header>
-      <div className="container reading editorial-body">
-      <RichContent document={cleanDocument(post.content)}/>
-      <div className="article-cta"><h2>Chọn sản phẩm cho nhu cầu của bạn</h2><p>Trao đổi mục đích sử dụng và quy cách dự kiến với Thành Lợi.</p><div className="editorial-actions"><Link href="/lien-he#gui-yeu-cau" className="button">Tư vấn & báo giá</Link><Link href="/san-pham" className="text-link dark">Xem sản phẩm</Link></div></div>
-      </div>
-    </article>
-    {related.length > 0 && <section className="section container editorial-related"><h2>Bài viết liên quan</h2><div className="news-list">{related.map(item => <article className="news-card" key={item.id}>
-      {item.cover_id && <Link href={postPath(item)} tabIndex={-1} aria-hidden="true"><img src={`/api/media/${item.cover_id}`} alt="" loading="lazy"/></Link>}
-      <div><h3><Link href={postPath(item)}>{item.title}</Link></h3>{item.excerpt && <p>{item.excerpt}</p>}</div>
-    </article>)}</div></section>}
-  </main>;
+  const isProject = post.kind === 'project';
+  const document = cleanDocument(post.content);
+  const toc = buildToc(document);
+  const minutes = readingMinutes(document);
+  const publishedAt = new Date(post.published_at);
+  const updatedAt = new Date(post.updated_at);
+  const path = postPath(post);
+  const url = siteUrl(path);
+  const [relatedResult, previous, next, catalogue] = await Promise.all([
+    db.query<Neighbour & { excerpt: string; published_at: Date }>("SELECT id,title,slug,excerpt,kind,cover_id,published_at FROM posts WHERE id<>$1 AND status='published' AND published_at<=now() ORDER BY (kind=$2) DESC,published_at DESC,id DESC LIMIT 3", [post.id, post.kind]),
+    db.query<Neighbour>("SELECT id,title,slug,kind,cover_id FROM posts WHERE status='published' AND published_at<=now() AND kind=$1 AND (published_at,id)<($2::timestamptz,$3::uuid) ORDER BY published_at DESC,id DESC LIMIT 1", [post.kind, post.published_at, post.id]),
+    db.query<Neighbour>("SELECT id,title,slug,kind,cover_id FROM posts WHERE status='published' AND published_at<=now() AND kind=$1 AND (published_at,id)>($2::timestamptz,$3::uuid) ORDER BY published_at ASC,id ASC LIMIT 1", [post.kind, post.published_at, post.id]),
+    products(),
+  ]);
+  const related = relatedResult.rows;
+  const productSlug = relatedProductSlug(post.title, post.excerpt ?? '', catalogue.map(item => item.slug));
+  const product = productSlug ? catalogue.find(item => item.slug === productSlug) : undefined;
+  const listPath = isProject ? '/du-an' : '/tin-tuc';
+  const listLabel = isProject ? 'Dự án' : 'Tin tức';
+  const cover = post.cover_id ? `/api/media/${post.cover_id}` : null;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'Article', '@id': `${url}#article`, headline: post.title, description: post.excerpt, datePublished: publishedAt.toISOString(), dateModified: updatedAt.toISOString(), inLanguage: 'vi', articleSection: kindLabel(post.kind), wordCount: wordCount(document), timeRequired: `PT${minutes}M`, author: { '@type': 'Organization', name: 'Thành Lợi Composite' }, publisher: { '@type': 'Organization', name: 'Thành Lợi Composite' }, mainEntityOfPage: { '@type': 'WebPage', '@id': url }, ...(cover ? { image: [siteUrl(cover)] } : {}) },
+      { '@type': 'BreadcrumbList', '@id': `${url}#breadcrumb`, itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: siteUrl('/') },
+        { '@type': 'ListItem', position: 2, name: listLabel, item: siteUrl(listPath) },
+        { '@type': 'ListItem', position: 3, name: post.title, item: url },
+      ] },
+    ],
+  };
+
+  return <ArticleView
+    title={post.title} excerpt={post.excerpt} kind={isProject ? 'project' : 'article'} document={document} cover={cover} coverAlt={post.cover_alt}
+    publishedAt={publishedAt} updatedAt={updatedAt} url={url} product={product ?? null}
+    top={<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />}
+  >
+    {(previous.rows[0] || next.rows[0]) && <nav className="container art-neighbours" aria-label="Bài trước và bài sau" data-art-reveal>
+      {previous.rows[0] ? <NeighbourLink post={previous.rows[0]} direction="prev" /> : <span />}
+      {next.rows[0] ? <NeighbourLink post={next.rows[0]} direction="next" /> : <span />}
+    </nav>}
+
+    {related.length > 0 && <section className="art-related" aria-labelledby="art-related-title"><div className="container">
+      <h2 id="art-related-title">Bài viết liên quan</h2>
+      <div className="art-related-grid">{related.map((item, index) => <PostCard key={item.id} post={item} index={index} />)}</div>
+    </div></section>}
+
+    <ArticleEnhancer />
+    <Reveal />
+  </ArticleView>;
 }

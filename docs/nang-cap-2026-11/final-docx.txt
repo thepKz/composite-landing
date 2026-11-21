@@ -1,0 +1,415 @@
+
+HỒ SƠ NỘI DUNG WEBSITE TOÀN DIỆN (BẢN FINAL V2)
+CÔNG TY CỔ PHẦN THÀNH LỢI COMPOSITE
+Tối ưu chuyển đổi bán hàng: Bể Biogas • Bể Phốt Composite • Bể Cá Composite
+MST: 2600665401 | Nhà máy: Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ | Hotline: 0964.444.2626 | 0943.924.816
+ | 1. CẤU TRÚC TỔNG THỂ WEBSITE
+Menu chính: Trang chủ | Giới thiệu | Sản phẩm | Dự án | Tin tức | Liên hệ
+Menu Sản phẩm (xổ xuống 7 nhóm – Ưu tiên 3 dòng sản phẩm mũi nhọn lên đầu): 
+• 1. Bể Biogas composite (Sản phẩm mũi nhọn số 1)
+• 2. Bể phốt, bể xử lý nước thải composite (Sản phẩm mũi nhọn số 2)
+• 3. Bể nuôi trồng thủy sản và bể cá Koi composite (Sản phẩm mũi nhọn số 3)
+• 4. Bồn chứa hóa chất composite công nghiệp
+• 5. Thùng chở thủy hải sản sống cho xe tải, xe bán tải
+• 6. Thùng rác và xe gom rác thải sinh hoạt
+• 7. Sản phẩm composite theo yêu cầu (OEM / ODM)
+Thanh trên cùng (Top bar): Hotline: 0964.444.2626 | 0943.924.816 | Email: info@thanhloicomposite.com | Địa chỉ: Khu Tiên Sơn, Tiên Lương, Phú Thọ.
+Nút cố định trên mọi trang (Floating CTA): Gọi ngay | Chat Zalo | Chọn Quy Mô & Báo Giá (Đặt ở góc phải dưới màn hình, tối ưu hiển thị trên di động vì phần lớn khách hàng tìm kiếm và gọi trực tiếp từ điện thoại).
+Nút nổi bật trên thanh Menu: “Nhận báo giá” (Màu cam nổi bật trên nền xanh công nghiệp).
+2. TRANG CHỦ (HOMEPAGE)
+Trang chủ được thiết kế theo luồng thuyết phục khách hàng B2B & B2C: Giới thiệu giải pháp → Chứng minh năng lực → Trình bày sản phẩm chủ lực (Tập trung Bể Biogas, Bể Phốt, Bể Cá) → Quy trình & Cam kết → Biểu mẫu chọn quy mô & Báo giá nhanh.
+2.1. Banner đầu trang (3 Slide chuyển động)
+Slide 1 - Tổng quan thương hiệu & Sản phẩm chủ lực: Tiêu đề: Thành Lợi Composite – Giải pháp composite bền vững cho môi trường và sản xuất”. Phụ đề: Chuyên sản xuất bể biogas, bể phốt, bể xử lý nước thải, bồn chứa hóa chất, bể nuôi thủy sản, thùng chở hải sản sống, thùng rác và các sản phẩm composite theo yêu cầu. Chống ăn mòn, không gỉ, không rò rỉ, tuổi thọ trên 20 năm. Nút: [Tư vấn miễn phí] [Xem danh mục sản phẩm] [Gọi 0964.444.2626|0943924816].”
+Slide 2 - Giải pháp Bể Biogas & Bể Phốt Composite: Tiêu đề: “Bể Biogas & Bể Phốt Composite liền khối – Kín khí 100%, Lắp đặt trong 1 ngày”. Phụ đề: Giải pháp xử lý chất thải tối ưu cho nông hộ, trang trại chăn nuôi, nhà ở gia đình, nhà trọ, khách sạn và khu công nghiệp.
+Slide 3 - Giải pháp Bể Nuôi Thủy Sản, Hồ Cá Koi & Vận Tải: Tiêu đề: “Bể Nuôi Thủy Sản Đáy Phễu, Bể Cá Koi & Thùng Chở Hải Sản Sống”. Phụ đề: Bề mặt Gelcoat láng bóng an toàn sinh học, thu cặn tự động, dễ vệ sinh, thiết kế đa dạng quy mô từ sân vườn gia đình đến trại nuôi RAS.	
+Ghi chú hình ảnh: Sử dụng ảnh thật chụp tại xưởng sản xuất Phú Thọ, ảnh hạ bể Biogas, bể phốt tại công trình và dàn bể cá composite thực tế để tạo niềm tin.
+2.2. Dải số liệu nổi bật (Key Metrics)
+Con số ấn tượng
+ | Nội dung thuyết phục
+ | Hơn 15 năm
+ | Kinh nghiệm sản xuất và gia công Composite FRP (từ năm 2010)
+ | 100+ Dự án
+ | Công trình, trang trại và dự án lớn nhỏ đã bàn giao và vận hành ổn định
+ | 25+ Tỉnh/thành
+ | Mạng lưới khách hàng, đại lý, trang trại và nhà máy trên toàn quốc
+ | Đến 10 năm
+ | Chính sách bảo hành chính hãng theo từng dòng sản phẩm
+ | Trên 30 năm
+ | Tuổi thọ sử dụng thiết kế trong điều kiện tiêu chuẩn
+ | 
+2.3. Giới thiệu ngắn trên Trang chủ
+Tiêu đề: Về Thành Lợi Composite
+Công ty Cổ phần Thành Lợi Composite thành lập từ năm 2010, đặt nhà máy sản xuất tại Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ. Chúng tôi chuyên thiết kế, sản xuất và cung cấp trọn gói các sản phẩm từ vật liệu nhựa cốt sợi thủy tinh (Composite FRP) phục vụ chăn nuôi, thủy sản, xử lý môi trường, công nghiệp hóa chất, vệ sinh đô thị và dân dụng.
+Từ các dòng bể Biogas chăn nuôi, bể phốt gia đình, bể cá Koi – thủy sản cho đến hệ thống xử lý nước thải và bồn chứa hóa chất công nghiệp, mỗi sản phẩm đều được kỹ sư tính toán kết cấu, lựa chọn dòng nhựa nền phù hợp và kiểm định độ kín nghiêm ngặt trước khi bàn giao. Phương châm hoạt động của chúng tôi: Đúng yêu cầu – Đúng tiến độ – Bền vững theo thời gian. [Nút: Tìm hiểu thêm về chúng tôi]
+2.4. Vì sao chọn vật liệu Composite FRP và chọn Thành Lợi?
+Tiêu chí so sánh
+ | Composite FRP Thành Lợi
+ | Bể xi măng, xây gạch
+ | Bồn thép / Kim loại
+ | Chống ăn mòn
+ | Tuyệt vời, chọn nhựa nền theo môi trường axit/kiềm/mặn
+ | Dễ bị axit hữu cơ và nước thải bào mòn, mục vữa
+ | Dễ rỉ sét, ăn mòn nhanh tại mối hàn và bề mặt
+ | Trọng lượng
+ | Nhẹ, dễ vận chuyển đến vùng sâu, vùng đồi núi
+ | Rất nặng, tốn chi phí gia cố móng và xây dựng
+ | Nặng, cần thiết bị nâng hạ lớn
+ | Độ kín, chống thấm
+ | Đúc liền khối, kín khí và chống thấm 100%
+ | Dễ nứt ngầm, thấm rò do lún lệch địa chất
+ | Phụ thuộc chất lượng mối hàn và lớp sơn phủ
+ | Thời gian thi công
+ | Lắp đặt siêu tốc trong 1–2 ngày, dùng ngay
+ | Lâu (hàng tuần đến hàng tháng), phụ thuộc thời tiết
+ | Trung bình
+ | Chi phí bảo trì
+ | Rất thấp, không cần sơn phủ chống gỉ định kỳ
+ | Tốn kém khi phải đào lên chống thấm, trát lại
+ | Phải sơn chống gỉ và kiểm tra ăn mòn định kỳ
+ | Hình dạng, kích thước
+ | Linh hoạt tối đa theo bản vẽ và mặt bằng thực tế
+ | Cố định, không thể di dời khi đổi mặt bằng
+ | Hạn chế về kiểu dáng uốn lượn
+ | 
+4 Lý do khách hàng tin chọn Thành Lợi Composite:
+1. Vật liệu chính phẩm chất lượng cao: 100% nhựa nền Polyester / Vinyl Ester kết hợp sợi thủy tinh gia cường nhập khẩu, kháng ăn mòn hóa học, chịu lực cơ học vượt trội, không pha tạp chất.
+2. Độ bền thách thức thời gian: Chính sách bảo hành dài hạn lên đến 10 năm tùy dòng sản phẩm, tuổi thọ thiết kế trên 30 năm.
+3. Đầy đủ quy mô cho mọi đối tượng: Có sẵn giải pháp từ hộ gia đình nhỏ lẻ, nhà hàng, trang trại vừa đến các dự án công nghiệp lớn.
+4. Dịch vụ kỹ thuật trọn gói: Tư vấn chọn đúng dung tích – Thiết kế – Sản xuất – Vận chuyển – Lắp đặt tận nơi – Bảo hành chu đáo toàn quốc.
+2.5. Lưới Sản phẩm chủ lực (Hiển thị trên Trang chủ)
+Nhóm sản phẩm
+ | Mô tả tóm tắt & Quy mô phục vụ (Hiển thị trên thẻ sản phẩm)
+ | 1. Bể Biogas composite (Mũi nhọn)
+ | Đầy đủ dung tích 1,5 m³ – 13 m³+ cho hộ nuôi 5 con lợn đến trang trại 1.000 con. Kín khí 100%, sinh gas mạnh, tự đẩy bã.
+ | 2. Bể phốt & Bể xử lý nước thải (Mũi nhọn)
+ | Dung tích từ 1 m³ (hộ gia đình 3–6 người) đến 100 m³+ (nhà trọ, khách sạn, trường học, nhà máy KCN). Chống thấm tuyệt đối.
+ | 3. Bể cá Koi & Bể nuôi thủy sản (Mũi nhọn)
+ | Hồ cá Koi tích hợp vách lọc sân vườn, bể trữ hải sản nhà hàng, bể tròn đáy phễu ươm giống & nuôi tôm cá RAS công nghệ cao.
+ | 4. Bồn chứa hóa chất công nghiệp
+ | Kháng axit, kiềm, muối và dung dịch ăn mòn ở nhiệt độ cao; an toàn tuyệt đối cho nhà máy sản xuất và xử lý nước.
+ | 5. Thùng chở thủy hải sản sống
+ | Kết cấu 3 lớp bảo ôn PU Foam, vách chắn sóng, lắp vừa khít xe bán tải và xe tải từ 500kg đến 15 tấn.
+ | 6. Thùng rác & Xe gom rác
+ | Dung tích 60L – 240L và xe gom 400L – 1000L chống cháy, không mục gỉ cho đô thị, khu công nghiệp, trường học.
+ | 7. Sản phẩm composite theo yêu cầu
+ | Gia công theo bản vẽ CAD/ý tưởng: bọc phủ FRP chống thấm, tháp xử lý khí thải, vỏ thiết bị, bể bơi...
+ | 
+2.6. Quy trình làm việc 5 bước & Cam kết dịch vụ
+Bước 1 - Tiếp nhận nhu cầu: Khách hàng chọn quy mô sử dụng trên website hoặc liên hệ qua Hotline 0964.444.2626 | 0943.924.816 / Zalo.
+Bước 2 - Tư vấn chọn đúng dung tích & Kết cấu: Kỹ sư dựa trên số lượng vật nuôi (với bể Biogas), số người sử dụng (với bể Phốt) hoặc diện tích mặt bằng (với bể Cá) để chốt phương án tối ưu và tiết kiệm nhất.
+Bước 3 - Báo giá & Ký hợp đồng: Gửi báo giá chi tiết, minh bạch trong vòng 1–24 giờ; thống nhất bản vẽ và tiến độ bàn giao.
+Bước 4 - Sản xuất & Kiểm định QC: Gia công tại nhà máy Phú Thọ; kiểm tra nghiêm ngặt độ dày, độ cứng, mối nối và thử kín trước khi xuất xưởng.
+Bước 5 - Vận chuyển, Lắp đặt & Bảo hành: Giao hàng toàn quốc, hướng dẫn hoặc trực tiếp lắp đặt tại công trình và đồng hành bảo hành dài hạn.
+3. TRANG GIỚI THIỆU CÔNG TY (BẢN MỞ RỘNG CHUYÊN SÂU)
+Tiêu đề chính: Thành Lợi Composite – Tiên phong giải pháp vật liệu Composite FRP bền vững cho Môi trường, Nông nghiệp và Công nghiệp
+3.1. Câu chuyện thương hiệu & Hành trình phát triển
+Được thành lập từ năm 2010 tại Phú Thọ – cửa ngõ vùng Trung du và miền núi phía Bắc, Công ty Cổ phần Thành Lợi Composite (MST: 2600665401) khởi đầu với trăn trở tìm kiếm một loại vật liệu mới có thể khắc phục hoàn toàn nhược điểm nứt vỡ, thấm rò của bê tông xây gạch và sự ăn mòn, gỉ sét nhanh chóng của kim loại trong môi trường khắc nghiệt.
+Trải qua hơn 15 năm nghiên cứu, chuẩn hóa quy trình và mở rộng quy mô sản xuất tại Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ, Thành Lợi Composite đã vươn lên trở thành một trong những đơn vị sản xuất và cung ứng sản phẩm nhựa cốt sợi thủy tinh (Composite FRP) uy tín hàng đầu. Sản phẩm của chúng tôi hiện diện tại hơn 25 tỉnh thành, từ các nông hộ, trang trại chăn nuôi quy mô lớn, các vùng nuôi trồng thủy sản công nghệ cao cho đến các hộ gia đình, nhà máy hóa chất, khu công nghiệp và dự án vệ sinh môi trường đô thị trên toàn quốc.
+Tại Thành Lợi, chúng tôi không bán những sản phẩm đúc sẵn đại trà thiếu tính toán. Mỗi chiếc bể Biogas, bể phốt tự hoại, bể cá hay bồn công nghiệp xuất xưởng đều là kết quả của quá trình khảo sát thực tế, tính toán độ dày kết cấu, lựa chọn dòng nhựa nền (Polyester hoặc Vinyl Ester) phù hợp với đặc thù chịu lực, chịu nhiệt và mức độ ăn mòn riêng biệt của từng khách hàng.
+3.2. Tầm nhìn – Sứ mệnh – Giá trị cốt lõi
+Tầm nhìn: Trở thành thương hiệu sản xuất và gia công Composite FRP được tin dùng hàng đầu tại Việt Nam, tiên phong thúc đẩy ứng dụng vật liệu bền vững trong bảo vệ môi trường, nông nghiệp tuần hoàn và công nghiệp hiện đại.
+Sứ mệnh: Cung cấp các giải pháp thiết bị Composite có độ bền vượt trội (trên 30 năm), an toàn tuyệt đối và tối ưu chi phí đầu tư dài hạn; đồng hành kỹ thuật trọn đời cùng khách hàng từ khâu khảo sát, thiết kế đến lắp đặt và bảo hành.
+Giá trị cốt lõi: 
+  • Chữ Tín làm gốc: Cam kết đúng độ dày vật liệu, đúng chủng loại nhựa, đúng dung tích và đúng tiến độ bàn giao đã thỏa thuận.
+  • Chất lượng làm nền tảng: Tuyệt đối không pha trộn tạp chất làm giảm cơ tính sản phẩm; kiểm định độ kín nước, kín khí 100% trước khi xuất xưởng.
+  • Tận tâm phục vụ: Tư vấn đúng và đủ theo quy mô sử dụng thực tế để tiết kiệm chi phí cho khách hàng; hỗ trợ kỹ thuật nhanh chóng 24/7 trên mọi miền tổ quốc.
+  • Đổi mới & Sáng tạo: Liên tục cải tiến khuôn mẫu, ứng dụng công nghệ gia công mới giúp sản phẩm có bề mặt thẩm mỹ cao, chịu lực tối ưu và dễ dàng vận chuyển, lắp đặt.
+3.3. Năng lực sản xuất & Thế mạnh công nghệ
+Nhà máy sản xuất quy mô: Đặt tại Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ với mặt bằng xưởng rộng rãi, phân khu chức năng rõ ràng: Khu chế tạo khuôn mẫu, Khu gia công đắp tay (Hand Lay-up) & phun sợi, Khu quấn sợi (Filament Winding) bồn công nghiệp, Khu hoàn thiện bề mặt và Khu kiểm định chất lượng (QC).
+Nguyên vật liệu tuyển chọn: Sử dụng 100% nhựa nền chính phẩm (Unsaturated Polyester Resin, Isophthalic, Vinyl Ester Resin) kết hợp sợi thủy tinh gia cường (Glass Fiber Mat, Woven Roving) nhập khẩu từ các thương hiệu uy tín, kháng tia UV, kháng axit – kiềm và chịu lực cơ học vượt trội.
+Quy trình Kiểm soát Chất lượng (QC) 4 bước nghiêm ngặt: 1. Kiểm tra nguyên liệu đầu vào → 2. Giám sát độ dày từng lớp lót chống thấm (Liner) và lớp kết cấu chịu lực (Structural Layer) → 3. Kiểm tra kích thước hình học, độ cứng Barcol và thử kín nước/kín khí sau khi tháo khuôn → 4. Nghiệm thu thực tế tại chân công trình cùng chủ đầu tư.
+4. NỘI DUNG CHI TIẾT 7 NHÓM SẢN PHẨM & BẢNG QUY MÔ ĐỐI TƯỢNG SỬ DỤNG
+4.1. Cấu trúc chung của Trang danh mục & Trang chi tiết sản phẩm
+Bố cục trang chi tiết sản phẩm tối ưu chuyển đổi: 1. Bộ ảnh thực tế & Video lắp đặt → 2. Tên, mô tả tổng quan & Nút chọn nhanh Quy mô sử dụng → 3. Bảng tư vấn chọn dung tích theo quy mô đối tượng sử dụng → 4. Đặc điểm cấu tạo & Ưu điểm vượt trội → 5. Hướng dẫn thông tin cần cung cấp khi đặt hàng → 6. Biểu mẫu Đặt hàng & Nhận báo giá thông minh ngay tại trang.
+4.2. Nhóm 1 : Bể Biogas Composite – Phân Loại Theo Quy Mô Chăn Nuôi
+Mô tả tổng quan: Bể Biogas Composite Thành Lợi là giải pháp xử lý chất thải chăn nuôi thế hệ mới, thay thế hoàn toàn hầm xây gạch truyền thống và túi ủ bạt nhựa. Sản phẩm được đúc từ vật liệu nhựa Composite FRP đa lớp có khả năng kín khí tuyệt đối, tự động đẩy bã thải và sinh khí gas nhanh, giúp các nông hộ và trang trại giải quyết triệt để bài toán ô nhiễm mùi hôi, bảo vệ nguồn nước ngầm, đồng thời thu hồi nguồn khí đốt sạch phục vụ đun nấu, thắp sáng, sưởi ấm vật nuôi và chạy máy phát điện.
+A. Đặc điểm cấu tạo & Ưu điểm vượt trội so với hầm xây gạch:
+Cấu tạo hình cầu chân đế vững chắc & Vật liệu đa lớp: Thiết kế hình cầu phân bổ áp suất khí gas đồng đều, tự động phá váng, không có góc chết đọng cặn. Lớp trong phủ Gelcoat và nhựa kháng axit hữu cơ/khí H2S; lớp ngoài đan xen sợi thủy tinh Mat và Roving chịu áp lực đất đè và nước ngầm cao.
+Kín khí 100% & Sinh khí cao hơn 30%: Đúc liền khối, không nứt ngầm hay rò khí khi sụt lún đất; giữ nhiệt tốt giúp vi sinh kỵ khí hoạt động mạnh ngay cả trong mùa đông miền Bắc.
+Tự động đẩy bã & Lắp đặt siêu tốc trong 1 buổi: Áp suất khí tự nhiên đẩy bã phân hủy ra hố chứa làm phân bón hữu cơ mà không cần hút bể thủ công. Hạ bể và vận hành ngay trong 1 buổi, có thể đào lên di dời khi đổi vị trí chuồng trại.
+B. Bảng tư vấn chọn dung tích Bể Biogas theo quy mô đàn & đối tượng sử dụng:
+Khách hàng chỉ cần đối chiếu số lượng vật nuôi thực tế trong chuồng để chọn đúng mã bể Biogas phù hợp:
+Mã sản phẩm
+ | Đường kính / Dung tích
+ | Quy mô đàn vật nuôi tương đương
+ | Đối tượng sử dụng phù hợp
+ | Khả năng cung cấp khí Gas & Bảo hành
+ | TLC-BIO-1.5
+ | Ф 1,50 m (1,5 m³)
+ | 5 – 10 con lợn (hoặc 1 – 2 con trâu/bò)
+ | Hộ chăn nuôi nhỏ lẻ tận dụng thức ăn thừa kết hợp xử lý vệ sinh gia đình
+ | Đun nấu sinh hoạt cho gia đình 2 – 4 người. Bảo hành 10 năm
+ | TLC-BIO-2.25
+ | Ф 2,25 m (6,0 m³)
+ | 15 – 30 con lợn (hoặc 3 – 5 con bò; 200 – 300 gà/vịt)
+ | Nông hộ chăn nuôi bán chuyên tại nông thôn, vùng trung du, miền núi
+ | Đun nấu thoải mái cho gia đình 4 – 6 người + nấu cám chăn nuôi. Bảo hành 10 năm
+ | TLC-BIO-2.40
+ | Ф 2,40 m (7,2 m³)
+ | 30 – 50 con lợn (hoặc 5 – 8 con bò; 300 – 500 gia cầm)
+ | Gia trại chăn nuôi quy mô vừa, hộ nuôi lợn nái kết hợp lợn thịt thương phẩm
+ | Đun nấu, thắp sáng, sưởi ấm úm heo con/gà con mùa đông. Bảo hành 10 năm
+ | TLC-BIO-2.60
+ | Ф 2,60 m (9,2 m³)
+ | 50 – 80 con lợn (hoặc 8 – 12 con bò)
+ | Trang trại chăn nuôi tập trung quy mô vừa, hợp tác xã nông nghiệp
+ | Cung cấp khí đốt cho 2 – 3 hộ dùng chung hoặc máy phát điện nhỏ. Bảo hành 10 năm
+ | TLC-BIO-3.00
+ | Ф 2,9 – 3,0 m (10 – 13 m³)
+ | 80 – 120 con lợn/bể (Ghép nối tiếp 2 – 10 bể cho trại 200 – 1.000+ con)
+ | Trang trại chăn nuôi công nghiệp quy mô lớn, dự án nông nghiệp sạch
+ | Xử lý triệt để mùi hôi trang trại lớn, chạy máy phát điện Biogas. Bảo hành 10 năm
+ | 
+C. Phụ kiện tặng kèm & Thông tin cần cung cấp khi đặt hàng Bể Biogas:
+Bộ phụ kiện đồng bộ đi kèm: Bộ ống dẫn khí PVC/PE chuyên dụng, van khóa tổng, đồng hồ đo áp suất khí, bầu lọc khí khử mùi độc H2S, bếp gas đôi Biogas chuyên dụng.
+3 thông tin khách hàng cần cung cấp khi đặt hàng: (1) Loại vật nuôi & Số lượng hiện tại / dự kiến tăng đàn; (2) Đặc điểm mặt bằng hạ bể (đất vườn khô, đất ruộng trũng có nước ngầm hay đất đồi đá); (3) Khoảng cách từ chuồng nuôi đến vị trí đặt bể và bếp đun để tính chiều dài dây dẫn khí.
+4.3. Nhóm 2: Bể Phốt & Bể Xử Lý Nước Thải Composite – Phân Loại Theo Số Người & Công Trình
+Mô tả tổng quan: Bể phốt tự hoại 3 ngăn cải tiến và Hệ thống xử lý nước thải hợp khối (Module AAO, AO, MBBR, Jokaso) bằng vật liệu Composite FRP của Thành Lợi là giải pháp xử lý nước thải sinh hoạt và công nghiệp hiện đại. Sản phẩm thay thế hoàn toàn bể xây gạch truyền thống, rút ngắn 80% thời gian thi công, chống thấm tuyệt đối 100%. 
+A. Cấu tạo kỹ thuật & Ưu điểm vượt trội:
+Bể phốt tự hoại 3 ngăn lọc kỵ khí thông minh: Gồm Ngăn chứa – Ngăn lắng – Ngăn lọc sinh học kỵ khí có tích hợp quả cầu giá thể vi sinh giúp phân hủy chất hữu cơ triệt để, giảm 80–90% mùi hôi, không lo tắc nghẽn và kéo dài chu kỳ hút bùn lên đến 5–10 năm.
+Thân bể liền khối có gân tăng cứng chịu lực chôn ngầm: Chịu được áp lực đất đè và sự lún lệch móng công trình mà không bị nứt ngầm hay rò rỉ nước bẩn ra mạch nước ngầm; kháng ăn mòn vĩnh viễn trước khí H2S và hóa chất tẩy rửa.
+B. Bảng phân loại quy mô Bể Phốt Composite từ Hộ gia đình đến Khu công nghiệp:
+Bảng tra cứu nhanh dung tích bể phốt và hệ thống xử lý nước thải theo số người sử dụng hoặc quy mô công trình:
+Phân khúc quy mô
+ | Dung tích bể tiêu chuẩn
+ | Số người sử dụng / Quy mô công trình
+ | Đối tượng khách hàng mục tiêu
+ | Kiểu dáng & Giải pháp lắp đặt
+ | 1. Quy mô Gia đình nhỏ
+ | 1,0 m³ – 1,5 m³
+ | 3 – 6 người (Nhà có 1 – 2 phòng vệ sinh WC)
+ | Nhà phố diện tích nhỏ, nhà cấp 4 nông thôn, nhà vườn, homestay mini
+ | Bể cầu hoặc trụ nằm ngang; chôn gọn dưới gầm cầu thang, sân trước hoặc sau nhà
+ | 2. Quy mô Gia đình lớn / Biệt thự
+ | 2,0 m³ – 3,0 m³
+ | 7 – 15 người (Nhà có 3 – 5 phòng vệ sinh WC)
+ | Biệt thự sân vườn, nhà ống nhiều tầng, nhà ở kết hợp kinh doanh/cho thuê
+ | Bể trụ nằm ngang 3 ngăn kỵ khí có gân gia cường chịu lực đất đè
+ | 3. Quy mô Kinh doanh Dịch vụ
+ | 4,0 m³ – 10 m³
+ | 15 – 50 người (Hoặc khu nhà trọ 10 – 25 phòng)
+ | Dãy nhà trọ công nhân/sinh viên, nhà hàng ăn uống, quán cafe, khách sạn mini, văn phòng
+ | Bể trụ nằm dung tích lớn, tích hợp ngăn lọc vi sinh mật độ cao chống tắc nghẽn
+ | 4. Quy mô Công cộng & Đô thị
+ | 12 m³ – 30 m³
+ | 50 – 200 người sử dụng thường xuyên
+ | Trường học các cấp, bệnh viện/phòng khám, chung cư mini, trụ sở cơ quan, chợ
+ | Hệ thống bể tự hoại cải tiến Bastian hoặc Module xử lý nước thải hợp khối
+ | 5. Quy mô Công nghiệp & Dự án
+ | 35 m³ – 100 m³+ (Hoặc ghép Module)
+ | 200 – 1.000+ công nhân (Lưu lượng 10 – 500 m³/ngày.đêm)
+ | Nhà máy trong KCN, khu chế xuất, khu đô thị mới, khu nghỉ dưỡng Resort, trạm dừng nghỉ
+ | Hệ thống Module xử lý nước thải AAO/MBBR hợp khối đạt chuẩn QCVN 14 & QCVN 40
+ | 
+C. Thông tin cần cung cấp khi đặt hàng Bể Phốt / Bể Xử Lý Nước Thải:
+1. Loại công trình & Số người sử dụng tối đa: Ví dụ: Nhà dân 5 người, nhà trọ 15 phòng hay nhà xưởng 150 công nhân.
+2. Vị trí hạ bể thực tế: Chôn dưới nền nhà, dưới sân vườn người đi bộ hay dưới đường nội bộ có xe ô tô tải chạy qua (để kỹ sư tính toán độ dày thành bể từ 5 mm – 18 mm và hướng dẫn đổ tấm đan bê tông bảo vệ mặt bể).
+3. Đường kính ống thoát chờ sẵn: Cung cấp kích thước ống vào/ra (Ф90, Ф110, Ф140, Ф160...) để nhà máy đúc sẵn cổ nối chuẩn xác.
+4.4. Nhóm 3 (Sản Phẩm Mũi Nhọn 3): Bể Cá Composite (Bể Thủy Sản & Hồ Cá Koi) – Phân Loại Theo Mục Đích Nuôi
+Mô tả tổng quan: Đáp ứng nhu cầu từ chơi cá cảnh sân vườn, lưu trữ hải sản tươi sống nhà hàng cho đến nuôi trồng thủy sản thâm canh công nghệ cao (RAS), Thành Lợi Composite thiết kế và sản xuất đa dạng các dòng bể cá Composite đúc sẵn nguyên khối hoặc lắp ghép modul với độ bền trên 25 năm.
+A. Ưu điểm vượt trội của Bể cá Composite so với bể xây xi măng và bể bạt HDPE:
+An toàn sinh học tuyệt đối: Lớp phủ Gelcoat mặt trong láng bóng như gương, không tiết độc tố kiềm/phèn vôi như bể xi măng mới xây, không làm trầy xước da/vảy cá khi bơi mật độ dày, ngăn rêu tảo và mầm bệnh trú ẩn.
+Thiết kế đáy phễu thu cặn tự động: Độ dốc đáy côn từ 5% – 15% kết hợp lực ly tâm dòng nước giúp gom toàn bộ phân cá và thức ăn thừa về tâm xả đáy chỉ trong vài phút, tiết kiệm 70% công sức thay nước.
+Cơ động, lắp đặt ngay & Giữ giá trị tài sản: Không cần đào móng xây dựng, có thể đặt trên sân thượng, ban công, trong nhà xưởng; dễ dàng di chuyển hoặc thanh lý chuyển nhượng mà không mất trắng chi phí như bể xây cố định.
+B. Bảng phân loại quy mô Bể Cá Composite theo 4 nhóm khách hàng trọng tâm:
+Phân nhóm sản phẩm
+ | Kích thước / Dung tích phổ biến
+ | Đối tượng khách hàng mục tiêu
+ | Vật nuôi & Mục đích sử dụng
+ | Cấu hình kỹ thuật & Phụ kiện đề xuất
+ | 1. Hồ cá Koi & Cảnh quan gia đình
+ | 1,0 m³ – 5,0 m³ (Chữ nhật bo góc, tròn hoặc uốn lượn theo sân vườn)
+ | Chủ nhà phố, chung cư có sân thượng/ban công, biệt thự sân vườn, quán cafe Koi
+ | Nuôi cá Koi Nhật/F1, cá vàng Ranchu, cá rồng, trồng sen súng cảnh quan
+ | Đúc liền vách lọc 3–4 ngăn chuẩn kỹ thuật, sơn Gelcoat màu đen/xanh rêu tôn màu cá, gắn kính cường lực mặt trước
+ | 2. Bể trữ Hải sản sống Nhà hàng
+ | 0,5 m³ – 3,0 m³ (Bể chữ nhật xếp tầng, chia ngăn hoặc đặt độc lập)
+ | Nhà hàng hải sản, khách sạn, siêu thị, chợ đầu mối, vựa thu mua tôm cua cá
+ | Lưu trữ tôm hùm, cua biển, cá song, cá tầm, ốc hương tươi sống phục vụ thực khách
+ | Bể chữ nhật lòng trắng sứ hoặc xanh dương sáng, tích hợp ống xả tràn, van xả đáy, khung chân đỡ chịu lực
+ | 3. Bể Ươm giống & Nuôi đặc sản
+ | 2,0 m³ – 10 m³ (Bể tròn đáy bằng, đáy côn nhẹ, bể vuông bo góc, máng ấp)
+ | Trại sản xuất tôm giống, cá giống; hộ nuôi lươn không bùn, ếch, ba ba, chạch sụn, ốc nhồi
+ | Ươm ấp ấu trùng, nuôi vỗ cá bố mẹ, nuôi thủy sản đặc sản mật độ cao
+ | Bề mặt siêu nhẵn chống xước cá con, đáy dốc thoát cặn nhanh, dễ vệ sinh khử trùng giữa các vụ nuôi
+ | 4. Bể Nuôi Thủy sản Công nghệ cao (RAS)
+ | 10 m³ – 50 m³+ (Đường kính Ф3m đến Ф8m, nguyên khối hoặc lắp ghép)
+ | Doanh nghiệp thủy sản, trang trại nuôi tôm siêu thâm canh trong nhà màng, trại nuôi RAS
+ | Nuôi tôm thẻ chân trắng mật độ cao, cá tầm, cá hồi, cá chình quy mô thương phẩm
+ | Bể tròn đáy phễu (dốc 5%–15%) thu cặn tâm đáy, chân đế khung thép/FRP, kết nối đồng bộ hệ thống lọc tuần hoàn
+ | 
+C. Thông tin cần cung cấp khi đặt hàng Bể Cá Composite:
+1. Mục đích nuôi & Loại thủy sản: Nuôi cá Koi cảnh quan, trữ hải sản nhà hàng hay nuôi tôm/cá thương phẩm.
+2. Kiểu dáng & Kích thước mong muốn: Bể tròn (Đường kính x Chiều cao) hay Bể chữ nhật/vuông (Dài x Rộng x Cao); lối vào vị trí đặt bể có rộng rãi không (để chọn đúc nguyên khối hay lắp ghép tại chỗ).
+3. Tùy chọn kỹ thuật tích hợp: Đáy bằng hay đáy phễu thu cặn; có làm sẵn vách ngăn lọc trong bể không; có gắn kính cường lực quan sát không; màu sắc lòng bể (Đen, Xanh dương, Xanh rêu, Trắng).
+4.5. Nhóm 4: Bồn Chứa Hóa Chất Công Nghiệp Composite (FRP Chemical Tanks)
+Mô tả tổng quan: Bồn chứa hóa chất Composite FRP Thành Lợi được thiết kế và chế tạo chuyên biệt để lưu trữ, khuấy trộn các loại hóa chất ăn mòn mạnh như Axit (HCl, H2SO4, HNO3, H3PO4), Kiềm (NaOH, KOH), nước Javen (NaClO), muối công nghiệp, dung dịch mạ điện và hóa chất xử lý nước (PAC, Polymer, FeCl3).
+Cấu tạo 3 lớp tiêu chuẩn quốc tế: (1) Lớp lót kháng hóa chất (Inner Liner dày 2,5–3,0 mm dùng nhựa Vinyl Ester/Isophthalic giàu nhựa 80–90%); (2) Lớp kết cấu chịu lực quấn sợi đan chéo (Filament Winding); (3) Lớp phủ ngoài kháng tia UV.
+Kiểu dáng & Phụ kiện: Bồn trụ đứng đáy bằng/đáy côn, bồn trụ nằm;, ống thủy đo mức, cửa thăm Manhole, thang leo, giá đỡ motor khuấy.
+Đối tượng sử dụng & Đặt hàng: Nhà máy hóa chất, xi mạ, dệt nhuộm, thực phẩm, trạm xử lý nước. Khi đặt hàng cần cung cấp: Tên hóa chất, nồng độ (%), nhiệt độ làm việc (°C) và dung tích (m³).
+4.6. Nhóm 5: Thùng Chở Thủy Hải Sản Sống Chuyên Dụng Cho Xe Tải & Xe Bán Tải
+Mô tả tổng quan: Thùng composite chuyên dụng vận chuyển tôm, cá giống, cá thịt, cua, hải sản sống đường dài cho thương lái và doanh nghiệp vận tải thủy sản.
+Cấu tạo chuyên biệt: Kết cấu 3 lớp bảo ôn cách nhiệt giữ lạnh nước ổn địnhkhóa inox 304, van xả đáy lớn và hệ thống chia oxy đáy thùng.
+Quy mô dòng xe phù hợp: Thiết kế may đo vừa khít lòng thùng xe bán tải (Ford Ranger, Hilux, Triton, Navara...) và xe tải từ 500kg, 1,25 tấn, 2,5 tấn, 5 tấn đến 15 tấn.
+4.7. Nhóm 6: Thùng Rác & Xe Gom Rác Thải Sinh Hoạt, Công Nghiệp Composite
+Mô tả tổng quan: Thùng rác công cộng và xe gom rác đẩy tay bằng Composite FRP chống cháy, không mục gỉ, không bị mất cắp tái chế, bền màu dưới nắng mưa.
+Dòng sản phẩm
+ | Dung tích phổ biến
+ | Đặc điểm cấu tạo chính
+ | Đối tượng khách hàng sử dụng
+ | Thùng rác công cộng đơn
+ | 60L, 90L, 120L, 240L
+ | Nắp kín ngăn mưa/mùi, 2–4 bánh xe cao su đặc xoay 360°, chốt inox
+ | Đơn vị môi trường đô thị, khu dân cư, trường học, bệnh viện
+ | Thùng rác phân loại 2–3 ngăn
+ | 2x60L, 3x60L, 2x80L
+ | Nắp bập bênh tự đóng hoặc đạp chân; phân màu chuẩn Bộ TN&MT
+ | Công viên, khu du lịch, tòa nhà văn phòng, nhà máy KCN
+ | Thùng rác hình thú trang trí
+ | 50L – 70L
+ | Hình cá heo, chim cánh cụt, gấu trúc, giả gỗ, có giỏ đựng rác rời
+ | Trường mầm non, tiểu học, khu vui chơi giải trí
+ | Xe gom rác đẩy tay
+ | 400L, 500L, 660L, 1000L
+ | Thùng Composite dày 4–5 mm, khung thép Ф34, 3 bánh cao su đúc
+ | Hợp tác xã vệ sinh môi trường, ban quản lý khu đô thị, nhà xưởng
+ | 
+4.8. Nhóm 7: Gia Công & Sản Xuất Sản Phẩm Composite Theo Yêu Cầu (OEM / ODM)
+Các hạng mục nhận gia công: (1) Thiết bị xử lý khí thải (Tháp hấp thụ Scrubber, ống dẫn khí FRP, nắp đậy ngăn mùi bể nước thải); (2) Thi công bọc phủ FRP (FRP Lining) chống thấm, chống ăn mòn cho bể bê tông, sàn nhà xưởng; (3) Vỏ tủ điện, máng cáp, phễu công nghiệp; (4) Bể bơi nguyên khối, bồn tắm, chậu hoa cảnh quan, nhà vệ sinh di động.
+Quy trình 5 bước: Tiếp nhận bản vẽ CAD/mẫu → Tư vấn kết cấu & Báo giá → Làm khuôn & Đúc mẫu thử → Sản xuất hàng loạt & QC → Giao hàng & Lắp đặt toàn quốc.
+4.9. Thiết Kế Luồng Đặt Hàng & Biểu Mẫu Báo Giá Thông Minh (Dynamic Order Form)
+Để tối ưu tỷ lệ chốt đơn cho 3 dòng sản phẩm mục tiêu (Bể Biogas, Bể Phốt, Bể Cá), biểu mẫu đặt hàng ở cuối mỗi trang sản phẩm và popup “Nhận báo giá” được thiết kế dưới dạng nút chọn nhanh theo quy mô:
+Bước trong Form
+ | Trường thông tin hiển thị trên Website
+ | Tùy chọn thả xuống / Nút chọn nhanh (Giúp khách điền trong 15 giây)
+ | Bước 1: Thông tin liên hệ
+ | • Họ và tên khách hàng*
+• Số điện thoại (Có Zalo)*
+• Tỉnh / Thành phố giao hàng*
+ | Ô nhập văn bản ngắn gọn (Kỹ thuật sẽ kết bạn Zalo gửi bảng giá, ảnh thật và bản vẽ ngay trong 15–30 phút).
+ | Bước 2: Chọn sản phẩm
+ | Bạn đang quan tâm sản phẩm nào?*
+ | • [x] Bể Biogas Composite
+• [ ] Bể Phốt / Xử lý nước thải Composite
+• [ ] Bể Cá Koi / Bể Thủy Sản Composite
+• [ ] Sản phẩm khác (Bồn hóa chất, Thùng chở hải sản, Thùng rác...)
+ | Bước 3A: Quy mô (Nếu chọn Bể Biogas)
+ | Chọn quy mô chăn nuôi của gia đình/trang trại:
+ | • Hộ nhỏ lẻ: Dưới 15 con lợn (Gợi ý bể 1,5 m³ – 6 m³)
+• Nông hộ vừa: 15 – 30 con lợn (Gợi ý bể 6 m³)
+• Gia trại: 30 – 50 con lợn (Gợi ý bể 7,2 m³)
+• Trang trại vừa: 50 – 80 con lợn (Gợi ý bể 9,2 m³)
+• Trang trại lớn: Trên 80 – 1.000+ con (Gợi ý bể 10–13 m³ hoặc ghép dãy)
+ | Bước 3B: Quy mô (Nếu chọn Bể Phốt)
+ | Chọn số người sử dụng hoặc loại công trình:
+ | • Gia đình nhỏ: 3 – 6 người (Gợi ý bể 1,0 – 1,5 m³)
+• Gia đình lớn / Biệt thự: 7 – 15 người (Gợi ý bể 2,0 – 3,0 m³)
+• Nhà trọ / Nhà hàng / Khách sạn mini: 15 – 50 người (Gợi ý bể 4 – 10 m³)
+• Trường học / Cơ quan / Chung cư: 50 – 200 người (Gợi ý bể 12 – 30 m³)
+• Nhà máy KCN / Dự án lớn: Trên 200 người (Tư vấn Module theo lưu lượng)
+ | Bước 3C: Quy mô (Nếu chọn Bể Cá)
+ | Chọn mục đích nuôi & kiểu bể mong muốn:
+ | • Hồ cá Koi sân vườn / sân thượng (Có vách lọc 3–4 ngăn, gắn kính)
+• Bể chữ nhật trữ hải sản tươi sống cho Nhà hàng / Vựa hải sản
+• Bể tròn đáy bằng / đáy côn ươm giống, nuôi lươn, ếch, ba ba
+• Bể tròn đáy phễu (Ф3m – Ф8m) nuôi tôm, cá công nghệ cao RAS
+ | Bước 4: Ghi chú & Gửi yêu cầu
+ | • Số lượng dự kiến & Kích thước mặt bằng
+• Đính kèm bản vẽ / Ảnh mặt bằng (nếu có)
+• Nút bấm kêu gọi hành động (Màu cam)
+ | Nút lớn: [NHẬN TƯ VẤN DUNG TÍCH & BÁO GIÁ GỐC TẠI XƯỞNG]
+Cam kết bên dưới: “Báo giá minh bạch trong 15 phút – Hỗ trợ vận chuyển & lắp đặt tận nơi toàn quốc”.
+ | 
+4.10. Câu hỏi thường gặp (FAQ) giải đáp băn khoăn khi mua hàng
+1. Bể Composite có bền hơn bể xây xi măng không? Composite FRP hoàn toàn không gỉ, không nứt ngầm do co ngót nhiệt hay lún địa chất và chống thấm tuyệt đối 100%, nên bền hơn và hầu như không tốn chi phí bảo trì trong môi trường ẩm ướt, hóa chất hoặc nước thải.
+2. Làm sao tôi biết bể Composite Thành Lợi sử dụng đúng loại nhựa và đủ độ dày như cam kết? Mọi đơn hàng đều quy định rõ thông số kỹ thuật (độ dày thành bồn, chủng loại nhựa Polyester hay Vinyl Ester, trọng lượng tiêu chuẩn) ngay trong hợp đồng. Khách hàng có thể kiểm tra trực tiếp tại xưởng hoặc đo độ dày thực tế khi nghiệm thu nhận hàng.
+3. Nếu trong quá trình vận chuyển hoặc sử dụng bị va đập mạnh gây nứt vỡ thì có sửa chữa được không? Có. Kỹ thuật viên có thể mài nhám và đắp vá lại bằng chính sợi thủy tinh và nhựa nền tại chỗ; vị trí gia cố sau khi đóng rắn sẽ liền khối và đạt độ bền, độ kín tương đương 100% ban đầu.
+4. Khi lắp đặt bể Biogas hoặc bể phốt Composite ở vùng đất trũng, nhiều nước ngầm cần lưu ý gì? Khi đào hố cần dùng máy bơm hút cạn nước, gia cố nền đáy bằng cát đầm chặt hoặc bê tông lót phẳng (không để gạch đá sắc nhọn). Ngay khi hạ bể xuống đúng vị trí, cần bơm nước vào trong lòng bể để tạo đối trọng cân bằng với lực đẩy nổi của nước ngầm bên ngoài, đồng thời lấp đất mịn xung quanh theo từng lớp và đầm chặt đều tay.
+5. Thời gian sản xuất, giao hàng, báo giá và chính sách vận chuyển như thế nào? Báo giá nhanh trong vòng 15–60 phút kể từ khi nhận đủ thông tin. Thời gian giao hàng khoảng 2–3 ngày với các mẫu bể Biogas, bể phốt, bể cá tiêu chuẩn có sẵn khuôn và 10–25 ngày với đơn hàng thiết kế riêng. Hỗ trợ xe tải ghép chuyến giao hàng và lắp đặt trên toàn quốc (63 tỉnh thành), bảo hành chính hãng lên đến 10 năm.
+5. TRANG DỰ ÁN TIÊU BIỂU
+Lời dẫn trang Dự án: Hơn 15 năm hoạt động, Thành Lợi Composite đã thực hiện hơn 100+ công trình lắp đặt bể biogas, bể phốt, bể nuôi thủy sản và hệ thống xử lý nước thải cho hộ gia đình, trang trại, doanh nghiệp trên toàn quốc. Mỗi công trình bàn giao là một cam kết vững chắc về chất lượng.
+Nhóm lĩnh vực
+ | Dự án tiêu biểu minh họa (Cập nhật tên dự án & địa điểm thực tế của công ty)
+ | Chăn nuôi (Bể Biogas)
+ | Lắp đặt hệ thống bể Biogas composite đường kính 2,4m – 3,0m cho chuỗi trang trại chăn nuôi lợn quy mô lớn.
+ | Dân dụng & Khu đô thị (Bể Phốt)
+ | Cung cấp lô bể phốt tự hoại composite 3 ngăn và module xử lý nước thải cho khu dân cư, nhà trọ và nhà máy KCN.
+ | Thủy sản & Cảnh quan (Bể Cá)
+ | Bàn giao dàn bể tròn đáy phễu nuôi tôm cá công nghệ cao RAS và hồ cá Koi composite tích hợp lọc cho biệt thự.
+ | Công nghiệp & Vận tải
+ | Gia công bồn chứa hóa chất kháng axit và thùng chở thủy hải sản sống bảo ôn 3 lớp cho đội xe tải đường dài.
+ | Vệ sinh Đô thị
+ | Cung ứng thùng rác công cộng và xe gom rác đẩy tay composite cho các xã nông thôn mới và khu đô thị.
+ | 
+6. TRANG TIN TỨC & KIẾN THỨC CHUYÊN NGÀNH (PHỤC VỤ SEO BÁN HÀNG)
+Chuyên mục trọng tâm
+ | Chủ đề bài viết chuẩn SEO thu hút khách mua Bể Biogas, Bể Phốt, Bể Cá
+ | Chuyên mục Bể Biogas
+ | • Bảng giá bể Biogas composite mới nhất & Cách chọn dung tích theo số lượng lợn
+• So sánh bể Biogas composite hình cầu với hầm xây gạch và túi ủ bạt nhựa
+• Kỹ thuật lắp đặt bể Biogas composite tại vùng đất trũng, nhiều nước ngầm
+• Hướng dẫn nạp liệu lần đầu và cách xử lý khi bể Biogas ít gas vào mùa đông
+ | Chuyên mục Bể Phốt & XLNT
+ | • Cách tính dung tích bể phốt composite chuẩn xác cho gia đình 4 – 10 người
+• Tại sao nhà phố hiện đại và khu nhà trọ chuyển sang dùng bể phốt composite liền khối?
+• Hướng dẫn kỹ thuật hạ bể phốt composite dưới nền nhà và dưới đường ô tô chạy qua
+• Giải pháp module xử lý nước thải composite đạt chuẩn QCVN cho nhà hàng, phòng khám
+ | Chuyên mục Bể Cá & Thủy Sản
+ | • Ưu điểm của bể tròn composite đáy phễu trong nuôi tôm thẻ và cá mật độ cao (RAS)
+• Mẫu bể cá Koi composite đúc sẵn tích hợp ngăn lọc cho sân thượng và sân vườn nhỏ
+• So sánh độ bền và hiệu quả kinh tế giữa bể cá composite và bể lót bạt khung sắt
+• Thiết kế dàn bể composite trữ hải sản tươi sống cho nhà hàng, vựa hải sản
+ | Tin công ty & Case Study
+ | • Hành trình 15 năm Thành Lợi Composite đồng hành cùng nông dân và doanh nghiệp Việt
+• Câu chuyện khách hàng: Thoát cảnh ô nhiễm mùi hôi và tiết kiệm 100% tiền gas nhờ bể Biogas Thành Lợi
+ | 
+7. TRANG LIÊN HỆ
+Lời dẫn: Hãy cho chúng tôi biết quy mô chăn nuôi, số người sử dụng công trình hoặc kích thước bể cá bạn mong muốn. Đội ngũ kỹ sư Thành Lợi Composite sẽ tư vấn đúng dung tích và gửi báo giá xuất xưởng trong vòng 15 – 60 phút.
+Hạng mục thông tin
+ | Chi tiết hiển thị trên Website
+ | Tên doanh nghiệp
+ | CÔNG TY CỔ PHẦN THÀNH LỢI COMPOSITE
+ | Mã số thuế
+ | 2600665401
+ | Địa chỉ trụ sở & Nhà máy
+ | Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ
+ | Hotline / Zalo tư vấn 24/7
+ | 0964.444.2626 | 0943.924.816
+ | Email chính thức
+ | info@thanhloicomposite.com
+ | Website
+ | thanhloicomposite.com
+ | Giờ làm việc
+ | 7h30 – 17h30 (Từ thứ Hai đến thứ Bảy hàng tuần)
+ | Mã nhúng Bản đồ Google Maps
+ | <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.4447580971832!2d104.9893577759779!3d21.4902923717653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313361007146b3f1%3A0xf4a42a90f4187fad!2zVGjDoG5oIEzhu6NpIENvbXBvc2l0ZQ!5e0!3m2!1svi!2s!4v1793708025019!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+ | 
+8. CẤU TRÚC CHÂN TRANG (FOOTER)
+Cột hiển thị
+ | Nội dung chi tiết
+ | Cột 1 – Giới thiệu
+ | Logo Thành Lợi Composite, tóm tắt năng lực nhà máy sản xuất từ năm 2010 tại Phú Thọ. Liên kết mạng xã hội:
+• Facebook: https://www.facebook.com/thanhloicompositevn/
+• TikTok: https://www.tiktok.com/@thnh.li.composite
+• Zalo Official: 0964.444.2626 | 0943.924.816
+ | Cột 2 – Liên kết nhanh
+ | Trang chủ | Giới thiệu | Sản phẩm | Dự án tiêu biểu | Tin tức & Kiến thức | Liên hệ
+ | Cột 3 – Sản phẩm chủ lực
+ | Bể Biogas composite | Bể phốt & Xử lý nước thải | Bể cá Koi & Bể nuôi thủy sản | Bồn chứa hóa chất | Thùng chở hải sản sống | Thùng rác & Xe gom rác | Gia công theo yêu cầu
+ | Cột 4 – Chính sách & Hỗ trợ
+ | Hướng dẫn chọn dung tích bể | Chính sách bảo hành 10 năm | Quy trình đặt hàng & Thanh toán | Vận chuyển & Lắp đặt toàn quốc | Tải Hồ sơ năng lực (PDF)
+ | Cột 5 – Thông tin liên hệ
+ | Nhà máy: Khu Tiên Sơn, xã Tiên Lương, tỉnh Phú Thọ
+Hotline/Zalo: 0964.444.2626 | 0943.924.816 Email: info@thanhloicomposite.com
+Kèm bản đồ Google Maps thu nhỏ.
+ | 
+Dòng bản quyền cuối trang (Copyright): © CÔNG TY CỔ PHẦN THÀNH LỢI COMPOSITE. Mã số thuế: 2600665401. Bảo lưu mọi quyền. | Chính sách bảo mật | Chính sách bảo hành.
+9. ĐỊNH HƯỚNG THIẾT KẾ UI/UX, CHUẨN HÓA SEO & CHECKLIST TRIỂN KHAI
+Bảng màu chủ đạo (Color Palette): Xanh dương đậm công nghiệp (#0B4F6C – thể hiện sự tin cậy, kỹ thuật, nguồn nước) kết hợp Xanh lá cây (#208A43 – thể hiện môi trường, nông nghiệp bền vững); các nút chọn quy mô và kêu gọi đặt hàng (CTA) dùng màu Cam nổi bật (#D95D39).
+Tính năng интерактивный (Tương tác chọn quy mô): Trên trang chi tiết Bể Biogas, Bể Phốt và Bể Cá, thiết kế các nút bấm chọn nhanh Quy mô (ví dụ: [15–30 con lợn], [Gia đình 4–6 người], [Hồ Koi sân vườn]) tương tự như chọn cấu hình điện thoại để khách hàng bấm chọn và nhận báo giá ngay.
+Tối ưu trải nghiệm di động (Mobile-First): Giao diện tự động co giãn (Responsive), tốc độ tải trang dưới 3 giây, thanh công cụ dưới cùng trên màn hình điện thoại luôn ghim 3 nút: Gọi ngay – Chat Zalo – Chọn Quy Mô & Báo Giá.
+Danh sách công việc cần rà soát trước khi bàn giao Lập trình (Pre-launch Checklist)
+☐ Xác nhận chính xác địa chỉ hành chính mới trên giấy phép kinh doanh và Google Maps.
+☐ Khởi tạo và cấu hình email tên miền chính thức (info@thanhloicomposite.com).
+☐ Kỹ thuật rà soát lần cuối bảng quy đổi dung tích Bể Biogas (theo số lượng đàn), Bể Phốt (theo số người) và Bể Cá (theo kích thước khuôn hiện có tại xưởng).
+☐ Tổ chức chụp ảnh/quay video thực tế tại xưởng Phú Thọ (ảnh xếp chồng bể Biogas, bể phốt 3 ngăn, bể cá đáy phễu, xe tải bốc hàng) để đưa vào từng phân khúc quy mô tương ứng.

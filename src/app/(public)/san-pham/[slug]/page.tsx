@@ -1,13 +1,20 @@
 import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowUpRight } from 'lucide-react';
-import { products } from '@/lib/content';
+import { Phone, Boxes, Droplets, Funnel, Move, FlaskConical, Truck, Wind, Wrench, Recycle, ShieldCheck, Ruler, Layers, Zap, Shapes, CircleCheck, type LucideIcon } from 'lucide-react';
+import { contact, products } from '@/lib/content';
 import { siteUrl, jsonLd } from '@/lib/seo';
+import { facts, faqs } from '@/lib/site-facts';
 import InquiryForm from '@/components/inquiry-form';
 import ProductPhotoGallery from '@/components/product-photo-gallery';
-import { productGuidance } from '@/lib/product-guidance';
+import ProductCard from '@/components/product-card';
+import Reveal from '@/components/pages/reveal';
+import FaqList from '@/components/pages/faq-list';
+import { QuoteButton, ScaleChips, ScaleProvider, ScaleTableView, StickyBuyBar } from '@/components/pages/scale-picker';
+import { productGuidance, type Feature } from '@/lib/product-guidance';
+import { groupOfProduct } from '@/lib/product-groups';
 import { productAssetBySlug, editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
+import '@/components/pages/pages.css';
 import '@/components/product-assets.css';
 import './product-detail.css';
 
@@ -18,7 +25,7 @@ export async function generateMetadata({ params }: Props) {
   return { title: p?.name ?? 'Sản phẩm', description: p?.description, alternates: { canonical: `/san-pham/${slug}` } };
 }
 
-// Supplement only families whose shapes and use are identifiable in the supplied photographs.
+// Chỉ bổ sung ảnh cho dòng mà hình dáng và công dụng nhìn thấy rõ trong ảnh khách cung cấp.
 const supportingPhotos = {
   'be-biogas-composite': [editorialAssets.gallery[2]],
   'be-nuoi-trong-thuy-san': [editorialAssets.hero, editorialAssets.fit],
@@ -26,42 +33,125 @@ const supportingPhotos = {
   'composite-theo-yeu-cau': [editorialAssets.story],
 };
 
+const icons: Record<Feature['icon'], LucideIcon> = { shape: Shapes, seal: ShieldCheck, bolt: Zap, layers: Layers, drop: Droplets, funnel: Funnel, move: Move, flask: FlaskConical, truck: Truck, wind: Wind, tool: Wrench, recycle: Recycle, shield: ShieldCheck, ruler: Ruler };
+
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const items = await products();
-  const product = items.find(p => p.slug === slug);
+  const info = await contact();
+  const index = items.findIndex(p => p.slug === slug);
+  const product = items[index];
   if (!product) notFound();
   const asset = productAssetBySlug[slug];
   const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name } : asset;
   const extra = supportingPhotos[slug as keyof typeof supportingPhotos] || [];
-  const photos = image ? [image, ...extra].filter((photo, index, all) => all.findIndex(item => item.src === photo.src) === index) : [];
-  const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.name, description: product.description, brand: { '@type': 'Brand', name: 'Thành Lợi Composite' }, url: siteUrl(`/san-pham/${slug}`), ...(image ? { image: siteUrl(image.src) } : {}) };
+  const photos = image ? [image, ...extra].filter((photo, i, all) => all.findIndex(item => item.src === photo.src) === i) : [];
   const guidance = productGuidance(slug);
+  const group = groupOfProduct(slug);
+  const rank = group?.flagship;
+  const faqItems = guidance.faqs.map(i => faqs[i]).filter(Boolean);
+  const related = [...items.slice(index + 1), ...items.slice(0, index)].slice(0, 3);
+  const table = guidance.scale;
 
-  return <main id="main" className="public-page product-focus">
+  const anchors = [
+    ...(table ? [{ id: 'bang-chon', label: 'Chọn dung tích' }] : guidance.highlights ? [{ id: 'bang-chon', label: guidance.highlights.title }] : []),
+    { id: 'cau-tao', label: 'Cấu tạo' },
+    { id: 'dat-hang', label: 'Đặt hàng' },
+    { id: 'hoi-dap', label: 'Hỏi đáp' },
+  ];
+  const crumbs = group && group.members.length > 1
+    ? [{ label: 'Sản phẩm', href: '/san-pham' }, { label: group.name, href: `/san-pham/${group.slug}` }, { label: product.name }]
+    : [{ label: 'Sản phẩm', href: '/san-pham' }, { label: product.name }];
+
+  const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.name, description: product.description, brand: { '@type': 'Brand', name: facts.shortName }, url: siteUrl(`/san-pham/${slug}`), ...(image ? { image: siteUrl(image.src) } : {}) };
+  const faqSchema = faqItems.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) } : null;
+  const specs = product.specifications.slice(0, 4);
+
+  return <main id="main" className="public-page tp tp-product">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
-    <nav className="container breadcrumb detail-breadcrumb" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span>/</span><Link href="/san-pham">Sản phẩm</Link><span>/</span><span>{product.category}</span></nav>
-    <section className="container product-focus-top">
-      {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : <aside className="product-spec-portrait"><h2>Tư vấn thiết kế bể</h2><p>{guidance.selection.join('. ')}.</p><Link href="#tu-van" className="text-link">Trao đổi mẫu phù hợp <ArrowUpRight size={20}/></Link></aside>}
-      <div className="product-focus-copy">
-        <h1>{product.name}</h1>
-        <p>{product.description}</p>
-        <div className="product-applications">{product.applications.map(item => <span key={item}>{item}</span>)}</div>
-        <h2>Quy cách</h2>
-        <table className="spec-table"><tbody>{product.specifications.map(spec => <tr key={spec.label}><th scope="row">{spec.label}</th><td>{spec.value}</td></tr>)}</tbody></table>
-        <Link href="#tu-van" className="button">Nhận tư vấn & báo giá <ArrowUpRight size={20}/></Link>
-      </div>
-    </section>
-    <section className="detail-reading"><div className="container detail-reading-grid">
-      <h2>Thông tin đặt hàng</h2>
-      <div className="detail-disclosures">
-        <details><summary>Công dụng sản phẩm</summary><ul>{guidance.benefits.map(text => <li key={text}>{text}</li>)}</ul></details>
-        <details><summary>Cần chuẩn bị gì để nhận báo giá?</summary><ul>{guidance.selection.map(text => <li key={text}>{text}</li>)}</ul><p>Chưa có kích thước cụ thể? Gửi mục đích sử dụng và mặt bằng dự kiến để được tư vấn.</p></details>
-        <details><summary>Lắp đặt & vận hành</summary><ul>{guidance.installation.map(text => <li key={text}>{text}</li>)}</ul><p>Cấu hình và phụ kiện được xác nhận theo từng đơn hàng.</p></details>
-        <details><summary>Giao hàng & bảo hành</summary><p>Phạm vi vận chuyển, lắp đặt và thời hạn bảo hành được thống nhất trong báo giá hoặc hợp đồng.</p><p><Link href="/huong-dan-dat-hang#van-chuyen">Xem hướng dẫn giao nhận</Link> · <Link href="/huong-dan-dat-hang#bao-hanh">Điều kiện bảo hành</Link></p></details>
-      </div>
-    </div></section>
-    <section id="tu-van" className="contact-section"><div className="container contact-layout"><div><h2>Nhận tư vấn và báo giá</h2><p>Để lại số liên hệ và quy cách dự kiến. Thành Lợi sẽ trao đổi về {product.name.toLowerCase()}.</p></div><InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact/></div></section>
-    <section className="container detail-related"><h2>Các dòng sản phẩm khác</h2><div className="detail-related-links">{items.filter(item => item.slug !== slug).slice(0,3).map(item => <Link key={item.slug} href={`/san-pham/${item.slug}`}>{item.name}<ArrowUpRight size={20}/></Link>)}</div></section>
+    {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}/>}
+    <Reveal/>
+    <ScaleProvider table={table} productName={product.name}>
+      <StickyBuyBar anchors={anchors}/>
+      <nav className="tp-wrap tp-pd-crumbs tp-crumbs-dark" aria-label="Đường dẫn">
+        <span className="tp-crumb"><Link href="/">Trang chủ</Link></span>
+        {crumbs.map((crumb, i) => <span className="tp-crumb" key={crumb.label}><span className="tp-crumb-sep" aria-hidden="true">/</span>{'href' in crumb && crumb.href ? <Link href={crumb.href}>{crumb.label}</Link> : <span aria-current="page">{crumb.label}</span>}</span>)}
+      </nav>
+
+      <section id="tp-top" className="tp-wrap tp-pd-top">
+        {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : <aside className="tp-pd-portrait" aria-label="Ứng dụng chính">
+          <h2>{guidance.tagline}</h2>
+          <div><p className="tp-pd-portrait-label">Phù hợp cho</p><ul>{product.applications.map(item => <li key={item}>{item}</li>)}</ul></div>
+        </aside>}
+        <div className="tp-pd-copy">
+          <div className="tp-pd-badges">
+            <span className="tp-badge">{product.category}</span>
+            {rank ? <span className="tp-badge tp-badge-flag">Mũi nhọn</span> : null}
+          </div>
+          <h1>{product.name}</h1>
+          <p className="tp-pd-tagline">{guidance.tagline}</p>
+          <p className="tp-pd-lead">{product.description}</p>
+          <dl className="tp-pd-facts">{specs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>
+          <ScaleChips/>
+          <div className="tp-pd-actions">
+            <QuoteButton/>
+            <a className="tp-btn tp-btn-ghost" href={`tel:${info.hotlines[0].tel}`}><Phone size={18} aria-hidden="true"/>{info.hotlines[0].display}</a>
+          </div>
+        </div>
+      </section>
+
+      {table ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
+        <div className="tp-section-head tp-rv"><h2>{table.title}</h2></div>
+        <div className="tp-rv"><ScaleTableView/></div>
+      </div></section> : guidance.highlights ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
+        <div className="tp-section-head tp-rv"><h2>{guidance.highlights.title}</h2></div>
+        <ul className="tp-pill-list tp-rv">{guidance.highlights.items.map(item => <li key={item}>{item}</li>)}</ul>
+      </div></section> : null}
+
+      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className="tp-wrap">
+        <div className="tp-section-head tp-rv"><h2>Cấu tạo và ưu điểm</h2></div>
+        <div className="tp-feature-grid">
+          {guidance.features.map((feature, i) => {
+            const Icon = icons[feature.icon] || Boxes;
+            return <article className="tp-feature tp-rv" style={{ ['--i' as string]: i }} key={feature.title}><Icon size={28} aria-hidden="true"/><h3>{feature.title}</h3><p>{feature.text}</p></article>;
+          })}
+        </div>
+        {guidance.accessories && <div className="tp-accessories tp-rv"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
+      </div></section>
+
+      <section id="dat-hang" className="tp-pd-section tp-pd-order"><div className="tp-wrap tp-pd-order-grid">
+        <div className="tp-rv">
+          <h2>Thông tin cần cung cấp khi đặt hàng</h2>
+          <ol className="tp-order-list">{guidance.order.map(text => <li key={text}>{text}</li>)}</ol>
+        </div>
+        <aside className="tp-order-aside tp-rv" style={{ ['--i' as string]: 1 }}>
+          <h3>Chưa có đủ thông tin</h3>
+          <p>Mô tả cách sử dụng là đủ. Kỹ thuật sẽ kết bạn Zalo gửi bảng giá, ảnh thật và bản vẽ trong 15 – 30 phút.</p>
+          <a className="tp-btn tp-btn-ghost" href={`https://zalo.me/${info.zalo}`} target="_blank" rel="noopener noreferrer">Nhắn Zalo</a>
+        </aside>
+      </div></section>
+
+      {faqItems.length > 0 && <section id="hoi-dap" className="tp-pd-section tp-pd-faq"><div className="tp-wrap tp-pd-faq-grid">
+        <div className="tp-section-head tp-rv"><h2>Hỏi đáp liên quan</h2></div>
+        <div className="tp-rv"><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></div>
+      </div></section>}
+
+      <section id="tu-van" className="tp-form-section"><div className="tp-wrap tp-form-grid">
+        <div className="tp-form-copy tp-rv">
+          <h2>Nhận báo giá {product.name.toLowerCase()}</h2>
+          <ul>
+            <li><CircleCheck size={20} aria-hidden="true"/>Báo giá trong 15 – 60 phút kể từ khi đủ thông tin</li>
+            <li><CircleCheck size={20} aria-hidden="true"/>Hỗ trợ vận chuyển và lắp đặt toàn quốc</li>
+            <li><CircleCheck size={20} aria-hidden="true"/>Bảo hành đến 10 năm tùy dòng sản phẩm</li>
+          </ul>
+        </div>
+        <InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact hours={info.hours} hotlineTel={info.hotlines[0].tel}/>
+      </div></section>
+
+      <section className="tp-pd-section tp-pd-related"><div className="tp-wrap">
+        <div className="tp-section-head tp-rv"><h2>Sản phẩm liên quan</h2></div>
+        <div className="tp-grid tp-grid-3">{related.map((item, i) => <ProductCard key={item.slug} product={item} compact index={i}/>)}</div>
+      </div></section>
+    </ScaleProvider>
   </main>;
 }

@@ -26,6 +26,14 @@ Set `SITE_URL=http://127.0.0.1:3002` when developing at that URL. Origin validat
 
 `npm test`, `npm run typecheck`, `npm run build` verify the implemented foundation. Additional checks: `node --env-file=.env --import tsx scripts/verify-cms.ts` and `node --env-file=.env --import tsx scripts/verify-admin-ui.ts`. Handoff instructions are in HANDOFF.md; nontechnical instructions are in ADMIN-GUIDE.md.
 
+### Admin checks added 2026-11-20
+
+Run against a running site (`SITE_URL=http://127.0.0.1:3002`); each script creates a temporary account and test data with random credentials and deletes them at the end, even on failure.
+
+- `node --env-file=.env --import tsx scripts/verify-editor-flow.ts` walks the whole editor at 1366 and 390: write, slash menu, image from library, image panel, crop (including dragging the crop frame), paste upload, table, autosave, cover, preview, publish, public page, schedule, change schedule, cancel schedule, restore a revision, list actions, library delete rules. Screenshots go to `docs/nang-cap-2026-11/sau-admin/luong/`.
+- `node --env-file=.env --import tsx scripts/verify-article-render.ts` publishes a test article with every image alignment and width, screenshots the public page at 1366 and 390 and compares the editor preview against the real public page.
+- `node --env-file=.env --import tsx scripts/verify-admin-text.ts` scans every admin screen at 1366 and 390 for forbidden characters, text under 14px, horizontal overflow and small tap targets. `scripts/verify-inquiry-ui.ts` checks the inquiry detail with the province and scale lines. `scripts/verify-admin-short.ts` checks admin screens and the editor at 600x360. `scripts/apply-company-settings.ts` fills blank company settings from `src/lib/site-facts.ts` (idempotent, never overwrites filled fields).
+
 ## Storage and safety
 
 - PostgreSQL data is in the Compose `database` volume, exposed only on loopback port 55432.

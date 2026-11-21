@@ -5,6 +5,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { editorialAssets } from '@/lib/customer-product-assets';
+import ScrollDots from '@/components/home/scroll-dots';
 import './workshop-story.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -70,13 +71,14 @@ export default function WorkshopStory() {
   }, []);
 
   return <div className="workshop-story" ref={root}>
-    <div className="workshop-story-stage" aria-label="Ba góc nhìn về sản phẩm thực tế">
+    <div className="workshop-story-stage" id="tl-photo-strip" aria-label="Ba góc nhìn về sản phẩm thực tế">
       <div className="workshop-story-thread" aria-hidden="true"/>
       {photos.map((photo, index) => <figure className="workshop-story-frame" key={photo.src}>
         <button className="workshop-story-photo" type="button" aria-label={`Xem ảnh lớn: ${photo.label}`} onClick={event => showPhoto(index, event.currentTarget)}><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy"/><span className="workshop-story-expand" aria-hidden="true"><ArrowUpRight size={22}/></span></button>
         <figcaption><strong>{photo.label}</strong><p>{descriptions[index]}</p></figcaption>
       </figure>)}
     </div>
+    <ScrollDots target="tl-photo-strip" label="Ảnh sản phẩm" />
     <p className="workshop-story-note">Kiểu dáng, không gian sử dụng và quy cách được trao đổi cùng nhau.</p>
     <dialog ref={dialog} className="workshop-story-dialog" aria-label="Ảnh sản phẩm Thành Lợi" onClose={() => opener.current?.focus({ preventScroll: true })} onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }} onKeyDown={event => {
       if (event.key === 'ArrowLeft') { event.preventDefault(); movePhoto(-1); }
