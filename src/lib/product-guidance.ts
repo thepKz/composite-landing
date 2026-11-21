@@ -27,13 +27,13 @@ export type Guidance = {
 const biogas: ScaleTable = {
   title: 'Chọn dung tích theo đàn',
   question: 'Đàn của bạn đang nuôi bao nhiêu?',
-  columns: ['Mã sản phẩm', 'Đường kính, dung tích', 'Quy mô đàn', 'Đối tượng phù hợp', 'Công dụng của khí'],
+  columns: ['Mã sản phẩm', 'Đường kính và dung tích', 'Quy mô đàn', 'Đối tượng phù hợp', 'Công dụng của khí'],
   rows: [
     { chip: '5 – 10 con lợn', suggest: 'Bể 1,5 m³', lead: 'TLC-BIO-1.5', cells: ['1,50 m (1,5 m³)', '5 – 10 con lợn, hoặc 1 – 2 trâu bò', 'Hộ nhỏ lẻ tận dụng thức ăn thừa, kết hợp xử lý vệ sinh gia đình', 'Đun nấu cho gia đình 2 – 4 người'] },
-    { chip: '15 – 30 con lợn', suggest: 'Bể 6 m³', lead: 'TLC-BIO-2.25', cells: ['2,25 m (6,0 m³)', '15 – 30 con lợn, hoặc 3 – 5 con bò, 200 – 300 gà vịt', 'Nông hộ chăn nuôi bán chuyên ở trung du, miền núi', 'Đun nấu cho gia đình 4 – 6 người và nấu cám'] },
+    { chip: '15 – 30 con lợn', suggest: 'Bể 6 m³', lead: 'TLC-BIO-2.25', cells: ['2,25 m (6,0 m³)', '15 – 30 con lợn, hoặc 3 – 5 con bò, 200 – 300 gà vịt', 'Nông hộ chăn nuôi bán chuyên ở trung du, miền núi', 'Đun nấu, nấu cám, 4 – 6 người'] },
     { chip: '30 – 50 con lợn', suggest: 'Bể 7,2 m³', lead: 'TLC-BIO-2.40', cells: ['2,40 m (7,2 m³)', '30 – 50 con lợn, hoặc 5 – 8 con bò, 300 – 500 gia cầm', 'Gia trại quy mô vừa, hộ nuôi lợn nái kết hợp lợn thịt', 'Đun nấu, thắp sáng, sưởi úm heo con và gà con mùa đông'] },
     { chip: '50 – 80 con lợn', suggest: 'Bể 9,2 m³', lead: 'TLC-BIO-2.60', cells: ['2,60 m (9,2 m³)', '50 – 80 con lợn, hoặc 8 – 12 con bò', 'Trang trại tập trung quy mô vừa, hợp tác xã nông nghiệp', 'Cấp khí cho 2 – 3 hộ dùng chung hoặc máy phát nhỏ'] },
-    { chip: 'Trên 80 con lợn', suggest: 'Bể 10 – 13 m³, hoặc ghép dãy', lead: 'TLC-BIO-3.00', cells: ['2,9 – 3,0 m, 10 – 13 m³', '80 – 120 con lợn mỗi bể, ghép nối tiếp 2 – 10 bể cho trại 200 – 1.000 con trở lên', 'Trang trại công nghiệp quy mô lớn, dự án nông nghiệp sạch', 'Xử lý mùi hôi trang trại lớn, chạy máy phát biogas'] },
+    { chip: 'Trên 80 con lợn', suggest: 'Bể 10 – 13 m³, hoặc ghép dãy', lead: 'TLC-BIO-3.00', cells: ['2,9 – 3,0 m, 10 – 13 m³', '80 – 120 con lợn mỗi bể, ghép 2 – 10 bể cho trại 200 – 1.000 con trở lên', 'Trang trại công nghiệp quy mô lớn, dự án nông nghiệp sạch', 'Xử lý mùi hôi trang trại lớn, chạy máy phát biogas'] },
   ],
   note: 'Đối chiếu số vật nuôi thực tế trong chuồng để chọn đúng mã bể. Kỹ sư rà lại bảng quy đổi trước khi chốt đơn.',
 };
@@ -43,11 +43,11 @@ const septic: ScaleTable = {
   question: 'Công trình của bạn có bao nhiêu người dùng?',
   columns: ['Phân khúc', 'Dung tích', 'Số người, quy mô', 'Công trình phù hợp', 'Kiểu dáng, lắp đặt'],
   rows: [
-    { chip: 'Gia đình 3 – 6 người', suggest: 'Bể 1,0 – 1,5 m³', lead: 'Gia đình nhỏ', cells: ['1,0 – 1,5 m³', '3 – 6 người, 1 – 2 phòng vệ sinh', 'Nhà phố nhỏ, nhà cấp 4 nông thôn, nhà vườn, homestay mini', 'Bể cầu hoặc trụ nằm ngang, chôn gọn dưới gầm cầu thang hoặc sân'] },
+    { chip: 'Gia đình 3 – 6 người', suggest: 'Bể 1,0 – 1,5 m³', lead: 'Gia đình nhỏ', cells: ['1,0 – 1,5 m³', '3 – 6 người, 1 – 2 phòng vệ sinh', 'Nhà phố nhỏ, nhà cấp 4 nông thôn, nhà vườn, homestay mini', 'Bể cầu hoặc trụ nằm ngang, chôn gọn dưới gầm cầu thang, sân'] },
     { chip: 'Biệt thự 7 – 15 người', suggest: 'Bể 2,0 – 3,0 m³', lead: 'Gia đình lớn, biệt thự', cells: ['2,0 – 3,0 m³', '7 – 15 người, 3 – 5 phòng vệ sinh', 'Biệt thự sân vườn, nhà ống nhiều tầng, nhà ở kết hợp kinh doanh', 'Bể trụ nằm ba ngăn kỵ khí, có gân gia cường chịu lực đất đè'] },
-    { chip: 'Nhà trọ, nhà hàng 15 – 50 người', suggest: 'Bể 4 – 10 m³', lead: 'Kinh doanh dịch vụ', cells: ['4 – 10 m³', '15 – 50 người, hoặc khu nhà trọ 10 – 25 phòng', 'Nhà trọ, nhà hàng, quán cà phê, khách sạn mini, văn phòng', 'Bể trụ nằm dung tích lớn, ngăn lọc vi sinh mật độ cao chống tắc'] },
+    { chip: 'Nhà trọ, nhà hàng 15 – 50 người', suggest: 'Bể 4 – 10 m³', lead: 'Kinh doanh dịch vụ', cells: ['4 – 10 m³', '15 – 50 người, 10 – 25 phòng trọ', 'Nhà trọ, nhà hàng, quán cà phê, khách sạn mini, văn phòng', 'Bể trụ nằm dung tích lớn, ngăn lọc vi sinh mật độ cao chống tắc'] },
     { chip: 'Trường học, cơ quan 50 – 200 người', suggest: 'Bể 12 – 30 m³', lead: 'Công cộng và đô thị', cells: ['12 – 30 m³', '50 – 200 người thường dùng', 'Trường học, phòng khám, chung cư mini, trụ sở cơ quan, chợ', 'Bể tự hoại cải tiến Bastian hoặc module xử lý hợp khối'] },
-    { chip: 'Nhà máy, dự án trên 200 người', suggest: 'Tư vấn module theo lưu lượng', lead: 'Công nghiệp và dự án', cells: ['35 – 100 m³ trở lên hoặc ghép nhiều module', '200 – 1.000 công nhân trở lên, lưu lượng 10 – 500 m³/ngày đêm', 'Nhà máy, khu công nghiệp, khu đô thị mới, resort, trạm dừng nghỉ', 'Module AAO, MBBR hợp khối, tham chiếu QCVN 14 và QCVN 40'] },
+    { chip: 'Nhà máy, dự án trên 200 người', suggest: 'Tư vấn module theo lưu lượng', lead: 'Công nghiệp và dự án', cells: ['35 – 100 m³ trở lên hoặc ghép module', '200 – 1.000 công nhân trở lên, lưu lượng 10 – 500 m³/ngày đêm', 'Nhà máy, khu công nghiệp, khu đô thị mới, resort, trạm dừng nghỉ', 'Module AAO, MBBR hợp khối, tham chiếu QCVN 14 và QCVN 40'] },
   ],
   note: 'Bảng tra nhanh theo số người dùng hoặc quy mô công trình. Dung tích chốt theo khảo sát thực tế.',
 };
@@ -57,7 +57,7 @@ const fish: ScaleTable = {
   question: 'Bạn nuôi để làm gì?',
   columns: ['Nhóm bể', 'Dung tích phổ biến', 'Khách hàng', 'Vật nuôi, mục đích', 'Cấu hình đề xuất'],
   rows: [
-    { chip: 'Hồ cá Koi sân vườn', suggest: 'Hồ 1,0 – 5,0 m³ có vách lọc 3 – 4 ngăn, gắn kính', lead: 'Hồ cá Koi, cảnh quan', cells: ['1,0 – 5,0 m³, chữ nhật bo góc, tròn hoặc uốn lượn', 'Chủ nhà phố, sân thượng, biệt thự, quán cà phê Koi', 'Cá Koi, cá vàng, cá rồng, trồng sen súng', 'Đúc liền vách lọc 3 – 4 ngăn, Gelcoat đen hoặc xanh rêu, gắn kính cường lực mặt trước'] },
+    { chip: 'Hồ cá Koi sân vườn', suggest: 'Hồ 1,0 – 5,0 m³ có vách lọc 3 – 4 ngăn, gắn kính', lead: 'Hồ cá Koi, cảnh quan', cells: ['1,0 – 5,0 m³, chữ nhật bo góc, tròn hoặc uốn lượn', 'Chủ nhà phố, sân thượng, biệt thự, quán cà phê Koi', 'Cá Koi, cá vàng, cá rồng, sen súng', 'Đúc liền vách lọc 3 – 4 ngăn, Gelcoat đen hoặc xanh rêu, gắn kính cường lực mặt trước'] },
     { chip: 'Bể trữ hải sản nhà hàng', suggest: 'Bể chữ nhật 0,5 – 3,0 m³', lead: 'Bể trữ hải sản sống', cells: ['0,5 – 3,0 m³, chữ nhật xếp tầng hoặc đặt riêng', 'Nhà hàng hải sản, khách sạn, siêu thị, chợ đầu mối, vựa', 'Tôm hùm, cua biển, cá song, cá tầm, ốc hương tươi sống', 'Lòng trắng sứ hoặc xanh dương sáng, ống xả tràn, van xả đáy, khung chân chịu lực'] },
     { chip: 'Ươm giống, nuôi lươn ếch', suggest: 'Bể tròn đáy bằng hoặc đáy côn 2 – 10 m³', lead: 'Bể ươm giống, nuôi đặc sản', cells: ['2,0 – 10 m³, tròn đáy bằng, đáy côn nhẹ, vuông bo góc, máng ấp', 'Trại tôm giống, cá giống, hộ nuôi lươn không bùn, ếch, ba ba', 'Ươm ấu trùng, nuôi vỗ cá bố mẹ, nuôi đặc sản mật độ cao', 'Mặt nhẵn chống xước cá con, đáy dốc thoát cặn, dễ khử trùng giữa các vụ'] },
     { chip: 'Nuôi tôm cá RAS', suggest: 'Bể tròn đáy phễu đường kính 3 – 8 m', lead: 'Nuôi thủy sản công nghệ cao RAS', cells: ['10 – 50 m³ trở lên, đường kính 3 – 8 m, nguyên khối hoặc lắp ghép', 'Doanh nghiệp thủy sản, trại tôm trong nhà màng, trại RAS', 'Tôm thẻ chân trắng, cá tầm, cá hồi, cá chình mật độ cao', 'Đáy phễu dốc 5% – 15% thu cặn tâm đáy, chân đế khung thép hoặc FRP, nối hệ lọc tuần hoàn'] },
@@ -71,9 +71,9 @@ const trash: ScaleTable = {
   columns: ['Dòng sản phẩm', 'Dung tích', 'Cấu tạo chính', 'Đối tượng sử dụng'],
   rows: [
     { chip: 'Thùng rác công cộng', suggest: 'Thùng đơn 60, 90, 120 hoặc 240 lít', lead: 'Thùng rác công cộng đơn', cells: ['Bốn cỡ: 60, 90, 120, 240 lít', 'Nắp kín ngăn mưa và mùi, 2 – 4 bánh cao su đặc xoay 360 độ, chốt inox', 'Đơn vị môi trường đô thị, khu dân cư, trường học, bệnh viện'] },
-    { chip: 'Thùng phân loại', suggest: 'Thùng 2 – 3 ngăn, 2x60, 3x60 hoặc 2x80 lít', lead: 'Thùng rác phân loại 2 – 3 ngăn', cells: ['2x60, 3x60, 2x80 lít', 'Nắp bập bênh tự đóng hoặc đạp chân, phân màu theo chuẩn Bộ Tài nguyên và Môi trường', 'Công viên, khu du lịch, tòa nhà văn phòng, nhà máy'] },
+    { chip: 'Thùng phân loại', suggest: 'Thùng 2 – 3 ngăn, 2x60, 3x60 hoặc 2x80 lít', lead: 'Thùng rác phân loại 2 – 3 ngăn', cells: ['2 × 60, 3 × 60, 2 × 80 lít', 'Nắp bập bênh tự đóng hoặc đạp chân, phân màu theo chuẩn Bộ Tài nguyên và Môi trường', 'Công viên, khu du lịch, tòa nhà văn phòng, nhà máy'] },
     { chip: 'Thùng hình thú', suggest: 'Thùng trang trí 50 – 70 lít', lead: 'Thùng rác hình thú trang trí', cells: ['50 – 70 lít', 'Hình cá heo, chim cánh cụt, gấu trúc, giả gỗ, có giỏ đựng rác rời', 'Trường mầm non, tiểu học, khu vui chơi'] },
-    { chip: 'Xe gom rác đẩy tay', suggest: 'Xe 400, 500, 660 hoặc 1000 lít', lead: 'Xe gom rác đẩy tay', cells: ['400, 500, 660, 1000 lít', 'Thùng composite dày 4 – 5 mm, khung thép phi 34, 3 bánh cao su đúc', 'Hợp tác xã vệ sinh môi trường, ban quản lý khu đô thị, nhà xưởng'] },
+    { chip: 'Xe gom rác đẩy tay', suggest: 'Xe 400, 500, 660 hoặc 1000 lít', lead: 'Xe gom rác đẩy tay', cells: ['400, 500, 660, 1000 lít', 'Thùng composite dày 4 – 5 mm, khung thép phi 34, 3 bánh xe cao su đúc', 'Hợp tác xã vệ sinh môi trường, ban quản lý khu đô thị, nhà xưởng'] },
   ],
 };
 
@@ -85,7 +85,7 @@ const guidance: Record<string, Guidance> = {
     features: [
       { icon: 'shape', title: 'Hình cầu, nhiều lớp', text: 'Hình cầu chia đều áp suất khí, không có góc chết đọng cặn. Lớp trong phủ Gelcoat và nhựa kháng axit hữu cơ, khí H2S. Lớp ngoài đan sợi thủy tinh Mat và Roving chịu áp lực đất và nước ngầm.' },
       { icon: 'seal', title: 'Đúc liền khối, kín khí', text: 'Không nứt ngầm hay rò khí khi đất sụt lún. Giữ nhiệt tốt nên vi sinh kỵ khí hoạt động ổn định cả mùa đông miền Bắc.' },
-      { icon: 'bolt', title: 'Tự đẩy bã, lắp nhanh', text: 'Áp suất khí đẩy bã ra hố chứa làm phân hữu cơ, không cần hút thủ công. Hạ bể và vận hành trong một buổi, có thể đào lên di dời khi đổi vị trí chuồng.' },
+      { icon: 'bolt', title: 'Tự đẩy bã, lắp nhanh', text: 'Áp suất khí đẩy bã ra hố chứa làm phân hữu cơ, không cần hút thủ công. Hạ bể và vận hành trong một buổi, đào lên di dời được khi đổi chuồng.' },
     ],
     accessories: { title: 'Phụ kiện đi kèm', items: ['Ống dẫn khí PVC hoặc PE', 'Van khóa tổng', 'Đồng hồ đo áp suất khí', 'Bầu lọc khử mùi H2S', 'Bếp gas đôi biogas'] },
     order: ['Loại vật nuôi, số lượng hiện tại và dự kiến tăng đàn', 'Mặt bằng hạ bể: đất vườn khô, ruộng trũng có nước ngầm hay đất đồi đá', 'Khoảng cách từ chuồng đến vị trí đặt bể và bếp, để tính chiều dài dây dẫn khí'],
@@ -97,9 +97,9 @@ const guidance: Record<string, Guidance> = {
     features: [
       { icon: 'layers', title: 'Ba ngăn kỵ khí', text: 'Ngăn chứa, ngăn lắng và ngăn lọc sinh học kỵ khí có giá thể vi sinh. Phân hủy chất hữu cơ, giảm mùi và hạn chế tắc nghẽn.' },
       { icon: 'shield', title: 'Thân liền khối có gân', text: 'Chịu áp lực đất đè và lún lệch móng mà không nứt ngầm hay rò nước bẩn ra mạch nước ngầm. Kháng khí H2S, hóa chất tẩy rửa.' },
-      { icon: 'bolt', title: 'Thi công nhanh', text: 'Rút ngắn thời gian thi công so với bể xây gạch, chống thấm nhờ đúc liền khối.' },
+      { icon: 'bolt', title: 'Thi công nhanh', text: 'Thi công nhanh hơn bể xây gạch, chống thấm nhờ đúc liền khối.' },
     ],
-    order: ['Loại công trình và số người dùng tối đa, ví dụ nhà dân 5 người, nhà trọ 15 phòng, xưởng 150 công nhân', 'Vị trí hạ bể: dưới nền nhà, sân vườn hay đường có xe tải chạy qua, để tính độ dày thành 5 – 18 mm và tấm đan bê tông bảo vệ', 'Đường kính ống thoát chờ sẵn (90, 110, 140, 160 mm) để nhà máy đúc cổ nối đúng chuẩn'],
+    order: ['Loại công trình và số người dùng tối đa, ví dụ nhà dân 5 người, nhà trọ 15 phòng, xưởng 150 công nhân', 'Vị trí hạ bể: dưới nền nhà, sân vườn hay đường có xe tải chạy qua, để tính độ dày thành 5 – 18 mm và tấm đan bảo vệ', 'Đường kính ống thoát chờ sẵn (90, 110, 140, 160 mm) để nhà máy đúc cổ nối đúng chuẩn'],
     scale: septic,
     faqs: faqSets.grow,
   },

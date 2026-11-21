@@ -22,7 +22,6 @@ export default async function SiteFooter() {
   return <footer className="tl-footer">
     <div className="container tl-footer-cta">
       <div>
-        <h2>Cần báo giá nhanh</h2>
         <p>Gửi nhu cầu, kỹ sư Thành Lợi phản hồi trong 15 đến 60 phút.</p>
       </div>
       <Link href="/lien-he#gui-yeu-cau" className="tl-footer-button pressable">Nhận báo giá<ArrowUpRight size={20} aria-hidden="true" /></Link>
@@ -49,7 +48,7 @@ export default async function SiteFooter() {
       </nav>
       <div className="tl-footer-contact">
         <h3 className="tl-sr">Liên hệ</h3>
-        <p><MapPin size={18} aria-hidden="true" /><span>Nhà máy: {address}</span></p>
+        <p><MapPin size={18} aria-hidden="true" /><span>{address}</span></p>
         <p><Phone size={18} aria-hidden="true" /><span>{hotlines.map((line, index) => <span key={line.tel}>{index > 0 && ', '}<a href={`tel:${line.tel}`}>{line.display}</a></span>)}</span></p>
         <p><Mail size={18} aria-hidden="true" /><a href={`mailto:${email}`}>{email}</a></p>
         <p><Clock size={18} aria-hidden="true" /><span>{hours}</span></p>

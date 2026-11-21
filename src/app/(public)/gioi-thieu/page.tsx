@@ -59,7 +59,7 @@ export default function AboutPage() {
   const shop = { ...editorialAssets.fit, src: variants(editorialAssets.fit.src).r32, width: 1400, height: 933 };
   return <main id="main" className="public-page tp tp-about">
     <Reveal/>
-    <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]} title="Về Thành Lợi" lead="Sản xuất composite FRP tại Phú Thọ từ năm 2010." image={hero}>
+    <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]} title="Về Thành Lợi" image={hero}>
       <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
       <Link href="/san-pham" className="tp-btn tp-btn-ghost-light">Xem sản phẩm</Link>
     </PageHero>
@@ -128,9 +128,9 @@ export default function AboutPage() {
       </ol>
     </div></section>
 
-    <section className="tp-fields"><div className="tp-wrap tp-fields-grid">
-      <h2 className="tp-sr">Lĩnh vực ứng dụng</h2>
-      <nav className="tp-fields-links" aria-label="Lĩnh vực ứng dụng">
+    <section className="tp-fields"><div className="tp-wrap tp-fields-grid is-stack">
+      <h2 className="tp-rv">Lĩnh vực phục vụ</h2>
+      <nav className="tp-fields-links" aria-label="Lĩnh vực phục vụ">
         {fields.map((item, i) => <Link key={item.label} href={item.href} className="tp-rv" style={{ ['--i' as string]: i }}>{item.label}<ArrowUpRight size={20} aria-hidden="true"/></Link>)}
       </nav>
     </div></section>

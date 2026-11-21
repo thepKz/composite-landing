@@ -124,7 +124,7 @@
 .adm-content[data-wide=true] { max-width: none; padding: 0; }
 
 /* Hộp thoại, ngăn kéo */
-.adm-overlay { position: fixed; inset: 0; z-index: var(--a-z-modal); display: grid; place-items: center; padding: 16px; background: rgba(8, 42, 59, .55); opacity: 0; transition: opacity var(--dur-fast, 180ms) var(--ease-out, ease-out); }
+.adm-overlay { position: fixed; inset: 0; z-index: var(--a-z-modal); display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 16px; background: rgba(8, 42, 59, .55); opacity: 0; transition: opacity var(--dur-fast, 180ms) var(--ease-out, ease-out); }
 .adm-overlay[data-state=open] { opacity: 1; }
 .adm-overlay[data-drawer] { place-items: stretch start; padding: 0; z-index: var(--a-z-drawer); }
 .adm-dialog { display: flex; flex-direction: column; width: min(100%, var(--dialog-w, 520px)); max-height: calc(100svh - 32px); background: #fff; border: 1px solid var(--a-line); border-radius: var(--a-radius-card); box-shadow: 0 20px 60px rgba(8, 42, 59, .35); opacity: 0; transform: scale(.96) translateY(8px); transition: opacity var(--dur-fast, 180ms) var(--ease-out, ease-out), transform var(--dur-base, 280ms) var(--ease-out, ease-out); }
@@ -481,3 +481,37 @@
 .adm-media-tile[data-picked] { outline: 3px solid var(--a-green); outline-offset: -3px; }
 .adm-media-tile:disabled { opacity: .55; cursor: not-allowed; }
 .adm-media-check { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--a-green); color: #fff; }
+
+
+/* Việc tiếp theo sau khi xuất bản */
+.ed-after { display: flex; flex-wrap: wrap; gap: 8px; }
+.ed-after .button { flex: 1 1 auto; }
+
+/* Thanh chọn ảnh dính ở đáy hộp thư viện: chọn xong là thấy nút Chèn, không phải cuộn */
+.adm-pick-bar { position: sticky; bottom: 0; z-index: 6; display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 10px 12px; background: #fff; border: 2px solid var(--a-green); border-radius: var(--a-radius-card); box-shadow: 0 -4px 16px rgba(8, 42, 59, .15); }
+.adm-pick-bar img { width: 44px; height: 44px; flex-shrink: 0; border-radius: 6px; object-fit: cover; border: 1px solid var(--a-line); }
+.adm-pick-bar span { flex: 1; min-width: 0; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-height: 520px) { .adm-pick-bar { padding-block: 6px; } .adm-pick-bar img { width: 36px; height: 36px; } }
+
+/* Vòng ba: danh sách đọc được trong một lần nhìn ở điện thoại và khung thấp */
+.adm-next-actions .button { flex: 1 1 auto; }
+@media (max-width: 800px) {
+  .adm-next-actions .button { width: auto; }
+  .adm-post-row { grid-template-columns: 72px auto minmax(0, 1fr); }
+  .adm-post-row .adm-post-title { grid-column: 2 / -1; }
+  .adm-post-row > :nth-child(3) { grid-column: 2; }
+  .adm-post-row > :nth-child(4) { grid-column: 3; justify-self: end; text-align: right; }
+}
+@media (min-width: 480px) and (max-width: 800px) {
+  .adm-dropzone { flex-direction: row; align-items: center; }
+  .adm-dropzone .button { width: auto; }
+}
+@media (max-height: 520px) {
+  .adm-root .filter-tabs button { min-height: 36px; padding-block: 2px; }
+  .list-controls { gap: 8px; }
+  .list-controls .inline-actions { flex: 1 1 100%; flex-wrap: nowrap; gap: 8px; }
+  .list-controls .inline-actions .search-control { flex: 1; min-width: 0; width: auto; }
+  .adm-root .select-inline select { min-height: 36px; }
+  .adm-root .search-control input { min-height: 36px; }
+  .admin-page-heading { align-items: center; }
+}

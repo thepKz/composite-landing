@@ -256,7 +256,8 @@ export default function PostEditor({ id }: { id?: string }) {
       if (!current.post.id) window.history.replaceState(null, '', `/admin/bai-viet/${result.id}`);
       if (!silent) {
         const state = publicationState(result.status, result.published_at, new Date(result.server_now ?? Date.now()).getTime());
-        toast(state === 'scheduled' ? `Đã hẹn đăng lúc ${formatVietnamDateTime(result.published_at!)}. Bài chưa hiện ra website.` : state === 'published' ? (current.post.status === 'published' ? 'Đã cập nhật bài trên website.' : 'Đã xuất bản. Bài đang hiện trên website.') : 'Đã lưu bản nháp. Chỉ quản trị viên xem được.');
+        const viewAction = { label: 'Xem bài', onClick: () => window.open(postPath({ kind: current.post.kind, slug: result.slug ?? current.post.slug }), '_blank') };
+        toast(state === 'scheduled' ? `Đã hẹn đăng lúc ${formatVietnamDateTime(result.published_at!)}. Bài chưa hiện ra website.` : state === 'published' ? (current.post.status === 'published' ? 'Đã cập nhật bài trên website.' : 'Đã xuất bản. Bài đang hiện trên website.') : 'Đã lưu bản nháp. Chỉ quản trị viên xem được.', 'success', state === 'published' ? viewAction : undefined);
       }
       return true;
     } catch (failure) {
@@ -466,6 +467,8 @@ export default function PostEditor({ id }: { id?: string }) {
           onChange={change}
           onSlug={value => { setSlugEdited(true); change('slug', value); }}
           onSave={(status, action) => void persist(status, action)}
+          publicHref={post.id && state === 'published' ? postPath(post) : ''}
+          onCopyLink={() => { void navigator.clipboard.writeText(window.location.origin + postPath(post)).then(() => toast('Đã chép liên kết bài.'), () => toast('Trình duyệt không cho chép tự động.', 'error')); }}
           onPickCover={() => setMediaMode('cover')}
           onRemoveCover={() => { const previous = post.cover_id; change('cover_id', null); toast('Đã bỏ ảnh bìa.', 'success', { label: 'Hoàn tác', onClick: () => change('cover_id', previous) }); }}
           onEditCover={() => post.cover_id && setImageEdit({ mediaId: post.cover_id, target: 'cover', ratio: '16:9' })}

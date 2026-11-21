@@ -4,18 +4,20 @@ type Kind = 'septic' | 'modules' | 'tank' | 'generic';
 
 // Ô thay thế cho nhóm chưa có ảnh xác nhận: không gán ảnh sản phẩm sai, thay bằng nền vật liệu trang trí,
 // màu thương hiệu, thông số lớn và hình vẽ nét đơn giản của dạng bể (tự vẽ bằng SVG).
-function kindOf(slug: string): Kind {
+export function kindOf(slug: string): Kind {
   if (slug === 'be-phot-composite' || slug === 'be-phot-va-xu-ly-nuoc-thai') return 'septic';
   if (slug === 'be-xu-ly-nuoc-thai') return 'modules';
   if (slug === 'bon-chua-hoa-chat') return 'tank';
   return 'generic';
 }
 
-const line = { stroke: '#d3f56b', strokeWidth: 3, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' };
-const body = { ...line, fill: '#ffffff1a' };
+const baseLine = { strokeWidth: 3, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' };
 
-function Drawing({ kind }: { kind: Kind }) {
-  return <svg className="pt-art" viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+// Hình vẽ nét của dạng bể. Màu nét truyền vào để dùng được cả trên nền tối (chanh) và nền sáng (xanh lá).
+export function Drawing({ kind, color = '#d3f56b', className = 'pt-art' }: { kind: Kind; color?: string; className?: string }) {
+  const line = { ...baseLine, stroke: color };
+  const body = { ...line, fill: color + '1a' };
+  return <svg className={className} viewBox="0 0 240 150" aria-hidden="true" focusable="false">
     <path d="M12 124 H228" {...line} strokeDasharray="2 8" />
     {kind === 'septic' && <>
       <rect x="30" y="58" width="180" height="58" rx="29" {...body} />

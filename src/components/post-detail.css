@@ -260,3 +260,8 @@
 
 .art-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .art-foot{margin-top:48px;padding-top:20px}
+
+/* Bảng cuộn ngang: dải mờ kèm mũi tên ở mép khi còn cuộn được, để cột cuối không bị cắt dở mà không ai biết */
+.art-table-shell::after,.art-table-shell::before{width:56px;display:flex;align-items:center;font-size:34px;font-weight:600;line-height:1;color:#0f5c3f}
+.art-table-shell::after{content:'›';justify-content:flex-end;padding-right:10px;background:linear-gradient(to left,#fff 30%,#ffffff00)}
+.art-table-shell::before{content:'‹';justify-content:flex-start;padding-left:10px;background:linear-gradient(to right,#fff 30%,#ffffff00)}

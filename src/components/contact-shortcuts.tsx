@@ -40,7 +40,7 @@ export default function ContactShortcuts({ contact = resolveContact() }: { conta
 
   return <><span ref={sentinel} className="tl-top-sentinel" aria-hidden="true" /><nav className="tl-dock" data-hidden={formVisible} data-top={atTop} aria-label="Liên hệ nhanh">
     <a href={`tel:${phone}`} className="tl-dock-call pressable" aria-label="Gọi ngay"><Phone size={20} aria-hidden="true" /><span>Gọi ngay</span></a>
-    <a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer" className="tl-dock-zalo pressable" aria-label="Chat Zalo"><MessageCircle size={20} aria-hidden="true" /><span>Chat Zalo</span></a>
+    <a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer" className="tl-dock-zalo pressable" aria-label="Nhắn Zalo"><MessageCircle size={20} aria-hidden="true" /><span>Nhắn Zalo</span></a>
     <Link href={quoteHref} className="tl-dock-quote pressable" aria-label="Nhận báo giá"><FileText size={20} aria-hidden="true" /><span>Nhận báo giá</span></Link>
   </nav></>;
 }

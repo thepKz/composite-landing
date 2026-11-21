@@ -129,6 +129,10 @@ async function withPages(fn: (page: Page, tag: string) => Promise<void>) {
 try {
   await clearSamples();
   const media = await pickMedia();
+  // Trạng thái thật: chưa có bài nào (chỉ đúng khi cơ sở dữ liệu không còn bài của agent khác)
+  const nowPosts = await db.query('SELECT count(*)::int n FROM posts').then(r => r.rows[0].n);
+  console.log('Số bài hiện có trước khi chụp trạng thái 0 bài:', nowPosts);
+  await withPages(async (page, tag) => { await shoot(page, 'tin-tuc-0-bai', '/tin-tuc', tag); });
   const portrait = media.find(m => m.kind === 'portrait');
   const landscapes = media.filter(m => m.kind === 'landscape');
   console.log('Ảnh dùng được:', media.length, '| dọc:', media.filter(m => m.kind === 'portrait').length);
@@ -224,6 +228,7 @@ try {
     const cover = (i: number) => (i % 4 === 3 ? null : landscapes[i % Math.max(landscapes.length, 1)]?.id ?? null);
     for (let i = 0; i < n; i++) await add(media, `l${n}-${i}`, `Bài mẫu số ${i + 1}: hướng dẫn chọn bể composite cho từng nhu cầu sử dụng`, 'Tóm tắt ngắn của bài mẫu để kiểm lưới thẻ, hai dòng là đủ, bài sẽ tự xoá sau khi chụp.', thin, i % 3 === 2 ? 'project' : 'article', cover(i), 2 + i);
     await withPages(async (page, tag) => { await shoot(page, `tin-tuc-${n}-bai`, '/tin-tuc', tag); });
+    if (n === 3) await withPages(async (page, tag) => { await shoot(page, 'tin-tuc-loc-ra-0', '/tin-tuc?q=khongcoketqua', tag); });
     await clearSamples();
   }
   await withPages(async (page, tag) => { await shoot(page, 'tin-tuc-rong', '/tin-tuc?q=khongcoketqua', tag); });

@@ -60,7 +60,7 @@ export default function HeroSlider({ hotline = facts.hotlines[0] }: { hotline?: 
 
   // Ảnh cảnh 2 và 3 chỉ tải sau khi trang đã nhàn, để ảnh cảnh đầu tải nhanh nhất.
   useEffect(() => {
-    const start = () => window.setTimeout(() => setWarm(true), 900);
+    const start = () => window.setTimeout(() => setWarm(true), 2500);
     if (document.readyState === 'complete') { const id = start(); return () => window.clearTimeout(id); }
     let id = 0;
     const onLoad = () => { id = start(); };

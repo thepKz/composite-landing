@@ -70,7 +70,9 @@ export default function RichContent({ document, article = false }: Props) {
       case 'image': {
         const src = String(node.attrs?.src);
         const alt = String(node.attrs?.alt ?? '');
-        const caption = String(node.attrs?.caption ?? node.attrs?.title ?? '');
+        // Chú thích chỉ hiện khi người viết nhập riêng. Tiêu đề trùng hệt mô tả ảnh là chữ tự sinh nên bỏ.
+        const rawCaption = String(node.attrs?.caption ?? node.attrs?.title ?? '').trim();
+        const caption = node.attrs?.caption == null && rawCaption === alt.trim() ? '' : rawCaption;
         const align = aligns.has(String(node.attrs?.align)) ? String(node.attrs?.align) : 'center';
         const width = imageWidth(node.attrs?.width);
         const style = width ? ({ '--art-img-w': `${width}%` } as CSSProperties) : undefined;

@@ -48,7 +48,7 @@ async function measure(page: Page) {
 async function orphans(page: Page) {
   return page.evaluate(() => {
     const found: string[] = [];
-    document.querySelectorAll<HTMLElement>('main h1, main h2, main h3, main p, main figcaption').forEach(el => {
+    document.querySelectorAll<HTMLElement>('main h1, main h2, main h3, main p, main figcaption, footer p span, footer .tl-footer-cta p').forEach(el => {
       if (!el.offsetParent || !el.textContent || el.children.length > 3 || el.closest('.tl-sr') || el.classList.contains('tl-sr') || el.getBoundingClientRect().width < 20) return;
       const node = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent!.trim().length > 8);
       if (!node) return;

@@ -135,6 +135,25 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
     await page.evaluate(() => window.scrollTo(0, 0));
   }
 
+  // Điện thoại: thanh công cụ gọn, phần còn lại nằm trong menu Thêm (Esc đóng, tiêu điểm về nút)
+  if (mobile) {
+    const toolbar = page.getByRole('toolbar', { name: 'Công cụ soạn bài' });
+    expect(await toolbar.locator(':scope > button').count()).toBeLessThanOrEqual(6);
+    const more = toolbar.getByRole('button', { name: 'Thêm', exact: true });
+    await more.click();
+    const menuMore = page.getByRole('menu', { name: 'Thêm' });
+    await expect(menuMore.getByRole('menuitem', { name: 'Video' })).toBeVisible();
+    await expect(menuMore.getByRole('menuitem', { name: 'Bảng' })).toBeVisible();
+    const box = (await menuMore.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(391);
+    await shot('menu-them');
+    await page.keyboard.press('Escape');
+    await expect(menuMore).toBeHidden();
+    await expect(more).toBeFocused();
+    await editor().click();
+    await page.keyboard.press('Control+End');
+  }
+
   // 2. Menu gõ dấu / chèn tiêu đề
   await editor().click();
   await page.keyboard.press('Control+End');
@@ -266,6 +285,7 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   const slugSection = page.locator('.ed-section', { has: page.getByRole('button', { name: /Đường dẫn/ }) });
   await slugSection.getByRole('button', { name: /Đường dẫn/ }).click();
   await slugSection.getByLabel('Địa chỉ của bài').fill(slug);
+  await expect(slugSection.getByLabel('Địa chỉ của bài')).toHaveValue(slug);
   await closeSettings();
 
   // 12. Xem trước đúng giao diện công khai
@@ -281,14 +301,30 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   // 13. Ctrl+S lưu, rồi xuất bản
   await page.keyboard.press('Control+s');
   await expect(status()).toContainText('Đã lưu lúc', { timeout: 30000 });
+  await expect(page.getByLabel('Địa chỉ của bài')).toHaveValue(slug);
   const publish = mobile ? page.locator('.ed-mobilebar').getByRole('button', { name: 'Xuất bản' }) : page.locator('.ed-top').getByRole('button', { name: 'Xuất bản' });
   await publish.click();
   await expect(page.getByText('Đã xuất bản.', { exact: false }).first()).toBeVisible();
   await shot('xuat-ban');
+  // Sau khi xuất bản: thông báo có nút Xem bài, ngăn Xuất bản có Xem bài, Chép liên kết, Viết bài mới
+  await expect(page.locator('.adm-toast-action', { hasText: 'Xem bài' })).toBeVisible();
 
   // 14. Trang công khai thấy bài, ảnh không vỡ
   const publicPage = await context.newPage();
-  await publicPage.goto(origin + '/tin-tuc/' + slug, { waitUntil: 'networkidle' });
+  // Ngay sau khi xuất bản, bài phải mở được ngay (người dùng bấm Xem bài liền). Nếu gặp 404 thì ghi lại trạng thái trong cơ sở dữ liệu và thời gian mới thấy bài, để biết lỗi nằm ở sản phẩm hay ở môi trường chạy.
+  const slugRow = (await db.query('SELECT slug FROM posts WHERE title=$1', [title])).rows[0];
+  console.log('GHI NHẬN ' + tag + ': đường dẫn trong cơ sở dữ liệu ' + slugRow?.slug + ', đường dẫn mong đợi ' + slug);
+  const publishedClickAt = Date.now();
+  let firstStatus = 0, tries = 0;
+  for (; tries < 20; tries++) {
+    const response = await publicPage.goto(origin + '/tin-tuc/' + slug, { waitUntil: 'networkidle' });
+    if (tries === 0) firstStatus = response?.status() ?? 0;
+    if (response?.status() === 200) break;
+    const row = (await db.query("SELECT status, published_at, clock_timestamp() AS now, slug, kind FROM posts WHERE title=$1", [title])).rows[0];
+    console.log('CẢNH BÁO ' + tag + ': trang công khai trả ' + response?.status() + ' lần ' + (tries + 1) + ' sau ' + (Date.now() - publishedClickAt) + ' ms, trong cơ sở dữ liệu: ' + JSON.stringify(row));
+    await publicPage.waitForTimeout(1000);
+  }
+  if (tries > 0) failures.push(tag + ': bài vừa xuất bản mà trang công khai trả ' + firstStatus + ' ở lần mở đầu tiên (mở được sau ' + tries + ' lần thử lại)');
   await expect(publicPage.locator('h1').first()).toHaveText(title);
   if (!await publicPage.locator('h1').first().isVisible()) console.log(`CẢNH BÁO ${tag}: đầu bài công khai đang ẩn (visibility:hidden), lỗi phía trang công khai`);
   const broken = await publicPage.evaluate(() => [...document.images].filter(i => i.complete && i.naturalWidth === 0).length);
@@ -314,6 +350,11 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
 
   // 16. Chuyển về nháp (nút ở cột bên phải), trang công khai không còn bài
   await openSettings();
+  const after = page.getByRole('group', { name: 'Việc tiếp theo' });
+  await expect(after.getByRole('link', { name: 'Xem bài' })).toHaveAttribute('href', '/tin-tuc/' + slug);
+  await expect(after.getByRole('button', { name: 'Chép liên kết' })).toBeVisible();
+  await expect(after.getByRole('link', { name: 'Viết bài mới' })).toHaveAttribute('href', '/admin/bai-viet/moi');
+  await shot('viec-tiep-theo');
   const panelButtons = page.locator('.ed-panel');
   await panelButtons.getByRole('button', { name: 'Chuyển về nháp' }).click();
   await expect.poll(async () => (await db.query('SELECT status FROM posts WHERE title=$1', [title])).rows[0].status, { message: 'bài chưa về nháp sau khi bấm nút ở cột bên phải' }).toBe('draft');

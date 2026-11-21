@@ -180,3 +180,92 @@ Bảng bể phốt: từ 8 chỗ xuống 1 ô ("35 – 100 m³ trở lên hoặc
 - Trang Dự án khi có 1, 2, 3 dự án thật chưa kiểm bằng dữ liệu thật (lúc kiểm có một "Dự án mẫu kiểm thử" do bên khác tạo tạm).
 - Thẻ bể cá ở trang chủ vẫn là ảnh có em bé (mục 2).
 - Không chạy `ui_audit.py --render`, chưa kiểm bản build.
+
+---
+
+# Vòng ba
+
+Ảnh ở `vong-2/trang-phu/sau-vong-ba` (ba cỡ, `report.json`) và `du-an-that` (trang Dự án với dữ liệu thật).
+
+## 1. Chữ rớt từ lẻ còn lại
+
+Đo bằng `scripts/kiem-rot-chu-trang-phu.mjs` (từng từ thật, gồm ô bảng, bỏ chữ ẩn và hỏi đáp đang đóng).
+
+| Cỡ | Đầu vòng ba | Cuối vòng ba |
+|---|---|---|
+| 1366 | 5 ô bảng | 0 |
+| 390 (bảng đã là thẻ xếp dọc) | 6 ô bảng | 0 |
+| 600x360 | 12 | 2 (bước 3 trong quy trình đặt hàng, câu lấy từ `site-facts.ts` nên chưa rút) |
+
+Cách làm: không dùng ký tự dính từ, `text-wrap` hay `<br>`. Thử đổi bề rộng cột và giới hạn bề rộng ô thì sinh thêm chỗ rớt (17 chỗ ở 1366, 22 chỗ ở 390) nên đã gỡ ra. Cuối cùng là rút hoặc đảo chữ ở từng ô, không đổi nghĩa. Ô nào dài hơn một dòng thì đặt cụm số liệu cuối câu để dòng cuối luôn có từ ghép. Ví dụ: "Đun nấu, nấu cám, 4 – 6 người", "15 – 50 người, 10 – 25 phòng trọ", "Cá Koi, cá vàng, cá rồng, sen súng", "35 – 100 m³ trở lên hoặc ghép module", "2 × 60, 3 × 60, 2 × 80 lít". Đổi vài cụm trong mô tả tính năng (ví dụ "Thi công nhanh hơn bể xây gạch", "đào lên di dời được khi đổi chuồng").
+
+## 2. Trang Dự án với dữ liệu thật
+
+Script `scripts/du-an-mau-trang-phu.ts` tạo dự án mẫu tạm (kind `project`, có ảnh bìa gắn `post_media`) với 1, 2, 3, 5 mục, chụp ba cỡ, rồi xoá hết. Lần chạy đầu thấy ảnh vỡ vì thiếu liên kết ảnh với bài, sửa trong script.
+
+Điều thấy và đã sửa:
+- 1 mục: thẻ ngang lớn, ảnh dọc bị kéo cao 614px. Sửa: ảnh phủ khung cao tối thiểu 400px, không kéo theo tỉ lệ ảnh gốc.
+- 5 mục: lưới ba cột bỏ trống một ô. Sửa: chia hàng cho đủ, dư 2 mục thì thẻ đầu rộng gấp đôi, dư 1 mục (4, 7) thì hai thẻ đầu rộng, nên không còn ô trống ở 1, 2, 3, 4, 5, 7, 8 mục. Dưới 1000px còn hai cột, thẻ lẻ cuối kéo tràn hàng.
+- Tiêu đề "Dự án đã đăng" thừa (thẻ ảnh nhìn là hiểu), ẩn khỏi mắt.
+- Kết quả đo ở 1, 2, 3, 5 mục x ba cỡ: 0 tràn ngang, 0 ảnh vỡ. Đã xem ảnh 1366 của 1, 2, 5 mục.
+- Dọn: không còn dự án mẫu nào (truy vấn `title LIKE 'Dự án mẫu kiểm thử%'` trả 0). Đếm lại lúc cuối: 26 ảnh, 0 yêu cầu. Còn 1 bài nháp "Bài kiểm thử luồng luong-..." và 1 tài khoản `@example.test` không phải của tôi (tạo bởi lượt kiểm khác, đang chạy), tôi không xoá.
+
+## 3. Đi bảy trang chi tiết và trang nhóm như khách sắp gọi
+
+Xem màn đầu ba cỡ của biogas, thủy sản, bể phốt, bồn hóa chất, thùng rác và trang nhóm bể phốt (trang thùng chở tôm cá và theo yêu cầu dùng cùng khuôn, chưa xem riêng).
+- Thấy: tên, ảnh và thông số đều có ở màn đầu 1366 và 600. Nút "Nhận báo giá" nằm dưới bảng thông số nên ở 1366 ra ngoài màn đầu ở bốn trang.
+- Sửa: nút báo giá và số gọi lên ngay dưới mô tả, trên bảng thông số. Ở 1366 và 600 đều thấy nút trong màn đầu. Ở điện thoại ảnh chính đổi từ vuông sang 5:4 để tên và tagline lên cao hơn.
+- Trang yếu nhất: hai trang chưa có ảnh xác nhận (bể phốt, bồn hóa chất): khung xanh to chỉ có tiêu đề và danh sách. Đã bỏ tagline lặp (ở trên khung và dưới tên), bỏ nhãn "Phù hợp cho". Chưa thể nâng thêm nếu chưa có ảnh thật.
+
+## 4. Chữ thừa lượt hai
+
+| Bỏ | Vì sao | Giữ | Vì sao |
+|---|---|---|---|
+| Số "7 nhóm sản phẩm" ở đầu trang Sản phẩm | Bộ lọc đã có "Tất cả 7", tiêu đề đủ nghĩa | "Nhờ kỹ sư chọn giúp", số trên mỗi nút lọc | Việc cần làm, thông tin |
+| Nhãn nhóm trên thẻ ("Chăn nuôi", "Thủy sản") khi đã chọn bộ lọc | Lặp đúng nhãn bộ lọc | Nhãn khi xem "Tất cả" | Phân loại |
+| Tagline dưới tên sản phẩm khi khung xanh đã in chính câu đó | Hai lần cùng một câu | Tagline ở sản phẩm có ảnh | Thông tin |
+| Nhãn "Phù hợp cho" trên khung xanh | Danh sách tự nói là ứng dụng | Danh sách ứng dụng | Thông tin |
+| Dòng dưới "Cần chọn đúng dung tích?" | Không bỏ | Giữ | Có thông tin mới (báo giá 15 – 60 phút) |
+| Không bỏ nút gọi ở đầu trang Liên hệ | Không bỏ | Giữ | Là hành động chính ở 600x360, dù số lặp với khối hotline bên dưới ở máy bàn |
+| "100+ công trình" ở trang Dự án | Không bỏ | Giữ | Là con số duy nhất của trang, lời dẫn đã bỏ ý trùng |
+
+## Đã kiểm
+
+- `npx tsc --noEmit` sạch, `npm test` 40 trên 40 đạt.
+- 45 lượt chụp ba cỡ: 0 tràn ngang, 0 ảnh vỡ, 0 vùng bấm dưới ngưỡng, lỗi console chỉ có mã 404 của trang 404.
+- `kiem-tuong-tac-trang-phu.mjs`: 24 trên 24 đạt.
+- Đã xem ảnh: màn đầu 1366, 600, 390 của sáu trang sản phẩm và trang nhóm, trang Sản phẩm 1366 toàn trang, trang Dự án 1, 2, 5 mục.
+
+## Còn lại
+
+- 2 chỗ rớt từ lẻ ở 600x360 (bước 3 quy trình đặt hàng, lấy từ `site-facts.ts` chưa được sửa).
+- Dự án 4 và 7 mục chưa chụp (chỉ suy từ quy tắc chia hàng), chỉ đã chụp 1, 2, 3, 5.
+- Hai trang chưa có ảnh xác nhận vẫn là khung xanh, cần ảnh thật.
+- Chưa kiểm bản build, tốc độ, điện thoại thật; không chạy `ui_audit.py --render`.
+
+---
+
+# Vòng sửa cuối (theo kiểm viên lượt ba)
+
+Ảnh ở `vong-2/trang-phu/sau-vong-cuoi` (ba cỡ, `report.json`).
+
+1. **Giới thiệu, dải sáu liên kết (P1-4, bỏ quá tay):** trả đầu đề "Lĩnh vực phục vụ" và dàn sáu mục thành ba cột hai hàng cho kín bề rộng; dải giảm từ trên 400px xuống khoảng 170px. Đã xem ảnh 1366.
+2. **Dự án khi chưa có dự án (P1-3):** bỏ thẻ "Hồ sơ dự án đang được cập nhật" và nút. Thay bằng dải ảnh công trình và xưởng thật đã có (không chú thích), rồi danh sách năm lĩnh vực; giữ số "100+ công trình". Bỏ lời dẫn đầu trang và câu "Đây là nhóm lĩnh vực sản phẩm, chưa phải danh sách dự án đã bàn giao". Khi có dự án đăng thật thì dùng lưới thẻ đã chỉnh ở vòng ba. Các hàng lĩnh vực nay thẳng cột (cột chữ cố định 280px, cột liên kết 200px), sửa lệch lề P2-12. Đã xem ảnh 1366 của trạng thái rỗng thật (0 dự án lúc chụp).
+3. **Hai trang chưa có ảnh xác nhận (bể phốt, bồn hóa chất, P1-1):** không gán ảnh. Bỏ khối xanh chữ ở chỗ ảnh chính. Bố cục mới: cột trái là tên, tagline, mô tả, chip ứng dụng, nút báo giá và chọn quy mô; cột phải là thẻ trắng có hình vẽ nét nhỏ và thông số cỡ lớn (28px cho dòng đầu). Ở 600x360 và điện thoại thẻ xếp dưới, tên và nút vẫn ở màn đầu. Phần "Cấu tạo" không có phụ kiện chuyển sang một cột để không còn cột trái trống (P2-2).
+4. **Chữ thừa còn sót:**
+   - Nhãn "Dung tích", "Đường kính" cạnh số có đơn vị bỏ ở mọi trang chi tiết (còn trong mã cho trình đọc màn hình). Hai dòng liền nhau gộp thành một: "1,5 – 13 m³, đường kính 1,50 – 3,00 m". Nhãn của giá trị chữ (Quy mô đàn, Bảo hành, Kiểu bể, Bề mặt, Lớp lót, Độ dày thành, Cấu tạo) giữ vì giá trị không tự nói nghĩa.
+   - Dòng phụ đầu trang Liên hệ, dòng phụ đầu trang Dự án, dòng phụ đầu trang Giới thiệu (lặp "15+ năm" và hàng ứng dụng) đã bỏ.
+   - Nhãn "Mũi nhọn" trên thẻ sản phẩm và trang chi tiết bỏ (cách gọi nội bộ của hồ sơ, khách ít hiểu; bento vẫn cho thấy thứ tự).
+   - Nút "Nhận báo giá" lẻ dưới bảng trang nhóm bể phốt bỏ vì dải cuối trang đã có.
+5. **Đường dẫn trang bể phốt ở 390:** đã tự kiểm. Hai dòng, dấu `/` nằm cuối dòng trên ("Trang chủ / Sản phẩm /" rồi "Bể phốt và xử lý nước thải / Bể phốt composite"), không còn dấu lẻ đầu dòng.
+
+## Đã kiểm
+- `npx tsc --noEmit` sạch, `npm test` 40 trên 40 đạt.
+- 45 lượt chụp ba cỡ: 0 tràn ngang, 0 ảnh vỡ, 0 vùng bấm dưới ngưỡng, console chỉ có 404 của trang 404. Kiểm tương tác 24 trên 24 đạt.
+- Chữ rớt từ lẻ (đo từng từ): 0 ở 1366, 0 ở 390, 2 ở 600x360 (bước 3 quy trình đặt hàng, câu từ `site-facts.ts`).
+- Đã xem ảnh: Giới thiệu cuối trang (1366), Dự án rỗng (1366, 390), bể phốt, bồn hóa chất, biogas (1366, 390, 600), Liên hệ đầu trang.
+
+## Chưa kiểm hoặc còn lại
+- Trang Dự án ở trạng thái rỗng dùng ảnh trùng một phần với dải ảnh trang Giới thiệu (cùng nguồn ảnh xưởng).
+- Hai trang chưa ảnh vẫn không có ảnh thật (cần doanh nghiệp chụp), chỉ thay bố cục.
+- Chưa kiểm bản build, tốc độ, điện thoại thật.

@@ -30,7 +30,7 @@ export function AboutSection({ address = facts.address }: { address?: string }) 
       </figure>
       <div className="tl-about-copy" data-reveal style={reveal(1)}>
         <h2>Về Thành Lợi Composite</h2>
-        <p>Thành lập từ năm {facts.founded}, nhà máy đặt tại {address}. Chúng tôi thiết kế, sản xuất và cung cấp trọn gói sản phẩm composite FRP cho chăn nuôi, thủy sản, xử lý môi trường, công nghiệp hóa chất, vệ sinh đô thị và dân dụng.</p>
+        <p>Chúng tôi thiết kế, sản xuất và cung cấp trọn gói sản phẩm composite FRP cho chăn nuôi, thủy sản, dân dụng, vệ sinh đô thị, xử lý môi trường và công nghiệp hóa chất.</p>
         <p className="tl-motto">Đúng yêu cầu, đúng tiến độ, bền vững theo thời gian.</p>
         <Link href="/gioi-thieu" className="tl-button is-dark pressable">Tìm hiểu thêm<ArrowRight size={20} aria-hidden="true" /></Link>
       </div>
@@ -54,11 +54,11 @@ function ReasonsBento() {
       <div className="tl-why-body"><h3>{warranty.title}</h3><p>{warranty.text}</p></div>
     </article>
     <article className="tl-why-cell is-plain" data-reveal style={reveal(2)}>
-      <div className="tl-why-body"><Layers size={28} aria-hidden="true" /><h3>{scale.title}</h3><p className="tl-sr">{scale.text}</p></div>
+      <div className="tl-why-body"><Layers size={28} aria-hidden="true" /><h3>{scale.title}</h3><p>Từ hộ gia đình đến dự án công nghiệp lớn.</p></div>
       <ol className="tl-why-ladder">{quickScales.map(label => <li key={label}><span>{label}</span></li>)}</ol>
     </article>
     <article className="tl-why-cell is-dark" data-reveal style={reveal(3)}>
-      <div className="tl-why-body"><Wrench size={28} aria-hidden="true" /><h3>{service.title}</h3><p className="tl-sr">{service.text}</p></div>
+      <div className="tl-why-body"><Wrench size={28} aria-hidden="true" /><h3>{service.title}</h3><p>Lắp tận nơi, bảo hành toàn quốc.</p></div>
       <ul className="tl-why-chain">{tasks.map(label => <li key={label}>{label}</li>)}</ul>
     </article>
   </div>;
@@ -167,16 +167,19 @@ export function FaqSection({ hotline = facts.hotlines[0] }: { hotline?: { displa
   return <section className="tl-section tl-faq">
     <div className="container tl-faq-grid">
       <div className="tl-faq-intro" data-reveal>
-        <h2><span className="tl-sr">Câu hỏi thường gặp. </span>Chưa thấy câu bạn cần? Gọi hotline để hỏi kỹ sư.</h2>
-        <div className="tl-faq-actions">
-          <a href={`tel:${hotline.tel}`} className="tl-button is-dark pressable"><Phone size={20} aria-hidden="true" />{hotline.display}</a>
-          <Link href="/hoi-dap" className="tl-link pressable">Xem tất cả câu hỏi<ArrowRight size={20} aria-hidden="true" /></Link>
-        </div>
+        <h2>Câu hỏi thường gặp</h2>
       </div>
       <div className="tl-faq-list">{faqs.map((item, index) => <details key={item.q} name="tl-faq" className="tl-faq-item" data-reveal style={reveal(index)}>
         <summary><span>{item.q}</span><span className="tl-faq-mark" aria-hidden="true"><i /><i /></span></summary>
         <div className="tl-faq-answer"><p>{item.a}</p></div>
-      </details>)}</div>
+      </details>)}
+        <div className="tl-faq-call" data-reveal>
+          <p>Chưa thấy câu bạn cần? Gọi hotline để hỏi kỹ sư.</p>
+          <div className="tl-faq-actions">
+            <a href={`tel:${hotline.tel}`} className="tl-button is-dark pressable"><Phone size={20} aria-hidden="true" />{hotline.display}</a>
+            <Link href="/hoi-dap" className="tl-link pressable">Xem tất cả câu hỏi<ArrowRight size={20} aria-hidden="true" /></Link>
+          </div>
+        </div></div>
     </div>
   </section>;
 }

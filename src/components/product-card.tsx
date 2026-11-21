@@ -22,6 +22,8 @@ type Props = {
   still?: boolean;
   /** Thẻ nằm ngang: ảnh bên trái, chữ bên phải. Dùng trong khối bento của danh mục */
   wide?: boolean;
+  /** Hiện nhãn nhóm trên thẻ. Tắt khi bộ lọc đã nói rõ nhóm */
+  showCategory?: boolean;
   /** Thẻ lớn của khối bento: ảnh cao, chữ to hơn */
   feature?: boolean;
 };
@@ -31,7 +33,7 @@ export const shortStat = (value?: string) => value?.replace(/^Từ\s+([\d.,]+)\s
 
 // Thẻ sản phẩm. Ảnh thật đúng sản phẩm đặt trong khung có nền mờ cùng ảnh, ảnh nét nằm giữa.
 // Sản phẩm chưa có ảnh xác nhận thì thẻ dựa vào thông số, không gán ảnh sai.
-export default function ProductCard({ product, compact = false, href, title, rank, index = 0, still = false, wide = false, feature = false }: Props) {
+export default function ProductCard({ product, compact = false, href, title, rank, index = 0, still = false, wide = false, feature = false, showCategory = true }: Props) {
   const asset = productAssetBySlug[product.slug];
   const v = asset ? variants(asset.src) : null;
   const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, srcSet: undefined as string | undefined } : asset && v ? (feature ? { src: v.sq, alt: asset.alt, srcSet: `${v.sqSmall} 560w, ${v.sq} 1000w` } : { src: v.r43, alt: asset.alt, srcSet: `${v.r43Small} 520w, ${v.r43} 960w` }) : undefined;
@@ -41,10 +43,9 @@ export default function ProductCard({ product, compact = false, href, title, ran
       {image ? <>
         <img className="tp-card-photo" src={image.src} srcSet={image.srcSet} sizes={feature ? '(min-width: 1000px) 520px, 92vw' : wide ? '(min-width: 1000px) 300px, 92vw' : '(min-width: 1000px) 400px, 92vw'} alt={image.alt} width={960} height={feature ? 960 : 720} loading="lazy"/>
       </> : <ProductTile slug={product.slug} stat={shortStat(product.specifications[0]?.value.split(':')[0])} />}
-      {rank ? <span className="tp-flag">Mũi nhọn</span> : null}
     </div>
     <div className="tp-card-body">
-      <span className="tp-card-category">{product.category}</span>
+      {showCategory && <span className="tp-card-category">{product.category}</span>}
       <h3 className={name.length > 26 ? 'is-long' : undefined}>{name}</h3>
       {!compact && <p>{product.description}</p>}
       <ul className="tp-chips" aria-label="Ứng dụng">{product.applications.slice(0, 3).map(item => <li key={item}>{item}</li>)}</ul>

@@ -1,6 +1,6 @@
 'use client';
 import { useState, type ReactNode } from 'react';
-import { ChevronDown, ImagePlus, Wand2, X, CheckCircle2, Circle, RefreshCw, History, LayoutTemplate, Globe, Link2, Image as ImageIcon, Send, CalendarClock, ClipboardCheck, Layers } from 'lucide-react';
+import { Copy, ExternalLink, PenLine, ChevronDown, ImagePlus, Wand2, X, CheckCircle2, Circle, RefreshCw, History, LayoutTemplate, Globe, Link2, Image as ImageIcon, Send, CalendarClock, ClipboardCheck, Layers } from 'lucide-react';
 import { formatVietnamDateTime, vietnamInputToUtc, type PublicationState } from '@/lib/post-time';
 import type { PublicationAction } from '@/lib/publication';
 import type { RichNode } from '@/lib/rich-text';
@@ -35,6 +35,7 @@ export type SidePanelProps = {
   onChange: <K extends keyof Post>(key: K, value: Post[K]) => void;
   onSlug: (value: string) => void;
   onSave: (status: 'draft' | 'published', action?: PublicationAction) => void;
+  publicHref: string; onCopyLink: () => void;
   onPickCover: () => void; onRemoveCover: () => void; onEditCover: () => void;
   onTemplate: (template: Template) => void; onTopic: (topic: string) => void;
   onRestore: (revision: NonNullable<Post['revisions']>[number]) => void;
@@ -54,6 +55,11 @@ export default function SidePanel(props: SidePanelProps) {
       {state === 'draft' && <p className="field-help">Khách chưa thấy bài này.</p>}
       {state === 'published' && <p className="field-help">Sửa xong bấm Cập nhật bài để khách thấy thay đổi.</p>}
       {state === 'scheduled' && post.published_at && <p className="field-help">Bài sẽ tự đăng lúc {formatVietnamDateTime(post.published_at)}.</p>}
+      {state === 'published' && props.publicHref && <div className="ed-after" role="group" aria-label="Việc tiếp theo">
+        <a className="button button-outline" href={props.publicHref} target="_blank" rel="noreferrer"><ExternalLink size={17} />Xem bài</a>
+        <button type="button" className="button button-outline" onClick={props.onCopyLink}><Copy size={17} />Chép liên kết</button>
+        <a className="button button-outline" href="/admin/bai-viet/moi"><PenLine size={17} />Viết bài mới</a>
+      </div>}
       <ScheduleField value={props.scheduleInput} minValue={props.scheduleMin} onChange={props.onScheduleInput} />
       {props.scheduleInput && vietnamInputToUtc(props.scheduleInput) && <p className="field-help">{`Sẽ đăng lúc ${formatVietnamDateTime(vietnamInputToUtc(props.scheduleInput)!)}, giờ Việt Nam.`}</p>}
       <div className="ed-stack">

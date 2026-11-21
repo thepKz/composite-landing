@@ -128,3 +128,51 @@ Làm (trang Ảnh và video, không có ở hộp chọn ảnh cho bài). Nút "
 ### Chưa kiểm
 
 Nhánh báo "Đã xoá a trên b tệp" (khi ảnh vừa được bài dùng giữa chừng) mới đọc mã, chưa chạy. Chưa đếm lại được 30 ảnh vì hai ảnh bị giữ như nêu trên. Dữ liệu cuối của em: 0 bài, 0 yêu cầu, 1 tài khoản của em đã xoá; các bài mẫu hiện có trong cơ sở dữ liệu thuộc người khác.
+
+
+## Vòng ba (21/11)
+
+Ảnh chụp lại ba cỡ ở `vong-2/admin/sau3/` (thêm các trạng thái menu Thêm, bảng, sau xuất bản, việc tiếp theo, chọn nhiều ảnh). Luồng từng bước ở `vong-2/admin/sau/luong/`.
+
+### 1. Lượt mobile hỏng vì trang công khai trả 404: nguyên nhân thật
+
+- Chạy lặp nhiều lần: 6 lượt, rồi 10 lượt (đang sửa nên nhiều lượt hỏng vì lỗi khác), rồi 8 lượt yên tĩnh không sửa tệp nào: 8 trên 8 đạt, lần mở bài đầu tiên sau khi xuất bản luôn trả 200.
+- Bắt được đúng một lần 404 khi script đã gắn sẵn chẩn đoán (`CẢNH BÁO`): bài ở trạng thái đã đăng trong cơ sở dữ liệu, nhưng đường dẫn trong cơ sở dữ liệu là đường dẫn tự sinh từ tiêu đề (`bai-kiem-thu-luong-luong-...-mobile`) chứ không phải đường dẫn script đã gõ (`luong-...-mobile`). Tức là trang công khai 404 đúng, vì script mở địa chỉ khác với địa chỉ bài thật. Thứ tự giữa xuất bản và mở trang không sai: bài xuất bản lúc `published_at` bằng `clock_timestamp()` của cơ sở dữ liệu, trang công khai lọc `published_at <= now()`, trang công khai là `force-dynamic`, không có bộ nhớ đệm giữ 404 (đã đọc `posts.ts`, `post-detail.tsx`, `(public)/layout.tsx`).
+- Vì sao đường dẫn gõ vào bị mất: lượt đó chạy đúng lúc em và agent khác đang sửa tệp nguồn, bản dev tải lại cả trang giữa chừng, trạng thái chưa lưu (đường dẫn vừa gõ) mất, bản nháp tự lưu trước đó mang đường dẫn tự sinh. Đây là hành vi của chế độ phát triển (tải nóng), không phải lỗi sản phẩm: bản chạy thật không có tải nóng. Chưa chứng minh được 100% (không bắt được thêm lần thứ hai khi yên tĩnh), nên ghi là kết luận có khả năng cao nhất.
+- Kết luận: không phải lỗi sản phẩm, người dùng bấm Xem bài ngay sau khi xuất bản không gặp 404 (8 lượt yên tĩnh kiểm lần mở đầu tiên). Chỉ sửa script: (a) trước khi xuất bản kiểm ô đường dẫn còn đúng giá trị đã gõ; (b) sau khi xuất bản ghi lại đường dẫn trong cơ sở dữ liệu so với mong đợi; (c) nếu trang công khai không trả 200 ở lần đầu thì mở lại tới 20 lần, in trạng thái cơ sở dữ liệu và số mili giây, và vẫn báo thất bại để không che lỗi.
+- Hai lỗi lẻ khác thấy trong lúc lặp, đều do sửa tệp đồng thời hoặc do mã mới của em, đã xử lý: hộp chọn ảnh bị nới rộng quá màn (xem mục 2).
+
+### 2. Trang soạn bài, tự dùng như người dùng lần đầu ở 390x844 và 600x360
+
+Những chỗ phải dừng lại nghĩ, và cách sửa:
+
+| Chỗ vướng | Sửa |
+|---|---|
+| 15 nút cùng lúc trên thanh công cụ, phải cuộn ngang tìm | Điện thoại và khung thấp chỉ còn 5 nút (hoàn tác, kiểu đoạn, đậm, danh sách, ảnh) và menu "Thêm" gom 10 việc còn lại (in nghiêng, gạch chân, gạch ngang chữ, danh sách đánh số, trích dẫn, liên kết, video, bảng, đường kẻ, làm lại). Menu dùng vị trí cố định nên thanh cuộn không cắt, Esc đóng và trả tiêu điểm về nút, mũi tên lên xuống đổi mục, mỗi mục cao 44px. Thanh vừa khít 390 và 600, không cuộn ngang. Máy bàn giữ nguyên |
+| Bảng trên điện thoại: tám nút chữ cuộn ngang | Còn "Thêm hàng", "Thêm cột" và menu "Sửa bảng" (hàng trên, cột trái, hàng tiêu đề, xóa hàng, cột, bảng) |
+| Xuất bản xong chỉ có dòng "Đã xuất bản", không biết làm gì tiếp | Thông báo có nút "Xem bài" (mở tab mới); ngăn Xuất bản của bài đang đăng có ba nút: Xem bài, Chép liên kết, Viết bài mới |
+| Chọn ảnh từ thư viện rồi phải cuộn xuống đáy chi tiết mới thấy nút Chèn | Thanh dính ở đáy hộp: ảnh nhỏ, tên và nút "Chèn vào bài" hiện ngay khi chạm ảnh. Tải ảnh mới xong thì ảnh vừa tải được chọn sẵn, chỉ cần bấm Chèn |
+| Hộp thoại rộng hơn màn hình khi nội dung dài một dòng | Sửa gốc: lớp phủ của mọi hộp thoại dùng cột `minmax(0,1fr)` (lỗi này em tự gây ra bằng thanh chọn ảnh, bắt được ở 390 vì không bấm được nút Chèn) |
+| Trạng thái lưu | Đã thấy ngay ở thanh trên mọi cỡ: "Sẽ tự lưu", "Đang lưu", "Đã lưu 12:26", không phải sửa |
+| Thông báo "Xem bài" bị xuống hai dòng | Nút không xuống dòng |
+
+Còn lại, chưa sửa: ảnh trong bài ở 600x360 vẫn bị thanh chỉnh ảnh phủ một phần (cuộn được); thanh nút dưới của điện thoại ghi "Thiết lập" nhưng nút "Xem trước" ở thanh trên chỉ có biểu tượng con mắt (có nhãn cho trình đọc màn hình, chưa thử với người thật).
+
+### 3. Các màn còn lại ở 600x360 và 390
+
+- Bài viết: ở 600x360 ô sắp xếp và ô tìm nằm cùng một hàng, bộ lọc thấp lại, hàng bài đầu tiên thấy ngay (trước đó phải cuộn mới thấy). Ở 390 mỗi hàng gồm ảnh nhỏ, tên (hai dòng), loại, huy hiệu trạng thái và giờ sửa nằm cùng một dòng, nút thao tác một dòng dưới (trước đó huy hiệu và giờ chiếm hai dòng riêng).
+- Tổng quan: hai nút của khung "Việc nên làm tiếp" nằm cạnh nhau khi đủ chỗ.
+- Ảnh và video: khung kéo thả thành một hàng ngang ở 480 đến 800 px.
+- Yêu cầu tư vấn, Sản phẩm, Thông tin website: đã xem ở hai cỡ, không có gì đè lên nhau, thẻ viền rõ, không sửa thêm.
+
+### 4. Kiểm
+
+`npx tsc --noEmit` sạch (lúc kiểm cuối), `npm test` 40 bài xanh, `verify-admin-text.ts` sạch (1366, 390, 600x360, kèm ngăn thiết lập và chế độ chọn nhiều), `verify-admin-ui.ts`, `verify-admin-short.ts` (vùng viết còn 267px ở 600x360 khi cuộn), `verify-inquiry-ui.ts` đạt, `verify-editor-flow.ts` đạt cả hai cỡ (thêm bước: thanh công cụ gọn có tối đa 6 nút, menu Thêm nằm trọn trong 390 và Esc trả tiêu điểm; thông báo "Xem bài" sau xuất bản; ba nút Việc tiếp theo có đúng đường dẫn). Chụp ba cỡ: 0 tràn ngang, 0 bước lỗi, console chỉ còn cảnh báo CSS của bản dev. Mọi lượt dọn ảnh đều ra ảnh trước 26, sau 26.
+
+### Chưa kiểm
+
+Chưa thử nút Chép liên kết (trình duyệt tự động không cấp quyền clipboard). Chưa thử với người dùng thật, Safari, Firefox, màn cảm ứng thật. Nguyên nhân tải nóng ở mục 1 chưa tái hiện được lần hai.
+
+### Dữ liệu
+
+Đếm cuối: 0 bài, 0 yêu cầu, 26 ảnh, 1 tài khoản.

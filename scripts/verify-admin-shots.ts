@@ -153,6 +153,30 @@ try {
       await page.waitForTimeout(3000);
       await page.unroute('**/api/admin/posts');
     });
+    await attempt('soan-menu-them', async () => {
+      await page.goto(origin + '/admin/bai-viet/moi', { waitUntil: 'networkidle' });
+      const more = page.getByRole('toolbar', { name: 'Công cụ soạn bài' }).getByRole('button', { name: 'Thêm', exact: true });
+      if (await more.isVisible()) { await more.click(); await shot('soan-menu-them'); await page.keyboard.press('Escape'); }
+      await page.getByLabel('Tiêu đề bài viết', { exact: true }).fill(`Bài thử bảng và xuất bản ${run} ${size.tag}`);
+      await page.getByLabel('Tiêu đề bài viết', { exact: true }).press('Enter');
+      await page.locator('.ed-prose:focus').waitFor();
+      await page.keyboard.type('Đoạn mở đầu đủ dài để xuất bản được bài mẫu này.');
+      await page.keyboard.press('Enter');
+      await page.keyboard.type('/bang');
+      await page.keyboard.press('Enter');
+      await page.getByRole('toolbar', { name: 'Công cụ bảng' }).waitFor();
+      await shot('soan-bang');
+      await page.waitForTimeout(500);
+      const publish = page.locator('.ed-mobilebar, .ed-top-save').getByRole('button', { name: /^Xuất bản$/ }).filter({ visible: true }).first();
+      await publish.click();
+      await page.locator('.adm-toast-action', { hasText: 'Xem bài' }).waitFor();
+      await shot('soan-sau-xuat-ban');
+      const toggle = page.getByRole('button', { name: 'Mở thiết lập bài' });
+      if (await toggle.isVisible()) { await toggle.click(); await page.waitForTimeout(500); }
+      await shot('soan-viec-tiep-theo');
+      const close = page.locator('.ed-aside').getByRole('button', { name: 'Đóng', exact: true });
+      if (await close.isVisible()) await close.click();
+    });
     await attempt('soan-loi', async () => {
       await page.goto(origin + '/admin/bai-viet/moi', { waitUntil: 'networkidle' });
       const publish = page.getByRole('button', { name: /^Xuất bản$/ }).filter({ visible: true }).first();

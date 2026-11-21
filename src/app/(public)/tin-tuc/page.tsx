@@ -61,6 +61,7 @@ export default async function News({ searchParams }: Props) {
   const rest = featured ? rows.slice(1) : rows;
   const pageNumbers = Array.from(new Set([1, pageCount, page - 1, page, page + 1].filter(value => value >= 1 && value <= pageCount))).sort((a, b) => a - b);
   const filtered = Boolean(q || kind);
+  const blank = !filtered && allTotal === 0;
 
   return <main id="main" className="public-page nl">
     <section className="nl-hero"><div className="container">
@@ -68,26 +69,31 @@ export default async function News({ searchParams }: Props) {
       <h1>Tin tức và kiến thức</h1>
     </div></section>
 
-    <NewsToolbar q={q} kind={kind} suggestions={suggestions} kinds={kinds.map(item => ({ ...item, count: item.value ? byKind[item.value] : allTotal }))} />
+    {!blank && <NewsToolbar q={q} kind={kind} suggestions={suggestions} kinds={kinds.map(item => ({ ...item, count: item.value ? byKind[item.value] : allTotal }))} />}
 
-    <section className="container nl-results">
+    {blank && <section className="container nl-void" aria-labelledby="nl-void-title"><div className="nl-void-card" data-art-reveal>
+      <h2 id="nl-void-title">Cần chọn bồn bể ngay hôm nay</h2>
+      <div className="nl-void-actions">
+        <Link href="/san-pham" className="nl-btn-ghost pressable">Sản phẩm</Link>
+        <Link href="/hoi-dap" className="nl-btn-ghost pressable">Hỏi đáp</Link>
+        <Link href="/lien-he#gui-yeu-cau" className="nl-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Link>
+      </div>
+    </div></section>}
+
+    {!blank && <section className="container nl-results">
       {total > 0 && (q || pageCount > 1) && <p className="nl-count">{total} bài viết{q ? <> cho “<strong>{q}</strong>”</> : null}{pageCount > 1 ? `, trang ${page} trên ${pageCount}` : ''}</p>}
 
       {featured && <PostCard post={featured} featured titleTag="h2" />}
       {rest.length > 0 && <div className="nl-grid" data-rem={rest.length % 3} {...(rest.length % 2 ? { 'data-odd': true } : {})}>{rest.map((post, index) => <PostCard key={post.id} post={post} index={index} titleTag="h2" />)}</div>}
 
-      {rows.length === 0 && <div className="nl-empty" data-art-reveal>
+      {rows.length === 0 && filtered && <div className="nl-empty" data-art-reveal>
         <span className="nl-empty-icon" aria-hidden="true"><Newspaper size={32} strokeWidth={1.5} /></span>
-        {filtered ? <>
+        <>
           <h2>{q ? <>Không tìm thấy bài viết cho “{q}”</> : 'Chưa có bài viết thuộc loại này'}</h2>
           <p>Hãy thử từ khóa ngắn hơn hoặc chọn một gợi ý.</p>
           <div className="nl-suggest is-center">{suggestions.map(item => <Link key={item.q} href={newsUrl(item.q, '')} className="nl-tag pressable">{item.label}</Link>)}</div>
-          <div className="nl-empty-actions"><Link href="/tin-tuc" className="nl-btn pressable">Xem tất cả bài viết</Link></div>
-        </> : <>
-          <h2>Chưa có bài viết nào</h2>
-          <p>Bạn có thể xem sản phẩm hoặc gửi nhu cầu để được tư vấn.</p>
-          <div className="nl-empty-actions"><Link href="/lien-he#gui-yeu-cau" className="nl-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/san-pham" className="nl-btn-ghost pressable">Xem sản phẩm</Link></div>
-        </>}
+          <div className="nl-empty-actions"><Link href="/tin-tuc" className="nl-btn pressable">Bỏ lọc</Link></div>
+        </>
       </div>}
 
       {pageCount > 1 && <nav className="nl-pagination" aria-label="Phân trang tin tức">
@@ -95,7 +101,7 @@ export default async function News({ searchParams }: Props) {
         <div className="nl-page-numbers">{pageNumbers.map((number, index) => <span key={number} className="nl-page-item">{index > 0 && number - pageNumbers[index - 1] > 1 && <span className="nl-gap" aria-hidden="true">…</span>}{number === page ? <span className="nl-page is-current" aria-current="page" aria-label={`Trang ${number}, trang hiện tại`}>{number}</span> : <Link href={newsUrl(q, kind, number)} className="nl-page pressable" aria-label={`Trang ${number}`}>{number}</Link>}</span>)}</div>
         {page < pageCount ? <Link href={newsUrl(q, kind, page + 1)} rel="next" className="nl-page pressable">Trang sau<ArrowRight size={18} aria-hidden="true" /></Link> : <span />}
       </nav>}
-    </section>
+    </section>}
 
     {rows.length > 0 && <section className="container nl-cta" aria-labelledby="nl-cta-title"><div className="nl-cta-card" data-art-reveal>
       <h2 id="nl-cta-title">Cần chọn bồn bể cho công trình</h2>

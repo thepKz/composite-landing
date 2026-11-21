@@ -25,7 +25,7 @@ export default async function ContactPage() {
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facts.shortName} ${address}`)}`;
   return <main id="main" className="public-page tp tp-contact">
     <Reveal/>
-    <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Liên hệ' }]} title="Liên hệ và báo giá" lead="Cho biết quy mô chăn nuôi, số người dùng hoặc kích thước bể cá. Kỹ sư tư vấn đúng dung tích và báo giá trong 15 – 60 phút.">
+    <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Liên hệ' }]} title="Liên hệ và báo giá">
       <a href={`tel:${hotlines[0].tel}`} className="tp-btn tp-btn-cta"><Phone size={18} aria-hidden="true"/>{hotlines[0].display}</a>
       {validZalo && <a href={`https://zalo.me/${zalo.replace(/^\+/, '')}`} target="_blank" rel="noopener noreferrer" className="tp-btn tp-btn-ghost-light"><MessageCircle size={18} aria-hidden="true"/>Nhắn Zalo</a>}
     </PageHero>

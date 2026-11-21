@@ -171,8 +171,7 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
         <label>Chú thích<textarea value={selected.caption} maxLength={500} rows={2} onChange={event => setSelected({ ...selected, caption: event.target.value })} /></label>
         <div className="adm-inline-actions">
           <button type="button" className="button button-outline" disabled={saving} onClick={() => void saveText()}>{saving ? 'Đang lưu' : 'Lưu mô tả'}</button>
-          {onSelect && <button type="button" className="button" onClick={() => onSelect(selected)}><Check size={17} />{selectLabel ?? (imagesOnly ? 'Chọn ảnh này' : 'Chèn tệp này')}</button>}
-        </div>
+          </div>
         <div className="adm-inline-actions">
           {isImage && <button type="button" className="button button-outline button-small" onClick={() => setEditing(true)}><Wand2 size={16} />Chỉnh ảnh</button>}
           <button type="button" className="button button-outline button-small" onClick={() => void copyLink()}><Copy size={16} />Chép liên kết</button>
@@ -184,6 +183,11 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
         </div>
       </aside>}
     </div>
+    {onSelect && selected && !multi && <div className="adm-pick-bar" role="region" aria-label="Ảnh đang chọn">
+      {isImage ? <img src={`/api/media/${selected.id}`} alt="" /> : <Film size={24} aria-hidden="true" />}
+      <span title={selected.original_name}>{selected.alt || selected.original_name}</span>
+      <button type="button" className="button" onClick={() => onSelect(selected)}><Check size={17} />{selectLabel ?? (imagesOnly ? 'Chọn ảnh này' : 'Chèn tệp này')}</button>
+    </div>}
     {editing && selected && <ImageEditor mediaId={selected.id} onClose={() => setEditing(false)} onSaved={media => { setEditing(false); setItems(previous => [media, ...previous]); setSelected(media); }} />}
   </div>;
 }

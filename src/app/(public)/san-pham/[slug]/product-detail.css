@@ -262,3 +262,30 @@
 }
 @media (max-width: 760px) { .public-site .tp .tp-pd-facts dd { font-size: 17px; max-width: 22ch; } }
 @media (min-width: 1101px) { .public-site .tp .tp-table tbody th { min-width: 0; } .public-site .tp .tp-table th, .public-site .tp .tp-table td { padding-inline: 14px; } }
+.tp-pd-actions { margin-top: 20px; margin-bottom: 4px; } .tp-pd-facts { margin-top: 20px; }
+
+/* ===== Vòng sửa cuối ===== */
+/* Dòng thông số không nhãn: số đã có đơn vị, hiện cỡ lớn */
+@media (min-width: 761px) {
+  .public-site .tp .tp-pd-facts > div.is-bare, .public-site .tp .tp-pd-facts > div.is-bare:nth-child(odd), .public-site .tp .tp-pd-facts > div.is-bare:nth-last-child(-n + 2) { grid-template-columns: minmax(0, 1fr); }
+}
+.public-site .tp .tp-pd-facts > div.is-bare dd { font-size: 20px; }
+
+/* Sản phẩm chưa có ảnh xác nhận: bố cục hai cột dẫn bằng thông số lớn, hình vẽ nét làm minh hoạ nhỏ */
+.tp-pd-top.is-plain { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); align-items: start; }
+.tp-pd-apps { margin-top: 16px; }
+.tp-pd-spec { position: sticky; top: 96px; padding: 28px; background: #fff; border: 1px solid var(--tp-edge); border-radius: var(--tp-radius); }
+.tp-pd-draw { display: block; width: 168px; height: auto; margin-bottom: 8px; }
+.tp-pd-spec .tp-pd-facts { margin: 0; border: 0; border-radius: 0; background: none; overflow: visible; }
+.public-site .tp .tp-pd-spec .tp-pd-facts > div { padding-inline: 0; border-bottom: 1px solid var(--tp-edge); }
+.public-site .tp .tp-pd-spec .tp-pd-facts > div:last-child { border-bottom: 0; }
+.public-site .tp .tp-pd-spec .tp-pd-facts > div.is-bare dd { font-size: 28px; line-height: 1.25; letter-spacing: -0.01em; }
+.public-site .tp .tp-pd-spec .tp-pd-facts dd { font-size: 20px; }
+@media (max-width: 1000px) { .tp-pd-top.is-plain { grid-template-columns: minmax(0, 1fr); } .tp-pd-spec { position: static; } }
+@media (max-width: 760px) { .tp-pd-spec { padding: 20px; } .tp-pd-draw { width: 128px; } .public-site .tp .tp-pd-spec .tp-pd-facts > div.is-bare dd { font-size: 24px; } }
+@media (max-height: 520px) and (min-width: 560px) and (max-width: 1000px) { .tp-pd-top.is-plain { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); } .tp-pd-spec { position: static; padding: 16px; } .tp-pd-draw { display: none; } }
+
+/* Cấu tạo không có phụ kiện: tiêu đề nằm trên danh sách, không để cột trái trống */
+.tp-build-grid.is-solo { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.tp-build-grid.is-solo .tp-build-head { position: static; }
+@media (max-height: 520px) and (min-width: 560px) and (max-width: 1000px) { .tp-pd-apps { order: 4; margin-top: 12px; } .tp-pd-top.is-plain .tp-pd-actions { order: 2; } }

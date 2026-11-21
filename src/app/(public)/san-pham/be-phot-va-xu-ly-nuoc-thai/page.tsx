@@ -41,7 +41,6 @@ export default async function WastewaterGroup() {
           </ul>
         </div>
         <div className="tp-rv"><ScaleTableView/></div>
-        <div className="tp-group-cta tp-rv"><Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link></div>
       </div></section>
     </ScaleProvider>
     <section className="tp-section tp-faq-section"><div className="tp-wrap tp-pd-faq-grid is-solo">

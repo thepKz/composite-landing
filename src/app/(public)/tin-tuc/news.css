@@ -115,3 +115,14 @@
 @media(prefers-reduced-motion:reduce){.nl-busy[data-on=true]{animation:none;transform:scaleX(1)}}
 @media(max-width:600px){.nl-chip{min-height:44px}.public-site .nl-tag{min-height:44px}.nl-crumbs a{min-height:44px}}
 @media(max-height:480px){.public-site .nl-hero{padding:16px 0 20px}.nl-crumbs{display:none}.public-site .nl h1{font-size:30px}.public-site .nl-hero p{margin-top:8px;font-size:16px}}
+
+/* Chưa có bài nào: không hiện bộ lọc, ô tìm hay số 0. Một khối báo giá có chủ đích, lối đi sang sản phẩm và hỏi đáp */
+.nl-void{padding-block:48px 96px}
+.nl-void-card{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;padding:48px;border-radius:20px;background:#0f3a31;color:#fff;box-shadow:0 30px 60px -36px #0f3a3199}
+.public-site .nl-void h2{margin:0;font-size:clamp(26px,3vw,36px);line-height:1.25;font-weight:700;color:#fff}
+.nl-void-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+.public-site .nl-void .nl-btn-ghost{background:transparent;border-color:#6fa58a;color:#fff}
+.public-site .nl-void .nl-btn-ghost:hover{background:#17503f;border-color:#a2d2a8}
+@media(max-width:800px){.nl-void-card{flex-direction:column;align-items:stretch;padding:32px 24px}.nl-void-actions>a{flex:1 1 100%}}
+@media(max-height:480px){.nl-void{padding-block:24px 48px}.nl-void-card{padding:28px 32px}}
+@media(max-height:480px) and (min-width:481px){.public-site .nl-void h2{font-size:24px}.nl-void-actions>a{flex:1 1 auto;min-height:48px}.nl-void-card{gap:16px;padding:24px}}

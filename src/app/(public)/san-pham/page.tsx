@@ -29,8 +29,7 @@ export default async function Catalogue({ searchParams }: { searchParams: Promis
   });
   return <main id="main" className="public-page tp tp-catalogue">
     <Reveal/>
-    <PageHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }]} title="Sản phẩm composite"
-      aside={<p className="tp-hero-count" aria-label={`${list.length} nhóm sản phẩm`}><strong>{list.length}</strong><span>nhóm sản phẩm</span></p>}/>
+    <PageHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }]} title="Sản phẩm composite"/>
     <section className="tp-section tp-catalogue-body"><div className="tp-wrap">
       <CatalogueBrowser items={list} fields={[...fields]} initial={fieldFromQuery(query.nhom)}/>
     </div></section>

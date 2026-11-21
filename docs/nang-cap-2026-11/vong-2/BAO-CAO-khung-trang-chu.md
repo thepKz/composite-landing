@@ -173,3 +173,26 @@ Phản hồi đã đo thật trên trình duyệt: rê thẻ sản phẩm (dịc
 
 ## Chưa kiểm
 Bản build, Safari, Firefox, điện thoại thật. Hai chỗ còn dựa vào dữ liệu: bản đồ chân trang chỉ hiện khung giữ chỗ trong ảnh toàn trang chụp khi chưa cuộn tới chân trang (đã đo tải được khi cuộn tới).
+
+---
+
+# Vòng sửa cuối (theo kiểm viên lượt ba)
+
+1. **Địa chỉ chân trang rớt "Thọ"**: bỏ tiền tố "Nhà máy:" (biểu tượng ghim đã nói), cột liên hệ giữ bề rộng đã nới. Đo: địa chỉ nằm trên một dòng ở 1366, 390 và 600, ở cả trang chủ và trang Giới thiệu.
+2. **Trả chữ đã bỏ quá tay**:
+   - Hỏi đáp trang chủ trả tiêu đề "Câu hỏi thường gặp". Câu "Chưa thấy câu bạn cần? Gọi hotline để hỏi kỹ sư." chuyển xuống dưới danh sách, trong thẻ cùng nút gọi và liên kết "Xem tất cả câu hỏi".
+   - Bento "Đủ mọi quy mô" trả câu "Từ hộ gia đình đến dự án công nghiệp lớn." và mở rộng ô lên 7 phần để "Dự án công nghiệp" không còn ba dòng. Ô "Kỹ thuật trọn gói" thu còn 5 phần, trả câu "Lắp tận nơi, bảo hành toàn quốc." (thông tin không có trong sáu nhãn).
+3. **Chữ thừa**: bỏ tiêu đề "Cần báo giá nhanh" ở dải chân trang, giữ một câu và nút. Dải này đã tự ẩn trên trang có biểu mẫu (đo: trang chủ `display: none`, trang Giới thiệu hiện). Ở khối Giới thiệu bỏ nửa câu "Thành lập từ năm 2010, nhà máy đặt tại ..." lặp số 2010 trên ảnh và địa chỉ ở chân trang.
+4. **Bản đồ chân trang**: thiết kế là tự tải khi người dùng cuộn tới cách chân trang khoảng hai màn, ảnh chụp khi chưa cuộn tới chỉ thấy khung giữ chỗ. Thêm nút "Xem bản đồ" ngay trong khung giữ chỗ để bấm tải tức thì. Đã kiểm: trước khi cuộn có nút và chưa có iframe, bấm xong có iframe, bản đồ hiện đủ, nút biến mất.
+5. **P2 lượt ba thuộc vùng tôi**:
+   - P2-1: bento (xem mục 2).
+   - P2-3 và P2-4 (hiện dần khi cuộn nhanh còn ô trống): khối chờ hiện dần nay bắt đầu từ độ đục 0,3 thay vì 0 (`motion.css`), nên cuộn nhanh vẫn thấy nội dung mờ chứ không phải ô trống. Chuyển cảnh banner: ảnh cảnh cũ giữ nguyên dưới ảnh cảnh mới nên màn không tối, chưa đo lại được khoảnh khắc 250 ms.
+   - P2-6 (thanh trên cùng ở 600x360 nhận Tab): thanh đặt `display: none` ở khung thấp, đo Tab 11 điểm đầu đều nằm trong khung nhìn, không còn điểm dừng ẩn.
+   - P2-9: đã đo 36px ở máy bàn, 44px ở điện thoại (xem Vòng ba).
+   - P2-10: ảnh cảnh 2 và 3 của banner nay tải sau 2,5 giây thay vì 0,9 giây.
+   - P2-11 "Mũi nhọn": giữ, vì chữ này có trong hồ sơ (mục menu Sản phẩm, "Sản phẩm mũi nhọn số 1, 2, 3").
+   - P2-14: nút nổi đổi "Chat Zalo" thành "Nhắn Zalo", khớp trang Liên hệ.
+   - Không thuộc vùng tôi: P2-2, 7, 8, 12, 13 (trang chi tiết, bài viết, trang nhóm, biểu mẫu trang biogas), P2-5 (cảnh báo preload CSS do Next tự sinh).
+
+Đã kiểm lại: `npx tsc --noEmit` sạch (có một lúc báo lỗi ở tệp trang chi tiết sản phẩm của agent khác khi đang sửa, đã hết sau đó), `npm test` 40 đạt. Ba cỡ: 0 chữ rớt một từ lẻ ở trang chủ và chân trang, 0 tràn ngang, 0 vùng bấm thấp hơn ngưỡng, 0 ký tự cấm, 0 ảnh vỡ, 0 lỗi console, 0 khối kẹt ẩn, ba cảnh banner 0 đè nhau, khung hình khi cuộn p95 10,1 ms. Đã tự xem ảnh bento, giới thiệu, hỏi đáp, báo giá và chân trang ở 1366.
+Chưa kiểm: bản build, Safari, Firefox, điện thoại thật.

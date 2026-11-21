@@ -88,3 +88,15 @@ Cách tính cũ: đếm từ chia 200, đã đếm chữ trong bảng và danh s
 ### Đã kiểm trong vòng sửa
 `npx tsc --noEmit` sạch, `npm test` 40 trên 40, `verify-article-render.ts` đạt (xem trước admin khớp công khai), tìm quét ký tự cấm trong vùng 0 chỗ, hàng chia sẻ ba nút một hàng ở cả ba cỡ, hộp ảnh và tìm nhanh vẫn chạy. Đã tự xem ảnh danh sách tin 1366 và chi tiết dự án 390 sau khi bỏ chữ.
 Đếm cuối lượt: 4 bài, 2 yêu cầu, 32 ảnh, 2 tài khoản. Không phải của tôi: 4 bài có slug đuôi `a5ef47d0` (`mau-nhap`, `mau-hen`, `mau-dang`, `cach-chon-dung-tich...`) và dữ liệu đang tăng do agent khác chạy cùng lúc (kịch bản của tôi tự xoá hết bài `bm-v2-*`, kiểm lại còn 0). Cần đếm lại khi các agent kia xong.
+
+## Vòng sửa cuối (theo kiểm viên lượt ba)
+
+Ảnh ở `vong-2/bai-viet/sau/` (39 mục, ba cỡ, có `tin-tuc-0-bai`, `tin-tuc-1/2/3/7-bai`, `tin-tuc-loc-ra-0`, bài đọc, dự án chi tiết).
+
+- **P1-3 Tin tức khi chưa có bài (trạng thái thật):** khi tổng số bài là 0 và không có từ khoá hay loại đang lọc, trang ẩn bộ lọc, số 0, ô tìm và gợi ý. Còn tiêu đề trang, rồi một khối xanh đậm "Cần chọn bồn bể ngay hôm nay" với ba lối đi: Sản phẩm, Hỏi đáp, Nhận báo giá (nút cam duy nhất). Không xin lỗi, không bài giả. Khi có bài mà lọc hoặc tìm ra 0 thì giữ bộ lọc, ô tìm, báo "Không tìm thấy bài viết cho ..." và nút "Bỏ lọc". Ở 600x360 khối vừa trong màn đầu, ba nút một hàng (đã sửa thêm sau khi tự xem ảnh, lần đầu nút xếp dọc và bị cắt). Tệp: `tin-tuc/page.tsx`, `news.css`.
+- **P2-8 chú thích ảnh tự sinh:** trong `rich-content.tsx`, chú thích chỉ hiện khi người viết nhập riêng. Tiêu đề ảnh trùng hệt mô tả ảnh (chữ tự sinh kiểu "Bể composite tại xưởng") thì không hiện. Chú thích nhập riêng vẫn hiện. Gốc của chữ tự sinh nằm ở trình soạn bài của admin (ngoài vùng): nên để ô chú thích mặc định trống.
+- **P2-7 bảng sáu cột chữ cột cuối bị cắt dở:** bảng vẫn cuộn ngang trong khung riêng, nay có dải trắng mờ kèm mũi tên ở mép phải khi còn cuộn được, và mép trái khi đã cuộn qua. Chưa kiểm bằng ảnh riêng sau khi thêm mũi tên (ảnh `bai-viet-1366.png` có bảng, chưa phóng xem). Đã tự xem ảnh các màn khác.
+- **P2-12 Dự án (mô tả năm hàng lĩnh vực lệch lề):** thuộc `du-an/page.tsx`, ngoài vùng (vùng tôi chỉ có `du-an/[slug]`), không sửa. P2-9 ô chú thích admin 32px và thanh trên cùng 26px: ngoài vùng.
+- **Kiểm trang chi tiết dự án và trang đọc bài sau các lần sửa chung:** chụp ba cỡ, không lỗi console, không tràn ngang, không ảnh vỡ, mục lục không sáng ở đầu trang, hàng chia sẻ ba nút một hàng, hộp ảnh và tìm nhanh chạy. Một lượt chụp giữa chừng bị lỗi 500 do `san-pham/[slug]/page.tsx` của agent khác đang sửa dở (lỗi cú pháp dòng 174); lượt chụp lại sau khi tệp đó sửa xong sạch.
+- **Đã kiểm:** `npx tsc --noEmit` sạch, `npm test` 40 trên 40, `verify-article-render.ts` đạt.
+- **Đếm cuối lượt:** 0 bài, 0 yêu cầu, 26 ảnh, 1 tài khoản (đúng).

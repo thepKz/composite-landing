@@ -22,7 +22,7 @@ export default function FooterMap({ src, address, title }: { src: string; addres
   const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Thành Lợi Composite ${address}`)}`;
   return <div className="tl-footer-map" ref={box} data-ready={ready}>
     <div className="tl-footer-map-frame">
-      <div className="tl-footer-map-holder"><MapPin size={28} aria-hidden="true" /><p>{address}</p></div>
+      <div className="tl-footer-map-holder"><MapPin size={28} aria-hidden="true" /><p>{address}</p>{!load && <button type="button" className="tl-footer-map-open pressable" onClick={() => setLoad(true)}>Xem bản đồ</button>}</div>
       {load && <iframe title={title} tabIndex={-1} src={src} referrerPolicy="no-referrer-when-downgrade" onLoad={() => setReady(true)} />}
     </div>
     <a className="tl-footer-map-link pressable" href={directions} target="_blank" rel="noopener noreferrer">Chỉ đường<ArrowUpRight size={18} aria-hidden="true" /></a>

@@ -409,3 +409,37 @@
 @media (max-width: 480px) { .public-site .tp .tp-info p.is-wide { max-width: none; } }
 .tp-group-pick { padding-bottom: 40px; }
 .tp-group-pick + .tp-faq-section { padding-top: 24px; }
+
+/* ===== Vòng ba: trang Dự án với 1, 2, 3, 4, 5 mục, không để ô trống ===== */
+.tp-project-media { position: relative; }
+.tp-project-media img { position: absolute; inset: 0; }
+.tp-project-grid.is-1 .tp-project-card, .tp-project-grid.is-3 .tp-project-card.is-wide { flex-direction: row; }
+.tp-project-grid.is-1 .tp-project-media { flex: 0 0 55%; aspect-ratio: auto; min-height: 400px; }
+.tp-project-grid.is-3 .tp-project-card.is-wide { grid-column: span 2; }
+.tp-project-grid.is-3 .tp-project-card.is-wide .tp-project-media { flex: 0 0 48%; aspect-ratio: auto; min-height: 300px; }
+.tp-project-grid.is-3 .tp-project-card.is-wide .tp-project-body { align-content: center; padding: 28px; gap: 10px; }
+.public-site .tp .tp-project-grid.is-3 .tp-project-card.is-wide h3 { font-size: 24px; }
+@media (max-width: 1000px) {
+  .tp-project-grid.is-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tp-project-grid.is-3 .tp-project-card.is-wide { grid-column: 1 / -1; }
+}
+@media (max-width: 900px) {
+  .tp-project-grid.is-1 .tp-project-card, .tp-project-grid.is-3 .tp-project-card.is-wide { flex-direction: column; }
+  .tp-project-grid.is-1 .tp-project-media, .tp-project-grid.is-3 .tp-project-card.is-wide .tp-project-media { flex: none; aspect-ratio: 4 / 3; min-height: 0; }
+  .tp-project-grid.is-3 .tp-project-card.is-wide .tp-project-body { padding: 22px; }
+  .public-site .tp .tp-project-grid.is-3 .tp-project-card.is-wide h3 { font-size: 20px; }
+}
+@media (max-width: 640px) { .tp-project-grid.is-3 { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 641px) and (max-width: 1000px) { .tp-project-grid.is-3 .tp-project-card:last-child:nth-child(even) { grid-column: 1 / -1; } }
+
+/* ===== Vòng sửa cuối ===== */
+.tp-fields-grid.is-stack { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.tp-fields-grid.is-stack .tp-fields-links { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; }
+.tp-fields { padding-block: 56px; }
+@media (max-width: 900px) { .tp-fields-grid.is-stack .tp-fields-links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; } }
+@media (max-width: 640px) { .tp-fields-grid.is-stack .tp-fields-links { grid-template-columns: minmax(0, 1fr); } }
+/* Dự án: các hàng lĩnh vực thẳng cột, cùng một lưới */
+.public-site .tp .tp-field-row { grid-template-columns: 36px 280px minmax(0, 1fr) 200px; }
+.tp-field-go { justify-content: flex-end; }
+@media (max-width: 1000px) { .public-site .tp .tp-field-row { grid-template-columns: 32px minmax(0, 1fr); } .tp-field-go { justify-content: flex-start; } }
+.tp-projects .tp-strip-section { border-top: 0; }

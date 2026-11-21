@@ -15,6 +15,7 @@ import { productGuidance, type Feature } from '@/lib/product-guidance';
 import { groupOfProduct } from '@/lib/product-groups';
 import { productAssetBySlug, editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
 import { variants } from '@/lib/trang-phu-media';
+import { Drawing, kindOf } from '@/components/pages/product-tile';
 import '@/components/pages/pages.css';
 import '@/components/product-assets.css';
 import './product-detail.css';
@@ -53,7 +54,6 @@ export default async function ProductPage({ params }: Props) {
   const photos = image ? [image, ...extra].filter((photo, i, all) => all.findIndex(item => item.src === photo.src) === i) : [];
   const guidance = productGuidance(slug);
   const group = groupOfProduct(slug);
-  const rank = group?.flagship;
   const faqItems = guidance.faqs.map(i => faqs[i]).filter(Boolean);
   const related = [...items.slice(index + 1), ...items.slice(0, index)].slice(0, 3);
   const table = guidance.scale;
@@ -71,6 +71,17 @@ export default async function ProductPage({ params }: Props) {
   const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.name, description: product.description, brand: { '@type': 'Brand', name: facts.shortName }, url: siteUrl(`/san-pham/${slug}`), ...(image ? { image: siteUrl(image.src) } : {}) };
   const faqSchema = faqItems.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) } : null;
   const specs = product.specifications.slice(0, 4);
+  // Nhãn đứng cạnh con số đã có đơn vị thì bỏ (nhãn còn trong mã cho trình đọc màn hình). Dung tích và đường kính liền nhau gộp một dòng.
+  const hasUnit = (value: string) => /\d\s*(m³|m|mm|lít)(\s|,|$)/.test(value);
+  const rows: { label?: string; sr?: string; value: string }[] = [];
+  for (const spec of specs) {
+    if (spec.label === 'Lớp lót') spec.value = spec.value.replace(/, Vinyl Ester/, ', nhựa Vinyl Ester');
+    const last = rows[rows.length - 1];
+    if (spec.label === 'Đường kính' && last?.sr === 'Dung tích' && hasUnit(spec.value)) { last.value += ', đường kính ' + spec.value; continue; }
+    if ((spec.label === 'Dung tích' || spec.label === 'Đường kính') && hasUnit(spec.value)) rows.push({ sr: spec.label, value: spec.value });
+    else rows.push({ label: spec.label, value: spec.value });
+  }
+  const factList = <dl className="tp-pd-facts">{rows.map(row => <div key={row.label ?? row.sr} className={row.label ? undefined : 'is-bare'}>{row.label ? <dt>{row.label}</dt> : <dt className="tp-sr">{row.sr}</dt>}<dd>{row.value}</dd></div>)}</dl>;
 
   return <main id="main" className="public-page tp tp-product">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
@@ -83,26 +94,27 @@ export default async function ProductPage({ params }: Props) {
         {crumbs.map((crumb, i) => <span className="tp-crumb" key={crumb.label}>{'href' in crumb && crumb.href ? <><Link href={crumb.href}>{crumb.label}</Link><span className="tp-crumb-sep" aria-hidden="true">/</span></> : <span aria-current="page">{crumb.label}</span>}</span>)}
       </nav>
 
-      <section id="tp-top" className="tp-wrap tp-pd-top">
-        {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : <aside className="tp-pd-portrait" aria-label="Ứng dụng chính">
-          <h2>{guidance.tagline}</h2>
-          <div><p className="tp-pd-portrait-label">Phù hợp cho</p><ul>{product.applications.map(item => <li key={item}>{item}</li>)}</ul></div>
-        </aside>}
+      <section id="tp-top" className={`tp-wrap tp-pd-top${photos.length ? '' : ' is-plain'}`}>
+        {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : null}
         <div className="tp-pd-copy">
           <div className="tp-pd-badges">
             <span className="tp-badge">{product.category}</span>
-            {rank ? <span className="tp-badge tp-badge-flag">Mũi nhọn</span> : null}
           </div>
           <h1 className={product.name.length > 20 ? 'is-long' : undefined}>{product.name}</h1>
           <p className="tp-pd-tagline">{guidance.tagline}</p>
           <p className="tp-pd-lead">{product.description}</p>
-          <dl className="tp-pd-facts">{specs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>
-          <ScaleChips/>
+          {photos.length ? null : <ul className="tp-chips tp-pd-apps" aria-label="Ứng dụng">{product.applications.map(item => <li key={item}>{item}</li>)}</ul>}
           <div className="tp-pd-actions">
             <QuoteButton/>
             <a className="tp-btn tp-btn-ghost" href={`tel:${info.hotlines[0].tel}`}><Phone size={18} aria-hidden="true"/>{info.hotlines[0].display}</a>
           </div>
+          {photos.length ? factList : null}
+          <ScaleChips/>
         </div>
+        {photos.length ? null : <aside className="tp-pd-spec" aria-label="Thông số chính">
+          <Drawing kind={kindOf(slug)} color="#16714e" className="tp-pd-draw"/>
+          {factList}
+        </aside>}
       </section>
 
       {table ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
@@ -113,7 +125,7 @@ export default async function ProductPage({ params }: Props) {
         <ul className="tp-pill-list tp-rv">{guidance.highlights.items.map(item => <li key={item}>{item}</li>)}</ul>
       </div></section> : null}
 
-      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className="tp-wrap tp-build-grid">
+      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className={`tp-wrap tp-build-grid${guidance.accessories ? '' : ' is-solo'}`}>
         <div className="tp-build-head tp-rv">
           <h2>Cấu tạo và ưu điểm</h2>
           {guidance.accessories && <div className="tp-accessories"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}

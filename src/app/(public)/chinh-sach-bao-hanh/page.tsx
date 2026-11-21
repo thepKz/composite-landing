@@ -9,7 +9,7 @@ export const metadata = { title: 'Chính sách bảo hành', description: 'Bảo
 
 const points = [
   { icon: FileText, title: 'Thông số ghi trong hợp đồng', text: 'Độ dày thành bồn, loại nhựa Polyester hoặc Vinyl Ester và trọng lượng tiêu chuẩn đều ghi rõ trong hợp đồng.' },
-  { icon: Ruler, title: 'Kiểm tra được khi nhận hàng', text: 'Bạn có thể kiểm tra tại xưởng hoặc đo độ dày thực tế khi nghiệm thu.' },
+  { icon: Ruler, title: 'Kiểm tra được khi nhận hàng', text: 'Bạn có thể kiểm tra tại xưởng, hoặc tự đo độ dày thực tế khi nghiệm thu.' },
   { icon: Wrench, title: 'Sửa chữa được khi va đập', text: 'Kỹ thuật viên mài nhám và đắp vá bằng sợi thủy tinh và nhựa nền tại chỗ. Vị trí gia cố đóng rắn liền khối.' },
   { icon: ScrollText, title: 'Chi tiết theo hợp đồng', text: 'Thời hạn, phạm vi và điều kiện bảo hành của từng đơn hàng được xác nhận trong báo giá hoặc hợp đồng.' },
 ];
