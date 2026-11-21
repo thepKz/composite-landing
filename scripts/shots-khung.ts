@@ -136,20 +136,20 @@ for (const size of sizes) {
   const keptScale = await form.locator('input[type=radio]:checked').count();
   await form.getByRole('button', { name: 'Tiếp tục' }).click();
   await settle(page, 400);
-  await form.getByRole('button', { name: 'Gửi yêu cầu' }).click();
+  await form.getByRole('button', { name: 'Nhận báo giá', exact: true }).click();
   await settle(page, 400);
   await shot('khung-form-loi-dong-y');
   await form.getByRole('checkbox').check();
   // lỗi mạng giữ nguyên dữ liệu
   await page.unroute('**/api/inquiries');
   await page.route('**/api/inquiries', route => route.abort('failed'));
-  await form.getByRole('button', { name: 'Gửi yêu cầu' }).click();
+  await form.getByRole('button', { name: 'Nhận báo giá', exact: true }).click();
   await settle(page, 600);
   await shot('khung-form-loi-mang');
   const stillThere = await form.getByRole('checkbox').isChecked();
   await page.unroute('**/api/inquiries');
   await page.route('**/api/inquiries', route => route.fulfill({ status: 201, contentType: 'application/json', body: '{"ok":true}' }));
-  await form.getByRole('button', { name: 'Gửi yêu cầu' }).click();
+  await form.getByRole('button', { name: 'Nhận báo giá', exact: true }).click();
   await settle(page, 900);
   await shot('khung-form-thanh-cong');
   report.push({ size: size.tag, check: 'Biểu mẫu: quay lại giữ lựa chọn, lỗi mạng giữ dữ liệu', keptScale, stillThere });

@@ -16,10 +16,9 @@ export default async function Login() {
     <section className="adm-login-aside" aria-hidden="true">
       <img src="/images/thanh-loi-logo.png" alt="" />
       <h2>Viết bài, quản lý ảnh và theo dõi khách hỏi mua</h2>
-      <p>Mọi thay đổi chỉ lên website khi anh chị bấm xuất bản.</p>
     </section>
     <section className="adm-login-main"><div className="adm-login-card">
-      <div><h1>Đăng nhập quản trị</h1><p>Dùng tài khoản được bàn giao riêng cho anh chị.</p></div>
+      <div><h1>Đăng nhập quản trị</h1></div>
       {unavailable && <p role="alert" className="error-message">Hệ thống đang gián đoạn. Vui lòng thử đăng nhập lại sau.</p>}
       <LoginForm />
       <Link href="/" className="adm-login-back">Về website</Link>

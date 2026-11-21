@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Upload, ImageIcon, Search, Check, Film, Copy, Trash2, Wand2, X, AlertCircle } from 'lucide-react';
+import { Upload, ImageIcon, Search, Check, Film, Copy, Trash2, Wand2, X, AlertCircle, ListChecks } from 'lucide-react';
 import { api, jsonOptions, uploadFile, checkUpload } from './client-api';
 import { searchText } from '@/lib/text';
 import { useConfirm, useToast, SkeletonRows } from './ui';
@@ -26,6 +26,10 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
   const [queue, setQueue] = useState<Queue[]>([]);
   const [over, setOver] = useState(false);
   const [editing, setEditing] = useState(false);
+  // Chọn nhiều để xoá một lượt (chỉ ở trang thư viện, không ở hộp chọn ảnh cho bài). Tệp đang được dùng không chọn được.
+  const [multi, setMulti] = useState(false);
+  const [picked, setPicked] = useState<string[]>([]);
+  const [bulkBusy, setBulkBusy] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const counter = useRef(0);
 
@@ -94,6 +98,22 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
     } catch (failure) { toast((failure as Error).message, 'error'); }
   }
 
+  async function removePicked() {
+    const ids = picked.filter(id => items.some(item => item.id === id && !Number(item.used_count)));
+    if (!ids.length) return;
+    if (!await confirm({ title: `Xoá ${ids.length} tệp khỏi thư viện?`, body: <p>{ids.length} tệp sẽ bị xoá hẳn và không khôi phục được.</p>, confirmLabel: `Xoá ${ids.length} tệp`, danger: true })) return;
+    setBulkBusy(true);
+    const done: string[] = [];
+    for (const id of ids) {
+      try { await api(`/api/admin/media/${id}`, { method: 'DELETE' }); done.push(id); } catch { /* tệp vừa được bài dùng hoặc đã mất, giữ lại */ }
+    }
+    setItems(previous => previous.filter(item => !done.includes(item.id)));
+    setPicked(previous => previous.filter(id => !done.includes(id)));
+    if (selected && done.includes(selected.id)) setSelected(null);
+    setBulkBusy(false);
+    toast(done.length === ids.length ? `Đã xoá ${done.length} tệp.` : `Đã xoá ${done.length} trên ${ids.length} tệp. Số còn lại đang được dùng.`, done.length === ids.length ? 'success' : 'error');
+  }
+
   async function copyLink() {
     if (!selected) return;
     try { await navigator.clipboard.writeText(`${location.origin}/api/media/${selected.id}`); toast('Đã chép liên kết.'); }
@@ -125,16 +145,19 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
       <div className="filter-tabs" role="group" aria-label="Lọc loại tệp">
         {([['all', 'Tất cả'], ['image', 'Ảnh'], ['video', 'Video']] as const).filter(([value]) => !imagesOnly || value !== 'video').map(([value, label]) => <button key={value} type="button" aria-pressed={kind === value} onClick={() => setKind(value)}>{label}</button>)}
       </div>
+      {!onSelect && <button type="button" className="button button-outline" aria-pressed={multi} onClick={() => { setMulti(value => !value); setPicked([]); setSelected(null); }}><ListChecks size={17} />{multi ? 'Xong' : 'Chọn nhiều'}</button>}
       <label className="search-control"><Search size={17} /><input aria-label="Tìm ảnh hoặc video" placeholder="Tìm theo tên hoặc mô tả" value={search} onChange={event => setSearch(event.target.value)} /></label>
     </div>
     {error && <p className="error-message" role="alert">{error} <button type="button" className="link-button" onClick={() => void load()}>Tải lại</button></p>}
+    {multi && <div className="adm-bulkbar" role="status"><strong>{picked.length ? `Đã chọn ${picked.length} tệp` : 'Bấm vào ảnh để chọn'}</strong><span className="adm-bulk-actions"><button type="button" className="button button-outline" disabled={!picked.length || bulkBusy} onClick={() => setPicked([])}>Bỏ chọn</button><button type="button" className="button button-danger" disabled={!picked.length || bulkBusy} onClick={() => void removePicked()}><Trash2 size={17} />{bulkBusy ? 'Đang xoá' : `Xoá ${picked.length || ''}`.trim()}</button></span></div>}
     <div className="adm-media-layout" data-selected={Boolean(selected)}>
       <div>
-        {loading ? <SkeletonRows rows={3} height={150} /> : shown.length ? <div className="adm-media-grid">{shown.map(item => <button type="button" key={item.id} className="adm-media-tile" aria-pressed={selected?.id === item.id} onClick={() => setSelected({ ...item })}>
+        {loading ? <SkeletonRows rows={3} height={150} /> : shown.length ? <div className="adm-media-grid">{shown.map(item => { const locked = multi && Number(item.used_count) > 0; const on = picked.includes(item.id); return <button type="button" key={item.id} className="adm-media-tile" data-picked={on || undefined} disabled={locked} aria-pressed={multi ? on : selected?.id === item.id} onClick={() => multi ? setPicked(previous => on ? previous.filter(id => id !== item.id) : [...previous, item.id]) : setSelected({ ...item })}>
           <span className="adm-media-frame">{item.mime_type.startsWith('image/') ? <img src={`/api/media/${item.id}`} alt={item.alt || item.original_name} loading="lazy" /> : <Film size={36} />}</span>
           {Number(item.used_count) > 0 && <span className="adm-media-used">Đang dùng</span>}
           <span className="adm-media-meta"><strong title={item.original_name}>{item.alt || item.original_name}</strong><small>{item.mime_type.startsWith('video/') ? 'Video' : 'Ảnh'}, {sizeText(Number(item.size_bytes))}</small></span>
-        </button>)}</div> : <div className="admin-empty"><ImageIcon size={32} /><h3>{search || kind !== 'all' ? 'Không thấy tệp phù hợp' : 'Thư viện đang trống'}</h3><p>{search || kind !== 'all' ? 'Thử từ khóa khác hoặc bỏ bộ lọc.' : 'Kéo ảnh sản phẩm hoặc video vào khung phía trên để bắt đầu.'}</p></div>}
+        {on && <span className="adm-media-check" aria-hidden="true"><Check size={16} /></span>}
+        </button>; })}</div> : <div className="admin-empty"><ImageIcon size={32} /><h3>{search || kind !== 'all' ? 'Không thấy tệp phù hợp' : 'Thư viện đang trống'}</h3></div>}
       </div>
       {selected && <aside className="adm-media-details" aria-label="Chi tiết tệp">
         <div className="panel-title" style={{ marginBottom: 0 }}><h3>Chi tiết tệp</h3><button type="button" className="icon-button" aria-label="Đóng chi tiết" onClick={() => setSelected(null)}><X size={18} /></button></div>
@@ -145,7 +168,6 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
           {detail?.dimensions && <><dt>Kích thước</dt><dd>{detail.dimensions.width} x {detail.dimensions.height}</dd></>}
         </dl>
         <label>Mô tả ảnh<input value={selected.alt} maxLength={500} onChange={event => setSelected({ ...selected, alt: event.target.value })} placeholder="Ví dụ: Bể biogas composite xanh tại xưởng" /></label>
-        <p className="field-help">Mô tả giúp người khiếm thị và Google hiểu ảnh.</p>
         <label>Chú thích<textarea value={selected.caption} maxLength={500} rows={2} onChange={event => setSelected({ ...selected, caption: event.target.value })} /></label>
         <div className="adm-inline-actions">
           <button type="button" className="button button-outline" disabled={saving} onClick={() => void saveText()}>{saving ? 'Đang lưu' : 'Lưu mô tả'}</button>
@@ -158,7 +180,7 @@ export default function MediaLibrary({ onSelect, imagesOnly = false, selectLabel
         </div>
         <div>
           <p className="adm-side-title">Đang dùng ở</p>
-          {usageCount === 0 ? <p className="field-help">Chưa có bài viết hay sản phẩm nào dùng tệp này. Có thể xoá an toàn.</p> : usage ? <ul className="adm-used-list">{usage.posts.map(post => <li key={post.id}>Bài: {post.title}</li>)}{usage.products.map(product => <li key={product.id}>Sản phẩm: {product.name}</li>)}</ul> : <p className="field-help">Đang kiểm tra</p>}
+          {usageCount === 0 ? <p className="field-help">Chưa dùng ở đâu, xoá được.</p> : usage ? <ul className="adm-used-list">{usage.posts.map(post => <li key={post.id}>Bài: {post.title}</li>)}{usage.products.map(product => <li key={product.id}>Sản phẩm: {product.name}</li>)}</ul> : <p className="field-help">Đang kiểm tra</p>}
         </div>
       </aside>}
     </div>

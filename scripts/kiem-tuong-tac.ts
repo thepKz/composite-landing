@@ -180,7 +180,7 @@ async function publicFlows(ctx: BrowserContext, size: { tag: string; width: numb
     await shot(page, `${s}-form-b4`);
     const cur4 = await cur();
     const consent = form.getByRole('checkbox'); if (await consent.count()) await consent.first().check({ force: true });
-    await form.getByRole('button', { name: /Gửi yêu cầu/ }).click(); await page.waitForTimeout(1200);
+    await form.getByRole('button', { name: /^Nhận báo giá$/ }).click(); await page.waitForTimeout(1200);
     await shot(page, `${s}-form-thanh-cong`);
     const ok = await page.locator('.tl-form-success').count();
     if (!ok) throw new Error(`không ra màn thành công; bước đầu "${first}", sau trống "${afterEmpty}", bước cuối "${cur4}"`);

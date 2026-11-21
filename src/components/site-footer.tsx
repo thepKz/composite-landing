@@ -5,6 +5,7 @@ import { productGroups } from '@/lib/product-groups';
 import { footerLabel } from '@/lib/nav-labels';
 import { facts } from '@/lib/site-facts';
 import { resolveContact } from '@/lib/contact-info';
+import FooterMap from './footer-map';
 
 const quick = [
   ['/', 'Trang chủ'],
@@ -32,29 +33,28 @@ export default async function SiteFooter() {
           <img src="/images/thanh-loi-logo.png" alt="" width="48" height="48" loading="lazy" />
           <span>THÀNH LỢI<small>COMPOSITE</small></span>
         </Link>
-        <p>Nhà máy tại Phú Thọ, sản xuất và gia công composite FRP từ năm {facts.founded}. Đúng yêu cầu, đúng tiến độ, bền vững theo thời gian.</p>
+        <p>Nhà máy tại Phú Thọ, sản xuất và gia công composite FRP từ năm {facts.founded}.</p>
         <div className="tl-footer-social">
           <a href={facts.facebook} target="_blank" rel="noopener noreferrer" className="pressable">Facebook</a>
           <a href={facts.tiktok} target="_blank" rel="noopener noreferrer" className="pressable">TikTok</a>
           <a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer" className="pressable">Zalo</a>
         </div>
       </div>
-      <nav aria-label="Liên kết nhanh"><h3>Liên kết nhanh</h3>{quick.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
+      <nav aria-label="Liên kết nhanh"><h3 className="tl-sr">Liên kết nhanh</h3>{quick.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       <nav aria-label="Sản phẩm chủ lực"><h3>Sản phẩm chủ lực</h3>{productGroups(items).map(group => <Link key={group.slug} href={`/san-pham/${group.slug}`}>{footerLabel(group.slug, group.name)}</Link>)}</nav>
       <nav aria-label="Chính sách và hỗ trợ"><h3>Hỗ trợ</h3>
         <Link href="/huong-dan-dat-hang">Cách đặt hàng</Link>
         <Link href="/hoi-dap">Hỏi đáp</Link>
         <Link href="/chinh-sach-bao-hanh">Bảo hành</Link>
         <Link href="/chinh-sach-bao-mat">Bảo mật</Link>
-        <Link href="/lien-he#gui-yeu-cau">Nhận báo giá</Link>
       </nav>
       <div className="tl-footer-contact">
-        <h3>Liên hệ</h3>
+        <h3 className="tl-sr">Liên hệ</h3>
         <p><MapPin size={18} aria-hidden="true" /><span>Nhà máy: {address}</span></p>
         <p><Phone size={18} aria-hidden="true" /><span>{hotlines.map((line, index) => <span key={line.tel}>{index > 0 && ', '}<a href={`tel:${line.tel}`}>{line.display}</a></span>)}</span></p>
         <p><Mail size={18} aria-hidden="true" /><a href={`mailto:${email}`}>{email}</a></p>
         <p><Clock size={18} aria-hidden="true" /><span>{hours}</span></p>
-        <div className="tl-footer-map"><iframe title="Bản đồ nhà máy Thành Lợi Composite" src={facts.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen /></div>
+        <FooterMap src={facts.mapEmbed} address={address} title="Bản đồ nhà máy Thành Lợi Composite" />
       </div>
     </div>
     <div className="container tl-footer-bottom">

@@ -143,7 +143,7 @@ export default function EditorOverlays({ editor, container, actions, keyHandler 
     <label className="ed-alt-field" data-missing={missing}>Mô tả ảnh
       <input value={attrs.alt ?? ''} maxLength={500} placeholder="Ví dụ: Bể biogas composite đang hạ xuống hố" onChange={event => set({ alt: event.target.value })} />
     </label>
-    {missing && <p className="ed-alt-hint" role="status">Hãy mô tả ảnh. Mô tả giúp Google và người khiếm thị hiểu ảnh.</p>}
+    {missing && <p className="ed-alt-hint" role="status">Hãy mô tả ảnh cho người khiếm thị và Google.</p>}
     <div className="ed-image-row">
       <div className="ed-group" role="group" aria-label="Căn ảnh">
         <Tool label="Căn trái" active={align === 'left'} onRun={() => set({ align: 'left' })}><AlignLeft size={18} /></Tool>

@@ -3,43 +3,40 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Phone, Play } from 'lucide-react';
-import { editorialAssets, productAssetBySlug } from '@/lib/customer-product-assets';
+import { heightOf, photos, srcOf, srcSet } from './images';
 import { facts } from '@/lib/site-facts';
 
-// Ba cảnh theo mục 2.1 của hồ sơ. Chữ rút gọn, bỏ cam kết tuyệt đối. Ảnh chọn đúng sản phẩm và không phóng quá kích thước thật:
-// ảnh ngang đủ lớn thì phủ cả khung, ảnh nhỏ hơn khung (ảnh dọc bể biogas) thì đóng khung một bên và chữ ở bên kia.
-const biogasPhoto = productAssetBySlug['be-biogas-composite']!;
-const pickup = editorialAssets.gallery[1];
-
+// Ba cảnh theo mục 2.1 của hồ sơ. Chữ rút gọn, bỏ cam kết tuyệt đối. Ảnh đã xử lý đồng tông (scripts/xu-ly-anh-trang-chu.mjs).
+// Ảnh ngang phủ cả khung, ảnh dọc bể biogas đóng khung một bên và chữ ở bên kia.
 const scenes = [
   {
     layout: 'cover',
     kicker: 'Thành Lợi Composite',
+    showKicker: false,
     title: 'Giải pháp composite bền vững cho môi trường và sản xuất',
-    text: 'Bể biogas, bể phốt, bể xử lý nước thải, bồn hóa chất, bể thủy sản và sản phẩm theo yêu cầu. Chống ăn mòn, không gỉ, tuổi thọ thiết kế trên 30 năm.',
-    image: editorialAssets.hero,
-    position: 'center 42%',
-    sizes: [['/images/products-2026/round-tanks-installation-w960.webp', 960], ['/images/products-2026/round-tanks-installation-w1600.webp', 1600], ['/images/products-2026/round-tanks-installation.webp', 2000]],
+    text: 'Bể biogas, bể phốt, bể xử lý nước thải, bồn hóa chất, bể thủy sản và sản phẩm theo yêu cầu. Chống ăn mòn, không gỉ.',
+    image: photos.heroInstall,
+    position: 'center 46%',
     more: { href: '/san-pham', label: 'Xem sản phẩm' },
   },
   {
     layout: 'frame',
     kicker: 'Bể biogas và bể phốt',
+    showKicker: true,
     title: 'Bể liền khối, kín khí, lắp đặt trong 1 đến 2 ngày',
     text: 'Xử lý chất thải cho nông hộ, trang trại, nhà ở, nhà trọ, khách sạn và khu công nghiệp.',
-    image: biogasPhoto,
+    image: photos.heroBiogas,
     position: 'center 30%',
-    sizes: [['/images/products-2026/white-spherical-tank-w960.webp', 960], ['/images/products-2026/white-spherical-tank.webp', 1200]],
     more: { href: '/san-pham/be-biogas-composite', label: 'Xem bể biogas' },
   },
   {
     layout: 'cover',
     kicker: 'Thủy sản và vận tải',
+    showKicker: false,
     title: 'Thùng chở hải sản sống, bể nuôi thủy sản và hồ cá Koi',
-    text: 'Bề mặt gelcoat láng bóng, dễ vệ sinh, thu cặn tiện lợi. Lắp vừa xe bán tải đến xe tải, từ hồ sân vườn đến trại nuôi tôm cá.',
-    image: pickup,
+    text: 'Bề mặt gelcoat láng bóng, dễ vệ sinh, thu cặn tiện lợi. Lắp vừa xe bán tải đến xe tải.',
+    image: photos.heroPickup,
     position: 'center 58%',
-    sizes: [['/images/products-2026/pickup-blue-tank-w960.webp', 960], ['/images/products-2026/pickup-blue-tank.webp', 1600]],
     more: { href: '/san-pham/thung-cho-tom-ca', label: 'Xem thùng chở' },
   },
 ] as const;
@@ -93,7 +90,7 @@ export default function HeroSlider({ hotline = facts.hotlines[0] }: { hotline?: 
     if (event.key === 'ArrowLeft') { event.preventDefault(); go(index - 1); }
   }
 
-  return <section className="tl-hero" aria-roledescription="trình chiếu" aria-label="Giới thiệu Thành Lợi Composite" data-hold={hold}
+  return <section className="tl-hero" aria-roledescription="trình chiếu" aria-label="Giới thiệu Thành Lợi Composite" data-hold={hold} data-moved={cycle > 0}
     onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}
     onFocusCapture={() => setFocusing(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocusing(false); }}
     onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={() => { start.current = null; }} onKeyDown={onKeyDown}>
@@ -103,10 +100,10 @@ export default function HeroSlider({ hotline = facts.hotlines[0] }: { hotline?: 
         const Heading = position === 0 ? 'h1' : 'h2';
         return <div key={scene.kicker} className="tl-hero-slide" data-active={active} data-layout={scene.layout} role="group" aria-roledescription="cảnh" aria-label={`${position + 1} trên ${scenes.length}`} aria-hidden={!active} inert={!active}>
           <div className="tl-hero-slide-media" data-layout={scene.layout}>{(position === 0 || warm) && (scene.layout === 'frame'
-            ? <figure className="tl-hero-frame"><img src={scene.sizes[1][0]} srcSet={scene.sizes.map(([url, width]) => `${url} ${width}w`).join(', ')} sizes="(max-width: 760px) 320px, 420px" alt={active ? scene.image.alt : ''} width={scene.image.width} height={scene.image.height} style={{ objectPosition: scene.position }} loading="lazy" decoding="async" /></figure>
-            : <img className="tl-hero-slide-image" src={scene.sizes[1 % scene.sizes.length][0]} srcSet={scene.sizes.map(([url, width]) => `${url} ${width}w`).join(', ')} sizes="100vw" alt={active ? scene.image.alt : ''} width={scene.image.width} height={scene.image.height} style={{ objectPosition: scene.position }} fetchPriority={position === 0 ? 'high' : 'low'} decoding={position === 0 ? 'sync' : 'async'} />)}</div>
+            ? <figure className="tl-hero-frame"><img src={srcOf(scene.image, 720)} srcSet={srcSet(scene.image)} sizes="(max-width: 760px) 320px, 420px" alt={active ? scene.image.alt : ''} width={720} height={heightOf(scene.image, 720)} style={{ objectPosition: scene.position }} loading="lazy" decoding="async" /></figure>
+            : <img className="tl-hero-slide-image" src={srcOf(scene.image, 1600)} srcSet={srcSet(scene.image)} sizes="100vw" alt={active ? scene.image.alt : ''} width={1600} height={heightOf(scene.image, 1600)} style={{ objectPosition: scene.position }} fetchPriority={position === 0 ? 'high' : 'low'} decoding={position === 0 ? 'sync' : 'async'} />)}</div>
           <div className="container tl-hero-copy">
-            <p className="tl-rise tl-hero-kicker">{scene.kicker}</p>
+            {scene.showKicker && <p className="tl-rise tl-hero-kicker">{scene.kicker}</p>}
             <Heading className="tl-hero-title"><Words text={scene.title} /></Heading>
             <p className="tl-rise tl-hero-text">{scene.text}</p>
             <div className="tl-rise tl-hero-actions">

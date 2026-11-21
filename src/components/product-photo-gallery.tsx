@@ -4,7 +4,7 @@ import { useCallback, useId, useRef, useState, type KeyboardEvent, type PointerE
 import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
 import './product-assets.css';
 
-type Photo = { src: string; alt: string; label?: string };
+type Photo = { src: string; alt: string; label?: string; /** Bản đủ khung cho hộp phóng to */ zoom?: string };
 
 // Thư viện ảnh sản phẩm: ảnh chính có mũi tên, phím mũi tên, vuốt ngang, phóng to trong hộp thoại có chuyển cảnh.
 export default function ProductPhotoGallery({ photos }: { photos: Photo[] }) {
@@ -47,14 +47,13 @@ export default function ProductPhotoGallery({ photos }: { photos: Photo[] }) {
   }
 
   if (!photo) return null;
-  const caption = photo.label || photo.alt;
   return <div className="tp-gallery">
     <div className="tp-gallery-stage" role="group" aria-roledescription="thư viện ảnh" aria-label="Ảnh sản phẩm" tabIndex={0} onKeyDown={onKey} onPointerDown={swipeDown} onPointerUp={swipeUp} onPointerCancel={() => { swipeStart.current = null; }}>
       <figure id={imageId} className="tp-gallery-figure" style={{ ['--dir' as string]: direction }}>
         <div className="tp-gallery-frame" key={photo.src}>
-          <img className="tp-gallery-photo" src={photo.src} alt={photo.alt} width={1000} height={1000} draggable={false}/>
+          <img className="tp-gallery-photo" src={photo.src} alt={photo.alt} width={1000} height={1000} draggable={false} fetchPriority="high"/>
         </div>
-        <figcaption><span>{caption}</span><span className="tp-gallery-count" aria-live="polite">{selected + 1} / {count}</span></figcaption>
+        {count > 1 && <span className="tp-gallery-count is-overlay" aria-live="polite">{selected + 1} / {count}</span>}
       </figure>
       {count > 1 && <>
         <button type="button" className="tp-gallery-arrow is-prev pressable" aria-label="Ảnh trước" aria-controls={imageId} onClick={() => go(-1)}><ChevronLeft size={22} aria-hidden="true"/></button>
@@ -68,8 +67,8 @@ export default function ProductPhotoGallery({ photos }: { photos: Photo[] }) {
     <dialog ref={dialog} className={`tp-lightbox${closing ? ' is-closing' : ''}`} aria-label="Ảnh sản phẩm phóng to" onCancel={event => { event.preventDefault(); close(); }} onClose={() => opener.current?.focus({ preventScroll: true })} onClick={event => { if (event.target === event.currentTarget) close(); }} onKeyDown={onKey}>
       <button className="tp-lightbox-close pressable" type="button" autoFocus aria-label="Đóng ảnh" onClick={close}><X size={22} aria-hidden="true"/></button>
       <figure onPointerDown={swipeDown} onPointerUp={swipeUp} style={{ ['--dir' as string]: direction }}>
-        <img key={photo.src} src={photo.src} alt={photo.alt}/>
-        <figcaption><span>{caption}</span><span className="tp-gallery-count">{selected + 1} / {count}</span></figcaption>
+        <img key={photo.src} src={photo.zoom || photo.src} alt={photo.alt}/>
+        {count > 1 && <figcaption><span className="tp-gallery-count">{selected + 1} / {count}</span></figcaption>}
       </figure>
       {count > 1 && <>
         <button type="button" className="tp-gallery-arrow is-prev pressable" aria-label="Ảnh trước" onClick={() => go(-1)}><ChevronLeft size={24} aria-hidden="true"/></button>

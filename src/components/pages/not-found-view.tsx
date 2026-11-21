@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, Home, Phone } from 'lucide-react';
+import { Home, Phone } from 'lucide-react';
 import { contact, products } from '@/lib/content';
 import ProductCard from '@/components/product-card';
 import './pages.css';
@@ -23,7 +23,7 @@ export default async function NotFoundView() {
       </div>
     </div></section>
     {items.length > 0 && <section className="tp-section"><div className="tp-wrap">
-      <div className="tp-section-head"><h2>Có thể bạn đang tìm</h2><Link href="/san-pham" className="tp-text-link">Tất cả sản phẩm <ArrowUpRight size={18} aria-hidden="true"/></Link></div>
+      <h2 className="tp-sr">Có thể bạn đang tìm</h2>
       <div className="tp-grid tp-grid-3">{items.slice(0, 3).map((product, i) => <ProductCard key={product.slug} product={product} compact index={i} still/>)}</div>
     </div></section>}
   </main>;

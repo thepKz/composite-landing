@@ -92,17 +92,17 @@ export default function InquiryList() {
 
   const tabs: [Filter, string][] = [['new', 'Mới'], ['contacted', 'Đã liên hệ'], ['closed', 'Đã xong'], ['all', 'Tất cả']];
   return <>
-    <div className="admin-page-heading"><div><h1>Yêu cầu tư vấn</h1><p>Thông tin khách để lại trên website. Gọi hoặc nhắn Zalo rồi đổi tình trạng.</p></div></div>
+    <div className="admin-page-heading"><div><h1>Yêu cầu tư vấn</h1></div></div>
     <div className="list-controls"><div className="filter-tabs" role="group" aria-label="Lọc yêu cầu">{tabs.map(([value, label]) => <button type="button" key={value} aria-pressed={filter === value} onClick={() => { setFilter(value); setPinned(''); }}>{label}<span>{counts[value]}</span></button>)}</div></div>
     {error && <p role="alert" className="error-message">{error}</p>}
     {loading ? <SkeletonRows rows={4} /> : shown.length ? <div className="adm-inquiries">
-      <div className="adm-inquiry-list">{shown.map(item => <button type="button" key={item.id} className="adm-inquiry-item" aria-current={selected?.id === item.id} onClick={() => { setSelectedId(item.id); setOpen(true); }}>
+      <div className="adm-inquiry-list">{shown.map(item => <div className="adm-inquiry-row" key={item.id}><button type="button" className="adm-inquiry-item" aria-current={selected?.id === item.id} onClick={() => { setSelectedId(item.id); setOpen(true); }}>
         <span className="top"><strong>{item.name}</strong><span className={`status-badge ${item.status}`}>{names[item.status]}</span></span>
         <small>{item.phone}, {item.product || 'Cần tư vấn thêm'}</small>
         <small>{formatVietnamDateTime(item.created_at)}</small>
-      </button>)}</div>
+      </button><a className="adm-inquiry-call" href={`tel:${item.phone}`} aria-label={`Gọi ${item.name} số ${item.phone}`}><Phone size={20} /><span>Gọi</span></a></div>)}</div>
       {!narrow && selected && <section className="adm-inquiry-detail" aria-label="Chi tiết yêu cầu"><Detail item={selected} busy={busy} onStatus={status => void setStatus(status)} /></section>}
       {narrow && selected && <Dialog open={open} onClose={() => setOpen(false)} title="Chi tiết yêu cầu" width={560}><Detail item={selected} busy={busy} onStatus={status => void setStatus(status)} /></Dialog>}
-    </div> : <div className="admin-empty"><MessageSquare size={32} /><h2>{filter === 'all' ? 'Chưa có yêu cầu nào' : 'Chưa có yêu cầu ở mục này'}</h2><p>Khi khách gửi biểu mẫu trên website, yêu cầu sẽ hiện ở đây kèm số điện thoại để anh chị gọi lại.</p></div>}
+    </div> : <div className="admin-empty"><MessageSquare size={32} /><h2>{filter === 'all' ? 'Chưa có yêu cầu nào' : 'Chưa có yêu cầu ở mục này'}</h2></div>}
   </>;
 }

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEditor, EditorContent } from '@tiptap/react';
-import { ArrowLeft, Eye, Save, Send, Monitor, Smartphone, ExternalLink, SlidersHorizontal, CheckCircle2, AlertTriangle, LoaderCircle, Undo2 } from 'lucide-react';
+import { X, ArrowLeft, Eye, Save, Send, Monitor, Smartphone, ExternalLink, SlidersHorizontal, CheckCircle2, AlertTriangle, LoaderCircle, Undo2 } from 'lucide-react';
 import { postPath } from '@/lib/post-path';
 import { slugify, safeLink } from '@/lib/text';
 import { documentWords, type RichNode } from '@/lib/rich-text';
@@ -63,6 +63,7 @@ export default function PostEditor({ id }: { id?: string }) {
   const snapshotTimer = useRef<number>(0);
   const keyHandler: KeyHandlerRef = useRef(null);
   const canvas = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLTextAreaElement>(null);
   const actionsRef = useRef<{ openLink: () => void; ingest: (files: File[], position?: number) => void; autosave: () => void; save: () => void }>({ openLink: () => {}, ingest: () => {}, autosave: () => {}, save: () => {} });
 
   useEffect(() => {
@@ -74,11 +75,33 @@ export default function PostEditor({ id }: { id?: string }) {
     return () => window.clearInterval(timer);
   }, [post.server_now]);
 
+  // Ngăn thiết lập (khung hẹp hoặc thấp): tiêu điểm vào trong, Tab giữ bên trong, Esc đóng, đóng xong tiêu điểm về nút đã mở.
+  const drawerRef = useRef<HTMLElement>(null);
+  const panelOpener = useRef<HTMLElement | null>(null);
+  const openPanel = useCallback(() => { panelOpener.current = document.activeElement as HTMLElement | null; setPanelOpen(true); }, []);
   useEffect(() => {
     if (!panelOpen) return;
-    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setPanelOpen(false); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    const aside = drawerRef.current;
+    const focusable = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+    const timer = window.setTimeout(() => aside?.querySelector<HTMLElement>('[data-autofocus]')?.focus({ preventScroll: true }), 40);
+    const onKey = (event: KeyboardEvent) => {
+      if (!window.matchMedia('(max-width: 1100px), (max-height: 520px)').matches || !aside) return;
+      if (document.querySelector('.adm-overlay')) return;
+      if (event.key === 'Escape') { event.stopPropagation(); setPanelOpen(false); return; }
+      if (event.key !== 'Tab') return;
+      const items = [...aside.querySelectorAll<HTMLElement>(focusable)].filter(item => item.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !aside.contains(document.activeElement))) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !aside.contains(document.activeElement))) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey, true);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener('keydown', onKey, true);
+      const back = panelOpener.current;
+      if (back && document.contains(back)) back.focus({ preventScroll: true });
+    };
   }, [panelOpen]);
 
   const markDirty = useCallback(() => {
@@ -100,7 +123,7 @@ export default function PostEditor({ id }: { id?: string }) {
       snapshotTimer.current = window.setTimeout(() => setDoc(instance.getJSON() as RichNode), 500);
     },
     editorProps: {
-      attributes: { class: 'article-editor ed-prose', role: 'textbox', 'aria-label': 'Nội dung bài viết', 'aria-multiline': 'true' },
+      attributes: { class: 'article-editor ed-prose', spellcheck: 'false', role: 'textbox', 'aria-label': 'Nội dung bài viết', 'aria-multiline': 'true' },
       handleKeyDown: (_view, event) => {
         if (keyHandler.current?.(event)) { event.preventDefault(); return true; }
         if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key.toLowerCase() === 'k') { event.preventDefault(); actionsRef.current.openLink(); return true; }
@@ -208,7 +231,7 @@ export default function PostEditor({ id }: { id?: string }) {
   const persist = useCallback(async (status: 'draft' | 'published', action?: PublicationAction, silent = false): Promise<boolean> => {
     const current = latest.current;
     if (!editor || savingRef.current) return false;
-    if (current.post.title.trim().length < 3) { if (!silent) setError('Hãy nhập tiêu đề bài viết, ít nhất 3 ký tự.'); return false; }
+    if (current.post.title.trim().length < 3) { if (!silent) { setError('Hãy nhập tiêu đề bài viết, ít nhất 3 ký tự.'); titleRef.current?.focus(); } return false; }
     const scheduled = action === 'schedule' ? vietnamInputToUtc(current.scheduleInput) : null;
     if (action === 'schedule' && (!scheduled || new Date(scheduled).getTime() <= Date.now())) { setError('Chọn ngày giờ đăng ở tương lai theo giờ Việt Nam.'); return false; }
     if (action === 'schedule' && publicationState(current.post.status, current.post.published_at, Date.now()) === 'published' && !await confirm({ title: 'Hẹn giờ cho bài đang đăng?', body: 'Bài sẽ tạm ẩn khỏi website cho tới giờ đã chọn.', confirmLabel: 'Hẹn giờ', cancelLabel: 'Giữ nguyên' })) return false;
@@ -218,6 +241,8 @@ export default function PostEditor({ id }: { id?: string }) {
     try {
       const body = { ...current.post, revisions: undefined, updated_at: undefined, server_now: undefined, slug: current.post.slug || slugify(current.post.title), content: editor.getJSON(), status, publication_action: action, ...(scheduled ? { scheduled_at: scheduled } : {}) };
       const result = await api<Saved>('/api/admin/posts', jsonOptions('POST', body));
+      // Cập nhật ngay phiên bản mới nhất, để một lần lưu khác nổ ra trước khi trang vẽ lại không gửi phiên bản cũ.
+      latest.current = { ...latest.current, post: { ...latest.current.post, id: result.id, version: result.version }, savedId: result.id };
       setPost(previous => ({ ...previous, id: result.id, version: result.version, status: result.status, published_at: result.published_at, server_now: result.server_now, updated_at: result.updated_at, slug: previous.slug || result.slug }));
       setScheduleInput(publicationState(result.status, result.published_at, new Date(result.server_now ?? Date.now()).getTime()) === 'scheduled' && result.published_at ? vietnamDateTimeInput(result.published_at) : '');
       setSavedAt(new Date());
@@ -378,7 +403,7 @@ export default function PostEditor({ id }: { id?: string }) {
   const shortStatus = busy || autosaving ? 'Đang lưu' : dirty ? (state === 'draft' ? 'Sẽ tự lưu' : 'Chưa lưu') : savedAt ? `Đã lưu ${clock(savedAt)}` : 'Chưa lưu';
   const statusTone = busy || autosaving ? 'saving' : dirty ? 'dirty' : savedAt ? 'saved' : 'idle';
   const actions = <>
-    <button type="button" className="button button-outline" disabled={busy} onClick={() => void persist('draft')}><Save size={17} /><span className="ed-lbl-long">{secondaryLabel}</span><span className="ed-lbl-short">{shortSecondary}</span></button>
+    <button type="button" className="button button-outline" disabled={busy} title="Ctrl+S" onClick={() => void persist('draft')}><Save size={17} /><span className="ed-lbl-long">{secondaryLabel}</span><span className="ed-lbl-short">{shortSecondary}</span></button>
     <button type="button" className="button pressable" disabled={busy} onClick={() => void primary()}>{busy ? <LoaderCircle size={17} className="ed-spin" /> : <Send size={17} />}{busy ? 'Đang lưu' : <><span className="ed-lbl-long">{primaryLabel}</span><span className="ed-lbl-short">{shortPrimary}</span></>}</button>
   </>;
 
@@ -390,7 +415,7 @@ export default function PostEditor({ id }: { id?: string }) {
       {post.id && state === 'published' && !dirty && <Link href={postPath(post)} target="_blank" className="link-button ed-top-view"><ExternalLink size={16} />Xem bài trên website</Link>}
       <div className="ed-top-actions">
         <button type="button" className="button button-outline" onClick={() => setPreviewing(value => !value)} aria-pressed={previewing} aria-label={previewing ? 'Tiếp tục viết' : 'Xem trước'}>{previewing ? <><Undo2 size={17} /><span className="ed-btn-label">Tiếp tục viết</span></> : <><Eye size={17} /><span className="ed-btn-label">Xem trước</span></>}</button>
-        <button type="button" className="button button-outline ed-panel-toggle" aria-label="Mở thiết lập bài" aria-expanded={panelOpen} aria-controls="ed-aside" onClick={() => setPanelOpen(value => !value)}><SlidersHorizontal size={17} /><span className="ed-btn-label">Thiết lập</span></button>
+        <button type="button" className="button button-outline ed-panel-toggle" aria-label="Mở thiết lập bài" aria-expanded={panelOpen} aria-controls="ed-aside" onClick={() => panelOpen ? setPanelOpen(false) : openPanel()}><SlidersHorizontal size={17} /><span className="ed-btn-label">Thiết lập</span></button>
         <span className="ed-top-save">{actions}</span>
       </div>
     </div>
@@ -408,17 +433,17 @@ export default function PostEditor({ id }: { id?: string }) {
     <div className="ed-body">
       <div className="ed-main" hidden={previewing}>
         <div className="ed-sheet">
-          <textarea className="ed-title" aria-label="Tiêu đề bài viết" rows={1} value={post.title} placeholder="Tiêu đề bài viết" maxLength={200}
+          <textarea className="ed-title" ref={titleRef} aria-invalid={Boolean(error) && post.title.trim().length < 3} spellCheck={false} aria-label="Tiêu đề bài viết" rows={1} value={post.title} placeholder="Tiêu đề bài viết" maxLength={200}
             onChange={event => { const title = event.target.value.replace(/[\r\n]+/g, ' '); setPost(previous => ({ ...previous, title, slug: slugEdited ? previous.slug : slugify(title) })); markDirty(); }}
             onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); editor?.commands.focus('start'); } }} />
-          <textarea className="ed-excerpt" aria-label="Tóm tắt ngắn" rows={2} value={post.excerpt} maxLength={600} placeholder="Tóm tắt ngắn: bài này giúp người đọc biết điều gì" onChange={event => change('excerpt', event.target.value)} />
+          <textarea className="ed-excerpt" spellCheck={false} aria-label="Tóm tắt ngắn" rows={2} value={post.excerpt} maxLength={600} placeholder="Tóm tắt ngắn: bài này giúp người đọc biết điều gì" onChange={event => change('excerpt', event.target.value)} />
           <FormatBar editor={editor} onLink={() => actionsRef.current.openLink()} onMedia={kind => setMediaMode(kind)} />
           {uploads.length > 0 && <ul className="adm-uploads ed-uploads" aria-label="Đang tải ảnh lên">{uploads.map(item => <li key={item.key}><span>{item.name}</span><progress value={item.progress} max={100} aria-label={`Tiến trình ${item.name}`} /><span>{item.progress}%</span></li>)}</ul>}
           <div className="ed-canvas" ref={canvas}>
             <EditorContent editor={editor} />
             <EditorOverlays editor={editor} container={canvas} actions={overlayActions} keyHandler={keyHandler} />
           </div>
-          <div className="ed-footer"><span>{words} từ</span><span>Khoảng {readingMinutes(words)} phút đọc</span><span className="ed-hint">Gõ dấu / để chèn khối, kéo thả hoặc dán ảnh thẳng vào bài</span></div>
+          <div className="ed-footer"><span>{words} từ</span><span>Khoảng {readingMinutes(words)} phút đọc</span><span className="ed-hint"><kbd>/</kbd> chèn khối<span className="ed-hint-gap" /><kbd>Ctrl+S</kbd> lưu<span className="ed-hint-gap" /><kbd>Ctrl+K</kbd> liên kết<span className="ed-hint-gap" />Kéo thả hoặc dán ảnh vào bài</span></div>
         </div>
       </div>
 
@@ -434,21 +459,22 @@ export default function PostEditor({ id }: { id?: string }) {
       </div>}
 
       {panelOpen && <div className="ed-scrim" onClick={() => setPanelOpen(false)} aria-hidden="true" />}
-      <aside className="ed-aside" id="ed-aside" data-open={panelOpen} aria-label="Thiết lập bài viết">
-        <button type="button" className="button button-outline button-small ed-aside-close" onClick={() => setPanelOpen(false)}>Đóng thiết lập</button>
+      <aside className="ed-aside" id="ed-aside" ref={drawerRef} data-open={panelOpen} aria-label="Thiết lập bài viết">
+        <div className="ed-aside-head"><strong>Thiết lập bài</strong><button type="button" className="button button-outline button-small ed-aside-close" data-autofocus onClick={() => setPanelOpen(false)}><X size={17} />Đóng</button></div>
         <SidePanel post={post} state={state} busy={busy} doc={doc} scheduleInput={scheduleInput} scheduleMin={vietnamDateTimeInput(now + 60000)}
           onScheduleInput={value => { setScheduleInput(value); markDirty(); }}
           onChange={change}
           onSlug={value => { setSlugEdited(true); change('slug', value); }}
           onSave={(status, action) => void persist(status, action)}
           onPickCover={() => setMediaMode('cover')}
+          onRemoveCover={() => { const previous = post.cover_id; change('cover_id', null); toast('Đã bỏ ảnh bìa.', 'success', { label: 'Hoàn tác', onClick: () => change('cover_id', previous) }); }}
           onEditCover={() => post.cover_id && setImageEdit({ mediaId: post.cover_id, target: 'cover', ratio: '16:9' })}
           onTemplate={template => void applyTemplate(template)} onTopic={topic => void applyTopic(topic)} onRestore={revision => void restore(revision)} />
       </aside>
     </div>
 
     <div className="ed-mobilebar">
-      <button type="button" className="button button-outline" onClick={() => document.getElementById('ed-aside')?.scrollIntoView({ behavior: 'smooth' })}><SlidersHorizontal size={17} />Thiết lập</button>
+      <button type="button" className="button button-outline" aria-controls="ed-aside" aria-expanded={panelOpen} onClick={openPanel}><SlidersHorizontal size={17} />Thiết lập</button>
       <button type="button" className="button button-outline" disabled={busy} onClick={() => void persist('draft')}>{shortSecondary}</button>
       <button type="button" className="button pressable" disabled={busy} onClick={() => void primary()}>{busy ? <LoaderCircle size={17} className="ed-spin" /> : <Send size={17} />}{busy ? 'Đang lưu' : shortPrimary}</button>
     </div>
@@ -462,7 +488,7 @@ export default function PostEditor({ id }: { id?: string }) {
       <button type="button" className="button" onClick={applyLink}>Áp dụng</button>
     </>}>
       <label>Địa chỉ liên kết<input data-autofocus type="text" inputMode="url" placeholder="https://" value={linkValue} onChange={event => { setLinkValue(event.target.value); setLinkError(''); }} onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); applyLink(); } }} /></label>
-      {linkError ? <p className="error-message" role="alert">{linkError}</p> : <p className="field-help">Dán địa chỉ trang web, hoặc gõ đường dẫn trong website như /lien-he.</p>}
+      {linkError && <p className="error-message" role="alert">{linkError}</p>}
     </Dialog>
 
     {imageEdit && <ImageEditor mediaId={imageEdit.mediaId} initialRatio={imageEdit.ratio} onClose={() => setImageEdit(null)} onSaved={media => {

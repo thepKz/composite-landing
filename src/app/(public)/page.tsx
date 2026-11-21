@@ -1,6 +1,5 @@
 import { isDemoMode } from '@/lib/demo-mode';
 import InquiryForm from '@/components/inquiry-form';
-import WorkshopStory from '@/components/workshop-story';
 import ArticleReveal from '@/components/article/reveal';
 import HeroSlider from '@/components/home/hero-slider';
 import MetricsStrip from '@/components/home/metrics-strip';
@@ -21,7 +20,7 @@ export default async function Home() {
     <AboutSection address={info.address} />
     <WhySection />
     <ProductBento groups={productGroups(items)} />
-    <RealPhotosSection><WorkshopStory /></RealPhotosSection>
+    <RealPhotosSection />
     <ProcessSection />
     <FaqSection hotline={info.hotlines[0]} />
     <NewsSection posts={posts} />

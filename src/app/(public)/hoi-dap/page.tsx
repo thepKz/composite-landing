@@ -18,7 +18,7 @@ export default async function FaqPage() {
   return <main id="main" className="public-page tp tp-faq-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
     <Reveal/>
-    <PageHero tone="lime" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Hỏi đáp' }]} title="Hỏi đáp thường gặp" lead="Năm câu khách hàng hỏi nhiều nhất trước khi đặt bể."/>
+    <PageHero tone="lime" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Hỏi đáp' }]} title="Hỏi đáp thường gặp"/>
     <section className="tp-section"><div className="tp-wrap tp-faq-layout">
       <div className="tp-rv"><FaqList items={faqs} name="hoi-dap"/></div>
       <aside className="tp-faq-aside tp-rv" style={{ ['--i' as string]: 1 }}>

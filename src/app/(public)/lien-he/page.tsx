@@ -32,14 +32,17 @@ export default async function ContactPage() {
 
     <section className="tp-contact-section" id="gui-yeu-cau"><div className="tp-wrap tp-contact-grid">
       <div className="tp-contact-info">
-        <h2 className="tp-rv">Thông tin liên hệ</h2>
+        <h2 className="tp-sr">Thông tin liên hệ</h2>
+        <div className="tp-hotline tp-rv">
+          <p><Phone size={20} aria-hidden="true"/>Hotline và Zalo tư vấn</p>
+          {hotlines.map(item => <a key={item.tel} href={`tel:${item.tel}`}>{item.display}</a>)}
+        </div>
         <ul className="tp-info-list">
-          <li className="tp-info tp-rv"><Phone size={22} aria-hidden="true"/><div><span>Hotline và Zalo tư vấn</span>{hotlines.map(item => <a key={item.tel} href={`tel:${item.tel}`}>{item.display}</a>)}</div></li>
-          <li className="tp-info tp-rv" style={{ ['--i' as string]: 1 }}><Mail size={22} aria-hidden="true"/><div><span>Email</span><a href={`mailto:${email}`}>{email}</a></div></li>
-          <li className="tp-info tp-rv" style={{ ['--i' as string]: 2 }}><MapPin size={22} aria-hidden="true"/><div><span>Nhà máy và trụ sở</span><p>{address}</p></div></li>
-          <li className="tp-info tp-rv" style={{ ['--i' as string]: 3 }}><Clock size={22} aria-hidden="true"/><div><span>Giờ làm việc</span><p>{hours}</p></div></li>
-          <li className="tp-info tp-rv" style={{ ['--i' as string]: 4 }}><Building2 size={22} aria-hidden="true"/><div><span>Đơn vị</span><p>{facts.legalName}</p></div></li>
-          <li className="tp-info tp-rv" style={{ ['--i' as string]: 5 }}><Hash size={22} aria-hidden="true"/><div><span>Mã số thuế</span><p>{facts.taxCode}</p></div></li>
+          <li className="tp-info tp-rv"><Mail size={22} aria-hidden="true"/><div><span className="tp-sr">Email</span><a href={`mailto:${email}`}>{email}</a></div></li>
+          <li className="tp-info tp-rv" style={{ ['--i' as string]: 1 }}><MapPin size={22} aria-hidden="true"/><div><span className="tp-sr">Nhà máy và trụ sở</span><p>{address}</p></div></li>
+          <li className="tp-info tp-rv" style={{ ['--i' as string]: 2 }}><Clock size={22} aria-hidden="true"/><div><span className="tp-sr">Giờ làm việc</span><p>{hours}</p></div></li>
+          <li className="tp-info tp-rv" style={{ ['--i' as string]: 3 }}><Building2 size={22} aria-hidden="true"/><div><span className="tp-sr">Đơn vị</span><p>{facts.legalName}</p></div></li>
+          <li className="tp-info tp-rv" style={{ ['--i' as string]: 4 }}><Hash size={22} aria-hidden="true"/><div><p className="is-wide">Mã số thuế {facts.taxCode}</p></div></li>
         </ul>
       </div>
       <div className="tp-contact-form tp-rv">
@@ -48,10 +51,10 @@ export default async function ContactPage() {
     </div></section>
 
     <section className="tp-map-section"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Vị trí nhà máy</h2><Link href={mapLink} target="_blank" rel="noopener noreferrer" className="tp-text-link">Mở Google Maps <ArrowUpRight size={18} aria-hidden="true"/></Link></div>
+      <div className="tp-section-head tp-rv"><h2 className="tp-sr">Vị trí nhà máy</h2><Link href={mapLink} target="_blank" rel="noopener noreferrer" className="tp-text-link">Mở Google Maps <ArrowUpRight size={18} aria-hidden="true"/></Link></div>
       <figure className="tp-map-frame tp-rv">
-        <iframe src={facts.mapEmbed} title="Bản đồ nhà máy Thành Lợi Composite" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
-        <figcaption><MapPin size={18} aria-hidden="true"/>{address}</figcaption>
+        <MapPin className="tp-map-ghost" size={48} aria-hidden="true"/>
+        <iframe src={facts.mapEmbed} tabIndex={-1} title="Bản đồ nhà máy Thành Lợi Composite" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
       </figure>
     </div></section>
   </main>;

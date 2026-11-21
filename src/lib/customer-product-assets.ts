@@ -10,11 +10,11 @@ export const productAssetBySlug: Partial<Record<string, CustomerProductAsset>> =
     "height": 1600
   },
   "be-nuoi-trong-thuy-san": {
-    "src": "/images/products-2026/round-blue-tanks-site.webp",
-    "alt": "Các bể composite tròn màu xanh được bố trí ngoài trời",
-    "label": "Bể tròn composite",
-    "width": 964,
-    "height": 1280
+    "src": "/images/products-2026/round-tanks-installation.webp",
+    "alt": "Công nhân lắp ghép bể composite tròn màu xanh ngoài trời",
+    "label": "Lắp ghép bể tròn composite",
+    "width": 2000,
+    "height": 1500
   },
   "thung-cho-tom-ca": {
     "src": "/images/products-2026/aerated-transport-tank.webp",

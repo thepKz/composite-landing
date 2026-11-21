@@ -69,17 +69,25 @@ export default function ArticleEnhancer() {
         if (on) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
       }
     };
-    const visible = new Set<string>();
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) { if (entry.isIntersecting) visible.add(entry.target.id); else visible.delete(entry.target.id); }
-      const current = headings.find(heading => visible.has(heading.id));
-      if (current) { mark(current.id); return; }
-      // Không có tiêu đề nào trong vùng đọc: lấy tiêu đề gần nhất phía trên
-      const above = headings.filter(heading => heading.getBoundingClientRect().top < 140);
-      mark(above.length ? above[above.length - 1].id : '');
-    }, { rootMargin: '-120px 0px -62% 0px', threshold: 0 });
+    // Mục đang đọc = tiêu đề cuối cùng đã đi qua đường đọc (cách mép trên 140px). Tính lại từ vị trí thật mỗi lần có tiêu đề ra vào vùng,
+    // nên cuộn nhanh hay quay về đầu trang vẫn đúng, không giữ mục cũ.
+    const recompute = () => {
+      // Ở sát đầu trang thì chưa mục nào được đọc (chụp toàn trang hay đổi cỡ cửa sổ làm tiêu đề tạm thời ra vào vùng đọc, không để giữ mục cuối)
+      if (window.scrollY < 8) { mark(''); return; }
+      const passed = headings.filter(heading => heading.getBoundingClientRect().top < 140);
+      mark(passed.length ? passed[passed.length - 1].id : '');
+    };
+    const observer = new IntersectionObserver(recompute, { rootMargin: '0px 0px -1px 0px', threshold: [0, 1] });
+    const sentinel = new IntersectionObserver(recompute, { rootMargin: '-140px 0px 0px 0px', threshold: [0, 1] });
+    headings.forEach(heading => sentinel.observe(heading));
+    recompute();
     headings.forEach(heading => observer.observe(heading));
-    return () => observer.disconnect();
+    // Chốt cuối: sau khi cuộn dừng hoặc đổi cỡ cửa sổ thì tính lại một lần (gộp theo khung hình, thụ động)
+    let frame = 0;
+    const settle = () => { if (frame) return; frame = requestAnimationFrame(() => { frame = 0; recompute(); }); };
+    window.addEventListener('scroll', settle, { passive: true });
+    window.addEventListener('resize', settle);
+    return () => { observer.disconnect(); sentinel.disconnect(); window.removeEventListener('scroll', settle); window.removeEventListener('resize', settle); if (frame) cancelAnimationFrame(frame); };
   }, []);
 
   // Bảng rộng: báo còn cuộn được

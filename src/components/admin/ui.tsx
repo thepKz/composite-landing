@@ -90,8 +90,10 @@ export function useConfirm(): ConfirmFn {
 
 /* ------------------------------ Thông báo ------------------------------ */
 
-type Toast = { id: number; text: string; tone: 'success' | 'error'; leaving?: boolean };
-type ToastFn = (text: string, tone?: 'success' | 'error') => void;
+type ToastAction = { label: string; onClick: () => void };
+type Toast = { id: number; text: string; tone: 'success' | 'error'; leaving?: boolean; action?: ToastAction };
+/** Thông báo ngắn. Có action thì hiện nút (ví dụ Hoàn tác) và giữ lâu hơn. */
+type ToastFn = (text: string, tone?: 'success' | 'error', action?: ToastAction) => void;
 const ToastContext = createContext<ToastFn | null>(null);
 
 export function useToast(): ToastFn {
@@ -110,10 +112,10 @@ export function AdminProviders({ children }: { children: ReactNode }) {
     setToasts(items => items.map(item => item.id === id ? { ...item, leaving: true } : item));
     window.setTimeout(() => setToasts(items => items.filter(item => item.id !== id)), 160);
   }, []);
-  const push = useCallback<ToastFn>((text, tone = 'success') => {
+  const push = useCallback<ToastFn>((text, tone = 'success', action) => {
     const id = ++counter.current;
-    setToasts(items => [...items.slice(-3), { id, text, tone }]);
-    window.setTimeout(() => dismiss(id), tone === 'error' ? 8000 : 4500);
+    setToasts(items => [...items.slice(-3), { id, text, tone, action }]);
+    window.setTimeout(() => dismiss(id), tone === 'error' ? 8000 : action ? 9000 : 4500);
   }, [dismiss]);
 
   const confirm = useCallback<ConfirmFn>(options => new Promise(resolve => { setDialog({ ...options, resolve }); setOpen(true); }), []);
@@ -126,6 +128,7 @@ export function AdminProviders({ children }: { children: ReactNode }) {
       {toasts.map(toast => <div key={toast.id} className="adm-toast" data-tone={toast.tone} data-leaving={toast.leaving ? 'true' : undefined} role={toast.tone === 'error' ? 'alert' : 'status'}>
         {toast.tone === 'error' ? <AlertCircle size={18} /> : <CheckCircle2 size={18} />}
         <span>{toast.text}</span>
+        {toast.action && <button type="button" className="adm-toast-action" onClick={() => { toast.action?.onClick(); dismiss(toast.id); }}>{toast.action.label}</button>}
         <button type="button" aria-label="Tắt thông báo" onClick={() => dismiss(toast.id)}><X size={16} /></button>
       </div>)}
     </div>

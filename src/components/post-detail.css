@@ -2,8 +2,8 @@
    Mọi luật đặt dưới .art để thắng các luật chung của trang công khai. */
 
 /* Đầu bài */
-.public-site .art-head{padding:28px 0 36px}
-.art-crumbs{display:flex;align-items:center;gap:10px;min-width:0;font-size:15px;line-height:1.5;color:#113d4c;margin-bottom:32px}
+.public-site .art-head{padding:20px 0 28px}
+.art-crumbs{display:flex;align-items:center;gap:10px;min-width:0;font-size:15px;line-height:1.5;color:#113d4c;margin-bottom:24px}
 .art-crumbs a{color:#0f5c3f;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;min-height:36px}
 .art-crumbs a:hover{text-decoration:underline;text-underline-offset:4px}
 .art-crumbs [aria-current]{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:#0f3a31}
@@ -11,15 +11,15 @@
 .public-site .art-kind{display:inline-flex;align-items:center;min-height:36px;padding:4px 16px;border-radius:8px;border:1px solid #9fc0aa;background:#fff;color:#0f5c3f;font-size:15px;font-weight:600;text-decoration:none;transition:border-color var(--dur-fast,180ms) var(--ease-out,ease-out),background-color var(--dur-fast,180ms) var(--ease-out,ease-out)}
 .public-site .art-kind:hover{border-color:#16714e;background:#eef5ea}
 .public-site .art-kind.is-project{border-color:#e0a98f;color:#9a3d12}
-.public-site .art h1{margin:20px 0 0;font-size:clamp(32px,4.2vw,54px);line-height:1.2;font-weight:700;letter-spacing:-.025em;color:#0f3a31;overflow-wrap:anywhere}
-.public-site .art-excerpt{margin:24px 0 0;max-width:70ch;font-size:20px;line-height:1.65;color:#113d4c;text-align:left}
-.art-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-top:28px;padding-top:20px;border-top:1px solid #cfddd5;font-size:15px;line-height:1.5;color:#113d4c}
+.public-site .art h1{margin:20px 0 0;font-size:clamp(32px,3.7vw,50px);line-height:1.18;font-weight:700;letter-spacing:-.025em;color:#0f3a31;overflow-wrap:anywhere}
+.public-site .art-excerpt{margin:20px 0 0;max-width:68ch;font-size:20px;line-height:1.65;color:#113d4c;text-align:left}
+.art-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-top:24px;padding-top:16px;border-top:1px solid #cfddd5;font-size:15px;line-height:1.5;color:#113d4c}
 .art-meta-read{display:inline-flex;align-items:center;gap:8px}
 .art-meta time{font-weight:600;color:#0f3a31}
 
 /* Ảnh bìa: ảnh nằm trọn trong khung, hai bên là chính ảnh làm mờ. Ảnh dọc hay ngang đều không bị cắt. */
 .art-cover-wrap{margin-bottom:0}
-.art-cover{position:relative;margin:0;aspect-ratio:16/9;max-height:640px;border-radius:18px;overflow:hidden;border:1px solid #b4c8ba;background:#d6e2d3;box-shadow:0 24px 48px -32px #103e3566}
+.art-cover{position:relative;margin:0;aspect-ratio:2/1;max-height:560px;border-radius:18px;overflow:hidden;border:1px solid #b4c8ba;background:#d6e2d3;box-shadow:0 24px 48px -32px #103e3566}
 .art-cover .art-zoom{position:absolute;inset:0;width:100%;height:100%;border-radius:0}
 .art-cover .art-zoom img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:center;margin:0;border:0;border-radius:0}
 
@@ -104,8 +104,8 @@
 .public-site .art .art-prose .art-table{margin:0;overflow-x:auto;border:0;border-radius:0;max-width:100%;-webkit-overflow-scrolling:touch}
 .public-site .art .art-prose .art-table:focus-visible{outline:3px solid #d4a633;outline-offset:-3px}
 .public-site .art .art-prose table{width:100%;min-width:560px;border-collapse:collapse;font-size:16px;line-height:1.6}
-.public-site .art .art-prose th,.public-site .art .art-prose td{min-width:120px;padding:14px 18px;border:0;border-top:1px solid #dbe6d8;text-align:left;vertical-align:top}
-.public-site .art .art-prose td:first-child,.public-site .art .art-prose th:first-child{min-width:150px}
+.public-site .art .art-prose th,.public-site .art .art-prose td{min-width:150px;padding:14px 18px;border:0;border-top:1px solid #dbe6d8;text-align:left;vertical-align:top}
+.public-site .art .art-prose td:first-child,.public-site .art .art-prose th:first-child{min-width:170px}
 .public-site .art .art-prose th{background:#e3eddc;border-top:0;border-bottom:1px solid #b4c8ba;font-weight:600;color:#0f3a31}
 .public-site .art .art-prose tbody tr:nth-child(even) td{background:#f4f8f1}
 .public-site .art .art-prose td p,.public-site .art .art-prose th p{margin:0;text-align:left}
@@ -228,3 +228,35 @@
   .art[data-orient=portrait] .art-cover{aspect-ratio:3/4;max-height:560px}
 }
 @media(max-width:900px){.art[data-orient=portrait] .art-cover{aspect-ratio:4/5;max-height:520px;max-width:420px;margin-inline:auto}}
+
+/* Vòng hai: đầu bài gọn hơn, ảnh bìa hiện sớm trong màn đầu, hàng chia sẻ chia đều, vùng bấm đủ lớn, khung thấp */
+@media(min-width:901px){
+  .art[data-orient=portrait] .art h1,.public-site .art[data-orient=portrait] h1{font-size:clamp(30px,3vw,42px)}
+  .art[data-orient=portrait] .art-opener{padding-block:24px 36px}
+}
+.art-opener .art-cover{animation:art-cover-in var(--dur-slow,520ms) var(--ease-out,ease-out) both}
+@keyframes art-cover-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.art-cover .art-zoom img{transition:transform 900ms var(--ease-out,ease-out)}
+.art-cover .art-zoom:hover img{transform:scale(1.02)}
+.art-toc-list a{position:relative}
+.art-toc-list a.is-active{box-shadow:inset 0 0 0 1px #b4d3bc}
+@media(max-width:600px){
+  .art-share.is-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .art-share.is-row .art-share-btn{padding:0 6px;gap:6px;min-width:0}
+  .art-crumbs a{min-height:44px}
+  .public-site .art-kind{min-height:44px}
+  .public-site .art .art-prose th,.public-site .art .art-prose td{min-width:132px;padding:12px 14px;font-size:15px}
+  .public-site .art .art-prose td:first-child,.public-site .art .art-prose th:first-child{min-width:148px}
+}
+/* Khung thấp (điện thoại nằm ngang, cửa sổ 600x360): bỏ đường dẫn để tiêu đề lên đầu màn */
+@media(max-height:480px){
+  .art-crumbs{display:none}
+  .public-site .art-head{padding:16px 0 20px}
+  .public-site .art h1{margin-top:12px;font-size:28px}
+  .public-site .art-excerpt{margin-top:12px;font-size:17px}
+  .art-meta{margin-top:14px;padding-top:12px}
+}
+@media(prefers-reduced-motion:reduce){.art-opener .art-cover{animation:none}.art-cover .art-zoom:hover img{transform:none}}
+
+.art-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.art-foot{margin-top:48px;padding-top:20px}

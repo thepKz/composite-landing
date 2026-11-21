@@ -13,7 +13,7 @@ import { vietnamDateTimeInput } from '../src/lib/post-time';
 import { uploadRoot } from '../src/lib/upload';
 
 const origin = process.env.SITE_URL!;
-const out = path.join('docs', 'nang-cap-2026-11', 'sau-admin', 'luong');
+const out = process.env.SHOT_DIR ?? path.join('docs', 'nang-cap-2026-11', 'sau-admin', 'luong');
 mkdirSync(out, { recursive: true });
 
 const run = randomUUID().slice(0, 8);
@@ -23,6 +23,9 @@ const password = randomBytes(24).toString('hex');
 const prefix = `luong-${run}`;
 const failures: string[] = [];
 let mediaBefore = new Set<string>();
+// Mọi ảnh do lượt chạy này tải lên hoặc sinh ra khi chỉnh ảnh (ghi lại từ phản hồi của chính ứng dụng), để cuối lượt xoá đúng những ảnh đó.
+const createdMedia = new Set<string>();
+let mediaCountBefore = 0;
 
 async function png(label: string, color: { r: number; g: number; b: number }) {
   return sharp({ create: { width: 640, height: 480, channels: 3, background: color } }).png().toBuffer();
@@ -45,6 +48,12 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   const page = await context.newPage();
   page.setDefaultTimeout(60000);
   const errors: string[] = [];
+  page.on('response', async response => {
+    const url = new URL(response.url());
+    if (response.request().method() !== 'POST' || !response.ok() || !new RegExp('^/api/admin/media(/[^/]+/edit)?$').test(url.pathname)) return;
+    const body = await response.json().catch(() => null) as { id?: string } | null;
+    if (body?.id) createdMedia.add(body.id);
+  });
   page.on('pageerror', error => errors.push('pageerror: ' + error.message));
   page.on('console', message => { if (message.type() === 'error' && !/favicon|404 \(Not Found\)/.test(message.text())) errors.push(message.text().slice(0, 240)); });
   let step = 0;
@@ -53,6 +62,31 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   const slug = `${prefix}-${tag}`;
   const editor = () => page.locator('.ed-prose');
   const status = () => page.locator('.ed-status');
+  // Ngăn thiết lập: ở 390 là ngăn kéo mở bằng nút Thiết lập ở thanh dưới. Ở 1366 là cột cố định.
+  const aside = () => page.locator('.ed-aside');
+  const openSettings = async () => {
+    if (!mobile || (await aside().getAttribute('data-open')) === 'true') return;
+    const opener = page.locator('.ed-mobilebar').getByRole('button', { name: 'Thiết lập' });
+    await opener.click();
+    await expect(aside()).toHaveAttribute('data-open', 'true');
+    await page.waitForTimeout(450);
+  };
+  const closeSettings = async () => {
+    if (!mobile || (await aside().getAttribute('data-open')) !== 'true') return;
+    await aside().getByRole('button', { name: 'Đóng', exact: true }).click();
+    await expect(aside()).toHaveAttribute('data-open', 'false');
+    await expect(page.locator('.ed-mobilebar').getByRole('button', { name: 'Thiết lập' })).toBeFocused();
+    await page.waitForTimeout(450);
+  };
+  // Chọn ngày giờ bằng ba ô chọn tiếng Việt (giờ Việt Nam). Phút làm tròn lên bội của 5.
+  const roundedTime = (ms: number) => vietnamDateTimeInput(Math.ceil(ms / 300000) * 300000);
+  const chooseSchedule = async (value: string) => {
+    const [date, time] = value.split('T');
+    const group = page.getByRole('group', { name: 'Hẹn giờ đăng' });
+    await group.getByLabel('Ngày').selectOption(date);
+    await group.getByLabel('Giờ').selectOption(time.slice(0, 2));
+    await group.getByLabel('Phút').selectOption(time.slice(3, 5));
+  };
 
   await login(page);
   await shot('tong-quan');
@@ -82,16 +116,28 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
       expect(button.bottom).toBeLessThanOrEqual(844);
       expect(button.clipped, 'nút bị cắt chữ: ' + button.text).toBe(false);
     }
-    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-    await page.waitForTimeout(300);
-    const barBox = (await bar.boundingBox())!;
-    const asideBox = (await page.locator('.ed-aside').boundingBox())!;
-    expect(asideBox.y + asideBox.height).toBeLessThanOrEqual(barBox.y + 1);
+    // Ngăn thiết lập: mở bằng nút, tiêu điểm vào trong, Tab giữ bên trong, Esc đóng và tiêu điểm về nút đã mở, ngăn không để lộ nút khi đóng
+    await expect(aside()).toHaveAttribute('data-open', 'false');
+    expect(await aside().evaluate(el => getComputedStyle(el).visibility)).toBe('hidden');
+    await openSettings();
+    await expect(aside().getByRole('button', { name: 'Đóng', exact: true })).toBeFocused();
+    const box = (await aside().boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(-1);
+    expect(box.x + box.width).toBeLessThanOrEqual(391);
+    for (let i = 0; i < 40; i++) await page.keyboard.press('Tab');
+    expect(await page.evaluate(() => !!document.activeElement?.closest('.ed-aside'))).toBe(true);
+    await shot('ngan-thiet-lap-dien-thoai');
+    await page.keyboard.press('Escape');
+    await expect(aside()).toHaveAttribute('data-open', 'false');
+    await expect(page.locator('.ed-mobilebar').getByRole('button', { name: 'Thiết lập' })).toBeFocused();
+    await page.waitForTimeout(450);
     await shot('thanh-duoi-dien-thoai');
     await page.evaluate(() => window.scrollTo(0, 0));
   }
 
   // 2. Menu gõ dấu / chèn tiêu đề
+  await editor().click();
+  await page.keyboard.press('Control+End');
   await page.keyboard.type('/tieu');
   const menu = page.getByRole('listbox', { name: 'Chèn khối' });
   await expect(menu).toBeVisible();
@@ -176,7 +222,8 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   expect((await db.query('SELECT 1 FROM media_assets WHERE id=$1', [sourceId])).rowCount).toBe(1);
 
   // 7. Dán ảnh thẳng vào bài (mô phỏng sự kiện dán có tệp)
-  await editor().locator('p').last().click();
+  await editor().focus();
+  await page.keyboard.press('Control+End');
   const pasted = (await png('dan', { r: 30, g: 120, b: 80 })).toString('base64');
   await page.evaluate(async ({ data, name }) => {
     const bytes = Uint8Array.from(atob(data), c => c.charCodeAt(0));
@@ -188,7 +235,8 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   await expect(editor().locator('.ed-figure')).toHaveCount(2, { timeout: 60000 });
 
   // 8. Bảng qua menu /
-  await editor().locator('p').last().click();
+  await editor().focus();
+  await page.keyboard.press('Control+End');
   await page.keyboard.press('End');
   await page.keyboard.press('Enter');
   await page.keyboard.type('/bang');
@@ -205,6 +253,7 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   await shot('tu-luu-nhap');
 
   // 10. Ảnh bìa
+  await openSettings();
   const coverSection = page.locator('.ed-section', { has: page.getByRole('button', { name: /Ảnh bìa/ }) });
   if (!(await coverSection.locator('.ed-section-body').count())) await coverSection.getByRole('button', { name: /Ảnh bìa/ }).click();
   await coverSection.getByRole('button', { name: /Chọn ảnh bìa|Đổi ảnh/ }).click();
@@ -217,6 +266,7 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   const slugSection = page.locator('.ed-section', { has: page.getByRole('button', { name: /Đường dẫn/ }) });
   await slugSection.getByRole('button', { name: /Đường dẫn/ }).click();
   await slugSection.getByLabel('Địa chỉ của bài').fill(slug);
+  await closeSettings();
 
   // 12. Xem trước đúng giao diện công khai
   await page.getByRole('button', { name: /Xem trước/ }).click();
@@ -263,15 +313,16 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   await expect(status()).toContainText('Đã lưu lúc');
 
   // 16. Chuyển về nháp (nút ở cột bên phải), trang công khai không còn bài
+  await openSettings();
   const panelButtons = page.locator('.ed-panel');
   await panelButtons.getByRole('button', { name: 'Chuyển về nháp' }).click();
   await expect.poll(async () => (await db.query('SELECT status FROM posts WHERE title=$1', [title])).rows[0].status, { message: 'bài chưa về nháp sau khi bấm nút ở cột bên phải' }).toBe('draft');
   expect((await page.request.get(origin + '/tin-tuc/' + slug)).status()).toBe(404);
 
   // 16a. Hẹn giờ đăng từ bản nháp: bài chưa công khai, DB giữ đúng giờ hẹn
-  const scheduleInput = page.locator('input[type=datetime-local]');
-  const firstTime = vietnamDateTimeInput(Date.now() + 2 * 3600 * 1000);
-  await scheduleInput.fill(firstTime);
+  const firstTime = roundedTime(Date.now() + 2 * 3600 * 1000);
+  await expect(page.locator('input[type=datetime-local]')).toHaveCount(0);
+  await chooseSchedule(firstTime);
   await panelButtons.getByRole('button', { name: 'Đặt lịch đăng' }).click();
   await expect(page.getByText('Đã hẹn đăng lúc', { exact: false }).first()).toBeVisible();
   await expect(page.locator('.ed-top .status-badge')).toHaveText(mobile ? /.*/ : 'Đã hẹn đăng');
@@ -282,8 +333,8 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   await shot('hen-gio');
 
   // 16b. Đổi lịch sang giờ khác
-  const secondTime = vietnamDateTimeInput(Date.now() + 5 * 3600 * 1000);
-  await scheduleInput.fill(secondTime);
+  const secondTime = roundedTime(Date.now() + 5 * 3600 * 1000);
+  await chooseSchedule(secondTime);
   await panelButtons.getByRole('button', { name: 'Đổi lịch đăng' }).click();
   await expect(page.getByText(`Đã hẹn đăng lúc`, { exact: false }).first()).toBeVisible();
   await expect.poll(async () => vietnamDateTimeInput((await db.query('SELECT published_at FROM posts WHERE title=$1', [title])).rows[0].published_at)).toBe(secondTime);
@@ -362,6 +413,26 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile') {
   await confirmFile.getByRole('button', { name: 'Xoá tệp' }).click();
   await expect(page.locator('.adm-media-tile')).toHaveCount(2, { timeout: 30000 });
 
+  // 19b. Chọn nhiều để xoá một lượt: ảnh đang dùng không chọn được, hộp xác nhận nêu số ảnh
+  const tilesBefore = await page.locator('.adm-media-tile').count();
+  await page.setInputFiles('input[type=file]', [
+    { name: `${prefix}-${tag}-c.png`, mimeType: 'image/png', buffer: await png('c', { r: 90, g: 160, b: 60 }) },
+    { name: `${prefix}-${tag}-d.png`, mimeType: 'image/png', buffer: await png('d', { r: 160, g: 60, b: 140 }) },
+  ]);
+  await expect(page.locator('.adm-media-tile')).toHaveCount(tilesBefore + 2, { timeout: 30000 });
+  await page.getByRole('button', { name: 'Chọn nhiều' }).click();
+  for (const tile of await page.locator('.adm-media-tile', { hasText: 'Đang dùng' }).all()) await expect(tile).toBeDisabled();
+  await page.locator('.adm-media-tile', { hasText: `${prefix}-${tag}-c.png` }).click();
+  await page.locator('.adm-media-tile', { hasText: `${prefix}-${tag}-d.png` }).click();
+  await expect(page.getByText('Đã chọn 2 tệp')).toBeVisible();
+  await shot('chon-nhieu');
+  await page.locator('.adm-bulkbar').getByRole('button', { name: 'Xoá 2' }).click();
+  const confirmMany = page.getByRole('dialog', { name: 'Xoá 2 tệp khỏi thư viện?' });
+  await expect(confirmMany).toBeVisible();
+  await confirmMany.getByRole('button', { name: 'Xoá 2 tệp' }).click();
+  await expect(page.locator('.adm-media-tile')).toHaveCount(tilesBefore, { timeout: 30000 });
+  await page.getByRole('button', { name: 'Xong', exact: true }).click();
+
   await page.goto(origin + '/admin/bai-viet', { waitUntil: 'networkidle' });
   await page.getByLabel('Tìm bài viết').fill(`${prefix} ${tag}`);
   await page.getByRole('button', { name: /^Xoá Bài kiểm thử/ }).click();
@@ -381,30 +452,38 @@ async function cleanup() {
     await db.query('DELETE FROM redirects WHERE target_path LIKE $1 OR source_path LIKE $1', [`%${prefix}%`]);
     await db.query('DELETE FROM posts WHERE id=ANY($1)', [ids]);
   }
-  const media = await db.query('SELECT id,storage_key FROM media_assets');
-  for (const row of media.rows) {
-    if (mediaBefore.has(row.id)) continue;
-    const used = await db.query('SELECT 1 FROM post_media WHERE media_id=$1 UNION SELECT 1 FROM products WHERE cover_id=$1', [row.id]);
-    if (used.rowCount) continue;
-    await db.query('DELETE FROM media_assets WHERE id=$1', [row.id]);
-    if (/^[a-f0-9-]+\.webp$/.test(row.storage_key)) await unlink(path.join(uploadRoot(), row.storage_key)).catch(() => {});
-  }
+  // Ảnh thử xoá qua đúng đường xoá của ứng dụng (DELETE /api/admin/media/[id]), đăng nhập bằng tài khoản tạm. Không đụng ảnh có từ trước.
+  const context = await browser.newContext();
+  try {
+    const login = await context.request.post(origin + '/api/auth/login', { data: { email, password }, headers: { Origin: origin } });
+    if (!login.ok()) throw new Error('đăng nhập dọn dẹp thất bại ' + login.status());
+    for (const id of createdMedia) {
+      if (mediaBefore.has(id)) continue;
+      // Một agent hoặc người khác có thể đang tạm dùng ảnh trong bài mẫu của họ: thử lại tới 40 giây thay vì bỏ sót.
+      let response = await context.request.delete(origin + '/api/admin/media/' + id, { headers: { Origin: origin } });
+      for (let attempt = 0; attempt < 8 && response.status() === 409; attempt++) { await new Promise(resolve => setTimeout(resolve, 5000)); response = await context.request.delete(origin + '/api/admin/media/' + id, { headers: { Origin: origin } }); }
+      if (!response.ok() && response.status() !== 404) failures.push('dọn ảnh ' + id + ' lỗi ' + response.status() + ' ' + (await response.text()).slice(0, 120));
+    }
+  } finally { await context.close(); }
   await db.query('DELETE FROM users WHERE id=$1', [userId]);
 }
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   mediaBefore = new Set((await db.query('SELECT id FROM media_assets')).rows.map(row => row.id));
+  mediaCountBefore = mediaBefore.size;
   await db.query('INSERT INTO users(id,email,name,password_hash) VALUES ($1,$2,$3,$4)', [userId, email, 'Kiểm tra luồng', await hashPassword(password)]);
   for (const tag of ['desktop', 'mobile'] as const) {
     if (process.env.FLOW_ONLY && process.env.FLOW_ONLY !== tag) continue;
     try { await flow(browser, tag); } catch (error) { failures.push(`${tag}: ${(error as Error).message.split('\n').slice(0, 6).join(' | ')}`); }
   }
 } finally {
+  await cleanup().catch(error => { failures.push('dọn dữ liệu tạm lỗi: ' + (error as Error).message); });
   await browser.close();
-  await cleanup().catch(error => console.error('Dọn dữ liệu tạm lỗi:', error));
   const left = await db.query('SELECT (SELECT count(*) FROM posts WHERE slug LIKE $1)::int AS posts, (SELECT count(*) FROM users WHERE id=$2)::int AS users', [`${prefix}%`, userId]);
-  console.log('Còn lại sau khi dọn:', JSON.stringify(left.rows[0]));
+  const mediaLeft = (await db.query('SELECT count(*)::int AS total FROM media_assets')).rows[0].total;
+  if (mediaLeft !== mediaCountBefore) failures.push(`số ảnh trước ${mediaCountBefore}, sau ${mediaLeft}: còn sót ảnh thử`);
+  console.log('Lượt chạy', prefix, 'số ảnh trước', mediaCountBefore, 'còn lại sau khi dọn:', JSON.stringify({ ...left.rows[0], media: mediaLeft }));
   await db.end();
 }
 if (failures.length) { console.error('THẤT BẠI:\n' + failures.join('\n')); process.exit(1); }

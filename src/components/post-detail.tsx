@@ -89,7 +89,7 @@ export default async function PostDetail({ slug, kind = 'article' }: Props) {
     </nav>}
 
     {related.length > 0 && <section className="art-related" aria-labelledby="art-related-title"><div className="container">
-      <h2 id="art-related-title">Bài viết liên quan</h2>
+      <h2 id="art-related-title" className="art-sr">Bài viết liên quan</h2>
       <div className="art-related-grid">{related.map((item, index) => <PostCard key={item.id} post={item} index={index} />)}</div>
     </div></section>}
 

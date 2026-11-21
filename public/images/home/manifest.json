@@ -1,0 +1,434 @@
+{
+  "hero-lap-dat": {
+    "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAwCdASoYAA4APu1orU6ppiSiMAgBMB2JbACdACFp3AqjmTjD22eAAP5w0iDzA9ynwCADsm8qu+Gq54v4U7OSozMN1jH6PEEzUci0HbpEU1Edzj14eYFZ+0P23XzZGy10l/D7eXAAAA==",
+    "source": "round-tanks-installation.webp",
+    "crop": [
+      2000,
+      1125
+    ],
+    "meanBefore": 99,
+    "gain": 1.19,
+    "files": [
+      {
+        "file": "hero-lap-dat-960.webp",
+        "width": 960,
+        "height": 540,
+        "meanAfter": 116
+      },
+      {
+        "file": "hero-lap-dat-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "meanAfter": 116
+      },
+      {
+        "file": "hero-lap-dat-2000.webp",
+        "width": 2000,
+        "height": 1125,
+        "meanAfter": 116
+      }
+    ]
+  },
+  "hero-xe-ban-tai": {
+    "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABQBACdASoYAA4APu1kqU2ppaQiMAgBMB2JaACdIIjC4HCwH2M94jm1wv4AAP01S3T2xh90UOjhIxtkLK8s+GyOpooQ+QTrO3BHc2gB8x3+RABXIK3joNNNu/WwlZYbDSJ8AA==",
+    "source": "pickup-blue-tank.webp",
+    "crop": [
+      1600,
+      900
+    ],
+    "meanBefore": 110,
+    "gain": 1.08,
+    "files": [
+      {
+        "file": "hero-xe-ban-tai-960.webp",
+        "width": 960,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "hero-xe-ban-tai-1600.webp",
+        "width": 1600,
+        "height": 900,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "hero-be-biogas": {
+    "lqip": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABwBQCdASoYACAAPu1orVAppaQisBgIATAdiWUAwoBpXt9zPrLboueUPsMlLkqPtYe5b1gAAP766iT8ufN/GIIsSY2kEAzNSBtpfl7rDrLPD8tGsCmN/tNH3aFxbMCsJN6187hafwrS+moiA1Ex4+eJSAQAAA==",
+    "source": "white-spherical-tank.webp",
+    "crop": [
+      1200,
+      1600
+    ],
+    "meanBefore": 125,
+    "gain": 0.94,
+    "files": [
+      {
+        "file": "hero-be-biogas-480.webp",
+        "width": 480,
+        "height": 640,
+        "meanAfter": 117
+      },
+      {
+        "file": "hero-be-biogas-720.webp",
+        "width": 720,
+        "height": 960,
+        "meanAfter": 117
+      },
+      {
+        "file": "hero-be-biogas-1080.webp",
+        "width": 1080,
+        "height": 1440,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "gioi-thieu-xuong": {
+    "lqip": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAACQBACdASoYABIAPu1mqU2ppaQiMAgBMB2JYwC/OBIhRZVg7207/TR5HtEu74AA/qbGa4xoLR4qgEPK0Biq7E3Ch4PjJXUO5ZFbdp0KcQSIWBFGk0lEiyycTQAAAA==",
+    "source": "custom-shells-workshop.webp",
+    "crop": [
+      1275,
+      956
+    ],
+    "meanBefore": 116,
+    "gain": 1.02,
+    "files": [
+      {
+        "file": "gioi-thieu-xuong-640.webp",
+        "width": 640,
+        "height": 480,
+        "meanAfter": 117
+      },
+      {
+        "file": "gioi-thieu-xuong-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      },
+      {
+        "file": "gioi-thieu-xuong-1276.webp",
+        "width": 1276,
+        "height": 957,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "vat-lieu-be-mat": {
+    "lqip": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAACwAwCdASoYAA8APu1qrU8ppiQiMAgBMB2JbACdMoAAScpX8m29oADbojjw48l1m4PZGyjNc3zWP61//eMzvwO7KNZfuwHpgT3KRX5lwGjVp7uXnBSnNb6DiiHfbQAA",
+    "source": "yellow-tank-detail.webp",
+    "crop": [
+      1600,
+      1000
+    ],
+    "meanBefore": 109,
+    "gain": 1.08,
+    "files": [
+      {
+        "file": "vat-lieu-be-mat-640.webp",
+        "width": 640,
+        "height": 400,
+        "meanAfter": 117
+      },
+      {
+        "file": "vat-lieu-be-mat-960.webp",
+        "width": 960,
+        "height": 600,
+        "meanAfter": 117
+      },
+      {
+        "file": "vat-lieu-be-mat-1280.webp",
+        "width": 1280,
+        "height": 800,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "dai-xe-ban-tai": {
+    "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBQCdASoYABIAPu1irVAppSQisBgIATAdiWIAnTLfAMCReCVoQBNzE57mW65pcHZQAPDVYuGbwXIrHIp/UIbihCsM/O0JofOHHd1F94zg5WsC1ZdCwOmpLcL+kH5B+xjdda5VR6MddBDrwQAAAA==",
+    "source": "pickup-blue-tank.webp",
+    "crop": [
+      1600,
+      1200
+    ],
+    "meanBefore": 116,
+    "gain": 1.02,
+    "files": [
+      {
+        "file": "dai-xe-ban-tai-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-xe-ban-tai-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-xe-ban-tai-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "dai-be-chu-nhat": {
+    "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQBQCdASoYABIAPu1qqk8ppiOiMBgIATAdiWgAnTMOgX+mkrf0LkvM/2O/JhYKeW7CdFAA/IyX/GixBsROohFel63Tf5zJq0mUMm+/SU4yQabI2eS2nigZFIzvVh09cs6XWPyQTIJkFvWjd9AAAA==",
+    "source": "rectangular-tanks-workshop.webp",
+    "crop": [
+      1600,
+      1200
+    ],
+    "meanBefore": 117,
+    "gain": 1.01,
+    "files": [
+      {
+        "file": "dai-be-chu-nhat-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-be-chu-nhat-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-be-chu-nhat-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "dai-bon-trang": {
+    "lqip": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAACwBACdASoYACAAPu1or1CppaQiqAqpMB2JZAC7MtDBdz2EuwfhVq4dS4CZMv8AAP3MT8NuvLKVctpA0WmE/I4m3820QD7VK/GHQXCg/btBVE3B84JFoydVcofyehq3xhC0XwlTJpu3Rj9FPL7IpuS/slVR/WDbpex/vgAA",
+    "source": "white-tanks-yard.webp",
+    "crop": [
+      1200,
+      1600
+    ],
+    "meanBefore": 121,
+    "gain": 0.98,
+    "files": [
+      {
+        "file": "dai-bon-trang-360.webp",
+        "width": 360,
+        "height": 480,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-bon-trang-540.webp",
+        "width": 540,
+        "height": 720,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-bon-trang-720.webp",
+        "width": 720,
+        "height": 960,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "dai-cau-kien-xanh-la": {
+    "lqip": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQBQCdASoYABIAPuVepk2pJSOiN/VYASAciWQAuxf/4BhUJLOsXBEaxQzpmNDW05vsp+4mmFwAAPziIYhwfYhUkaT6TBxsb2N4Ug+nJodlG/caOUOK+7zKqkyN/Qxlvo8CaZ0jgeQoGzK8/My0Cc12ZJ7qz/I9uKjaF/bhPtL3hJFHopEAAA==",
+    "source": "green-components-workshop.webp",
+    "crop": [
+      1600,
+      1200
+    ],
+    "meanBefore": 103,
+    "gain": 1.14,
+    "files": [
+      {
+        "file": "dai-cau-kien-xanh-la-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 116
+      },
+      {
+        "file": "dai-cau-kien-xanh-la-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 116
+      },
+      {
+        "file": "dai-cau-kien-xanh-la-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 116
+      }
+    ]
+  },
+  "dai-thung-co-nap": {
+    "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQBACdASoYABIAPu1iqE2ppaOiMAgBMB2JQBdgBDpo6wkxfpMQTIuT/inwAP7kWQ4MFo5jjRIagvFnAF++4b1yw8xH2kAYaGs2MHBGy1YgsDGVeaqk13/HCCd8zZVrhoUB+YxWCL3xWm8AAAAAAA==",
+    "source": "blue-white-lidded-tanks.webp",
+    "crop": [
+      1275,
+      956
+    ],
+    "meanBefore": 123,
+    "gain": 0.96,
+    "files": [
+      {
+        "file": "dai-thung-co-nap-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 118
+      },
+      {
+        "file": "dai-thung-co-nap-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-thung-co-nap-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "dai-be-ho-nhieu-kieu": {
+    "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABQBACdASoYABIAPu1mrE+ppaQiMBgIATAdiUAToAHqpTGKCBkvR/9zpHgAAP7dV6fyEd+bm6pNNAvSlTMX5ob03U80ALQdPMI3Lw+NvbTByQHrN0yTJty4xKoIO993nzfqyndKI+WooQAAAAA=",
+    "source": "blue-open-tanks-yard.webp",
+    "crop": [
+      1275,
+      956
+    ],
+    "meanBefore": 114,
+    "gain": 1.03,
+    "files": [
+      {
+        "file": "dai-be-ho-nhieu-kieu-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-be-ho-nhieu-kieu-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "dai-be-ho-nhieu-kieu-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "ket-cau-be-mat": {
+    "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQBACdASoYAA8APu1qrU8ppiQiMAgBMB2JbACdLwGUACLsufNCIAhhSjmgAOAqfu8NenOxI2o5Ukoljvwbj//AdPReZCVagrqb/5O9/OkZI/FcecHzzHN6wirjhuogR0f8KbG96QAAAA==",
+    "source": "rectangular-tanks-workshop.webp",
+    "crop": [
+      960,
+      600
+    ],
+    "meanBefore": 92,
+    "gain": 1.22,
+    "files": [
+      {
+        "file": "ket-cau-be-mat-640.webp",
+        "width": 640,
+        "height": 400,
+        "meanAfter": 112
+      },
+      {
+        "file": "ket-cau-be-mat-960.webp",
+        "width": 960,
+        "height": 600,
+        "meanAfter": 112
+      }
+    ]
+  },
+  "be-nuoi-thuy-san": {
+    "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAwCdASoYABIAPu1kqU2ppaQiMAgBMB2JZgB2AABmsMYVD+AA8crQ7Y5qcD19Az7Vcv/xttVAbvHR+//7KctFrs4lRO+VgryYs7toDCp+RbKrWLVIPzdhbKM9tjfXTmBi7BFxE6votH44AAA=",
+    "source": "round-blue-tanks-site.webp",
+    "crop": [
+      848,
+      636
+    ],
+    "meanBefore": 133,
+    "gain": 0.89,
+    "files": [
+      {
+        "file": "be-nuoi-thuy-san-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 117
+      },
+      {
+        "file": "be-nuoi-thuy-san-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      }
+    ]
+  },
+  "be-tron-lap-dat": {
+    "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwBACdASoYABIAPulep02pJSOiN/VYASAdCWYArAANtgjYsFfPu2fKnBW0LCNoigAA/nGZw9YTw5vWxGCEVM9IG4BA9EvqzK/yO/sMkoIRs/i9HAITGK1WhZ5Ft1jCIRLiK6WkW6IZvSdoxhQG6VzznFtyAAAA",
+    "source": "round-tanks-installation.webp",
+    "crop": [
+      1400,
+      1050
+    ],
+    "meanBefore": 103,
+    "gain": 1.14,
+    "files": [
+      {
+        "file": "be-tron-lap-dat-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 116
+      },
+      {
+        "file": "be-tron-lap-dat-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 116
+      },
+      {
+        "file": "be-tron-lap-dat-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 116
+      }
+    ]
+  },
+  "giao-hang-boc-xep": {
+    "lqip": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQBQCdASoYABIAPuFgqE2opaQiMAwBEBwJbAC7L9SByafnAnbahtnqfi7XkbbQtEIAAP6h49/2DWBzRp+06+8g7Kfqx4l272v0zzPr8N8b6Fd7iHVLtS7iddI4qzT+arFtKRWWnt2l9KVqyOwc4U+kRHgBEyUAAAA=",
+    "source": "blue-tanks-loading.webp",
+    "crop": [
+      1600,
+      1200
+    ],
+    "meanBefore": 107,
+    "gain": 1.1,
+    "files": [
+      {
+        "file": "giao-hang-boc-xep-480.webp",
+        "width": 480,
+        "height": 360,
+        "meanAfter": 117
+      },
+      {
+        "file": "giao-hang-boc-xep-720.webp",
+        "width": 720,
+        "height": 540,
+        "meanAfter": 117
+      },
+      {
+        "file": "giao-hang-boc-xep-960.webp",
+        "width": 960,
+        "height": 720,
+        "meanAfter": 117
+      }
+    ]
+  }
+}

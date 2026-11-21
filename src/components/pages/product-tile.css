@@ -6,3 +6,9 @@
 .pt-tile.is-compact{padding:8px;gap:0}
 .pt-tile.is-compact .pt-art{width:84%}
 .pt-tile.is-compact .pt-stat,.pt-tile.is-compact .pt-label{display:none}
+
+/* Vòng hai: ô thay thế có nét bản vẽ (lưới mảnh, dấu góc) để trông có chủ đích, cùng chất lượng với thẻ ảnh */
+.pt-tile::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,#ffffff12 0 1px,transparent 1px 28px),repeating-linear-gradient(90deg,#ffffff12 0 1px,transparent 1px 28px);-webkit-mask-image:radial-gradient(75% 75% at 50% 50%,#000 30%,transparent 100%);mask-image:radial-gradient(75% 75% at 50% 50%,#000 30%,transparent 100%);pointer-events:none}
+.pt-tile::after{content:'';position:absolute;inset:14px;border:1px solid #d3f56b55;border-radius:8px;pointer-events:none;clip-path:polygon(0 0,28px 0,28px 1px,1px 1px,1px 28px,0 28px,0 0,100% 0,100% 28px,calc(100% - 1px) 28px,calc(100% - 1px) 1px,calc(100% - 28px) 1px,calc(100% - 28px) 0,100% 0,100% 100%,calc(100% - 28px) 100%,calc(100% - 28px) calc(100% - 1px),calc(100% - 1px) calc(100% - 1px),calc(100% - 1px) calc(100% - 28px),100% calc(100% - 28px),100% 100%,0 100%,0 calc(100% - 28px),1px calc(100% - 28px),1px calc(100% - 1px),28px calc(100% - 1px),28px 100%,0 100%)}
+.pt-tile > *{position:relative;z-index:1}
+.pt-tile.is-compact::before,.pt-tile.is-compact::after{display:none}

@@ -45,6 +45,7 @@ function Drawing({ kind }: { kind: Kind }) {
 }
 
 export default function ProductTile({ slug, stat, label, compact = false }: { slug: string; stat?: string; label?: string; compact?: boolean }) {
+  // Con số lớn đã tự nói nghĩa nên không in nhãn kèm theo (label chỉ dùng khi có chủ ý truyền vào).
   return <div className={`pt-tile${compact ? ' is-compact' : ''}`}>
     <Drawing kind={kindOf(slug)} />
     {stat && <strong className="pt-stat">{stat}</strong>}

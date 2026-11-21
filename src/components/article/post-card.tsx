@@ -7,13 +7,15 @@ import './cards.css';
 
 export type CardPost = { id: string; title: string; slug: string; excerpt?: string | null; kind: string; cover_id: string | null; published_at?: Date | string | null };
 
-/** Khung ảnh: ảnh nằm trọn trong khung, phần thừa hai bên là chính ảnh đó làm mờ. Ảnh dọc hay ngang đều không bị cắt. */
+/** Khung ảnh có chủ đích: nền xanh đậm có biểu tượng làm chỗ giữ cho tới khi ảnh tải xong (ảnh hiện dần), bài không bìa dùng chính khung này.
+ *  Ảnh phủ kín khung theo tỉ lệ, cắt giữa. Không đệm mờ hai bên. */
 export function PostMedia({ post, sizes }: { post: CardPost; sizes?: string }) {
   const Icon = post.kind === 'project' ? Building2 : Newspaper;
-  if (!post.cover_id) return <div className="pc-media pc-media-empty" aria-hidden="true"><Icon size={40} strokeWidth={1.5} /></div>;
+  if (!post.cover_id) return <div className="pc-media pc-media-empty" aria-hidden="true"><Icon size={44} strokeWidth={1.5} /></div>;
   const src = `/api/media/${post.cover_id}`;
   return <div className="pc-media" aria-hidden="true">
-    <img src={src} alt="" loading="lazy" decoding="async" sizes={sizes} />
+    <span className="pc-media-ph"><Icon size={44} strokeWidth={1.5} /></span>
+    <img data-fade src={src} alt="" loading="lazy" decoding="async" sizes={sizes} />
   </div>;
 }
 
@@ -26,7 +28,7 @@ export default function PostCard({ post, featured = false, index = 0, titleTag =
       <div className="pc-meta"><span className={`pc-kind kind-${post.kind}`}>{kindLabel(post.kind)}</span>{post.published_at && <time dateTime={new Date(post.published_at).toISOString()}>{formatDateVi(post.published_at)}</time>}</div>
       <Title className="pc-title"><Link href={href}>{post.title}</Link></Title>
       {post.excerpt ? <p className="pc-excerpt">{post.excerpt}</p> : null}
-      <span className="pc-more" aria-hidden="true">Đọc bài viết<ArrowRight size={18} /></span>
+      <span className="pc-more" aria-hidden="true"><ArrowRight size={20} /></span>
     </div>
   </article>;
 }

@@ -5,6 +5,7 @@ import { formatVietnamDateTime, vietnamInputToUtc, type PublicationState } from 
 import type { PublicationAction } from '@/lib/publication';
 import type { RichNode } from '@/lib/rich-text';
 import { slugify } from '@/lib/text';
+import ScheduleField from './schedule-field';
 import { checklist, lengthTone, seoLimits, templates, topicGroups, type Template } from './guidance';
 import type { Post } from './types';
 
@@ -34,7 +35,7 @@ export type SidePanelProps = {
   onChange: <K extends keyof Post>(key: K, value: Post[K]) => void;
   onSlug: (value: string) => void;
   onSave: (status: 'draft' | 'published', action?: PublicationAction) => void;
-  onPickCover: () => void; onEditCover: () => void;
+  onPickCover: () => void; onRemoveCover: () => void; onEditCover: () => void;
   onTemplate: (template: Template) => void; onTopic: (topic: string) => void;
   onRestore: (revision: NonNullable<Post['revisions']>[number]) => void;
 };
@@ -50,15 +51,13 @@ export default function SidePanel(props: SidePanelProps) {
 
   return <div className="ed-panel">
     <Section open title="Xuất bản" icon={<Send size={18} />} badge={<span className={`status-badge ${state}`}>{state === 'scheduled' ? 'Đã hẹn đăng' : state === 'published' ? 'Đang đăng' : 'Bản nháp'}</span>}>
-      {state === 'draft' && <p className="field-help">Bản nháp chỉ quản trị viên xem được. Bấm Xuất bản ở góc trên khi bài sẵn sàng.</p>}
-      {state === 'published' && <p className="field-help">Bài đang hiện trên website. Sửa xong bấm Cập nhật bài để thay đổi hiện ra với khách.</p>}
-      {state === 'scheduled' && post.published_at && <p className="field-help">Bài sẽ tự đăng lúc {formatVietnamDateTime(post.published_at)}. Trước giờ đó khách chưa thấy.</p>}
-      <label>Hẹn giờ đăng
-        <input type="datetime-local" suppressHydrationWarning value={props.scheduleInput} min={props.scheduleMin} onChange={event => props.onScheduleInput(event.target.value)} />
-      </label>
-      <p className="field-help">{props.scheduleInput && vietnamInputToUtc(props.scheduleInput) ? `Sẽ đăng lúc ${formatVietnamDateTime(vietnamInputToUtc(props.scheduleInput)!)}, giờ Việt Nam.` : 'Chọn ngày và giờ theo múi giờ Việt Nam (ngày, tháng, năm, giờ, phút).'}</p>
+      {state === 'draft' && <p className="field-help">Khách chưa thấy bài này.</p>}
+      {state === 'published' && <p className="field-help">Sửa xong bấm Cập nhật bài để khách thấy thay đổi.</p>}
+      {state === 'scheduled' && post.published_at && <p className="field-help">Bài sẽ tự đăng lúc {formatVietnamDateTime(post.published_at)}.</p>}
+      <ScheduleField value={props.scheduleInput} minValue={props.scheduleMin} onChange={props.onScheduleInput} />
+      {props.scheduleInput && vietnamInputToUtc(props.scheduleInput) && <p className="field-help">{`Sẽ đăng lúc ${formatVietnamDateTime(vietnamInputToUtc(props.scheduleInput)!)}, giờ Việt Nam.`}</p>}
       <div className="ed-stack">
-        <button type="button" className="button button-outline" disabled={busy || !props.scheduleInput} onClick={() => props.onSave('published', 'schedule')}><CalendarClock size={17} />{state === 'scheduled' ? 'Đổi lịch đăng' : 'Đặt lịch đăng'}</button>
+        <button type="button" className="button button-outline" disabled={busy || !props.scheduleInput || props.scheduleInput < props.scheduleMin} onClick={() => props.onSave('published', 'schedule')}><CalendarClock size={17} />{state === 'scheduled' ? 'Đổi lịch đăng' : 'Đặt lịch đăng'}</button>
         {state === 'scheduled' && <button type="button" className="button button-outline" disabled={busy} onClick={() => props.onSave('published', 'publish')}>Đăng ngay</button>}
         {state !== 'draft' && <button type="button" className="button button-outline" disabled={busy} onClick={() => props.onSave('draft')}>{state === 'scheduled' ? 'Hủy lịch, về nháp' : 'Chuyển về nháp'}</button>}
       </div>
@@ -76,22 +75,22 @@ export default function SidePanel(props: SidePanelProps) {
       </label>
       {!slugOk && <p className="error-message" role="alert">Chỉ dùng chữ không dấu viết thường, số và dấu gạch nối.</p>}
       <p className="field-help">Bài sẽ có địa chỉ thanhloicomposite.com/{path}</p>
-      <p className="field-help">Địa chỉ tự tạo từ tiêu đề, anh chị có thể sửa. Nếu đổi sau khi đã đăng, liên kết cũ vẫn tự chuyển tới địa chỉ mới.</p>
+      <p className="field-help">Đổi sau khi đã đăng thì liên kết cũ vẫn tự chuyển sang địa chỉ mới.</p>
       <button type="button" className="link-button" onClick={() => props.onSlug(slugify(post.title))} disabled={!post.title}><RefreshCw size={16} />Tạo lại từ tiêu đề</button>
     </Section>
 
     <Section open title="Ảnh bìa" icon={<ImageIcon size={18} />}>
-      {post.cover_id ? <div className="ed-cover"><img src={`/api/media/${post.cover_id}`} alt="Ảnh bìa đã chọn" /></div> : <div className="ed-cover ed-cover-empty"><ImagePlus size={28} /><span>Chưa có ảnh bìa</span></div>}
+      {post.cover_id ? <div className="ed-cover"><img src={`/api/media/${post.cover_id}`} alt="Ảnh bìa đã chọn" /></div> : <div className="ed-cover ed-cover-empty" role="img" aria-label="Chưa có ảnh bìa"><ImagePlus size={28} /></div>}
       <div className="ed-stack">
         <button type="button" className="button button-outline" onClick={props.onPickCover}><ImagePlus size={17} />{post.cover_id ? 'Đổi ảnh' : 'Chọn ảnh bìa'}</button>
         {post.cover_id && <button type="button" className="button button-outline" onClick={props.onEditCover}><Wand2 size={17} />Cắt đúng tỉ lệ bìa</button>}
-        {post.cover_id && <button type="button" className="link-button" onClick={() => props.onChange('cover_id', null)}><X size={16} />Bỏ ảnh bìa</button>}
+        {post.cover_id && <button type="button" className="link-button" onClick={props.onRemoveCover}><X size={16} />Bỏ ảnh bìa</button>}
       </div>
-      <p className="field-help">Ảnh bìa hiện đầu bài và trong danh sách tin. Nên chọn ảnh ngang, thấy rõ sản phẩm.</p>
+      <p className="field-help">Nên chọn ảnh ngang, thấy rõ sản phẩm.</p>
     </Section>
 
     <Section title="Hiển thị trên Google" icon={<Globe size={18} />}>
-      <p className="field-help">Để trống thì dùng tiêu đề và tóm tắt của bài. Google có thể hiển thị khác và không có cam kết thứ hạng.</p>
+      <p className="field-help">Để trống thì dùng tiêu đề và tóm tắt của bài.</p>
       <div className="ed-google" aria-label="Xem trước kết quả tìm kiếm">
         <span className="ed-google-site">Thành Lợi Composite</span>
         <span className="ed-google-url">thanhloicomposite.com/{path}</span>
@@ -106,18 +105,17 @@ export default function SidePanel(props: SidePanelProps) {
 
     <Section title="Kiểm tra trước khi đăng" icon={<ClipboardCheck size={18} />} badge={<span className="ed-pill" data-ok={todo === 0}>{todo === 0 ? 'Đủ' : `${todo} gợi ý`}</span>}>
       <ul className="adm-checklist">{checks.map(item => <li key={item.id} data-todo={!item.ok}>{item.ok ? <CheckCircle2 size={18} /> : <Circle size={18} />}<span>{item.text}</span></li>)}</ul>
-      <p className="field-help">Đây chỉ là gợi ý, anh chị vẫn đăng được bất cứ lúc nào.</p>
     </Section>
 
     <Section title="Khung nội dung gợi ý" icon={<LayoutTemplate size={18} />}>
-      <p className="field-help">Chọn một dàn ý để bắt đầu. Khung chỉ có tiêu đề các mục, anh chị tự điền nội dung đã xác nhận.</p>
+      <p className="field-help">Chỉ chèn tiêu đề các mục, nội dung anh chị tự điền.</p>
       <div className="ed-stack">{templates.map(template => <button type="button" key={template.id} className="button button-outline" onClick={() => props.onTemplate(template)}>{template.label}</button>)}</div>
       <p className="adm-side-title">Chủ đề nên viết</p>
       {topicGroups.map(group => <div key={group.group} className="ed-topics"><p className="field-help"><strong>{group.group}</strong></p>{group.topics.map(topic => <button type="button" key={topic} className="ed-topic" onClick={() => props.onTopic(topic)}>{topic}</button>)}</div>)}
     </Section>
 
     {Boolean(post.revisions?.length) && <Section title="Lịch sử đã lưu" icon={<History size={18} />} badge={<span className="ed-pill">{post.revisions?.length}</span>}>
-      <p className="field-help">Chọn một bản cũ để nạp vào trình soạn. Website chỉ đổi khi anh chị bấm lưu.</p>
+      <p className="field-help">Website chỉ đổi khi anh chị bấm lưu.</p>
       <div className="ed-stack">{post.revisions?.map(revision => <button type="button" key={revision.id} className="button button-outline button-small" onClick={() => props.onRestore(revision)}>{formatVietnamDateTime(revision.created_at)}</button>)}</div>
     </Section>}
   </div>;

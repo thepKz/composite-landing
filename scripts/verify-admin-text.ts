@@ -16,7 +16,7 @@ const problems: string[] = [];
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   await db.query('INSERT INTO users(id,email,name,password_hash) VALUES ($1,$2,$3,$4)', [userId, email, 'Quét chữ', await hashPassword(password)]);
-  for (const size of [{ tag: '1366', width: 1366, height: 768 }, { tag: '390', width: 390, height: 844 }]) {
+  for (const size of [{ tag: '1366', width: 1366, height: 768 }, { tag: '390', width: 390, height: 844 }, { tag: '600', width: 600, height: 360 }]) {
     const context = await browser.newContext({ viewport: { width: size.width, height: size.height }, reducedMotion: 'reduce', isMobile: size.width < 500, hasTouch: size.width < 500 });
     const page = await context.newPage();
     await page.goto(origin + '/admin/login', { waitUntil: 'networkidle' });
@@ -61,6 +61,17 @@ try {
       await page.goto(origin + route, { waitUntil: 'networkidle' });
       await page.waitForTimeout(500);
       await scanLogin(route);
+      if (route === '/admin/thu-vien') {
+        await page.getByRole('button', { name: 'Chọn nhiều' }).click();
+        const tiles = page.locator('.adm-media-tile:not([disabled])');
+        if (await tiles.count() > 1) { await tiles.nth(0).click(); await tiles.nth(1).click(); }
+        await page.waitForTimeout(300); await scanLogin(route + ' (chọn nhiều)');
+      }
+      // Trang soạn: quét thêm khi ngăn thiết lập đang mở (khung hẹp hoặc thấp)
+      if (route === '/admin/bai-viet/moi') {
+        const toggle = page.getByRole('button', { name: 'Mở thiết lập bài' });
+        if (await toggle.isVisible()) { await toggle.click(); await page.waitForTimeout(500); await scanLogin(route + ' (ngăn thiết lập)'); await page.keyboard.press('Escape'); }
+      }
     }
     await context.close();
   }

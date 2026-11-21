@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Building2, Factory, Fish, Sprout, Trash2 } from 'lucide-react';
 import { db } from '@/lib/db';
 import { additionalCustomerAssets } from '@/lib/customer-product-assets';
+import { variants } from '@/lib/trang-phu-media';
 import PageHero from '@/components/pages/page-hero';
 import CtaBand from '@/components/pages/cta-band';
 import Reveal from '@/components/pages/reveal';
@@ -24,37 +25,41 @@ type Row = { id: string; slug: string; title: string; excerpt: string; cover_id:
 export default async function ProjectsPage() {
   const { rows } = isDemoMode() ? { rows: [] as Row[] } : await db.query<Row>("SELECT id,slug,title,excerpt,cover_id FROM posts WHERE kind='project' AND status='published' AND published_at <= now() ORDER BY published_at DESC");
   const yard = additionalCustomerAssets[1];
+  const yardPhoto = variants(yard.src);
   return <main id="main" className="public-page tp tp-projects">
     <Reveal/>
-    <PageHero tone="lime" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }]} title="Dự án và công trình" lead="Hơn 100 công trình bể biogas, bể phốt, bể thủy sản và xử lý nước thải cho hộ gia đình, trang trại, doanh nghiệp trên toàn quốc."/>
+    <PageHero tone="lime" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }]} title="Dự án và công trình" lead="Bể biogas, bể phốt, bể thủy sản và xử lý nước thải cho hộ gia đình, trang trại, doanh nghiệp trên toàn quốc."
+      aside={<p className="tp-hero-count" aria-label="Hơn 100 công trình"><strong>100+</strong><span>công trình</span></p>}/>
 
     <section className="tp-section tp-projects-body"><div className="tp-wrap">
       {rows.length ? <>
         <div className="tp-section-head tp-rv"><h2>Dự án đã đăng</h2></div>
-        <div className="tp-grid tp-grid-3">{rows.map((project, i) => <article className="tp-project-card tp-rv" style={{ ['--i' as string]: i }} key={project.id}>
+        <div className={`tp-project-grid is-${Math.min(rows.length, 3)}`}>{rows.map((project, i) => <article className="tp-project-card tp-rv" style={{ ['--i' as string]: i }} key={project.id}>
           <Link href={`/du-an/${project.slug}`} className="tp-project-media" tabIndex={-1} aria-hidden="true">{project.cover_id ? <img src={`/api/media/${project.cover_id}`} alt="" loading="lazy"/> : <span className="tp-project-blank"><Building2 size={36}/></span>}</Link>
           <div className="tp-project-body"><h3><Link href={`/du-an/${project.slug}`}>{project.title}</Link></h3><p>{project.excerpt}</p><Link className="tp-text-link" href={`/du-an/${project.slug}`}>Xem dự án <ArrowUpRight size={18} aria-hidden="true"/></Link></div>
         </article>)}</div>
       </> : <div className="tp-empty tp-empty-photo tp-rv">
-        <figure><img src={yard.src} alt={yard.alt} width={yard.width} height={yard.height} loading="lazy"/></figure>
+        <figure><img src={yardPhoto.r43} srcSet={`${yardPhoto.r43Small} 520w, ${yardPhoto.r43} 960w`} sizes="(min-width: 900px) 460px, 90vw" alt={yard.alt} width={960} height={720} loading="lazy"/></figure>
         <div>
           <h2>Hồ sơ dự án đang được cập nhật</h2>
-          <p>Chưa có dự án nào được đăng. Bạn đang chuẩn bị một công trình, gửi mục đích sử dụng và mặt bằng để trao đổi phương án.</p>
-          <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Trao đổi dự án <ArrowUpRight size={18} aria-hidden="true"/></Link>
+          <p>Bạn đang chuẩn bị một công trình, gửi mục đích sử dụng và mặt bằng để trao đổi phương án.</p>
+          <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
         </div>
       </div>}
     </div></section>
 
     <section className="tp-section tp-field-section"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Năm lĩnh vực chúng tôi làm</h2><p>Đây là nhóm lĩnh vực của sản phẩm, chưa phải danh sách dự án đã bàn giao.</p></div>
-      <div className="tp-field-grid">
-        {fields.map((field, i) => <article className="tp-field-card tp-rv" style={{ ['--i' as string]: i }} key={field.title}>
-          <field.icon size={30} aria-hidden="true"/>
-          <h3>{field.title}</h3>
-          <p>{field.text}</p>
-          <Link className="tp-text-link" href={field.href}>{field.link} <ArrowUpRight size={18} aria-hidden="true"/></Link>
-        </article>)}
-      </div>
+      <div className="tp-section-head is-stack tp-rv"><h2>Năm lĩnh vực chúng tôi làm</h2><p>Đây là nhóm lĩnh vực của sản phẩm, chưa phải danh sách dự án đã bàn giao.</p></div>
+      <ul className="tp-field-list">
+        {fields.map((field, i) => <li className="tp-rv" style={{ ['--i' as string]: i }} key={field.title}>
+          <Link className="tp-field-row" href={field.href} aria-label={`${field.title}: ${field.link}`}>
+            <field.icon size={32} aria-hidden="true"/>
+            <span className="tp-field-title">{field.title}</span>
+            <span className="tp-field-text">{field.text}</span>
+            <span className="tp-field-go">{field.link}<ArrowUpRight size={18} aria-hidden="true"/></span>
+          </Link>
+        </li>)}
+      </ul>
     </div></section>
     <CtaBand title="Có công trình cần tư vấn?" text="Gửi quy mô và mặt bằng, kỹ sư Thành Lợi trao đổi phương án và báo giá."/>
   </main>;

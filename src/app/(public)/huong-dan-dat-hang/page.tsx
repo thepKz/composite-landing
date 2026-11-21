@@ -20,34 +20,37 @@ const lines: OrderLine[] = [
   { id: 'yeu-cau', label: 'Theo yêu cầu', slug: 'composite-theo-yeu-cau' },
 ].map(item => ({ id: item.id, label: item.label, href: `/san-pham/${item.slug}`, items: productGuidance(item.slug).order }));
 
+// Rút gọn một câu bước 1 cho vừa cột, không đổi nghĩa.
+const stepText: Record<string, string> = { [processSteps[0].title]: 'Chọn quy mô trên website hoặc gọi hotline, nhắn Zalo.' };
+
 const times = [
   { value: '15 – 60 phút', label: 'Báo giá nhanh, kể từ khi nhận đủ thông tin' },
-  { value: '2 – 3 ngày', label: 'Giao hàng mẫu tiêu chuẩn có sẵn khuôn' },
+  { value: '2 – 3 ngày', label: 'Giao mẫu tiêu chuẩn có sẵn khuôn' },
   { value: '10 – 25 ngày', label: 'Giao hàng đơn thiết kế riêng' },
 ];
 
-const groundSteps = ['Hút cạn nước trong hố đào', 'Gia cố đáy bằng cát đầm chặt hoặc bê tông lót phẳng, không để gạch đá sắc nhọn', 'Hạ bể đúng vị trí rồi bơm nước vào lòng bể để cân bằng lực đẩy nổi', 'Lấp đất mịn theo từng lớp và đầm đều tay'];
+const groundSteps = ['Hút cạn nước trong hố đào', 'Gia cố đáy bằng cát đầm chặt hoặc bê tông lót phẳng, không để gạch đá sắc nhọn', 'Hạ bể đúng vị trí rồi bơm nước vào lòng bể để cân bằng với lực đẩy nổi của nước ngầm', 'Lấp đất mịn theo từng lớp và đầm đều tay'];
 
 export default function OrderingGuide() {
   return <main id="main" className="public-page tp tp-order">
     <Reveal/>
-    <PageHero tone="paper" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Hướng dẫn đặt hàng' }]} title="Hướng dẫn đặt hàng" lead="Năm bước từ chọn quy mô đến bảo hành.">
+    <PageHero tone="paper" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Hướng dẫn đặt hàng' }]} title="Hướng dẫn đặt hàng">
       <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
     </PageHero>
 
     <section className="tp-section tp-steps"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Quy trình năm bước</h2></div>
+      <div className="tp-section-head tp-rv"><h2 className="tp-sr">Quy trình năm bước</h2></div>
       <ol className="tp-step-flow">
         {processSteps.map((step, i) => <li className="tp-step tp-rv" style={{ ['--i' as string]: i }} key={step.title}>
           <span className="tp-step-no" aria-hidden="true">{i + 1}</span>
           <h3>{step.title}</h3>
-          <p>{step.text}</p>
+          <p>{stepText[step.title] ?? step.text}</p>
         </li>)}
       </ol>
     </div></section>
 
     <section className="tp-section tp-order-info"><div className="tp-wrap tp-order-info-grid">
-      <div className="tp-section-head tp-rv"><h2>Thông tin cần có</h2><p>Chọn dòng sản phẩm để xem bạn cần chuẩn bị gì.</p></div>
+      <div className="tp-section-head tp-rv"><h2>Thông tin cần có</h2></div>
       <div className="tp-rv"><OrderTabs lines={lines}/></div>
     </div></section>
 

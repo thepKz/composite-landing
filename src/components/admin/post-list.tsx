@@ -82,7 +82,7 @@ export default function PostList() {
 
   return <>
     <div className="admin-page-heading">
-      <div><h1>Bài viết</h1><p>Kiến thức hữu ích và câu chuyện công trình.</p></div>
+      <div><h1>Bài viết</h1></div>
       <Link className="button pressable" href="/admin/bai-viet/moi"><Plus size={17} />Viết bài mới</Link>
     </div>
     <div className="list-controls">
@@ -114,8 +114,8 @@ export default function PostList() {
     </div> : <div className="admin-empty">
       <FileText size={32} />
       <h2>{filtering ? 'Không tìm thấy bài viết phù hợp' : 'Viết bài đầu tiên của anh chị'}</h2>
-      {filtering ? <><p>Thử từ khóa khác hoặc xem tất cả trạng thái.</p><button type="button" className="button button-outline" onClick={() => { setSearch(''); setFilter('all'); }}>Xóa bộ lọc</button></>
-        : <><p>Chia sẻ cách chọn sản phẩm hoặc một công trình đã làm. Trình soạn có sẵn dàn ý để bắt đầu nhanh.</p><Link className="button" href="/admin/bai-viet/moi"><Plus size={17} />Viết bài mới</Link></>}
+      {filtering ? <><button type="button" className="button button-outline" onClick={() => { setSearch(''); setFilter('all'); }}>Xóa bộ lọc</button></>
+        : <><Link className="button" href="/admin/bai-viet/moi"><Plus size={17} />Viết bài mới</Link></>}
     </div>}
   </>;
 }

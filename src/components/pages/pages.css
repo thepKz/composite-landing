@@ -71,9 +71,9 @@
 .tp-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; }
 .tp-hero.has-photo .tp-hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 56px; }
 .tp-hero.has-aside .tp-hero-grid { grid-template-columns: minmax(0, 1fr) auto; }
-.tp-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-bottom: 24px; font-size: 14px; line-height: 1.5; }
+.tp-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; margin-bottom: 12px; font-size: 14px; line-height: 1.5; }
 .tp-crumb { display: inline-flex; align-items: center; gap: 8px; }
-.public-site .tp-crumbs a, .public-site .tp-crumb a { text-decoration: underline; text-underline-offset: 4px; display: inline-flex; align-items: center; min-height: 24px; }
+.public-site .tp-crumbs a, .public-site .tp-crumb a { text-decoration: underline; text-underline-offset: 4px; display: inline-flex; align-items: center; min-height: 36px; }
 .tp-crumb [aria-current] { font-weight: 700; }
 .tp-hero.has-photo h1 { font-size: clamp(32px, 3.4vw, 46px); }
 .public-site .tp .tp-lead { margin-top: 20px; max-width: 54ch; font-size: 18px; line-height: 1.65; }
@@ -160,3 +160,11 @@
   .public-site .tp h2 { font-size: 24px; }
   .public-site .tp h3 { font-size: 19px; }
 }
+
+/* Vòng hai, điện thoại: tiêu đề thẻ và 404 giới hạn bề rộng để không rớt một từ lẻ ở dòng cuối */
+@media (max-width: 640px) {
+  .public-site .tp-card-body h3.is-long { max-width: 8em; }
+  .public-site .tp .tp-nf-hero h1 { max-width: 9em; }
+}
+
+@media (max-width: 640px) { .public-site .tp-crumbs a, .public-site .tp-crumb a { min-height: 44px; } }

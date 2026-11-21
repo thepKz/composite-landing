@@ -17,17 +17,17 @@ const points = [
 export default function WarrantyPage() {
   return <main id="main" className="public-page tp tp-warranty">
     <Reveal/>
-    <PageHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Chính sách bảo hành' }]} title="Chính sách bảo hành" lead="Bảo hành dài hạn cho sản phẩm composite, tùy từng dòng."
+    <PageHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Chính sách bảo hành' }]} title="Chính sách bảo hành"
       aside={<p className="tp-hero-count" aria-label="Bảo hành đến 10 năm"><strong>10</strong><span>năm bảo hành tối đa</span></p>}/>
     <section className="tp-section"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Điều bạn cần biết</h2></div>
+      <div className="tp-section-head tp-rv"><h2 className="tp-sr">Điều bạn cần biết</h2></div>
       <div className="tp-warranty-grid">
         {points.map((point, i) => <article className="tp-value tp-rv" style={{ ['--i' as string]: i }} key={point.title}><point.icon size={30} aria-hidden="true"/><h3>{point.title}</h3><p>{point.text}</p></article>)}
       </div>
     </div></section>
     <section className="tp-section tp-support"><div className="tp-wrap tp-support-grid tp-rv">
       <div><h2>Khi cần hỗ trợ bảo hành</h2><p>Chuẩn bị thông tin đơn hàng, ảnh tình trạng sản phẩm và mô tả điều kiện sử dụng để kỹ thuật xử lý nhanh hơn.</p></div>
-      <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Gửi yêu cầu <ArrowUpRight size={18} aria-hidden="true"/></Link>
+      <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
     </div></section>
   </main>;
 }

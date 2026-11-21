@@ -9,9 +9,12 @@ export function kindLabel(kind: string): string {
 }
 
 export function plainText(node: RichNode): string {
+  if (node.type === 'hardBreak') return ' ';
   if (node.type === 'text') return node.text ?? '';
+  // Chỉ chữ nối liền khi nằm trong cùng một đoạn (các đoạn text có định dạng). Mọi khối khác ngăn nhau bằng khoảng trắng,
+  // nếu không từ cuối ô bảng hoặc mục danh sách dính vào từ đầu của ô kế bên và bị đếm thiếu.
   const parts = (node.content ?? []).map(plainText);
-  return parts.join(['paragraph', 'heading', 'listItem', 'tableCell', 'tableHeader'].includes(node.type) ? '' : ' ').trim();
+  return parts.join(['paragraph', 'heading'].includes(node.type) ? '' : ' ').trim();
 }
 
 function headings(node: RichNode, out: { level: number; text: string }[] = []) {
@@ -43,9 +46,13 @@ export function wordCount(doc: RichNode): number {
   return text ? text.split(' ').length : 0;
 }
 
-/** Tiếng Việt đọc khoảng 200 từ mỗi phút. Tối thiểu 1 phút. */
+function imageCount(node: RichNode): number {
+  return (node.type === 'image' || node.type === 'video' ? 1 : 0) + (node.content ?? []).reduce((sum, child) => sum + imageCount(child), 0);
+}
+
+/** Tiếng Việt đọc khoảng 200 từ mỗi phút (đã tính chữ trong bảng và danh sách), mỗi ảnh hoặc video thêm 12 giây để xem. Tối thiểu 1 phút. */
 export function readingMinutes(doc: RichNode): number {
-  return Math.max(1, Math.round(wordCount(doc) / 200));
+  return Math.max(1, Math.round(wordCount(doc) / 200 + imageCount(doc) * 0.2));
 }
 
 export function formatDateVi(value: string | Date): string {

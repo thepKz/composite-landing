@@ -11,7 +11,7 @@ const fields: { key: keyof Settings; label: string; type: string; help?: string;
   { key: 'phone2', label: 'Số điện thoại thứ hai', type: 'tel' },
   { key: 'email', label: 'Email liên hệ', type: 'email' },
   { key: 'address', label: 'Địa chỉ', type: 'text' },
-  { key: 'hours', label: 'Giờ làm việc', type: 'text', help: 'Ví dụ: 7h30 – 17h30, thứ Hai đến thứ Bảy.' },
+  { key: 'hours', label: 'Giờ làm việc', type: 'text', help: 'Ví dụ: 7h30 đến 17h30, thứ Hai đến thứ Bảy.' },
   { key: 'zalo', label: 'Liên kết Zalo', type: 'url', help: 'Dạng https://zalo.me/ rồi tới số điện thoại Zalo.' },
 ];
 
@@ -35,7 +35,7 @@ export default function SettingsForm() {
 
   const changed = value ? JSON.stringify(value) !== saved : false;
   return <>
-    <div className="admin-page-heading"><div><h1>Thông tin website</h1><p>Hiện ở chân trang và phần liên hệ. Chỉ nhập thông tin chính thức của Thành Lợi.</p></div></div>
+    <div className="admin-page-heading"><div><h1>Thông tin website</h1><p>Hiện ở chân trang và phần liên hệ.</p></div></div>
     {error && <p className="error-message" role="alert" style={{ marginBottom: 16 }}>{error}</p>}
     {value ? <form className="settings-form admin-panel" onSubmit={save} aria-busy={busy}>
       {fields.map(({ key, label, type, help, required }) => <label key={key}>{label}

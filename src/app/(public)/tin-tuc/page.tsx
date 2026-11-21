@@ -2,10 +2,11 @@ import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Newspaper, Search } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Newspaper } from 'lucide-react';
 import { db } from '@/lib/db';
 import PostCard, { type CardPost } from '@/components/article/post-card';
 import Reveal from '@/components/article/reveal';
+import NewsToolbar from './news-toolbar';
 import './news.css';
 
 type SearchValues = Record<string, string | string[] | undefined>;
@@ -65,32 +66,15 @@ export default async function News({ searchParams }: Props) {
     <section className="nl-hero"><div className="container">
       <nav className="nl-crumbs" aria-label="Đường dẫn"><Link href="/">Trang chủ</Link><span aria-hidden="true">/</span><span aria-current="page">Tin tức</span></nav>
       <h1>Tin tức và kiến thức</h1>
-      <p>Hướng dẫn chọn bồn bể và những công trình Thành Lợi chia sẻ.</p>
     </div></section>
 
-    <section className="container nl-toolbar" aria-label="Tìm và lọc bài viết">
-      <nav className="nl-chips" aria-label="Loại nội dung">
-        {kinds.map(item => {
-          const count = item.value ? byKind[item.value] : allTotal;
-          const active = kind === item.value;
-          return <Link key={item.value || 'all'} href={newsUrl(q, item.value)} className={`nl-chip pressable${active ? ' is-active' : ''}`} aria-current={active ? 'true' : undefined}>{item.label}<span className="nl-chip-count">{count}</span></Link>;
-        })}
-      </nav>
-      <form action="/tin-tuc" method="get" className="nl-search" role="search">
-        <label htmlFor="nl-q" className="nl-sr">Tìm bài viết</label>
-        <Search size={20} aria-hidden="true" className="nl-search-icon" />
-        <input id="nl-q" type="search" name="q" defaultValue={q} maxLength={200} placeholder="Tìm bài viết" autoComplete="off" />
-        {kind && <input type="hidden" name="kind" value={kind} />}
-        <button type="submit" className="nl-btn pressable">Tìm</button>
-      </form>
-      <div className="nl-suggest"><span>Gợi ý tìm</span>{suggestions.map(item => <Link key={item.q} href={newsUrl(item.q, kind)} className={`nl-tag pressable${q === item.q ? ' is-active' : ''}`}>{item.label}</Link>)}</div>
-    </section>
+    <NewsToolbar q={q} kind={kind} suggestions={suggestions} kinds={kinds.map(item => ({ ...item, count: item.value ? byKind[item.value] : allTotal }))} />
 
     <section className="container nl-results">
-      {total > 0 && <p className="nl-count">{total} bài viết{q ? <> cho “<strong>{q}</strong>”</> : null}{pageCount > 1 ? `, trang ${page} trên ${pageCount}` : ''}</p>}
+      {total > 0 && (q || pageCount > 1) && <p className="nl-count">{total} bài viết{q ? <> cho “<strong>{q}</strong>”</> : null}{pageCount > 1 ? `, trang ${page} trên ${pageCount}` : ''}</p>}
 
       {featured && <PostCard post={featured} featured titleTag="h2" />}
-      {rest.length > 0 && <div className="nl-grid">{rest.map((post, index) => <PostCard key={post.id} post={post} index={index} titleTag="h2" />)}</div>}
+      {rest.length > 0 && <div className="nl-grid" data-rem={rest.length % 3} {...(rest.length % 2 ? { 'data-odd': true } : {})}>{rest.map((post, index) => <PostCard key={post.id} post={post} index={index} titleTag="h2" />)}</div>}
 
       {rows.length === 0 && <div className="nl-empty" data-art-reveal>
         <span className="nl-empty-icon" aria-hidden="true"><Newspaper size={32} strokeWidth={1.5} /></span>
@@ -101,7 +85,7 @@ export default async function News({ searchParams }: Props) {
           <div className="nl-empty-actions"><Link href="/tin-tuc" className="nl-btn pressable">Xem tất cả bài viết</Link></div>
         </> : <>
           <h2>Chưa có bài viết nào</h2>
-          <p>Thành Lợi đang chuẩn bị nội dung. Trong lúc chờ, bạn có thể xem sản phẩm hoặc gửi nhu cầu để được tư vấn.</p>
+          <p>Bạn có thể xem sản phẩm hoặc gửi nhu cầu để được tư vấn.</p>
           <div className="nl-empty-actions"><Link href="/lien-he#gui-yeu-cau" className="nl-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Link><Link href="/san-pham" className="nl-btn-ghost pressable">Xem sản phẩm</Link></div>
         </>}
       </div>}
@@ -114,7 +98,7 @@ export default async function News({ searchParams }: Props) {
     </section>
 
     {rows.length > 0 && <section className="container nl-cta" aria-labelledby="nl-cta-title"><div className="nl-cta-card" data-art-reveal>
-      <div><h2 id="nl-cta-title">Cần chọn bồn bể cho công trình</h2><p>Gửi mục đích sử dụng và quy cách dự kiến để được tư vấn.</p></div>
+      <h2 id="nl-cta-title">Cần chọn bồn bể cho công trình</h2>
       <Link href="/lien-he#gui-yeu-cau" className="nl-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Link>
     </div></section>}
     <Reveal />

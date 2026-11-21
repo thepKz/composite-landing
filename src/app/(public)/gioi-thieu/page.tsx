@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { ArrowUpRight, BadgeCheck, ClipboardCheck, Eye, HeartHandshake, Lightbulb, Layers, Rocket, Shapes, Sparkles, ShieldCheck, Waypoints } from 'lucide-react';
-import { facts, metrics } from '@/lib/site-facts';
-import { editorialAssets } from '@/lib/customer-product-assets';
+import { metrics } from '@/lib/site-facts';
+import { editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
+import { variants } from '@/lib/trang-phu-media';
+import PhotoStrip from '@/components/pages/photo-strip';
 import PageHero from '@/components/pages/page-hero';
 import Reveal from '@/components/pages/reveal';
 import '@/components/pages/pages.css';
@@ -13,16 +15,13 @@ export const metadata = {
   alternates: { canonical: '/gioi-thieu' },
 };
 
-const milestones = [
-  { year: '2010', text: 'Thành lập tại Phú Thọ, cửa ngõ vùng trung du và miền núi phía Bắc.' },
-  { year: '15+ năm', text: 'Chuẩn hóa quy trình, mở rộng xưởng tại Khu Tiên Sơn, xã Tiên Lương.' },
-  { year: '25+ tỉnh', text: 'Sản phẩm có mặt ở nông hộ, trang trại, nhà máy và dự án đô thị.' },
-];
+// Nhãn số liệu rút gọn cho vừa cột, không đổi nghĩa so với site-facts.
+const metricLabel: Record<string, string> = { '100+': 'Công trình, trang trại bàn giao, vận hành ổn định', '25+': 'Khách hàng, đại lý, trang trại, nhà máy toàn quốc' };
 
 const values = [
   { icon: ShieldCheck, title: 'Chữ tín làm gốc', text: 'Đúng độ dày vật liệu, đúng loại nhựa, đúng dung tích, đúng tiến độ đã thỏa thuận.' },
   { icon: BadgeCheck, title: 'Chất lượng làm nền tảng', text: 'Không pha tạp chất làm giảm cơ tính. Thử kín nước, kín khí trước khi xuất xưởng.' },
-  { icon: HeartHandshake, title: 'Tận tâm phục vụ', text: 'Tư vấn đúng và đủ theo quy mô thực tế để tiết kiệm chi phí cho khách hàng.' },
+  { icon: HeartHandshake, title: 'Tận tâm phục vụ', text: 'Tư vấn đúng, đủ theo quy mô thực tế để khách tiết kiệm chi phí.' },
   { icon: Lightbulb, title: 'Đổi mới và sáng tạo', text: 'Cải tiến khuôn mẫu và công nghệ gia công cho bề mặt đẹp, chịu lực tốt, dễ vận chuyển.' },
 ];
 
@@ -50,10 +49,14 @@ const fields = [
   { label: 'Theo yêu cầu', href: '/san-pham/composite-theo-yeu-cau' },
 ];
 
+// Dải ảnh không lặp ảnh đã dùng ở đầu trang, khối câu chuyện và khối nhà máy.
+const stripAssets = [editorialAssets.bridge, editorialAssets.footer, editorialAssets.gallery[0], editorialAssets.contact, editorialAssets.gallery[1], additionalCustomerAssets[1]];
+const strip = stripAssets.map(asset => { const v = variants(asset.src); return { src: v.r43, srcSet: `${v.r43Small} 520w, ${v.r43} 960w`, alt: asset.alt, label: '' }; });
+
 export default function AboutPage() {
-  const hero = editorialAssets.story;
-  const field = editorialAssets.hero;
-  const shop = editorialAssets.fit;
+  const hero = { ...editorialAssets.story, src: variants(editorialAssets.story.src).r32, width: 1400, height: 933 };
+  const field = { ...editorialAssets.hero, src: variants(editorialAssets.hero.src).r32, width: 1400, height: 933 };
+  const shop = { ...editorialAssets.fit, src: variants(editorialAssets.fit.src).r32, width: 1400, height: 933 };
   return <main id="main" className="public-page tp tp-about">
     <Reveal/>
     <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]} title="Về Thành Lợi" lead="Sản xuất composite FRP tại Phú Thọ từ năm 2010." image={hero}>
@@ -64,7 +67,7 @@ export default function AboutPage() {
     <section className="tp-metrics" aria-label="Số liệu nổi bật"><div className="tp-wrap tp-metrics-grid">
       {metrics.map((metric, i) => <div className="tp-metric tp-rv" style={{ ['--i' as string]: i }} key={metric.label}>
         <p className="tp-metric-value">{metric.value}<span>{metric.unit}</span></p>
-        <p className="tp-metric-label">{metric.label}</p>
+        <p className="tp-metric-label">{metricLabel[metric.value] ?? metric.label}</p>
       </div>)}
     </div></section>
 
@@ -72,20 +75,22 @@ export default function AboutPage() {
       <div className="tp-rv">
         <h2>Đi tìm vật liệu không nứt, không thấm, không gỉ</h2>
         <p className="tp-statement">Thành Lợi khởi đầu từ nhu cầu thay bê tông xây gạch hay nứt thấm và kim loại hay gỉ sét trong môi trường khắc nghiệt.</p>
-        <p>Mỗi bể xuất xưởng đều qua khảo sát thực tế, tính độ dày kết cấu và chọn nhựa nền Polyester hoặc Vinyl Ester theo từng khách hàng.</p>
-        <ol className="tp-timeline">
-          {milestones.map(item => <li key={item.year}><strong>{item.year}</strong><span>{item.text}</span></li>)}
-        </ol>
+        <p>Mỗi bể xuất xưởng đều qua khảo sát thực tế, tính độ dày kết cấu và chọn nhựa nền Polyester hoặc Vinyl Ester phù hợp từng khách hàng.</p>
       </div>
       <figure className="tp-story-photo tp-rv" style={{ ['--i' as string]: 1 }}>
         <img src={field.src} alt={field.alt} width={field.width} height={field.height} loading="lazy"/>
-        <figcaption>{field.label}</figcaption>
       </figure>
     </div></section>
 
+    <section className="tp-strip-section" aria-labelledby="tp-strip-title"><div className="tp-wrap">
+      <div className="tp-section-head tp-rv"><h2 id="tp-strip-title" className="tp-sr">Ảnh xưởng và công trình</h2></div>
+    </div>
+      <div className="tp-strip-wrap tp-rv"><PhotoStrip photos={strip} label="Ảnh xưởng và công trình, dùng phím mũi tên để xem tiếp"/></div>
+    </section>
+
     <section className="tp-purpose"><div className="tp-wrap tp-purpose-grid">
       <article className="tp-rv"><Eye size={32} aria-hidden="true"/><h2>Tầm nhìn</h2><p>Trở thành thương hiệu sản xuất và gia công composite FRP được tin dùng hàng đầu Việt Nam, đưa vật liệu bền vững vào môi trường, nông nghiệp tuần hoàn và công nghiệp hiện đại.</p></article>
-      <article className="tp-rv" style={{ ['--i' as string]: 1 }}><Rocket size={32} aria-hidden="true"/><h2>Sứ mệnh</h2><p>Cung cấp thiết bị composite bền trên 30 năm, tối ưu chi phí dài hạn, đồng hành kỹ thuật từ khảo sát, thiết kế đến lắp đặt và bảo hành.</p></article>
+      <article className="tp-rv" style={{ ['--i' as string]: 1 }}><Rocket size={32} aria-hidden="true"/><h2>Sứ mệnh</h2><p>Cung cấp thiết bị composite bền trên 30 năm, tối ưu chi phí dài hạn, đồng hành từ khảo sát, thiết kế đến lắp đặt và bảo hành.</p></article>
     </div></section>
 
     <section className="tp-section tp-values"><div className="tp-wrap">
@@ -97,10 +102,9 @@ export default function AboutPage() {
 
     <section className="tp-section tp-capacity"><div className="tp-wrap">
       <div className="tp-capacity-top">
-        <figure className="tp-capacity-photo tp-rv"><img src={shop.src} alt={shop.alt} width={shop.width} height={shop.height} loading="lazy"/><figcaption>{shop.label}</figcaption></figure>
+        <figure className="tp-capacity-photo tp-rv"><img src={shop.src} alt={shop.alt} width={shop.width} height={shop.height} loading="lazy"/></figure>
         <div className="tp-rv" style={{ ['--i' as string]: 1 }}>
           <h2>Nhà máy phân khu rõ ràng</h2>
-          <p>Xưởng tại {facts.address} có năm khu chức năng đi theo dòng chảy sản xuất.</p>
           <h3>Nguyên vật liệu tuyển chọn</h3>
           <ul className="tp-pill-list">
             <li>Nhựa Polyester không no</li><li>Nhựa Isophthalic</li><li>Nhựa Vinyl Ester</li><li>Sợi thủy tinh Mat</li><li>Sợi Woven Roving</li>
@@ -125,7 +129,7 @@ export default function AboutPage() {
     </div></section>
 
     <section className="tp-fields"><div className="tp-wrap tp-fields-grid">
-      <h2 className="tp-rv">Lĩnh vực ứng dụng</h2>
+      <h2 className="tp-sr">Lĩnh vực ứng dụng</h2>
       <nav className="tp-fields-links" aria-label="Lĩnh vực ứng dụng">
         {fields.map((item, i) => <Link key={item.label} href={item.href} className="tp-rv" style={{ ['--i' as string]: i }}>{item.label}<ArrowUpRight size={20} aria-hidden="true"/></Link>)}
       </nav>

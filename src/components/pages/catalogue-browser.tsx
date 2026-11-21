@@ -16,6 +16,8 @@ export default function CatalogueBrowser({ items, fields, initial }: { items: Ca
   const shown = active ? items.filter(item => item.field === active) : items;
   const flagship = shown.filter(item => item.rank);
   const others = shown.filter(item => !item.rank);
+  // Đủ ba dòng mũi nhọn thì bày thành khối bento: một thẻ lớn bên trái, hai thẻ nằm ngang bên phải.
+  const bento = flagship.length === 3;
 
   function choose(key: string) {
     if (key === active) return;
@@ -38,14 +40,14 @@ export default function CatalogueBrowser({ items, fields, initial }: { items: Ca
     <p className="tp-sr" role="status" aria-live="polite">Hiển thị {shown.length} nhóm sản phẩm</p>
 
     {flagship.length > 0 && <section aria-labelledby="tp-flagship-title">
-      <h2 id="tp-flagship-title" className="tp-block-title">{active ? 'Dòng mũi nhọn' : 'Ba dòng mũi nhọn'}</h2>
-      <div className="tp-grid tp-grid-3" key={`f${round}`}>
-        {flagship.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} rank={item.rank} index={index} still/>)}
+      <h2 id="tp-flagship-title" className="tp-sr">{active ? 'Dòng mũi nhọn' : 'Ba dòng mũi nhọn'}</h2>
+      <div className={bento ? 'tp-bento' : 'tp-grid tp-grid-3'} key={`f${round}`}>
+        {flagship.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} rank={item.rank} index={index} still feature={bento && index === 0} wide={bento && index > 0}/>)}
       </div>
     </section>}
 
     {others.length > 0 && <section aria-labelledby="tp-others-title">
-      <h2 id="tp-others-title" className="tp-block-title">{flagship.length ? 'Các dòng khác' : 'Sản phẩm'}</h2>
+      <h2 id="tp-others-title" className="tp-sr">{flagship.length ? 'Các dòng khác' : 'Sản phẩm'}</h2>
       <div className="tp-grid tp-grid-4" key={`o${round}`}>
         {others.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} index={index + flagship.length} still compact/>)}
       </div>

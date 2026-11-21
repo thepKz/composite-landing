@@ -111,7 +111,7 @@ try {
     await shot('09-buoc-cuoi');
     await form.getByLabel('Ghi chú').fill('Yêu cầu thử từ kịch bản kiểm giao diện, sẽ bị xoá.');
     await form.getByRole('checkbox').check();
-    await form.getByRole('button', { name: 'Gửi yêu cầu' }).click();
+    await form.getByRole('button', { name: 'Nhận báo giá', exact: true }).click();
     await form.getByText('Đã nhận yêu cầu').waitFor({ timeout: 20000 });
     await wait(page, 700);
     await shot('10-thanh-cong');

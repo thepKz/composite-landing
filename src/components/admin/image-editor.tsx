@@ -182,9 +182,8 @@ export default function ImageEditor({ mediaId, initialRatio = 'free', onClose, o
             <button type="button" aria-pressed={flipV} onClick={() => transform(() => setFlipV(value => !value))} aria-label="Lật dọc"><FlipVertical2 size={16} />Dọc</button>
           </div>
         </div>
-        <p className="field-help">Kéo khung sáng để chọn vùng giữ lại. Kéo bốn góc để đổi cỡ.</p>
         {resultSize && <p className="field-help">Ảnh mới: {resultSize}</p>}
-        <p className="field-help">Kết quả được lưu thành ảnh mới trong thư viện. Ảnh gốc không bị thay đổi.</p>
+        <p className="field-help">Lưu thành ảnh mới, ảnh gốc giữ nguyên.</p>
         {error && <p className="error-message" role="alert">{error}</p>}
       </div>
     </div>}

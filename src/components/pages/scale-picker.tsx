@@ -51,10 +51,10 @@ export function ScaleChips() {
       </button>)}
     </div>
     <div className={`tp-scale-result${row ? ' is-set' : ''}`} role="status" aria-live="polite">
-      {row ? <div key={selected} className="tp-scale-answer">
-        <div><span className="tp-scale-label">Gợi ý cho bạn</span><strong>{row.suggest}</strong></div>
+      {row && <div key={selected} className="tp-scale-answer">
+        <strong>{row.suggest}</strong>
         <button type="button" className="tp-text-link tp-link-button" onClick={() => scrollToId('tp-scale-table')}>Xem trong bảng <ArrowDown size={16} aria-hidden="true"/></button>
-      </div> : <span className="tp-scale-hint">Bấm một quy mô để xem gợi ý dung tích.</span>}
+      </div>}
     </div>
   </div>;
 }
@@ -96,7 +96,6 @@ export function ScaleTableView() {
       </div>
     </div>
     <p className="tp-table-hint"><SwipeIcon size={16} aria-hidden="true"/>Vuốt ngang để xem đủ các cột</p>
-    {table.note && <p className="tp-table-note">{table.note}</p>}
   </div>;
 }
 

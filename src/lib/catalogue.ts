@@ -46,7 +46,7 @@ export const catalogue = [
     slug: 'be-nuoi-trong-thuy-san',
     name: 'Bể cá Koi và bể nuôi thủy sản',
     category: 'Thủy sản',
-    description: 'Hồ cá Koi có vách lọc, bể trữ hải sản nhà hàng, bể ươm giống và bể tròn đáy phễu nuôi tôm cá RAS.',
+    description: 'Hồ cá Koi có vách lọc, bể trữ hải sản nhà hàng, bể ươm giống, bể tròn đáy phễu nuôi tôm cá.',
     specifications: [
       { label: 'Dung tích', value: '0,5 – 50 m³ trở lên' },
       { label: 'Kiểu bể', value: 'Chữ nhật, tròn, đáy bằng hoặc đáy phễu' },

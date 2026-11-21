@@ -67,7 +67,7 @@ export default function ArticleView({ title, excerpt, kind, document, cover, cov
       <div className="art-opener">
         <header className="art-head"><div className="container">
           <nav className="art-crumbs" aria-label="Đường dẫn">
-            <Anchor preview={preview} href="/">Trang chủ</Anchor><span aria-hidden="true">/</span><Anchor preview={preview} href={listPath}>{listLabel}</Anchor><span aria-hidden="true">/</span><span aria-current="page">{title}</span>
+            <Anchor preview={preview} href="/">Trang chủ</Anchor><span aria-hidden="true">/</span><Anchor preview={preview} href={listPath}>{listLabel}</Anchor>
           </nav>
           <div className="art-head-text">
             <Anchor preview={preview} href={isProject ? '/du-an' : '/tin-tuc?kind=article'} className={`art-kind${isProject ? ' is-project' : ''}`}>{kindLabel(kind)}</Anchor>
@@ -90,25 +90,18 @@ export default function ArticleView({ title, excerpt, kind, document, cover, cov
       <div className="art-layout container">
         <aside className="art-rail" aria-label="Chia sẻ"><Share url={url} title={title} className="art-share is-rail" preview={preview} /></aside>
         <div className="art-main" {...(preview ? {} : { 'data-art-body': true })}>
-          {toc.length >= 3 && <details className="art-toc-mobile"><summary>Mục lục bài viết<span className="art-toc-count">{toc.length} mục</span></summary><TocList toc={toc} preview={preview} /></details>}
-          {isProject && <dl className="art-project-info">
-            <div><dt>Loại hình</dt><dd>Công trình thực tế</dd></div>
-            <div><dt>Ngày đăng</dt><dd>{formatDateVi(publishedAt)}</dd></div>
-            {wasUpdated && updatedAt && <div><dt>Cập nhật</dt><dd>{formatDateVi(updatedAt)}</dd></div>}
-            {product && <div><dt>Sản phẩm liên quan</dt><dd><Anchor preview={preview} href={`/san-pham/${product.slug}`}>{product.name}</Anchor></dd></div>}
-          </dl>}
+          {toc.length >= 3 && <details className="art-toc-mobile"><summary>Mục lục<span className="art-toc-count">{toc.length} mục</span></summary><TocList toc={toc} preview={preview} /></details>}
           <RichContent document={document} article />
           <footer className="art-foot">
-            <p className="art-foot-label">Chia sẻ bài viết</p>
-            <Share url={url} title={title} className="art-share is-row" preview={preview} />
+                        <Share url={url} title={title} className="art-share is-row" preview={preview} />
           </footer>
         </div>
-        {toc.length >= 3 && <aside className="art-toc" aria-label="Mục lục"><p className="art-toc-title">Mục lục</p><TocList toc={toc} preview={preview} /></aside>}
+        {toc.length >= 3 && <aside className="art-toc" aria-label="Mục lục"><TocList toc={toc} preview={preview} /></aside>}
       </div>
     </article>
 
     <section className="art-cta" aria-labelledby="art-cta-title"><div className="container"><div className="art-cta-card" {...reveal}>
-      <div><h2 id="art-cta-title">Chọn bồn bể cho nhu cầu của bạn</h2><p>Gửi mục đích sử dụng và quy cách dự kiến để Thành Lợi tư vấn dung tích và báo giá.</p></div>
+      <div><h2 id="art-cta-title">Chọn bồn bể cho nhu cầu của bạn</h2><p>Gửi mục đích và quy cách dự kiến để được tư vấn dung tích.</p></div>
       <div className="art-cta-actions">
         <Anchor preview={preview} href="/lien-he#gui-yeu-cau" className="art-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Anchor>
         <Anchor preview={preview} href={product ? `/san-pham/${product.slug}` : '/san-pham'} className="art-btn-ghost pressable">{product ? product.name : 'Xem sản phẩm'}</Anchor>

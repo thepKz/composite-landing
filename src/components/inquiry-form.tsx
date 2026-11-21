@@ -166,7 +166,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
       setStatus('done');
     } catch (failure) {
       const offline = failure instanceof TypeError;
-      setError(offline || !(failure instanceof Error) ? 'Mất kết nối mạng. Thông tin của anh/chị vẫn còn nguyên, hãy bấm Gửi yêu cầu để thử lại.' : failure.message);
+      setError(offline || !(failure instanceof Error) ? 'Mất kết nối mạng. Thông tin của anh/chị vẫn còn nguyên, hãy bấm Nhận báo giá để thử lại.' : failure.message);
       setStatus('error');
     } finally { submitting.current = false; }
   }
@@ -192,7 +192,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
     </div>;
   }
 
-  const titles = ['Thông tin liên hệ', 'Anh/chị quan tâm sản phẩm nào', scales?.question ?? 'Quy mô sử dụng', 'Ghi chú và gửi'];
+  const titles = ['Thông tin liên hệ', 'Chọn sản phẩm', scales?.question ?? 'Quy mô sử dụng', 'Ghi chú và gửi'];
   const sending = status === 'sending';
 
   return <form onSubmit={submit} className="tl-form" noValidate aria-busy={sending}>
@@ -212,7 +212,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
     <p className="tl-sr" aria-live="polite">Bước {step} trên 4: {titles[step - 1]}</p>
 
     <div className="tl-form-panel" key={step} data-direction={direction}>
-      <h3 className="tl-form-title" ref={title} tabIndex={-1} id={`${uid}-title`}>{titles[step - 1]}</h3>
+      <h3 className={`tl-form-title${step === 1 || step === 4 ? ' is-hidden' : ''}`} ref={title} tabIndex={-1} id={`${uid}-title`}>{titles[step - 1]}</h3>
 
       {step === 1 && <div className="tl-form-fields">
         {jumpToSend && <p className="tl-form-note">Quy mô đã chọn. Cho Thành Lợi biết cách liên hệ để gửi báo giá.</p>}
@@ -273,7 +273,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
     <div className="tl-form-actions">
       {step > 1 && <button type="button" className="tl-form-button is-line pressable" onClick={back} disabled={sending}><ArrowLeft size={20} aria-hidden="true" />Quay lại</button>}
       {step < 4 && <button type="button" className="tl-form-button is-solid pressable" onClick={next} disabled={step === 2 && !productKey}>Tiếp tục<ArrowRight size={20} aria-hidden="true" /></button>}
-      {step === 4 && <button type="submit" className="tl-form-button is-cta pressable" disabled={demo || sending}>{demo ? 'Chưa mở nhận yêu cầu' : sending ? <><LoaderCircle className="tl-spin" size={20} aria-hidden="true" />Đang gửi</> : <>Gửi yêu cầu<ArrowRight size={20} aria-hidden="true" /></>}</button>}
+      {step === 4 && <button type="submit" className="tl-form-button is-cta pressable" disabled={demo || sending}>{demo ? 'Chưa mở nhận yêu cầu' : sending ? <><LoaderCircle className="tl-spin" size={20} aria-hidden="true" />Đang gửi</> : <>Nhận báo giá<ArrowRight size={20} aria-hidden="true" /></>}</button>}
     </div>
     {step === 4 && !demo && <p className="tl-form-promise">Báo giá trong 15 đến 60 phút, hỗ trợ vận chuyển và lắp đặt toàn quốc.</p>}
   </form>;

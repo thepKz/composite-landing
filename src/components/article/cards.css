@@ -4,10 +4,17 @@
 .public-site .pc-card:hover{transform:translateY(-4px);border-color:#16714e;box-shadow:0 2px 4px #103e3514,0 22px 40px -22px #103e3566}
 .public-site .pc-card:active{transform:translateY(-1px) scale(.995)}
 .public-site .pc-card:has(a:focus-visible){outline:3px solid #d4a633;outline-offset:3px}
-.pc-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#dbe6d8;flex:none}
+.pc-media{position:relative;display:grid;place-items:center;aspect-ratio:16/10;overflow:hidden;color:#7fb596;background:radial-gradient(120% 120% at 20% 0%,#1b6a55 0%,#0f4a3d 55%,#0b3a31 100%);flex:none}
 .pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
 .pc-card:hover .pc-media img{transform:scale(1.035)}
-.pc-media-empty{display:grid;place-items:center;color:#2f7a5d;background:linear-gradient(135deg,#e1ebdb,#cfe0d3)}
+.pc-media-ph{display:grid;place-items:center;position:absolute;inset:0;color:#7fb596}
+.pc-media-empty{color:#9ccbb0}
+.pc-media-empty::before{content:"";position:absolute;inset:-30%;background:repeating-radial-gradient(circle at 78% 18%,transparent 0 46px,#ffffff10 46px 47px);pointer-events:none}
+.pc-media-empty>svg{position:relative}
+/* Ảnh hiện dần khi tải xong (chỉ khi đã có JavaScript, có chốt an toàn trong reveal.tsx) */
+.art-js .pc-media img[data-fade]{opacity:0;transition:opacity var(--dur-slow,520ms) var(--ease-out,ease-out),transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
+.art-js .pc-media img[data-fade].is-loaded{opacity:1}
+.pc-media img.is-broken{display:none}
 .pc-body{display:flex;flex-direction:column;gap:12px;padding:20px 24px 24px;flex:1}
 .pc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:14px;line-height:1.5;color:#113d4c}
 .pc-kind{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:8px;border:1px solid #9fc0aa;background:#fff;color:#0f5c3f;font-weight:600;font-size:14px}
@@ -39,6 +46,7 @@
 }
 @media(max-width:600px){.pc-body{padding:20px}.public-site .pc-title{font-size:19px}}
 @media(prefers-reduced-motion:reduce){
+  .art-js .pc-media img[data-fade]{opacity:1;transition:none}
   .art-js [data-art-reveal]:not(.is-in){opacity:1;transform:none}
   [data-art-reveal].is-in{animation:none}
   .public-site .pc-card:hover,.public-site .pc-card:active{transform:none}

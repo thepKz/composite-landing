@@ -14,6 +14,7 @@ import { QuoteButton, ScaleChips, ScaleProvider, ScaleTableView, StickyBuyBar } 
 import { productGuidance, type Feature } from '@/lib/product-guidance';
 import { groupOfProduct } from '@/lib/product-groups';
 import { productAssetBySlug, editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
+import { variants } from '@/lib/trang-phu-media';
 import '@/components/pages/pages.css';
 import '@/components/product-assets.css';
 import './product-detail.css';
@@ -28,10 +29,14 @@ export async function generateMetadata({ params }: Props) {
 // Chỉ bổ sung ảnh cho dòng mà hình dáng và công dụng nhìn thấy rõ trong ảnh khách cung cấp.
 const supportingPhotos = {
   'be-biogas-composite': [editorialAssets.gallery[2]],
-  'be-nuoi-trong-thuy-san': [editorialAssets.hero, editorialAssets.fit],
+  // Ảnh có người nhỏ đứng ở mép bể (round-blue-tanks-site) để cuối, không đứng đầu.
+  'be-nuoi-trong-thuy-san': [editorialAssets.fit, { src: '/images/products-2026/round-blue-tanks-site.webp', alt: 'Các bể composite tròn màu xanh được bố trí ngoài trời', label: 'Bể tròn composite', width: 964, height: 1280 }],
   'thung-cho-tom-ca': [editorialAssets.gallery[1], additionalCustomerAssets[2]],
   'composite-theo-yeu-cau': [editorialAssets.story],
 };
+
+// Ảnh đã cắt đúng khung vuông, cân tông; bản đủ khung dùng cho hộp phóng to.
+const toPhoto = (a: { src: string; alt: string; label?: string }) => { const v = variants(a.src); return { src: v.sq, alt: a.alt, label: a.label, zoom: v.full }; };
 
 const icons: Record<Feature['icon'], LucideIcon> = { shape: Shapes, seal: ShieldCheck, bolt: Zap, layers: Layers, drop: Droplets, funnel: Funnel, move: Move, flask: FlaskConical, truck: Truck, wind: Wind, tool: Wrench, recycle: Recycle, shield: ShieldCheck, ruler: Ruler };
 
@@ -43,8 +48,8 @@ export default async function ProductPage({ params }: Props) {
   const product = items[index];
   if (!product) notFound();
   const asset = productAssetBySlug[slug];
-  const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name } : asset;
-  const extra = supportingPhotos[slug as keyof typeof supportingPhotos] || [];
+  const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name, zoom: undefined as string | undefined } : asset ? toPhoto(asset) : undefined;
+  const extra = (supportingPhotos[slug as keyof typeof supportingPhotos] || []).map(toPhoto);
   const photos = image ? [image, ...extra].filter((photo, i, all) => all.findIndex(item => item.src === photo.src) === i) : [];
   const guidance = productGuidance(slug);
   const group = groupOfProduct(slug);
@@ -74,8 +79,8 @@ export default async function ProductPage({ params }: Props) {
     <ScaleProvider table={table} productName={product.name}>
       <StickyBuyBar anchors={anchors}/>
       <nav className="tp-wrap tp-pd-crumbs tp-crumbs-dark" aria-label="Đường dẫn">
-        <span className="tp-crumb"><Link href="/">Trang chủ</Link></span>
-        {crumbs.map((crumb, i) => <span className="tp-crumb" key={crumb.label}><span className="tp-crumb-sep" aria-hidden="true">/</span>{'href' in crumb && crumb.href ? <Link href={crumb.href}>{crumb.label}</Link> : <span aria-current="page">{crumb.label}</span>}</span>)}
+        <span className="tp-crumb"><Link href="/">Trang chủ</Link><span className="tp-crumb-sep" aria-hidden="true">/</span></span>
+        {crumbs.map((crumb, i) => <span className="tp-crumb" key={crumb.label}>{'href' in crumb && crumb.href ? <><Link href={crumb.href}>{crumb.label}</Link><span className="tp-crumb-sep" aria-hidden="true">/</span></> : <span aria-current="page">{crumb.label}</span>}</span>)}
       </nav>
 
       <section id="tp-top" className="tp-wrap tp-pd-top">
@@ -88,7 +93,7 @@ export default async function ProductPage({ params }: Props) {
             <span className="tp-badge">{product.category}</span>
             {rank ? <span className="tp-badge tp-badge-flag">Mũi nhọn</span> : null}
           </div>
-          <h1>{product.name}</h1>
+          <h1 className={product.name.length > 20 ? 'is-long' : undefined}>{product.name}</h1>
           <p className="tp-pd-tagline">{guidance.tagline}</p>
           <p className="tp-pd-lead">{product.description}</p>
           <dl className="tp-pd-facts">{specs.map(spec => <div key={spec.label}><dt>{spec.label}</dt><dd>{spec.value}</dd></div>)}</dl>
@@ -101,22 +106,24 @@ export default async function ProductPage({ params }: Props) {
       </section>
 
       {table ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2>{table.title}</h2></div>
+        <div className="tp-section-head tp-rv"><h2 className="tp-sr">{table.title}</h2></div>
         <div className="tp-rv"><ScaleTableView/></div>
       </div></section> : guidance.highlights ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
         <div className="tp-section-head tp-rv"><h2>{guidance.highlights.title}</h2></div>
         <ul className="tp-pill-list tp-rv">{guidance.highlights.items.map(item => <li key={item}>{item}</li>)}</ul>
       </div></section> : null}
 
-      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2>Cấu tạo và ưu điểm</h2></div>
-        <div className="tp-feature-grid">
+      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className="tp-wrap tp-build-grid">
+        <div className="tp-build-head tp-rv">
+          <h2>Cấu tạo và ưu điểm</h2>
+          {guidance.accessories && <div className="tp-accessories"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
+        </div>
+        <ol className="tp-build-list">
           {guidance.features.map((feature, i) => {
             const Icon = icons[feature.icon] || Boxes;
-            return <article className="tp-feature tp-rv" style={{ ['--i' as string]: i }} key={feature.title}><Icon size={28} aria-hidden="true"/><h3>{feature.title}</h3><p>{feature.text}</p></article>;
+            return <li className="tp-build-row tp-rv" style={{ ['--i' as string]: i }} key={feature.title}><Icon size={30} aria-hidden="true"/><div><h3>{feature.title}</h3><p>{feature.text}</p></div></li>;
           })}
-        </div>
-        {guidance.accessories && <div className="tp-accessories tp-rv"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
+        </ol>
       </div></section>
 
       <section id="dat-hang" className="tp-pd-section tp-pd-order"><div className="tp-wrap tp-pd-order-grid">
@@ -131,25 +138,26 @@ export default async function ProductPage({ params }: Props) {
         </aside>
       </div></section>
 
-      {faqItems.length > 0 && <section id="hoi-dap" className="tp-pd-section tp-pd-faq"><div className="tp-wrap tp-pd-faq-grid">
-        <div className="tp-section-head tp-rv"><h2>Hỏi đáp liên quan</h2></div>
+      {faqItems.length > 0 && <section id="hoi-dap" className="tp-pd-section tp-pd-faq"><div className="tp-wrap tp-pd-faq-grid is-solo">
+        <div className="tp-section-head tp-rv"><h2 className="tp-sr">Hỏi đáp liên quan</h2></div>
         <div className="tp-rv"><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></div>
       </div></section>}
 
       <section id="tu-van" className="tp-form-section"><div className="tp-wrap tp-form-grid">
         <div className="tp-form-copy tp-rv">
-          <h2>Nhận báo giá {product.name.toLowerCase()}</h2>
+          <h2>Nhận báo giá</h2>
+          <p className="tp-form-product">{product.name}</p>
           <ul>
             <li><CircleCheck size={20} aria-hidden="true"/>Báo giá trong 15 – 60 phút kể từ khi đủ thông tin</li>
-            <li><CircleCheck size={20} aria-hidden="true"/>Hỗ trợ vận chuyển và lắp đặt toàn quốc</li>
-            <li><CircleCheck size={20} aria-hidden="true"/>Bảo hành đến 10 năm tùy dòng sản phẩm</li>
+            <li><CircleCheck size={20} aria-hidden="true"/>Vận chuyển và lắp đặt toàn quốc</li>
+            <li><CircleCheck size={20} aria-hidden="true"/>Bảo hành đến 10 năm tùy dòng</li>
           </ul>
         </div>
         <InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact hours={info.hours} hotlineTel={info.hotlines[0].tel}/>
       </div></section>
 
       <section className="tp-pd-section tp-pd-related"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2>Sản phẩm liên quan</h2></div>
+        <div className="tp-section-head tp-rv"><h2 className="tp-sr">Sản phẩm liên quan</h2></div>
         <div className="tp-grid tp-grid-3">{related.map((item, i) => <ProductCard key={item.slug} product={item} compact index={i}/>)}</div>
       </div></section>
     </ScaleProvider>
