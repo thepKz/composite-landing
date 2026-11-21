@@ -212,7 +212,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
     <p className="tl-sr" aria-live="polite">Bước {step} trên 4: {titles[step - 1]}</p>
 
     <div className="tl-form-panel" key={step} data-direction={direction}>
-      <h3 className={`tl-form-title${step === 1 || step === 4 ? ' is-hidden' : ''}`} ref={title} tabIndex={-1} id={`${uid}-title`}>{titles[step - 1]}</h3>
+      <h3 className={`tl-form-title${step === 1 || step === 2 || step === 4 ? ' is-hidden' : ''}`} ref={title} tabIndex={-1} id={`${uid}-title`}>{titles[step - 1]}</h3>
 
       {step === 1 && <div className="tl-form-fields">
         {jumpToSend && <p className="tl-form-note">Quy mô đã chọn. Cho Thành Lợi biết cách liên hệ để gửi báo giá.</p>}

@@ -40,9 +40,8 @@ export default async function SiteFooter() {
           <a href={`https://zalo.me/${zalo}`} target="_blank" rel="noopener noreferrer" className="pressable">Zalo</a>
         </div>
       </div>
-      <nav aria-label="Liên kết nhanh"><h3 className="tl-sr">Liên kết nhanh</h3>{quick.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
-      <nav aria-label="Sản phẩm chủ lực"><h3>Sản phẩm chủ lực</h3>{productGroups(items).map(group => <Link key={group.slug} href={`/san-pham/${group.slug}`}>{footerLabel(group.slug, group.name)}</Link>)}</nav>
-      <nav aria-label="Chính sách và hỗ trợ"><h3>Hỗ trợ</h3>
+      <nav aria-label="Sản phẩm chủ lực"><h3 className="tl-sr">Sản phẩm chủ lực</h3>{productGroups(items).map(group => <Link key={group.slug} href={`/san-pham/${group.slug}`}>{footerLabel(group.slug, group.name)}</Link>)}</nav>
+      <nav aria-label="Chính sách và hỗ trợ"><h3 className="tl-sr">Hỗ trợ</h3>
         <Link href="/huong-dan-dat-hang">Cách đặt hàng</Link>
         <Link href="/hoi-dap">Hỏi đáp</Link>
         <Link href="/chinh-sach-bao-hanh">Bảo hành</Link>

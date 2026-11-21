@@ -118,3 +118,58 @@ Khoảng cách sau khi bỏ chữ: khối ảnh thật có đệm riêng, bảng
 
 ## Bổ sung: thẻ "Bể cá Koi và bể nuôi thủy sản" ở trang chủ
 Điều phối báo thẻ vẫn thấy ảnh có em bé ở mép bể. Tôi đã đổi `photos.fishTank` (`src/components/home/images.ts`) sang ảnh công nhân lắp bể tròn (cắt 4:3 từ `round-tanks-installation.webp`, xử lý đồng tông bằng `scripts/xu-ly-anh-trang-chu.mjs`, tệp `public/images/home/be-tron-lap-dat-*.webp`). Ảnh cũ `be-nuoi-thuy-san-*.webp` và ảnh gốc vẫn còn, không xoá. Đã chụp lại thẻ ở 1366 và 390 (`sau/the-be-ca-koi-1366.png`, `sau/the-be-ca-koi-390.png`), đo `currentSrc` đúng là `be-tron-lap-dat`, nhìn ảnh không có em bé. `npx tsc --noEmit` sạch.
+
+---
+
+# Vòng ba
+
+Ảnh: `vong-2/khung-trang-chu/sau/` (`hero-390-canh-1..3.png` và bộ chụp ba cỡ). Script mới: `scripts/vong3-banner-tuong-phan.ts` (ẩn chữ rồi chụp lại nền, đo tương phản chữ trắng trên nền thật, phân vị 99).
+
+## 1. Banner 390: ảnh nền không còn bị phủ tối
+Trên điện thoại, ảnh cảnh 1 và 3 nay nằm riêng ở phần trên (cao 208px, phủ mờ dần sang xanh đen ở đáy), chữ nằm trên nền xanh đen đặc bên dưới. Hai nút chính xếp hai cột, dòng gọi nằm dưới, nên cụm đổi cảnh vẫn nằm trên thanh liên hệ cố định (y=713 đến 761, thanh bắt đầu ở 784). Cảnh 2 giữ khung ảnh bể. Tương phản chữ trắng đo trên nền thật dưới chữ:
+
+| Cỡ | Cảnh 1 | Cảnh 2 | Cảnh 3 |
+|---|---|---|---|
+| 390x844 | 13,97:1 | 13,51:1 | 13,28:1 |
+| 1366x768 | 7,69:1 | 12,82:1 | 8,55:1 |
+| 600x360 | 10,13:1 | 13,00:1 | 8,94:1 |
+
+Trước khi chỉnh, lớp phủ ở 1366 cảnh 1 chỉ 4,61:1 và ở 600x360 cảnh 3 chỉ 3,89:1, đã tăng độ đặc phía chữ. Ba cảnh ở ba cỡ: 0 đè nhau, tiêu đề và nút báo giá trong màn đầu.
+
+## 2. Rà chữ thừa lần hai
+| Chữ | Quyết định | Lý do |
+|---|---|---|
+| Tiêu đề "Sản phẩm chủ lực" | Bỏ khỏi mắt (giữ ẩn). Liên kết "Tất cả sản phẩm" chuyển xuống dưới lưới | Lưới sản phẩm nhìn là hiểu, tên nằm trên từng thẻ |
+| Tiêu đề "Tin tức" | Bỏ khỏi mắt. Liên kết "Tất cả tin tức" dưới lưới | Thẻ có nhãn loại bài và ngày |
+| "Câu hỏi thường gặp" và "Chưa thấy câu bạn cần? Gọi hotline..." | Chỉ giữ câu có việc cần làm, rút còn "Chưa thấy câu bạn cần? Gọi hotline để hỏi kỹ sư." làm tiêu đề, tên khối ẩn | Danh sách câu hỏi tự nói. Câu dẫn có hành động |
+| "Quy trình năm bước" và "Chưa cần bản vẽ, chỉ cần nói nhu cầu" | Chỉ giữ câu sau làm tiêu đề, tên khối ẩn | Năm bước có số đã tự nói là quy trình, câu sau có thông tin mới |
+| "Nhận báo giá nhanh" và dòng phụ | Giữ tiêu đề, bỏ dòng phụ (đã bỏ từ vòng sửa) | Tiêu đề là mốc định hướng cho khối kêu gọi, ba dòng lợi ích bên dưới có thông tin |
+| "Vì sao chọn Thành Lợi", "Về Thành Lợi Composite" | Giữ | Là câu khẳng định, không chỉ gọi tên khối |
+| Nhãn bước biểu mẫu "Liên hệ, Sản phẩm, Quy mô, Gửi" | Giữ | Là thanh điều hướng bước, bấm quay lại được |
+| Tiêu đề bước 2 "Chọn sản phẩm" | Bỏ khỏi mắt | Bốn nút sản phẩm và thanh bước đã nói |
+| Tiêu đề bước 3 (câu hỏi quy mô) | Giữ | Cho biết các nút quy mô đang hỏi điều gì |
+| Cột chân trang "Liên kết nhanh" | Bỏ hẳn cột | Lặp lại thanh menu trên cùng |
+| Tiêu đề cột "Sản phẩm chủ lực" và "Hỗ trợ" trong chân trang | Bỏ khỏi mắt | Danh sách tên sản phẩm và việc hỗ trợ tự nói |
+
+Ô bento "Đủ mọi quy mô": bốn nhãn rời không nói thêm gì, đã đổi thành thang bậc bốn khối cao dần và xanh đậm dần (Hộ gia đình, Nhà hàng, Trang trại, Dự án công nghiệp), trên điện thoại là bốn thanh dài dần. Ô "Kỹ thuật trọn gói" đưa nhãn xuống đáy để thẳng hàng với thang bậc.
+
+## 3. Thanh trên cùng
+Đo lại: liên kết email cao 36px ở máy bàn (241x36), hai hotline cao 36px, ở 390 cao 44px, email và địa chỉ ẩn ở điện thoại, ở khung thấp thanh trên cùng ẩn hẳn. Thanh cao 40px, không đổi. Con số 26px của kiểm viên là của lượt trước, nay đã đạt ngưỡng.
+
+## 4. Chữ rớt từ lẻ ở 390
+Hỏi đáp: giảm đệm và cỡ chữ trả lời còn 16px ở khung hẹp. Rút tiêu đề hỏi đáp. Đo lại bằng bộ đo ngắt dòng thật: trang chủ ở cả ba cỡ 0 chỗ rớt một từ lẻ (trước đó 2 chỗ ở 390).
+
+## 5. Tự xem như chủ doanh nghiệp khó tính (ba cỡ, cuộn từ đầu đến cuối)
+Điểm yếu thấy và đã nâng:
+- Liên kết "Tất cả sản phẩm" lẻ loi ở góc trên khối sản phẩm: chuyển xuống dưới lưới.
+- Ô bento "Đủ mọi quy mô" trống ý: làm thành thang bậc.
+- Ô tối "Kỹ thuật trọn gói" hẫng khoảng trống dưới: đưa nhãn xuống đáy.
+- Banner 600x360 cảnh 3 chữ chưa đủ tương phản: tăng độ phủ phía chữ.
+- Hỏi đáp rê chuột không có phản hồi: thêm viền và bóng nhẹ khi rê.
+Phản hồi đã đo thật trên trình duyệt: rê thẻ sản phẩm (dịch lên 4px, bóng, đổi màu viền), ô số liệu (đổi nền), ảnh dải ảnh (phóng 1,00 lên 1,05), nút báo giá (cam đậm hơn), nút tối (đổi sang xanh lục), thẻ tin (dịch lên 4px). Chuyển trang: nội dung mới hiện dần đo được 0,00, 0,39, 0,84, 0,95, 0,99, 1,00 trong khoảng nửa giây, có thanh tiến trình ở trên cùng.
+
+## 6. Đã kiểm
+`npx tsc --noEmit` sạch, `npm test` 40 đạt, 0 lỗi. Ba cỡ: 0 tràn ngang, 0 chữ dưới 14px, 0 vùng bấm thấp hơn ngưỡng, 0 ký tự cấm, 0 khối kẹt ẩn, 0 ảnh vỡ, 0 lỗi console, khung hình khi cuộn p95 10,1 ms và 0 khung trên 50 ms. Đã tự mở và xem ảnh: banner ba cảnh ở 390, banner cảnh 1 và 3 ở 1366 và 600x360, toàn trang đã cuộn ở 1366.
+
+## Chưa kiểm
+Bản build, Safari, Firefox, điện thoại thật. Hai chỗ còn dựa vào dữ liệu: bản đồ chân trang chỉ hiện khung giữ chỗ trong ảnh toàn trang chụp khi chưa cuộn tới chân trang (đã đo tải được khi cuộn tới).

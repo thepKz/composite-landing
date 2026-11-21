@@ -13,9 +13,9 @@ import ProductTile from '@/components/pages/product-tile';
 type Group = { slug: string };
 const reveal = (index = 0) => ({ ['--reveal-index' as string]: index });
 
-function Heading({ title, text, action }: { title: string; text?: string; action?: { href: string; label: string } }) {
-  return <div className="tl-heading" data-reveal>
-    <div><h2>{title}</h2>{text && <p>{text}</p>}</div>
+function Heading({ title, text, action, hidden = false }: { title: string; text?: string; action?: { href: string; label: string }; hidden?: boolean }) {
+  return <div className={`tl-heading${hidden ? ' is-bare' : ''}`} data-reveal>
+    <div><h2 className={hidden ? 'tl-sr' : undefined}>{title}</h2>{text && <p>{text}</p>}</div>
     {action && <Link href={action.href} className="tl-link pressable">{action.label}<ArrowUpRight size={20} aria-hidden="true" /></Link>}
   </div>;
 }
@@ -55,7 +55,7 @@ function ReasonsBento() {
     </article>
     <article className="tl-why-cell is-plain" data-reveal style={reveal(2)}>
       <div className="tl-why-body"><Layers size={28} aria-hidden="true" /><h3>{scale.title}</h3><p className="tl-sr">{scale.text}</p></div>
-      <ul className="tl-why-chips">{quickScales.map(label => <li key={label}>{label}</li>)}</ul>
+      <ol className="tl-why-ladder">{quickScales.map(label => <li key={label}><span>{label}</span></li>)}</ol>
     </article>
     <article className="tl-why-cell is-dark" data-reveal style={reveal(3)}>
       <div className="tl-why-body"><Wrench size={28} aria-hidden="true" /><h3>{service.title}</h3><p className="tl-sr">{service.text}</p></div>
@@ -110,7 +110,7 @@ export function ProductBento({ groups }: { groups: Group[] }) {
   const available = new Set(groups.map(group => group.slug));
   return <section className="tl-section tl-products" id="san-pham">
     <div className="container">
-      <Heading title="Sản phẩm chủ lực" action={{ href: '/san-pham', label: 'Tất cả sản phẩm' }} />
+      <h2 className="tl-sr">Sản phẩm chủ lực</h2>
       <div className="tl-bento">
         {[cards.filter(card => card.lead), cards.filter(card => !card.lead)].map((group, groupIndex) => <Fragment key={groupIndex}><div id={groupIndex === 0 ? 'tl-bento-leads' : undefined} className={groupIndex === 0 ? 'tl-bento-leads' : 'tl-bento-rest'}>
           {group.map((card, index) => {
@@ -130,6 +130,7 @@ export function ProductBento({ groups }: { groups: Group[] }) {
           })}
         </div>{groupIndex === 0 && <ScrollDots target="tl-bento-leads" label="Ba nhóm mũi nhọn" />}</Fragment>)}
       </div>
+      <div className="tl-more-row"><Link href="/san-pham" className="tl-link pressable">Tất cả sản phẩm<ArrowUpRight size={20} aria-hidden="true" /></Link></div>
     </div>
   </section>;
 }
@@ -152,7 +153,7 @@ const stepTexts: Record<number, string> = { 1: 'Kỹ sư dựa trên số vật 
 export function ProcessSection() {
   return <section className="tl-section tl-process">
     <div className="container">
-      <Heading title="Quy trình năm bước" text="Chưa cần bản vẽ, chỉ cần nói nhu cầu." />
+      <div className="tl-heading" data-reveal><h2><span className="tl-sr">Quy trình năm bước. </span>Chưa cần bản vẽ, chỉ cần nói nhu cầu.</h2></div>
       <ol className="tl-steps" id="tl-steps">{processSteps.map((step, index) => <li key={step.title} className="tl-step" data-reveal style={reveal(index)}>
         <span className="tl-step-number">{index + 1}</span>
         <h3>{stepTitles[index] ?? step.title}</h3><p>{stepTexts[index] ?? step.text}</p>
@@ -166,8 +167,7 @@ export function FaqSection({ hotline = facts.hotlines[0] }: { hotline?: { displa
   return <section className="tl-section tl-faq">
     <div className="container tl-faq-grid">
       <div className="tl-faq-intro" data-reveal>
-        <h2>Câu hỏi thường gặp</h2>
-        <p>Chưa thấy câu bạn cần? Gọi hotline để kỹ sư trả lời trực tiếp.</p>
+        <h2><span className="tl-sr">Câu hỏi thường gặp. </span>Chưa thấy câu bạn cần? Gọi hotline để hỏi kỹ sư.</h2>
         <div className="tl-faq-actions">
           <a href={`tel:${hotline.tel}`} className="tl-button is-dark pressable"><Phone size={20} aria-hidden="true" />{hotline.display}</a>
           <Link href="/hoi-dap" className="tl-link pressable">Xem tất cả câu hỏi<ArrowRight size={20} aria-hidden="true" /></Link>
@@ -185,8 +185,9 @@ export function NewsSection({ posts }: { posts: CardPost[] }) {
   if (!posts.length) return null;
   return <section className="tl-section tl-news">
     <div className="container">
-      <Heading title="Tin tức" action={{ href: '/tin-tuc', label: 'Xem tất cả' }} />
+      <h2 className="tl-sr">Tin tức</h2>
       <EagerImages className="tl-news-grid" count={posts.length}>{posts.map((post, index) => <PostCard key={post.id} post={post} index={index} featured={posts.length === 1} />)}</EagerImages>
+      <div className="tl-more-row"><Link href="/tin-tuc" className="tl-link pressable">Tất cả tin tức<ArrowUpRight size={20} aria-hidden="true" /></Link></div>
     </div>
   </section>;
 }
@@ -196,7 +197,6 @@ export function QuoteSection({ form }: { form: ReactNode }) {
     <div className="container tl-quote-grid">
       <div className="tl-quote-copy" data-reveal>
         <h2>Nhận báo giá nhanh</h2>
-        <p>Kỹ sư gọi lại, chốt dung tích tối ưu.</p>
         <ul className="tl-quote-points">
           <li><Clock size={22} aria-hidden="true" />Báo giá trong 15 đến 60 phút khi đủ thông tin</li>
           <li><Truck size={22} aria-hidden="true" />Hỗ trợ vận chuyển và lắp đặt toàn quốc</li>
