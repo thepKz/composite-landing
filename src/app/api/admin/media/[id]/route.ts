@@ -15,7 +15,7 @@ async function usage(id: string) {
     'SELECT p.id,p.title,p.status FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=$1 ORDER BY p.updated_at DESC',
     [id],
   );
-  const products = await db.query('SELECT id,name FROM products WHERE cover_id=$1 ORDER BY name', [id]);
+  const products = await db.query('SELECT p.id,p.name FROM products p WHERE p.cover_id=$1 OR EXISTS(SELECT 1 FROM product_media pm WHERE pm.product_id=p.id AND pm.media_id=$1) ORDER BY p.name', [id]);
   return { posts: posts.rows, products: products.rows };
 }
 
@@ -55,7 +55,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       const media = (await client.query('SELECT * FROM media_assets WHERE id=$1 FOR UPDATE', [id])).rows[0];
       if (!media) throw new RequestError('Tệp không còn tồn tại.', 404);
       const inPosts = (await client.query('SELECT p.title FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=$1 LIMIT 3', [id])).rows;
-      const inProducts = (await client.query('SELECT name FROM products WHERE cover_id=$1 LIMIT 3', [id])).rows;
+      const inProducts = (await client.query('SELECT p.name FROM products p WHERE p.cover_id=$1 OR EXISTS(SELECT 1 FROM product_media pm WHERE pm.product_id=p.id AND pm.media_id=$1) LIMIT 3', [id])).rows;
       if (inPosts.length || inProducts.length) {
         const names = [...inPosts.map(row => row.title), ...inProducts.map(row => row.name)].join(', ');
         throw new RequestError(`Tệp đang được dùng trong: ${names}. Hãy gỡ tệp khỏi nội dung đó trước khi xoá.`, 409);

@@ -39,6 +39,7 @@ Run against a running site (`SITE_URL=http://127.0.0.1:3002`); each script creat
 - PostgreSQL data is in the Compose `database` volume, exposed only on loopback port 55432.
 - Database credentials live in ignored `.env`, never source control.
 - Migrations use a transaction and advisory lock. Seed inserts missing catalogue entries without overwriting edits.
+- Product photo lists (admin, up to 20 photos per product) need migration `002_product_media.sql`: run `npm run db:migrate` on the real server before deploying this version.
 - Passwords use salted scrypt; only session-token hashes are stored.
 - Public forms have byte limits, validation, origin checks and database-backed rate limiting. `TRUST_PROXY=true` is only valid behind a configured reverse proxy that overwrites `X-Real-IP`; otherwise the global and per-identity limits apply.
 - No external production deployment has been performed.

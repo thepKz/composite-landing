@@ -2,7 +2,8 @@ import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Phone, Boxes, Droplets, Funnel, Move, FlaskConical, Truck, Wind, Wrench, Recycle, ShieldCheck, Ruler, Layers, Zap, Shapes, CircleCheck, type LucideIcon } from 'lucide-react';
-import { contact, products } from '@/lib/content';
+import { contact, products, productMediaPhotos } from '@/lib/content';
+import { mergePhotos } from '@/lib/product-media';
 import { siteUrl, jsonLd } from '@/lib/seo';
 import { facts, faqs } from '@/lib/site-facts';
 import InquiryForm from '@/components/inquiry-form';
@@ -40,9 +41,14 @@ export default async function ProductPage({ params }: Props) {
   const index = items.findIndex(p => p.slug === slug);
   const product = items[index];
   if (!product) notFound();
-  // Ảnh admin chọn làm ảnh đại diện đứng đầu, rồi đến mọi ảnh thật đúng sản phẩm này (không lặp, không mượn ảnh sản phẩm khác).
+  // Ảnh tĩnh thật đúng sản phẩm này (không mượn ảnh sản phẩm khác).
   const own = (productPhotos[slug] || []).map(p => ({ src: p.src, thumb: p.thumb, full: p.full, alt: p.alt, label: p.label, width: p.width, height: p.height }));
-  const photos = [...(product.cover_id ? [{ src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name }] : []), ...own];
+  // Ảnh admin thêm đứng đầu theo thứ tự đã sắp (chưa có danh sách thì dùng ảnh đại diện cũ), rồi tới ảnh tĩnh có sẵn, bỏ trùng.
+  const added = await productMediaPhotos(product.id);
+  const adminPhotos = added.length
+    ? added.map((item, i) => ({ src: `/api/media/${item.id}`, alt: item.alt.trim() || `${product.name}, ảnh ${i + 1}`, label: item.alt.trim() || undefined }))
+    : product.cover_id ? [{ src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name }] : [];
+  const photos = mergePhotos(adminPhotos, own);
   const image = photos[0];
   const guidance = productGuidance(slug);
   const group = groupOfProduct(slug);

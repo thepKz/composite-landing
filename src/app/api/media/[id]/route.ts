@@ -9,7 +9,7 @@ import { uploadRoot } from '@/lib/upload';
 export const runtime='nodejs';
 export async function GET(request:Request,{params}:{params:Promise<{id:string}>}){
   const id=z.uuid().safeParse((await params).id);if(!id.success)return new Response(null,{status:404});
-  const result=await db.query(`SELECT m.*, (EXISTS(SELECT 1 FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=m.id AND p.status='published' AND p.published_at<=now()) OR EXISTS(SELECT 1 FROM products p WHERE p.cover_id=m.id AND p.is_published=true)) AS public FROM media_assets m WHERE id=$1`,[id.data]);
+  const result=await db.query(`SELECT m.*, (EXISTS(SELECT 1 FROM post_media pm JOIN posts p ON p.id=pm.post_id WHERE pm.media_id=m.id AND p.status='published' AND p.published_at<=now()) OR EXISTS(SELECT 1 FROM products p WHERE p.cover_id=m.id AND p.is_published=true) OR EXISTS(SELECT 1 FROM product_media pm JOIN products p ON p.id=pm.product_id WHERE pm.media_id=m.id AND p.is_published=true)) AS public FROM media_assets m WHERE id=$1`,[id.data]);
   const media=result.rows[0];if(!media||(!media.public&&!await currentUser()))return new Response(null,{status:404});
   if(!/^[a-f0-9-]+\.(webp|mp4|webm)$/.test(media.storage_key))return new Response(null,{status:404});
   const file=path.join(uploadRoot(),media.storage_key);

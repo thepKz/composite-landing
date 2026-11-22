@@ -25,6 +25,12 @@ export async function products(): Promise<Product[]> {
   return (await db.query('SELECT * FROM products WHERE is_published=true ORDER BY sort_order,name')).rows;
 }
 
+/** Ảnh do admin thêm cho một sản phẩm, đúng thứ tự đã sắp. Chưa có thì trả mảng rỗng (và khi chạy bản demo không có cơ sở dữ liệu). */
+export async function productMediaPhotos(productId: string | undefined): Promise<{ id: string; alt: string }[]> {
+  if (!productId || isDemoMode()) return [];
+  return (await db.query("SELECT m.id::text AS id, m.alt FROM product_media pm JOIN media_assets m ON m.id=pm.media_id WHERE pm.product_id=$1 AND m.mime_type LIKE 'image/%' ORDER BY pm.position", [productId])).rows;
+}
+
 export async function company() {
   if (isDemoMode()) return withFacts();
   const result = await db.query("SELECT value FROM site_settings WHERE key='company'");
