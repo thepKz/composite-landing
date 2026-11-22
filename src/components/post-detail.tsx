@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { FlowSection, Pattern } from '@/components/decor';
 import { postPath } from '@/lib/post-path';
 import { cache } from 'react';
 import { db } from '@/lib/db';
@@ -80,18 +81,19 @@ export default async function PostDetail({ slug, kind = 'article' }: Props) {
 
   return <ArticleView
     title={post.title} excerpt={post.excerpt} kind={isProject ? 'project' : 'article'} document={document} cover={cover} coverAlt={post.cover_alt}
-    publishedAt={publishedAt} updatedAt={updatedAt} url={url} product={product ?? null}
+    publishedAt={publishedAt} updatedAt={updatedAt} url={url} slug={post.slug} product={product ?? null}
     top={<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />}
   >
-    {(previous.rows[0] || next.rows[0]) && <nav className="container art-neighbours" aria-label="Bài trước và bài sau" data-art-reveal>
-      {previous.rows[0] ? <NeighbourLink post={previous.rows[0]} direction="prev" /> : <span />}
-      {next.rows[0] ? <NeighbourLink post={next.rows[0]} direction="next" /> : <span />}
-    </nav>}
-
-    {related.length > 0 && <section className="art-related" aria-labelledby="art-related-title"><div className="container">
-      <h2 id="art-related-title" className="art-sr">Bài viết liên quan</h2>
-      <div className="art-related-grid">{related.map((item, index) => <PostCard key={item.id} post={item} index={index} />)}</div>
-    </div></section>}
+    {(previous.rows[0] || next.rows[0] || related.length > 0) && <FlowSection tone="light" top="arc" className="art-more" aria-label="Bài đọc tiếp" decor={<Pattern kind="paper" opacity={0.9} fade="both" />}>
+      {(previous.rows[0] || next.rows[0]) && <nav className="art-neighbours" aria-label="Bài trước và bài sau" data-art-reveal>
+        {previous.rows[0] ? <NeighbourLink post={previous.rows[0]} direction="prev" /> : <span />}
+        {next.rows[0] ? <NeighbourLink post={next.rows[0]} direction="next" /> : <span />}
+      </nav>}
+      {related.length > 0 && <div className="art-related">
+        <h2 id="art-related-title" className="art-sr">Bài viết liên quan</h2>
+        <div className="art-related-grid" aria-labelledby="art-related-title" role="group">{related.map((item, index) => <PostCard key={item.id} post={item} index={index} />)}</div>
+      </div>}
+    </FlowSection>}
 
     <ArticleEnhancer />
     <Reveal />

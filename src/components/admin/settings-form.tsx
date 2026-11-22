@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState, type FormEvent } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Mail } from 'lucide-react';
 import { api, jsonOptions } from './client-api';
 import { Skeleton, useToast } from './ui';
 
@@ -21,8 +21,21 @@ export default function SettingsForm() {
   const [saved, setSaved] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [mail, setMail] = useState<{ enabled: boolean; to: string } | null>(null);
+  const [mailBusy, setMailBusy] = useState(false);
+  const [mailNote, setMailNote] = useState<{ ok: boolean; text: string } | null>(null);
 
   useEffect(() => { api<Settings>('/api/admin/settings').then(result => { const full = { ...result, phone2: result.phone2 ?? '', hours: result.hours ?? '' }; setValue(full); setSaved(JSON.stringify(full)); }).catch(failure => setError(failure.message)); }, []);
+
+  useEffect(() => { api<{ enabled: boolean; to: string }>('/api/admin/mail').then(setMail).catch(() => setMail({ enabled: false, to: '' })); }, []);
+
+  async function sendTest() {
+    if (mailBusy) return;
+    setMailBusy(true); setMailNote(null);
+    try { const result = await api<{ to: string }>('/api/admin/mail', { method: 'POST' }); setMailNote({ ok: true, text: `Đã gửi thư thử tới ${result.to}. Hãy mở hộp thư để kiểm tra.` }); toast('Đã gửi thư thử.'); }
+    catch (failure) { setMailNote({ ok: false, text: (failure as Error).message }); }
+    finally { setMailBusy(false); }
+  }
 
   async function save(event: FormEvent) {
     event.preventDefault();
@@ -49,5 +62,13 @@ export default function SettingsForm() {
         <span className="field-help" role="status" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>{changed ? 'Có thay đổi chưa lưu' : <><CheckCircle2 size={16} />Đã lưu</>}</span>
       </div>
     </form> : !error && <div className="admin-panel" style={{ display: 'grid', gap: 12 }}><Skeleton height={44} /><Skeleton height={44} /><Skeleton height={44} /><Skeleton height={44} /></div>}
+    {mail && <section className="settings-form admin-panel" aria-label="Thư thông báo" style={{ marginTop: 16 }}>
+      <h2 style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Mail size={18} />Thư thông báo</h2>
+      <p role="status">{mail.enabled ? `Đang bật. Mỗi yêu cầu báo giá mới sẽ gửi thư tới ${mail.to}.` : 'Chưa bật. Cần thêm thông tin gửi thư trên máy chủ của website.'}</p>
+      <div className="inline-actions">
+        <button type="button" className="button button-outline pressable" disabled={!mail.enabled || mailBusy} onClick={() => void sendTest()}>{mailBusy ? 'Đang gửi' : 'Gửi thư thử'}</button>
+        {mailNote && <span className={mailNote.ok ? 'field-help' : 'error-message'} role={mailNote.ok ? 'status' : 'alert'}>{mailNote.text}</span>}
+      </div>
+    </section>}
   </>;
 }

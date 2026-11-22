@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ShapeFrame } from '@/components/decor';
+import type { FrameShape } from '@/components/decor';
+
+// Dáng khung xoay vòng, cùng chiều cao nên bề rộng mỗi ô theo tỉ lệ của dáng.
+const SHAPES: { shape: FrameShape; ratio: number }[] = [{ shape: 'arch', ratio: 0.85 }, { shape: 'slant', ratio: 1.25 }, { shape: 'circle', ratio: 1 }, { shape: 'slant-reverse', ratio: 1.25 }, { shape: 'arch', ratio: 0.85 }, { shape: 'capsule', ratio: 1.5 }];
 
 export type StripPhoto = { src: string; srcSet?: string; alt: string; label: string };
 
@@ -33,11 +38,14 @@ export default function PhotoStrip({ photos, label }: { photos: StripPhoto[]; la
 
   return <div className="tp-strip">
     <ul className="tp-strip-track" ref={track} onScroll={measure} onKeyDown={onKey} tabIndex={0} aria-label={label}>
-      {photos.map((photo, i) => <li className="tp-strip-item" key={photo.src}>
-        <figure>
-          <img src={photo.src} srcSet={photo.srcSet} sizes="(min-width: 900px) 420px, 78vw" alt={photo.alt} width={960} height={720} loading={i < 2 ? 'eager' : 'lazy'} draggable={false}/>
-        </figure>
-      </li>)}
+      {photos.map((photo, i) => {
+        const frame = SHAPES[i % SHAPES.length];
+        return <li className="tp-strip-item" key={photo.src} style={{ ['--r' as string]: frame.ratio }}>
+          <ShapeFrame shape={frame.shape} ratio={frame.ratio} focus="50% 50%">
+            <img src={photo.src} srcSet={photo.srcSet} sizes="(min-width: 900px) 420px, 78vw" alt={photo.alt} width={960} height={720} loading={i < 2 ? 'eager' : 'lazy'} draggable={false}/>
+          </ShapeFrame>
+        </li>;
+      })}
     </ul>
     <div className="tp-strip-nav">
       <button type="button" className="tp-strip-btn pressable" aria-label="Ảnh trước" disabled={edge.start} onClick={() => go(-1)}><ChevronLeft size={22} aria-hidden="true"/></button>

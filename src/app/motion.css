@@ -1,6 +1,7 @@
 /* Token chuyển động dùng chung cho trang công khai và admin.
    Luật: không nảy, ra nhanh hơn vào, chỉ hoạt họa transform và opacity, luôn có bản giảm chuyển động. */
 :root{
+  --vt-dur:460ms;
   --ease-out:cubic-bezier(.22,1,.36,1);
   --ease-in:cubic-bezier(.55,0,1,.45);
   --ease-in-out:cubic-bezier(.65,0,.35,1);
@@ -26,4 +27,25 @@
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   [data-reveal]{opacity:1;transform:none}
   .pressable:active{transform:none}
+}
+
+/* View Transitions (chuyển trang có morph). Trình duyệt không hỗ trợ thì mọi quy tắc dưới đây vô hại.
+   Cặp morph đặt tên bằng components/decor/morph.tsx, lớp chung là tl-morph. Chỉ hoạt hoạ vị trí, kích thước, mờ nhẹ. */
+@supports selector(::view-transition){
+  .public-site .tl-page-enter{animation:none}
+}
+::view-transition{pointer-events:none}
+::view-transition-group(root){animation-duration:0s}
+::view-transition-group(.tl-morph){animation-duration:var(--vt-dur);animation-timing-function:var(--ease-in-out)}
+::view-transition-image-pair(.tl-morph){animation-name:tl-vt-soften}
+@keyframes tl-vt-soften{40%{filter:blur(2px)}}
+/* Khung giữa chừng không được trắng: nền ::view-transition là xanh đen, trang cũ GIỮ NGUYÊN độ đục tới khi trang mới phủ kín (trước đây cũ mờ đi 150 ms trong khi mới còn trong suốt đến 90 ms, và hai lớp cộng sáng plus-lighter nên lộ nền giấy). */
+::view-transition{background:#082b3e}
+::view-transition-old(.tl-page-out){animation:tl-vt-hold 410ms linear both;mix-blend-mode:normal}
+::view-transition-new(.tl-page-in){animation:tl-vt-in 320ms var(--ease-out) 90ms both;mix-blend-mode:normal}
+@keyframes tl-vt-hold{from,to{opacity:1}}
+@keyframes tl-vt-out{to{opacity:0}}
+@keyframes tl-vt-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(*),::view-transition-new(*),::view-transition-group(*){animation-duration:0s!important;animation-delay:0s!important}
 }

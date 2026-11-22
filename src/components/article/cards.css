@@ -1,12 +1,21 @@
-/* Thẻ bài viết dùng chung cho trang danh sách và khối bài liên quan.
+/* Thẻ bài viết dùng chung cho trang danh sách, khối bài liên quan và trang chủ.
+   Ảnh nằm trong khung không vuông (ShapeFrame), thẻ chữ trắng đè lên góc ảnh, bốn dáng khung xen kẽ theo thứ tự.
    Chỉ hoạt họa transform và opacity. Có bản giảm chuyển động. */
-.public-site .pc-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid #b4c8ba;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px #103e350f,0 8px 24px -16px #103e3540;transition:transform var(--dur-base,280ms) var(--ease-out,ease-out),border-color var(--dur-fast,180ms) var(--ease-out,ease-out),box-shadow var(--dur-base,280ms) var(--ease-out,ease-out)}
-.public-site .pc-card:hover{transform:translateY(-4px);border-color:#16714e;box-shadow:0 2px 4px #103e3514,0 22px 40px -22px #103e3566}
+.public-site .pc-card{position:relative;display:flex;flex-direction:column;isolation:isolate;transition:transform var(--dur-base,280ms) var(--ease-out,ease-out)}
+.public-site .pc-card:hover{transform:translateY(-4px)}
 .public-site .pc-card:active{transform:translateY(-1px) scale(.995)}
-.public-site .pc-card:has(a:focus-visible){outline:3px solid #d4a633;outline-offset:3px}
+.public-site .pc-card:has(a:focus-visible) .pc-body{outline:3px solid #d4a633;outline-offset:3px}
+
+/* Chừa chỗ cho viền đồng lệch ra ngoài mép khung */
+.pc-frame{position:relative;z-index:0;width:100%}
+.pc-frame[data-dir=br]{padding:0 12px 12px 0}
+.pc-frame[data-dir=bl]{padding:0 0 12px 12px}
+.pc-card.is-featured .pc-frame[data-dir=br]{padding:0 16px 16px 0}
+
 .pc-media{position:relative;display:grid;place-items:center;aspect-ratio:16/10;overflow:hidden;color:#7fb596;background:radial-gradient(120% 120% at 20% 0%,#1b6a55 0%,#0f4a3d 55%,#0b3a31 100%);flex:none}
-.pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
-.pc-card:hover .pc-media img{transform:scale(1.035)}
+.pc-media.is-fill{position:absolute;inset:0;aspect-ratio:auto}
+.pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--sf-focus,center);transition:transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
+.pc-card:hover .pc-media img{transform:scale(1.04)}
 .pc-media-ph{display:grid;place-items:center;position:absolute;inset:0;color:#7fb596}
 .pc-media-empty{color:#9ccbb0}
 .pc-media-empty::before{content:"";position:absolute;inset:-30%;background:repeating-radial-gradient(circle at 78% 18%,transparent 0 46px,#ffffff10 46px 47px);pointer-events:none}
@@ -15,23 +24,28 @@
 .art-js .pc-media img[data-fade]{opacity:0;transition:opacity var(--dur-slow,520ms) var(--ease-out,ease-out),transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
 .art-js .pc-media img[data-fade].is-loaded{opacity:1}
 .pc-media img.is-broken{display:none}
-.pc-body{display:flex;flex-direction:column;gap:12px;padding:20px 24px 24px;flex:1}
+
+/* Thẻ chữ đè góc ảnh: một góc vát lớn, ba góc gần vuông, nhắc dáng cạnh vát của thùng xe */
+.pc-body{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;flex:1;margin:-44px 20px 0 28px;padding:20px 24px 24px;background:#fff;border:1px solid #9fc0aa;border-radius:4px 28px 4px 28px;box-shadow:0 22px 40px -26px #103e3580;transition:border-color var(--dur-fast,180ms) var(--ease-out,ease-out),box-shadow var(--dur-base,280ms) var(--ease-out,ease-out)}
+.pc-card:nth-child(even) .pc-body{margin:-44px 28px 0 20px;border-radius:28px 4px 28px 4px}
+.pc-card:hover .pc-body{border-color:#16714e;box-shadow:0 30px 48px -26px #103e3599}
 .pc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:14px;line-height:1.5;color:#113d4c}
-.pc-kind{display:inline-flex;align-items:center;min-height:28px;padding:2px 12px;border-radius:8px;border:1px solid #9fc0aa;background:#fff;color:#0f5c3f;font-weight:600;font-size:14px}
+.pc-kind{display:inline-flex;align-items:center;min-height:28px;padding:2px 14px;border-radius:999px;border:1px solid #9fc0aa;background:#fff;color:#0f5c3f;font-weight:600;font-size:14px}
 .pc-kind.kind-project{border-color:#e0a98f;color:#9a3d12}
 .public-site .pc-title{margin:0;font-size:20px;line-height:1.4;font-weight:600;letter-spacing:-.01em;color:#0f3a31;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pc-title a{color:inherit;text-decoration:none}
-.pc-title a::after{content:'';position:absolute;inset:0;z-index:1}
+.pc-title a::after{content:'';position:absolute;inset:0;z-index:2}
 .public-site .pc-excerpt{margin:0;font-size:16px;line-height:1.7;color:#113d4c;text-align:left;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pc-more{margin-top:auto;padding-top:4px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#0f5c3f}
 .pc-more svg{transition:transform var(--dur-fast,180ms) var(--ease-out,ease-out)}
 .pc-card:hover .pc-more svg{transform:translateX(5px)}
 
-.public-site .pc-card.is-featured{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:minmax(340px,420px);max-height:420px}
-.pc-card.is-featured .pc-media{aspect-ratio:auto;min-height:0;height:100%}
-.pc-card.is-featured .pc-body{justify-content:center;gap:16px;padding:32px 40px 32px 36px;overflow:hidden}
-.public-site .pc-card.is-featured .pc-title{font-size:clamp(24px,2.4vw,32px);line-height:1.3;-webkit-line-clamp:3}
-.public-site .pc-card.is-featured .pc-excerpt{font-size:17px;-webkit-line-clamp:3}
+/* Bài nổi bật: vòm lớn bên trái, thẻ chữ đè lên mép phải của vòm */
+.public-site .pc-card.is-featured{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);align-items:center}
+.pc-card.is-featured .pc-frame{grid-column:1;grid-row:1;width:100%}
+.pc-card.is-featured .pc-body,.pc-card.is-featured:nth-child(even) .pc-body{grid-column:2;grid-row:1;gap:16px;margin:0 0 0 -88px;padding:44px 48px 44px 44px;border-radius:4px 56px 4px 56px;flex:none}
+.public-site .pc-card.is-featured .pc-title{font-size:clamp(24px,2.4vw,32px);line-height:1.3;-webkit-line-clamp:4}
+.public-site .pc-card.is-featured .pc-excerpt{font-size:17px;-webkit-line-clamp:4}
 .pc-card.is-featured .pc-more{margin-top:8px}
 
 /* Hiện dần khi cuộn tới. Chỉ ẩn khi đã có JavaScript, bản giảm chuyển động hiện đủ. */
@@ -40,11 +54,14 @@
 @keyframes art-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 @media(max-width:900px){
-  .public-site .pc-card.is-featured{grid-template-columns:1fr;grid-template-rows:none;max-height:none}
-  .pc-card.is-featured .pc-media{min-height:0;aspect-ratio:16/10;height:auto}
-  .pc-card.is-featured .pc-body{padding:24px}
+  .public-site .pc-card.is-featured{display:flex;align-items:stretch}
+  .pc-card.is-featured .pc-body,.pc-card.is-featured:nth-child(even) .pc-body{margin:-56px 12px 0 24px;padding:28px 24px 24px;border-radius:4px 40px 4px 40px}
 }
-@media(max-width:600px){.pc-body{padding:20px}.public-site .pc-title{font-size:19px}}
+@media(max-width:600px){
+  .pc-body,.pc-card:nth-child(even) .pc-body{padding:20px;margin:-40px 8px 0 20px}
+  .pc-card:nth-child(even) .pc-body{margin:-40px 20px 0 8px}
+  .public-site .pc-title{font-size:19px}
+}
 @media(prefers-reduced-motion:reduce){
   .art-js .pc-media img[data-fade]{opacity:1;transition:none}
   .art-js [data-art-reveal]:not(.is-in){opacity:1;transform:none}

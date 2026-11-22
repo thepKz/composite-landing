@@ -1,0 +1,37 @@
+/* Trang thử khung. Chỉ dùng để kiểm bộ nền chung. */
+.tk{overflow-x:clip}
+.tk-head{display:grid;gap:12px;max-width:62ch;margin-inline:auto;text-align:center;margin-bottom:56px}
+.tk-head h1,.tk-head h2{font-size:clamp(28px,3.6vw,44px);font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.public-site .tk-head p{text-align:center;margin-inline:auto;font-size:16px;line-height:1.7}
+.tk-head--dark{color:var(--tl-ink,#113d4c)}
+.tk-row{display:grid;gap:clamp(32px,5vw,64px);align-items:end}
+.tk-row--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tk-row--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tk-row figure{margin:0;display:grid;gap:16px;padding-right:14px;padding-bottom:14px}
+.tk-row figcaption{font-size:15px;font-weight:500;text-align:center}
+.tk-wide{grid-column:1/-1}
+.tk-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,96px);align-items:center}
+.tk-split--rev .tk-copy{order:2}
+.tk-copy{display:grid;gap:16px}
+.tk-copy h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.tk-copy p{font-size:16px;line-height:1.75;max-width:46ch}
+.tk-tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.tk-tile{position:relative;aspect-ratio:3/4;border-radius:24px;overflow:hidden;display:grid;place-items:end start;padding:16px;background:#082b3e;color:#fff;isolation:isolate}
+.tk-tile[data-tone=light]{background:#f5f6f0;color:var(--tl-ink,#113d4c);border:1px solid var(--tl-line,#d5dfd9)}
+.tk-tile span{position:relative;z-index:1;font-weight:600;font-size:15px}
+.tk-line{display:block;width:100%;height:clamp(64px,10vw,120px);overflow:visible}
+.tk-stats{display:flex;justify-content:center;gap:clamp(32px,8vw,120px);list-style:none;margin:48px 0 0;padding:0}
+.tk-stats li{display:flex;align-items:baseline;gap:8px;color:var(--tl-ink,#113d4c)}
+.tk-stats span{font-size:clamp(44px,7vw,80px);font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tk-stats b{font-size:18px;font-weight:500}
+.tk-gap{height:clamp(160px,32vh,320px)}
+.tk-gap--short{height:clamp(80px,14vh,160px)}
+@media (max-width:760px){
+  .tk-row--3,.tk-row--2{grid-template-columns:minmax(0,1fr)}
+  .tk-row figure{padding-right:8px;padding-bottom:8px}
+  .tk-split{grid-template-columns:minmax(0,1fr);gap:48px}
+  .tk-split--rev .tk-copy{order:0}
+  .tk-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tk-head{margin-bottom:40px}
+  .tk-stats{gap:24px;flex-wrap:wrap}
+}

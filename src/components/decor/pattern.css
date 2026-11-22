@@ -1,0 +1,12 @@
+/* Hoa văn nền: lớp tuyệt đối, không nhận chuột, nằm sau nội dung. */
+.tl-pt{position:absolute;display:block;pointer-events:none;user-select:none;opacity:var(--pt-o,.5);max-width:none;z-index:0}
+.tl-pt--ripple,.tl-pt--drum{height:auto}
+.tl-pt--resin,.tl-pt--paper{inset:0;width:100%;height:100%;object-fit:cover}
+.tl-pt--weave{inset:0;background-repeat:repeat;background-size:320px 320px}
+.tl-pt[data-fade=bottom]{-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);mask-image:linear-gradient(to bottom,#000 55%,transparent)}
+.tl-pt[data-fade=top]{-webkit-mask-image:linear-gradient(to top,#000 55%,transparent);mask-image:linear-gradient(to top,#000 55%,transparent)}
+.tl-pt[data-fade=both]{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent)}
+.tl-pt[data-fade=edges]{-webkit-mask-image:radial-gradient(ellipse at center,#000 40%,transparent 78%);mask-image:radial-gradient(ellipse at center,#000 40%,transparent 78%)}
+@media (max-width:640px){
+  .tl-pt--weave{background-size:220px 220px}
+}

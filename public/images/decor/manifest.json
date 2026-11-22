@@ -1,0 +1,82 @@
+[
+  {
+    "name": "song-nhua-960.webp",
+    "size": 16522,
+    "w": 960,
+    "h": 540,
+    "q": 70,
+    "alpha": false
+  },
+  {
+    "name": "song-nhua-1600.webp",
+    "size": 37084,
+    "w": 1600,
+    "h": 900,
+    "q": 70,
+    "alpha": false
+  },
+  {
+    "name": "song-nhua-2400.webp",
+    "note": "bỏ qua: ảnh gốc chỉ rộng 1672px, không phóng to"
+  },
+  {
+    "name": "giay-soi-960.webp",
+    "size": 6886,
+    "w": 960,
+    "h": 540,
+    "q": 72,
+    "alpha": false
+  },
+  {
+    "name": "giay-soi-1600.webp",
+    "size": 24038,
+    "w": 1600,
+    "h": 900,
+    "q": 72,
+    "alpha": false
+  },
+  {
+    "name": "giay-soi-2400.webp",
+    "note": "bỏ qua: ảnh gốc chỉ rộng 1672px, không phóng to"
+  },
+  {
+    "name": "gon-nuoc-480.webp",
+    "size": 37858,
+    "w": 480,
+    "h": 320,
+    "q": 82,
+    "alpha": true
+  },
+  {
+    "name": "gon-nuoc-960.webp",
+    "size": 96190,
+    "w": 960,
+    "h": 640,
+    "q": 82,
+    "alpha": true
+  },
+  {
+    "name": "trong-dong-480.webp",
+    "size": 132100,
+    "w": 480,
+    "h": 480,
+    "q": 70,
+    "alpha": true
+  },
+  {
+    "name": "trong-dong-720.webp",
+    "size": 252982,
+    "w": 720,
+    "h": 720,
+    "q": 46,
+    "alpha": true
+  },
+  {
+    "name": "soi-thuy-tinh-512.webp",
+    "size": 27822,
+    "w": 512,
+    "h": 512,
+    "q": 78,
+    "alpha": false
+  }
+]

@@ -2,7 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ShapeFrame } from '@/components/decor';
 import { heightOf, srcOf, srcSet, strip } from './images';
+
+// Mỗi ảnh một dáng khung theo thứ tự trong dải: cạnh vát, viên nang, vòm (ảnh dọc), cạnh vát ngược, viên nang, cạnh vát.
+const frames = [
+  { shape: 'slant', ratio: 1.4, focus: '50% 55%' },
+  { shape: 'capsule', ratio: 1.9, focus: '50% 58%' },
+  { shape: 'arch', ratio: 0.78, focus: '50% 50%' },
+  { shape: 'slant-reverse', ratio: 1.4, focus: '50% 55%' },
+  { shape: 'capsule', ratio: 1.9, focus: '50% 55%' },
+  { shape: 'slant', ratio: 1.4, focus: '50% 55%' },
+] as const;
 
 // Dải ảnh thật: cùng chiều cao, ảnh dọc hẹp hơn ảnh ngang, cuộn ngang bằng ngón tay, nút mũi tên hoặc phím.
 // Bấm ảnh mở hộp xem lớn (tiêu điểm vào trong, Esc đóng, tiêu điểm về ảnh đã bấm).
@@ -55,14 +66,19 @@ export default function PhotoStrip() {
       if (event.key === 'ArrowRight') { event.preventDefault(); slide(1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); slide(-1); }
     }}>
-      {strip.map((item, index) => <li key={item.base} className="tl-strip-item" style={{ ['--ratio' as string]: item.ratio }}>
-        <figure>
-          <button type="button" className="tl-strip-photo" aria-label={`Xem ảnh lớn: ${item.alt}`} style={{ backgroundImage: `url(${item.lqip})` }} onClick={event => open(index, event.currentTarget)}>
-            <img src={srcOf(item, item.widths[1])} srcSet={srcSet(item)} sizes="(max-width: 760px) 80vw, 520px" alt={item.alt} width={item.widths[1]} height={heightOf(item, item.widths[1])} loading="eager" decoding={index < 3 ? 'sync' : 'async'} />
-            <span className="tl-strip-expand" aria-hidden="true"><ArrowUpRight size={22} /></span>
-          </button>
-        </figure>
-      </li>)}
+      {strip.map((item, index) => {
+        const frame = frames[index % frames.length];
+        return <li key={item.base} className="tl-strip-item" style={{ ['--ratio' as string]: frame.ratio }}>
+          <figure>
+            <button type="button" className="tl-strip-photo" aria-label={`Xem ảnh lớn: ${item.alt}`} onClick={event => open(index, event.currentTarget)}>
+              <ShapeFrame shape={frame.shape} ratio={frame.ratio} focus={frame.focus}>
+                <img src={srcOf(item, item.widths[1])} srcSet={srcSet(item)} sizes="(max-width: 760px) 80vw, 560px" alt={item.alt} width={item.widths[1]} height={heightOf(item, item.widths[1])} loading="eager" decoding={index < 3 ? 'sync' : 'async'} />
+              </ShapeFrame>
+              <span className="tl-strip-expand" aria-hidden="true"><ArrowUpRight size={22} /></span>
+            </button>
+          </figure>
+        </li>;
+      })}
     </ul>
     <div className="tl-strip-bar">
       <div className="tl-strip-progress" aria-hidden="true"><span style={{ transform: `scaleX(${Math.max(0.12, progress)})` }} /></div>

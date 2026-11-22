@@ -52,3 +52,7 @@ The user selected a familiar corporate layout and confirmed compositevietnam.com
 ## Remaining delivery gates
 
 Database/media restore, standalone Docker CMS and administrator publishing browser workflow have been verified. Homepage visual QA, image loading, gallery interaction and responsive overflow checks passed at 360, 390, 768 and 1440px. Confirm real contact details and company policy copy before production launch.
+
+## Thư thông báo yêu cầu báo giá
+
+Mỗi yêu cầu mới của khách sẽ gửi một thư tới hộp thư của chủ website. Cần đặt đủ năm biến sau trên máy chủ thật (ví dụ Vercel, mục Environment Variables) thì thư mới gửi được: `SMTP_HOST` (smtp.gmail.com), `SMTP_PORT` (465), `SMTP_USER` (địa chỉ Gmail gửi), `SMTP_PASS` và `MAIL_TO` (hộp thư nhận). `SMTP_PASS` là mật khẩu ứng dụng Gmail (bật xác minh hai bước rồi tạo ở tài khoản Google), không phải mật khẩu đăng nhập Gmail. Thiếu một biến thì website bỏ qua việc gửi thư, yêu cầu của khách vẫn được lưu. Trang quản trị mục Cài đặt cho biết thư đang bật hay chưa và có nút "Gửi thư thử". Thử từ máy: `node --env-file=.env --import tsx scripts/send-test-mail.ts`.

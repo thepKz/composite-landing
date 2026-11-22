@@ -45,14 +45,26 @@
 }
 
 /* Mỗi trang chỉ một lời kêu gọi cuối: trang đã có biểu mẫu báo giá hoặc dải kêu gọi riêng thì ẩn dải ở chân trang */
-.public-site:has(.tl-form,.tp-cta-band,.art-cta-card,.nl-cta-card) .tl-footer-cta{display:none}
+.public-site:has(.tl-form,.tp-cta-band,.art-cta-card,.nl-cta-card,[data-has-cta]) .tl-footer-cta{display:none}
 
 /* Chân trang */
-.public-site .tl-footer{background:var(--tl-navy-deep);color:#e4eee6;font-size:16px;line-height:1.65}
+.tl-wrap{width:min(1240px,calc(100% - 2*var(--fs-gutter,20px)));margin-inline:auto}
+/* Chân trang là một FlowSection tối: nối từ khối trên bằng mép cung, nền sóng nhựa và vải sợi, huy hiệu trống đồng mờ.
+   Trang chủ để chân trang kéo lên đè đáy khối báo giá (margin âm của FlowSection). Các trang khác không kéo lên, góc cung lộ nền chung. */
+.public-site .tl-footer{color:#e4eee6;font-size:16px;line-height:1.65;pointer-events:none}
+.tl-footer .tl-fs__body{pointer-events:auto}
+.public-site .tl-footer.tl-fs{--fs-pad:clamp(8px,2vw,24px)}
+.public-site:not(:has(.home-page)) .tl-footer.tl-fs{margin-top:0}
+/* Chân trang tự nối với khối đứng trước: góc cung lộ màu của khối cuối trang (tối, ảnh, sáng), không còn nêm trắng. Khối cuối không phải FlowSection thì lộ nền chung. */
+.tl-footer.tl-fs::before{content:'';position:absolute;left:0;right:0;top:0;height:calc(var(--e-top) + 2px);background:var(--fs-join,transparent);pointer-events:none;z-index:0}
+.public-site:has(main>.tl-fs[data-tone=dark]:last-child) .tl-footer{--fs-join:#082b3e}
+.public-site:has(main>.tl-fs[data-tone=photo]:last-child) .tl-footer{--fs-join:#0a2a3a}
+.public-site:has(main>.tl-fs[data-tone=light]:last-child) .tl-footer{--fs-join:var(--tl-paper)}
+.public-site:has(.home-page) .tl-footer{--fs-join:var(--tl-paper)}
 .tl-footer a{color:inherit}
-.tl-footer-cta{display:flex;align-items:center;justify-content:space-between;gap:32px;padding-block:48px;border-bottom:1px solid #2b5164}
+.tl-footer-cta{display:flex;align-items:center;justify-content:space-between;gap:32px;padding-block:24px 40px;border-bottom:1px solid #2b5164}
 .tl-footer-cta p{font-size:clamp(20px,2.2vw,26px);font-weight:700;line-height:1.3;color:#fff}
-.tl-footer-button{display:inline-flex;align-items:center;gap:12px;flex-shrink:0;min-height:52px;padding:12px 24px;border-radius:12px;background:var(--tl-cta);color:#fff!important;font-weight:700;font-size:17px}
+.tl-footer-button{display:inline-flex;align-items:center;gap:12px;flex-shrink:0;min-height:52px;padding:12px 28px;border-radius:999px;background:var(--tl-cta);color:#fff!important;font-weight:700;font-size:17px}
 .tl-footer-button:hover{background:var(--tl-cta-dark)}
 .tl-footer-grid{display:grid;grid-template-columns:1.3fr 1fr .8fr 1.7fr;gap:40px;padding-block:56px}
 .tl-footer-grid h3{font-size:16px;font-weight:700;color:var(--tl-lime);margin-bottom:12px;letter-spacing:0}
@@ -68,10 +80,11 @@
 .tl-footer-social a{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid #7ea5b8;border-radius:10px;font-weight:500}
 .tl-footer-social a:hover{background:#fff;color:var(--tl-navy-deep);text-decoration:none}
 .tl-footer-contact p{display:flex;align-items:flex-start;gap:12px;margin-top:12px;max-width:none}
+.tl-footer-contact a{display:inline-flex;align-items:center;min-height:36px}
 .tl-footer-contact p svg{flex-shrink:0;margin-top:4px;color:var(--tl-lime)}
 .tl-footer-contact h3+p{margin-top:0}
 .tl-footer-map{margin-top:16px}
-.tl-footer-map-frame{position:relative;aspect-ratio:4/3;border:1px solid #7ea5b8;border-radius:12px;overflow:hidden;background:#12425a}
+.tl-footer-map-frame{position:relative;aspect-ratio:4/3;border:1px solid #7ea5b8;border-radius:999px 999px 16px 16px;overflow:hidden;background:#12425a}
 .tl-footer-map-holder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;color:#e4eee6}
 .tl-footer-map-holder svg{color:var(--tl-lime)}
 .tl-footer-contact .tl-footer-map-holder p{display:block;max-width:24ch;margin:0}
@@ -92,11 +105,11 @@
   .tl-footer-contact{grid-column:1/-1}
   .tl-footer-bottom{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
 }
-@media(max-width:480px){.tl-footer-grid{gap:20px 16px;padding-block:32px}.tl-footer-grid nav a{min-height:44px;font-size:16px;line-height:1.35}.tl-footer-about p{max-width:none}.tl-footer-map-frame{aspect-ratio:16/10}}
+@media(max-width:480px){.tl-footer-contact{font-size:15px}.tl-footer-grid{gap:20px 16px;padding-block:32px}.tl-footer-grid nav a{min-height:44px;font-size:16px;line-height:1.35}.tl-footer-about p{max-width:none}.tl-footer-map-frame{aspect-ratio:16/10}}
 @media(prefers-reduced-motion:reduce){.tl-page-enter{animation:none}.tl-progress span{transition:none!important}}
 
 /* Điện thoại: mọi liên kết ở chân trang đủ cao 44px */
-@media(max-width:760px){.tl-footer-bottom a,.tl-footer-contact a{display:inline-flex;align-items:center;min-height:44px}.tl-footer-contact p{align-items:center}}
+@media(max-width:760px){.tl-footer-grid nav a,.tl-footer-bottom a,.tl-footer-contact a{display:inline-flex;align-items:center;min-height:44px}.tl-footer-contact p{align-items:center}}
 
 /* Khung thấp: thanh liên hệ ẩn khi đang ở đầu trang, thu gọn khi hiện */
 .public-site{position:relative}

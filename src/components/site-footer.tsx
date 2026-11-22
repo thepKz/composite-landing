@@ -5,6 +5,7 @@ import { productGroups } from '@/lib/product-groups';
 import { footerLabel } from '@/lib/nav-labels';
 import { facts } from '@/lib/site-facts';
 import { resolveContact } from '@/lib/contact-info';
+import { FlowSection, Pattern } from '@/components/decor';
 import FooterMap from './footer-map';
 
 const quick = [
@@ -19,14 +20,18 @@ const quick = [
 export default async function SiteFooter() {
   const [info, items] = await Promise.all([company(), products()]);
   const { address, email, zalo, hotlines, hours } = resolveContact(info);
-  return <footer className="tl-footer">
-    <div className="container tl-footer-cta">
+  return <FlowSection as="footer" tone="dark" top="arc" inner={false} className="tl-footer" decor={<>
+    <Pattern kind="weave" opacity={0.2} />
+    <Pattern kind="resin" opacity={0.55} fade="both" />
+    <Pattern kind="drum" size="clamp(260px,34vw,460px)" bottom="-16%" right="-4%" opacity={0.22} blend="screen" />
+  </>}>
+    <div className="tl-wrap tl-footer-cta">
       <div>
         <p>Gửi nhu cầu, kỹ sư Thành Lợi phản hồi trong 15 đến 60 phút.</p>
       </div>
       <Link href="/lien-he#gui-yeu-cau" className="tl-footer-button pressable">Nhận báo giá<ArrowUpRight size={20} aria-hidden="true" /></Link>
     </div>
-    <div className="container tl-footer-grid">
+    <div className="tl-wrap tl-footer-grid">
       <div className="tl-footer-about">
         <Link href="/" className="tl-footer-brand" aria-label="Thành Lợi Composite, về trang chủ">
           <img src="/images/thanh-loi-logo.png" alt="" width="48" height="48" loading="lazy" />
@@ -55,9 +60,9 @@ export default async function SiteFooter() {
         <FooterMap src={facts.mapEmbed} address={address} title="Bản đồ nhà máy Thành Lợi Composite" />
       </div>
     </div>
-    <div className="container tl-footer-bottom">
+    <div className="tl-wrap tl-footer-bottom">
       <span>© {new Date().getFullYear()} {facts.legalName}. Mã số thuế: {facts.taxCode}. Bảo lưu mọi quyền.</span>
       <div><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/chinh-sach-bao-hanh">Chính sách bảo hành</Link><Link href="/admin">Quản trị</Link></div>
     </div>
-  </footer>;
+  </FlowSection>;
 }

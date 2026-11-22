@@ -2,12 +2,14 @@
 
 import { useCallback, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
+import { ShapeFrame } from '@/components/decor';
+import type { FrameShape } from '@/components/decor';
 import './product-assets.css';
 
 type Photo = { src: string; alt: string; label?: string; /** Bản đủ khung cho hộp phóng to */ zoom?: string };
 
 // Thư viện ảnh sản phẩm: ảnh chính có mũi tên, phím mũi tên, vuốt ngang, phóng to trong hộp thoại có chuyển cảnh.
-export default function ProductPhotoGallery({ photos }: { photos: Photo[] }) {
+export default function ProductPhotoGallery({ photos, shape = 'arch', ratio, focus, morph }: { photos: Photo[]; shape?: FrameShape; ratio?: number; focus?: string; morph?: string }) {
   const [selected, setSelected] = useState(0);
   const [direction, setDirection] = useState(1);
   const [closing, setClosing] = useState(false);
@@ -50,9 +52,9 @@ export default function ProductPhotoGallery({ photos }: { photos: Photo[] }) {
   return <div className="tp-gallery">
     <div className="tp-gallery-stage" role="group" aria-roledescription="thư viện ảnh" aria-label="Ảnh sản phẩm" tabIndex={0} onKeyDown={onKey} onPointerDown={swipeDown} onPointerUp={swipeUp} onPointerCancel={() => { swipeStart.current = null; }}>
       <figure id={imageId} className="tp-gallery-figure" style={{ ['--dir' as string]: direction }}>
-        <div className="tp-gallery-frame" key={photo.src}>
-          <img className="tp-gallery-photo" src={photo.src} alt={photo.alt} width={1000} height={1000} draggable={false} fetchPriority="high"/>
-        </div>
+        <ShapeFrame shape={shape} ratio={ratio} outline="bronze" outlineOffset={14} focus={focus} morph={morph} className="tp-gallery-shape">
+          <img key={photo.src} className="tp-gallery-photo" src={photo.src} alt={photo.alt} width={1000} height={1000} draggable={false} fetchPriority="high"/>
+        </ShapeFrame>
         {count > 1 && <span className="tp-gallery-count is-overlay" aria-live="polite">{selected + 1} / {count}</span>}
       </figure>
       {count > 1 && <>

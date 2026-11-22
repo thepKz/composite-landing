@@ -34,7 +34,7 @@ function checkField(field: 'name' | 'phone' | 'province' | 'consent', values: Va
     return /^\+?[0-9\s().-]{9,20}$/.test(values.phone.trim()) && digits.length >= 9 && digits.length <= 15 ? '' : 'Nhập số điện thoại có ít nhất 9 chữ số, ví dụ 0912345678.';
   }
   if (field === 'province') return values.province.trim().length >= 2 ? '' : 'Nhập tỉnh hoặc thành phố nơi lắp đặt, ví dụ Phú Thọ.';
-  return values.consent ? '' : 'Chọn ô đồng ý để Thành Lợi được gọi lại cho anh/chị.';
+  return values.consent ? '' : 'Chọn ô đồng ý để Thành Lợi được gọi lại cho quý khách.';
 }
 
 // Tên sự kiện để trang khác (khối chọn nhanh quy mô ở trang sản phẩm) chọn sẵn quy mô cho biểu mẫu mà không tải lại trang.
@@ -166,7 +166,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
       setStatus('done');
     } catch (failure) {
       const offline = failure instanceof TypeError;
-      setError(offline || !(failure instanceof Error) ? 'Mất kết nối mạng. Thông tin của anh/chị vẫn còn nguyên, hãy bấm Nhận báo giá để thử lại.' : failure.message);
+      setError(offline || !(failure instanceof Error) ? 'Mất kết nối mạng. Thông tin của quý khách vẫn còn nguyên, hãy bấm Nhận báo giá để thử lại.' : failure.message);
       setStatus('error');
     } finally { submitting.current = false; }
   }
@@ -182,7 +182,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
     return <div className="tl-form tl-form-success" role="status">
       <CheckCircle2 size={48} aria-hidden="true" />
       <h3 ref={successTitle} tabIndex={-1}>Đã nhận yêu cầu</h3>
-      <p>Kỹ sư Thành Lợi sẽ gọi lại trong 15 đến 60 phút giờ làm việc.</p>
+      <p>Thành Lợi sẽ báo giá trong 15 đến 60 phút kể từ khi nhận đủ thông tin.</p>
       <dl>{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
       <p className="tl-form-hours">Giờ làm việc: {hours}</p>
       <div className="tl-form-actions">
@@ -252,7 +252,7 @@ export default function InquiryForm({ product = '', scale = '', demo = false, ho
       {step === 3 && !scales && <p className="tl-form-note">Hãy quay lại và chọn sản phẩm trước.</p>}
 
       {step === 4 && <div className="tl-form-fields">
-        <ul className="tl-summary" aria-label="Lựa chọn của anh/chị">
+        <ul className="tl-summary" aria-label="Lựa chọn của quý khách">
           {productLabel && <li>{productLabel}</li>}
           {chosenScale && <li>{chosenScale.label}</li>}
           {values.province.trim() && <li>{values.province.trim()}</li>}

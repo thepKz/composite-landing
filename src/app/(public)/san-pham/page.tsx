@@ -1,10 +1,14 @@
 import { products } from '@/lib/content';
 import { fieldFromQuery, fields, productGroups } from '@/lib/product-groups';
-import PageHero from '@/components/pages/page-hero';
-import CtaBand from '@/components/pages/cta-band';
+import { additionalCustomerAssets } from '@/lib/customer-product-assets';
+import { variants } from '@/lib/trang-phu-media';
+import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import FlowHero from '@/components/pages/flow-hero';
+import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
 import CatalogueBrowser, { type CatalogueItem } from '@/components/pages/catalogue-browser';
 import '@/components/pages/pages.css';
+import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
 
 export const metadata = { title: 'Sản phẩm composite', description: 'Bảy nhóm sản phẩm composite Thành Lợi: bể biogas, bể phốt, bể cá và thủy sản, bồn hóa chất, thùng chở hải sản, thùng rác và gia công theo yêu cầu.', alternates: { canonical: '/san-pham' } };
@@ -27,12 +31,20 @@ export default async function Catalogue({ searchParams }: { searchParams: Promis
       : plain;
     return [{ key: group.slug, product, href: `/san-pham/${group.slug}`, title: group.name, field: group.field, rank: group.flagship }];
   });
-  return <main id="main" className="public-page tp tp-catalogue">
+  const v = variants(additionalCustomerAssets[1].src);
+  return <main id="main" className="public-page tp tp-catalogue tp4">
     <Reveal/>
-    <PageHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }]} title="Sản phẩm composite"/>
-    <section className="tp-section tp-catalogue-body"><div className="tp-wrap">
+    <FlowHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }]}
+      title="Bảy nhóm sản phẩm làm từ composite FRP"
+      lead="Bể biogas, bể phốt và xử lý nước thải, bể nuôi trồng thủy sản là ba dòng mũi nhọn của Thành Lợi."
+      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="bl" float={<StackStat value={7} label="Nhóm sản phẩm" tone="light"/>}>
+        <ShapeFrame shape="capsule" ratio={1.9} outline="bronze" outlineOffset={12} focus="50% 50%">
+          <img src={v.r43} srcSet={`${v.r43Small} 520w, ${v.r43} 960w`} sizes="(min-width: 1000px) 520px, 90vw" alt={additionalCustomerAssets[1].alt} width={960} height={720} fetchPriority="high"/>
+        </ShapeFrame>
+      </Stack>}/>
+    <FlowSection tone="light" top="dome" className="tp4-catalogue-body" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
       <CatalogueBrowser items={list} fields={[...fields]} initial={fieldFromQuery(query.nhom)}/>
-    </div></section>
-    <CtaBand/>
+    </FlowSection>
+    <FlowCta/>
   </main>;
 }

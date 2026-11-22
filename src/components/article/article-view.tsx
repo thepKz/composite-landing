@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import type { AnchorHTMLAttributes, ReactNode } from 'react';
-import { ArrowUpRight, Clock, Link2, MessageCircle } from 'lucide-react';
+import type { CSSProperties, ReactNode } from 'react';
+import { Clock, Link2, MessageCircle } from 'lucide-react';
 import RichContent from '@/components/rich-content';
-import CoverOrient from '@/components/article/cover-orient';
+import { Anchor } from '@/components/article/anchor';
+import QuoteBand from '@/components/article/quote-band';
+import { FlowSection, Morph, Pattern, ShapeFrame, Stack, morphName } from '@/components/decor';
 import { buildToc, formatDateVi, kindLabel, readingMinutes, type TocItem } from '@/components/article/article-utils';
 import type { RichNode } from '@/lib/rich-text';
 
@@ -23,6 +24,8 @@ export type ArticleViewProps = {
   publishedAt: Date;
   updatedAt?: Date | null;
   url: string;
+  /** Mã bài: đặt tên morph chung với thẻ ở danh sách (ảnh bìa và tiêu đề). Bỏ trống ở bản xem trước. */
+  slug?: string;
   product?: { slug: string; name: string } | null;
   preview?: boolean;
   /** Đặt trước phần bài, ví dụ dữ liệu có cấu trúc cho công cụ tìm kiếm. */
@@ -30,15 +33,6 @@ export type ArticleViewProps = {
   /** Đặt sau phần kêu gọi báo giá: bài trước sau, bài liên quan, bộ tăng cường. */
   children?: ReactNode;
 };
-
-type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; preview?: boolean; external?: boolean };
-
-/** Liên kết nội bộ dùng Link, liên kết ngoài dùng thẻ a, bản xem trước thì không đi đâu cả. */
-function Anchor({ preview, external, href, children, ...rest }: AnchorProps) {
-  if (preview) return <a {...rest} href="#" onClick={event => event.preventDefault()}>{children}</a>;
-  if (external) return <a {...rest} href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
-  return <Link {...rest} href={href}>{children}</Link>;
-}
 
 function TocList({ toc, preview }: { toc: TocItem[]; preview?: boolean }) {
   return <ol className="art-toc-list">{toc.map(item => <li key={item.id} className={item.level === 3 ? 'is-sub' : undefined}><a href={`#${item.id}`} {...(preview ? {} : { 'data-toc-link': true })}>{item.text}</a></li>)}</ol>;
@@ -53,60 +47,64 @@ function Share({ url, title, className, preview }: { url: string; title: string;
   </div>;
 }
 
-export default function ArticleView({ title, excerpt, kind, document, cover, coverAlt, publishedAt, updatedAt, url, product, preview, top, children }: ArticleViewProps) {
+export default function ArticleView({ title, excerpt, kind, document, cover, coverAlt, publishedAt, updatedAt, url, slug, product, preview, top, children }: ArticleViewProps) {
   const isProject = kind === 'project';
   const toc = buildToc(document);
   const minutes = readingMinutes(document);
   const wasUpdated = !!updatedAt && updatedAt.getTime() - publishedAt.getTime() > 24 * 3600 * 1000 && formatDateVi(updatedAt) !== formatDateVi(publishedAt);
   const listPath = isProject ? '/du-an' : '/tin-tuc';
   const listLabel = isProject ? 'Dự án' : 'Tin tức';
-  const reveal = preview ? {} : { 'data-art-reveal': true };
+  const morph = !preview && slug;
+  const heading = <h1 id="art-title">{title}</h1>;
   return <main id="main" className="public-page art">
     {top}
-    <article>
-      <div className="art-opener">
-        <header className="art-head"><div className="container">
-          <nav className="art-crumbs" aria-label="Đường dẫn">
-            <Anchor preview={preview} href="/">Trang chủ</Anchor><span aria-hidden="true">/</span><Anchor preview={preview} href={listPath}>{listLabel}</Anchor>
-          </nav>
-          <div className="art-head-text">
-            <Anchor preview={preview} href={isProject ? '/du-an' : '/tin-tuc?kind=article'} className={`art-kind${isProject ? ' is-project' : ''}`}>{kindLabel(kind)}</Anchor>
-            <h1>{title}</h1>
-            {excerpt && <p className="art-excerpt">{excerpt}</p>}
-            <div className="art-meta">
-              <time dateTime={publishedAt.toISOString()}>{formatDateVi(publishedAt)}</time>
-              <span className="art-meta-read"><Clock size={16} aria-hidden="true" />{minutes} phút đọc</span>
-              {wasUpdated && updatedAt && <span>Cập nhật {formatDateVi(updatedAt)}</span>}
-            </div>
+
+    {/* Đầu bài: nền sóng nhựa tối, ảnh bìa trong vòm có viền đồng lệch, tiêu đề và ảnh bìa cùng tên morph với thẻ ở danh sách */}
+    <FlowSection tone="dark" top="none" className="art-hero" aria-labelledby="art-title" style={{ '--fs-pad': 'clamp(28px,3.5vw,48px)' } as CSSProperties}
+      decor={<>
+        <Pattern kind="resin" opacity={0.6} fade="bottom" />
+        {cover ? <Pattern kind="ripple" size="clamp(240px,32vw,480px)" top="-20%" right="-8%" opacity={0.42} blend="screen" /> : <Pattern kind="drum" size="clamp(220px,30vw,420px)" top="-10%" right="-4%" opacity={0.22} />}
+      </>}>
+      <nav className="art-crumbs" aria-label="Đường dẫn">
+        <Anchor preview={preview} href="/">Trang chủ</Anchor><span aria-hidden="true">/</span><Anchor preview={preview} href={listPath}>{listLabel}</Anchor>
+      </nav>
+      <div className={`art-hero-grid${cover ? ' has-cover' : ''}`}>
+        <div className="art-head-text">
+          <Anchor preview={preview} href={isProject ? '/du-an' : '/tin-tuc?kind=article'} className={`art-kind${isProject ? ' is-project' : ''}`}>{kindLabel(kind)}</Anchor>
+          {morph ? <Morph name={morphName('post-title', slug)}>{heading}</Morph> : heading}
+          {excerpt && <p className="art-excerpt">{excerpt}</p>}
+          <div className="art-meta">
+            <time dateTime={publishedAt.toISOString()}>{formatDateVi(publishedAt)}</time>
+            <span className="art-meta-read"><Clock size={16} aria-hidden="true" />{minutes} phút đọc</span>
+            {wasUpdated && updatedAt && <span>Cập nhật {formatDateVi(updatedAt)}</span>}
           </div>
-        </div></header>
-
-        {cover && <div className="container art-cover-wrap"><figure className="art-cover" {...reveal}>
-          <button type="button" className="art-zoom" {...(preview ? {} : { 'data-zoom': true })} aria-label="Xem ảnh bìa lớn"><img src={cover} alt={coverAlt || title} decoding="async" {...(preview ? {} : { fetchPriority: 'high' as const })} /></button>
-        </figure></div>}
+        </div>
+        {cover && <figure className="art-cover">
+          <Stack depth={false} className="art-cover-stack">
+            <ShapeFrame shape="arch" ratio={0.95} outline="bronze" outlineOffset={14} focus="50% 45%" parallax={preview ? undefined : 0.06} morph={morph ? morphName('post-cover', slug) : undefined}>
+              <button type="button" className="art-zoom" {...(preview ? {} : { 'data-zoom': true })} aria-label="Xem ảnh bìa lớn"><img src={cover} alt={coverAlt || title} decoding="async" {...(preview ? {} : { fetchPriority: 'high' as const })} /></button>
+            </ShapeFrame>
+          </Stack>
+        </figure>}
       </div>
-      {cover && <CoverOrient key={cover} />}
+    </FlowSection>
 
-      <div className="art-layout container">
+    {/* Thân bài: cột đọc ở giữa, chia sẻ bên trái, mục lục bên phải. Hai lề bằng nhau ở mọi bề rộng */}
+    <FlowSection tone="light" top="wave" className="art-body" aria-label="Nội dung bài viết" decor={<Pattern kind="paper" opacity={0.9} fade="both" />}>
+      <div className="art-layout">
         <aside className="art-rail" aria-label="Chia sẻ"><Share url={url} title={title} className="art-share is-rail" preview={preview} /></aside>
         <div className="art-main" {...(preview ? {} : { 'data-art-body': true })}>
           {toc.length >= 3 && <details className="art-toc-mobile"><summary>Mục lục<span className="art-toc-count">{toc.length} mục</span></summary><TocList toc={toc} preview={preview} /></details>}
           <RichContent document={document} article />
           <footer className="art-foot">
-                        <Share url={url} title={title} className="art-share is-row" preview={preview} />
+            <Share url={url} title={title} className="art-share is-row" preview={preview} />
           </footer>
         </div>
         {toc.length >= 3 && <aside className="art-toc" aria-label="Mục lục"><TocList toc={toc} preview={preview} /></aside>}
       </div>
-    </article>
+    </FlowSection>
 
-    <section className="art-cta" aria-labelledby="art-cta-title"><div className="container"><div className="art-cta-card" {...reveal}>
-      <div><h2 id="art-cta-title">Chọn bồn bể cho nhu cầu của bạn</h2><p>Gửi mục đích và quy cách dự kiến để được tư vấn dung tích.</p></div>
-      <div className="art-cta-actions">
-        <Anchor preview={preview} href="/lien-he#gui-yeu-cau" className="art-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Anchor>
-        <Anchor preview={preview} href={product ? `/san-pham/${product.slug}` : '/san-pham'} className="art-btn-ghost pressable">{product ? product.name : 'Xem sản phẩm'}</Anchor>
-      </div>
-    </div></div></section>
+    <QuoteBand preview={preview} product={product} id="art-cta-title" />
     {children}
   </main>;
 }

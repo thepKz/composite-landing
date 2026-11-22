@@ -31,7 +31,7 @@ export default function OrderTabs({ lines }: { lines: OrderLine[] }) {
       {lines.map((item, index) => <button key={item.id} ref={node => { refs.current[index] = node; }} role="tab" type="button" id={`${base}-t${index}`} aria-controls={`${base}-p`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} className="tp-tab pressable" onClick={() => setActive(index)} onKeyDown={event => onKey(event, index)}>{item.label}</button>)}
     </div>
     <div className="tp-tabpanel" role="tabpanel" id={`${base}-p`} aria-labelledby={`${base}-t${active}`}>
-      <ol key={line.id} className="tp-order-list">{line.items.map(text => <li key={text}>{text}</li>)}</ol>
+      <ol key={line.id} className="tp4-order-path is-dark">{line.items.map(text => <li key={text}>{text}</li>)}</ol>
       <Link href={line.href} className="tp-text-link">Xem sản phẩm <ArrowUpRight size={18} aria-hidden="true"/></Link>
     </div>
   </div>;

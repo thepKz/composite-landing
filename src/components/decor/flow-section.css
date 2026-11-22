@@ -1,0 +1,63 @@
+/* Vỏ khối trang. Nền bị cắt theo hai mép bằng mask nên hai khối kề nhau không có đường ngang thẳng.
+   Cách nối: khối sau được kéo lên dưới khối trước một đoạn bằng chiều cao mép, cả hai chừa chỗ để chữ không rơi vào vùng chuyển. */
+.tl-fs{
+  --mk-arc-top:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%20100Q50%20-100%20100%20100Z'/%3E%3C/svg%3E");
+  --mk-arc-bot:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%200Q50%20200%20100%200Z'/%3E%3C/svg%3E");
+  --mk-dome-top:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%20100C10%20100%2012%200%2050%200C88%200%2090%20100%20100%20100Z'/%3E%3C/svg%3E");
+  --mk-dome-bot:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%200C10%200%2012%20100%2050%20100C88%20100%2090%200%20100%200Z'/%3E%3C/svg%3E");
+  --mk-wave-top:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%2060C18%2010%2034%2010%2050%2050S82%2095%20100%2040V100H0Z'/%3E%3C/svg%3E");
+  --mk-wave-bot:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0%2040C18%2090%2034%2090%2050%2050S82%205%20100%2060V0H0Z'/%3E%3C/svg%3E");
+  --mk-fade-top:linear-gradient(to bottom,transparent,#000);
+  --mk-fade-bot:linear-gradient(to bottom,#000,transparent);
+  --fs-pad:clamp(56px,7vw,104px);
+  --fs-gutter:clamp(20px,5vw,48px);
+  --e-fade:clamp(160px,14vw,200px);--e-arc:clamp(56px,8vw,112px);--e-dome:clamp(96px,14vw,200px);--e-wave:clamp(64px,9vw,120px);
+  --e-top:0px;--e-bot:0px;--n-top:0px;--n-bot:0px;
+  --m-top:linear-gradient(#000,#000);--m-bot:linear-gradient(#000,#000);
+  --ov-top:max(var(--e-top),var(--n-top));--ov-bot:max(var(--e-bot),var(--n-bot));
+  position:relative;z-index:1;color:var(--fs-ink);
+  margin-top:calc(var(--ov-top)*-1);
+  padding-top:calc(var(--fs-pad) + var(--ov-top)*.6);
+  padding-bottom:calc(var(--fs-pad) + var(--ov-bot)*.6);
+  overflow-x:clip;
+}
+.tl-fs[data-top=fade]{--e-top:var(--e-fade);--m-top:var(--mk-fade-top)}
+.tl-fs[data-bottom=fade]{--e-bot:var(--e-fade);--m-bot:var(--mk-fade-bot)}
+.tl-fs[data-bottom=fade]+.tl-fs{--n-top:var(--e-fade)}
+.tl-fs:has(+.tl-fs[data-top=fade]){--n-bot:var(--e-fade)}
+.tl-fs[data-top=arc]{--e-top:var(--e-arc);--m-top:var(--mk-arc-top)}
+.tl-fs[data-bottom=arc]{--e-bot:var(--e-arc);--m-bot:var(--mk-arc-bot)}
+.tl-fs[data-bottom=arc]+.tl-fs{--n-top:var(--e-arc)}
+.tl-fs:has(+.tl-fs[data-top=arc]){--n-bot:var(--e-arc)}
+.tl-fs[data-top=dome]{--e-top:var(--e-dome);--m-top:var(--mk-dome-top)}
+.tl-fs[data-bottom=dome]{--e-bot:var(--e-dome);--m-bot:var(--mk-dome-bot)}
+.tl-fs[data-bottom=dome]+.tl-fs{--n-top:var(--e-dome)}
+.tl-fs:has(+.tl-fs[data-top=dome]){--n-bot:var(--e-dome)}
+.tl-fs[data-top=wave]{--e-top:var(--e-wave);--m-top:var(--mk-wave-top)}
+.tl-fs[data-bottom=wave]{--e-bot:var(--e-wave);--m-bot:var(--mk-wave-bot)}
+.tl-fs[data-bottom=wave]+.tl-fs{--n-top:var(--e-wave)}
+.tl-fs:has(+.tl-fs[data-top=wave]){--n-bot:var(--e-wave)}
+.tl-fs[data-bottom=fade],.tl-fs[data-bottom=arc],.tl-fs[data-bottom=dome],.tl-fs[data-bottom=wave]{z-index:2}
+.tl-fs[data-solid=false]{--e-top:0px!important;--e-bot:0px!important;--n-top:0px!important;--n-bot:0px!important}
+.tl-fs[data-tone=dark]{--fs-bg:var(--tl-navy-deep,#082b3e);--fs-ink:#eef5f1;--fs-overlay:8 43 62}
+.tl-fs[data-tone=light]{--fs-bg:var(--tl-paper,#f5f6f0);--fs-ink:var(--tl-ink,#113d4c);--fs-overlay:245 246 240}
+.tl-fs[data-tone=photo]{--fs-bg:#0a2a3a;--fs-ink:#fff;--fs-overlay:8 43 62}
+
+.tl-fs__bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:var(--m-top),linear-gradient(#000,#000),var(--m-bot);mask-image:var(--m-top),linear-gradient(#000,#000),var(--m-bot);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-size:100% var(--e-top),100% calc(100% - var(--e-top) - var(--e-bot) + 2px),100% var(--e-bot);mask-size:100% var(--e-top),100% calc(100% - var(--e-top) - var(--e-bot) + 2px),100% var(--e-bot);
+  -webkit-mask-position:0 0,0 calc(var(--e-top) - 1px),0 100%;mask-position:0 0,0 calc(var(--e-top) - 1px),0 100%}
+.tl-fs[data-solid=true] .tl-fs__bg{background:var(--fs-bg)}
+.tl-fs[data-solid=false] .tl-fs__bg{-webkit-mask-image:none;mask-image:none}
+.tl-fs__body{position:relative;z-index:1}
+.tl-fs__inner{width:min(1240px,calc(100% - 2*var(--fs-gutter)));margin-inline:auto}
+
+.tl-fs__backdrop{position:absolute;inset:0;overflow:hidden}
+.tl-fs__backdrop[data-fade=bottom]{-webkit-mask-image:linear-gradient(to bottom,#000 50%,transparent);mask-image:linear-gradient(to bottom,#000 50%,transparent)}
+.tl-fs__backdrop[data-fade=top]{-webkit-mask-image:linear-gradient(to top,#000 50%,transparent);mask-image:linear-gradient(to top,#000 50%,transparent)}
+.tl-fs__backdrop[data-fade=both]{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent)}
+.tl-fs__bd-media{position:absolute;inset:calc(var(--bd-par,0)*-140%) 0}
+.tl-fs__bd-media img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:var(--bd-pos,50% 50%);opacity:var(--bd-o,1)}
+.tl-fs__bd-media[data-parallax]{will-change:transform}
+.tl-fs__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgb(var(--fs-overlay) / calc(var(--bd-ov,.72)*.92)),rgb(var(--fs-overlay) / var(--bd-ov,.72)) 50%,rgb(var(--fs-overlay) / min(.96,calc(var(--bd-ov,.72)*1.08))))}

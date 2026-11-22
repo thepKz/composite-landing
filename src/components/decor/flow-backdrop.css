@@ -1,0 +1,14 @@
+/* Lớp nền cố định. Nằm sau mọi nội dung, không nhận chuột. Chỉ opacity và transform được hoạt hoạ. */
+.tl-fb{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:var(--tl-paper,#f5f6f0)}
+.tl-fb__layer{position:absolute;inset:-5vh 0;opacity:0;will-change:opacity,transform}
+.tl-fb[data-initial=dark] [data-layer=dark],.tl-fb[data-initial=light] [data-layer=light],.tl-fb[data-initial=photo] [data-layer=photo]{opacity:1}
+.tl-fb__layer[data-layer=dark]{background:var(--tl-navy-deep,#082b3e)}
+.tl-fb__weave{position:absolute;inset:0;background:url(/images/decor/soi-thuy-tinh-512.webp) repeat;background-size:320px 320px;opacity:.22}
+.tl-fb__layer[data-layer=light]{background:var(--tl-paper,#f5f6f0)}
+.tl-fb__layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.tl-fb__layer[data-layer=light] img{opacity:.55}
+.tl-fb__layer[data-layer=photo]{background:#0a2a3a}
+.tl-fb__shade{position:absolute;inset:0;background:linear-gradient(180deg,#082b3ecc,#082b3ee6)}
+@media (prefers-reduced-motion:reduce){.tl-fb__layer{will-change:auto}}
+/* Trang có lớp nền cố định thì bỏ nền phẳng của khung trang, nếu không nó che lớp này. */
+.public-site:has(.tl-fb){background:transparent}

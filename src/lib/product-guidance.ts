@@ -26,7 +26,7 @@ export type Guidance = {
 
 const biogas: ScaleTable = {
   title: 'Chọn dung tích theo đàn',
-  question: 'Đàn của bạn đang nuôi bao nhiêu?',
+  question: 'Chọn quy mô đàn',
   columns: ['Mã sản phẩm', 'Đường kính và dung tích', 'Quy mô đàn', 'Đối tượng phù hợp', 'Công dụng của khí'],
   rows: [
     { chip: '5 – 10 con lợn', suggest: 'Bể 1,5 m³', lead: 'TLC-BIO-1.5', cells: ['1,50 m (1,5 m³)', '5 – 10 con lợn, hoặc 1 – 2 trâu bò', 'Hộ nhỏ lẻ tận dụng thức ăn thừa, kết hợp xử lý vệ sinh gia đình', 'Đun nấu cho gia đình 2 – 4 người'] },
@@ -39,8 +39,8 @@ const biogas: ScaleTable = {
 };
 
 const septic: ScaleTable = {
-  title: 'Chọn dung tích theo số người dùng',
-  question: 'Công trình của bạn có bao nhiêu người dùng?',
+  title: 'Dung tích theo số người dùng',
+  question: 'Chọn số người dùng',
   columns: ['Phân khúc', 'Dung tích', 'Số người, quy mô', 'Công trình phù hợp', 'Kiểu dáng, lắp đặt'],
   rows: [
     { chip: 'Gia đình 3 – 6 người', suggest: 'Bể 1,0 – 1,5 m³', lead: 'Gia đình nhỏ', cells: ['1,0 – 1,5 m³', '3 – 6 người, 1 – 2 phòng vệ sinh', 'Nhà phố nhỏ, nhà cấp 4 nông thôn, nhà vườn, homestay mini', 'Bể cầu hoặc trụ nằm ngang, chôn gọn dưới gầm cầu thang, sân'] },
@@ -53,8 +53,8 @@ const septic: ScaleTable = {
 };
 
 const fish: ScaleTable = {
-  title: 'Chọn kiểu bể theo mục đích nuôi',
-  question: 'Bạn nuôi để làm gì?',
+  title: 'Kiểu bể theo mục đích nuôi',
+  question: 'Chọn mục đích nuôi',
   columns: ['Nhóm bể', 'Dung tích phổ biến', 'Khách hàng', 'Vật nuôi, mục đích', 'Cấu hình đề xuất'],
   rows: [
     { chip: 'Hồ cá Koi sân vườn', suggest: 'Hồ 1,0 – 5,0 m³ có vách lọc 3 – 4 ngăn, gắn kính', lead: 'Hồ cá Koi, cảnh quan', cells: ['1,0 – 5,0 m³, chữ nhật bo góc, tròn hoặc uốn lượn', 'Chủ nhà phố, sân thượng, biệt thự, quán cà phê Koi', 'Cá Koi, cá vàng, cá rồng, sen súng', 'Đúc liền vách lọc 3 – 4 ngăn, Gelcoat đen hoặc xanh rêu, gắn kính cường lực mặt trước'] },
@@ -62,12 +62,12 @@ const fish: ScaleTable = {
     { chip: 'Ươm giống, nuôi lươn ếch', suggest: 'Bể tròn đáy bằng hoặc đáy côn 2 – 10 m³', lead: 'Bể ươm giống, nuôi đặc sản', cells: ['2,0 – 10 m³, tròn đáy bằng, đáy côn nhẹ, vuông bo góc, máng ấp', 'Trại tôm giống, cá giống, hộ nuôi lươn không bùn, ếch, ba ba', 'Ươm ấu trùng, nuôi vỗ cá bố mẹ, nuôi đặc sản mật độ cao', 'Mặt nhẵn chống xước cá con, đáy dốc thoát cặn, dễ khử trùng giữa các vụ'] },
     { chip: 'Nuôi tôm cá RAS', suggest: 'Bể tròn đáy phễu đường kính 3 – 8 m', lead: 'Nuôi thủy sản công nghệ cao RAS', cells: ['10 – 50 m³ trở lên, đường kính 3 – 8 m, nguyên khối hoặc lắp ghép', 'Doanh nghiệp thủy sản, trại tôm trong nhà màng, trại RAS', 'Tôm thẻ chân trắng, cá tầm, cá hồi, cá chình mật độ cao', 'Đáy phễu dốc 5% – 15% thu cặn tâm đáy, chân đế khung thép hoặc FRP, nối hệ lọc tuần hoàn'] },
   ],
-  note: 'Kích thước theo khuôn hiện có tại xưởng, hoặc làm khuôn mới theo mặt bằng của bạn.',
+  note: 'Kích thước theo khuôn hiện có tại xưởng, hoặc làm khuôn mới theo mặt bằng của quý khách.',
 };
 
 const trash: ScaleTable = {
   title: 'Chọn dòng và dung tích',
-  question: 'Bạn cần loại nào?',
+  question: 'Chọn loại cần mua',
   columns: ['Dòng sản phẩm', 'Dung tích', 'Cấu tạo chính', 'Đối tượng sử dụng'],
   rows: [
     { chip: 'Thùng rác công cộng', suggest: 'Thùng đơn 60, 90, 120 hoặc 240 lít', lead: 'Thùng rác công cộng đơn', cells: ['Bốn cỡ: 60, 90, 120, 240 lít', 'Nắp kín ngăn mưa và mùi, 2 – 4 bánh cao su đặc xoay 360 độ, chốt inox', 'Đơn vị môi trường đô thị, khu dân cư, trường học, bệnh viện'] },

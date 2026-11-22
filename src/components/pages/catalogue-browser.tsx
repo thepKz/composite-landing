@@ -35,21 +35,21 @@ export default function CatalogueBrowser({ items, fields, initial }: { items: Ca
           return count ? <button type="button" key={field.key} className="tp-filter pressable" aria-pressed={active === field.key} onClick={() => choose(field.key)}>{field.label}<span>{count}</span></button> : null;
         })}
       </div>
-      <Link href="/lien-he#gui-yeu-cau" className="tp-text-link">Nhờ kỹ sư chọn giúp <ArrowUpRight size={18} aria-hidden="true"/></Link>
+      <Link href="/lien-he#gui-yeu-cau" className="tp-text-link">Tư vấn dung tích <ArrowUpRight size={18} aria-hidden="true"/></Link>
     </div>
     <p className="tp-sr" role="status" aria-live="polite">Hiển thị {shown.length} nhóm sản phẩm</p>
 
     {flagship.length > 0 && <section aria-labelledby="tp-flagship-title">
       <h2 id="tp-flagship-title" className="tp-sr">{active ? 'Dòng mũi nhọn' : 'Ba dòng mũi nhọn'}</h2>
       <div className={bento ? 'tp-bento' : 'tp-grid tp-grid-3'} key={`f${round}`}>
-        {flagship.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} rank={item.rank} index={index} still showCategory={!active} feature={bento && index === 0} wide={bento && index > 0}/>)}
+        {flagship.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} rank={item.rank} index={index} still showCategory={!active} feature={bento && index === 0} wide={bento && index > 0} morph={item.href === `/san-pham/${item.product.slug}`}/>)}
       </div>
     </section>}
 
     {others.length > 0 && <section aria-labelledby="tp-others-title">
       <h2 id="tp-others-title" className="tp-sr">{flagship.length ? 'Các dòng khác' : 'Sản phẩm'}</h2>
       <div className="tp-grid tp-grid-4" key={`o${round}`}>
-        {others.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} index={index + flagship.length} still compact showCategory={!active}/>)}
+        {others.map((item, index) => <ProductCard key={item.key} product={item.product} href={item.href} title={item.title} index={index + flagship.length} still compact showCategory={!active} morph={item.href === `/san-pham/${item.product.slug}`}/>)}
       </div>
     </section>}
   </div>;

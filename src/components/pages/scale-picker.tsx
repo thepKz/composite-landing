@@ -105,7 +105,7 @@ export function StickyBuyBar({ anchors }: { anchors: { id: string; label: string
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState('');
   useEffect(() => {
-    const top = document.getElementById('tp-top');
+    const top = document.querySelector('#tp-top .tp4-pd-grid') ?? document.getElementById('tp-top');
     const form = document.getElementById('tu-van');
     if (!top) return;
     let topOut = false;

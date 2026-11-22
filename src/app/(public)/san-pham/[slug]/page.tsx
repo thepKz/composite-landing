@@ -9,6 +9,10 @@ import InquiryForm from '@/components/inquiry-form';
 import ProductPhotoGallery from '@/components/product-photo-gallery';
 import ProductCard from '@/components/product-card';
 import Reveal from '@/components/pages/reveal';
+import { Crumbs } from '@/components/pages/flow-hero';
+import { FlowSection, Morph, Pattern, ShapeFrame, Stack, StackStat, morphName } from '@/components/decor';
+import type { FrameShape } from '@/components/decor';
+import { shortStat } from '@/components/product-card';
 import FaqList from '@/components/pages/faq-list';
 import { QuoteButton, ScaleChips, ScaleProvider, ScaleTableView, StickyBuyBar } from '@/components/pages/scale-picker';
 import { productGuidance, type Feature } from '@/lib/product-guidance';
@@ -18,6 +22,7 @@ import { variants } from '@/lib/trang-phu-media';
 import { Drawing, kindOf } from '@/components/pages/product-tile';
 import '@/components/pages/pages.css';
 import '@/components/product-assets.css';
+import '@/components/pages/pages-v4.css';
 import './product-detail.css';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,6 +43,15 @@ const supportingPhotos = {
 
 // Ảnh đã cắt đúng khung vuông, cân tông; bản đủ khung dùng cho hộp phóng to.
 const toPhoto = (a: { src: string; alt: string; label?: string }) => { const v = variants(a.src); return { src: v.sq, alt: a.alt, label: a.label, zoom: v.full }; };
+
+// Dáng khung ảnh chính lấy từ chính sản phẩm: vòm bể biogas, bể tròn, thùng xe, bồn nằm.
+const heroShape: Record<string, { shape: FrameShape; ratio: number; focus?: string }> = {
+  'be-biogas-composite': { shape: 'arch', ratio: 0.85, focus: '50% 55%' },
+  'be-nuoi-trong-thuy-san': { shape: 'circle', ratio: 1, focus: '50% 55%' },
+  'thung-cho-tom-ca': { shape: 'slant', ratio: 1.1, focus: '50% 50%' },
+  'xe-gom-rac': { shape: 'slant-reverse', ratio: 1.1, focus: '50% 55%' },
+  'composite-theo-yeu-cau': { shape: 'capsule', ratio: 1.25, focus: '50% 50%' },
+};
 
 const icons: Record<Feature['icon'], LucideIcon> = { shape: Shapes, seal: ShieldCheck, bolt: Zap, layers: Layers, drop: Droplets, funnel: Funnel, move: Move, flask: FlaskConical, truck: Truck, wind: Wind, tool: Wrench, recycle: Recycle, shield: ShieldCheck, ruler: Ruler };
 
@@ -83,95 +97,114 @@ export default async function ProductPage({ params }: Props) {
   }
   const factList = <dl className="tp-pd-facts">{rows.map(row => <div key={row.label ?? row.sr} className={row.label ? undefined : 'is-bare'}>{row.label ? <dt>{row.label}</dt> : <dt className="tp-sr">{row.sr}</dt>}<dd>{row.value}</dd></div>)}</dl>;
 
-  return <main id="main" className="public-page tp tp-product">
+  const frame = heroShape[slug] ?? { shape: 'arch' as FrameShape, ratio: 0.85 };
+  const plainStat = shortStat(product.specifications[0]?.value.split(':')[0]) ?? '';
+  const buildPhoto = photos[Math.min(1, photos.length - 1)];
+
+  return <main id="main" className="public-page tp tp-product tp4">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
     {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}/>}
     <Reveal/>
     <ScaleProvider table={table} productName={product.name}>
       <StickyBuyBar anchors={anchors}/>
-      <nav className="tp-wrap tp-pd-crumbs tp-crumbs-dark" aria-label="Đường dẫn">
-        <span className="tp-crumb"><Link href="/">Trang chủ</Link><span className="tp-crumb-sep" aria-hidden="true">/</span></span>
-        {crumbs.map((crumb, i) => <span className="tp-crumb" key={crumb.label}>{'href' in crumb && crumb.href ? <><Link href={crumb.href}>{crumb.label}</Link><span className="tp-crumb-sep" aria-hidden="true">/</span></> : <span aria-current="page">{crumb.label}</span>}</span>)}
-      </nav>
 
-      <section id="tp-top" className={`tp-wrap tp-pd-top${photos.length ? '' : ' is-plain'}`}>
-        {photos.length ? <ProductPhotoGallery key={slug} photos={photos}/> : null}
-        <div className="tp-pd-copy">
-          <div className="tp-pd-badges">
-            <span className="tp-badge">{product.category}</span>
+      <FlowSection id="tp-top" tone="dark" top="none" className="tp4-fs--teal tp4-pd-hero" decor={<>
+        <Pattern kind="resin" fade="both" opacity={0.45}/>
+        <Pattern kind="ripple" size="clamp(260px,34vw,520px)" top="-12%" right="-8%" opacity={0.45} blend="screen"/>
+      </>}>
+        <Crumbs crumbs={[{ label: 'Trang chủ', href: '/' }, ...crumbs]}/>
+        <div className={`tp4-pd-grid${photos.length ? '' : ' is-plain'}`}>
+          <div className="tp4-pd-media">
+            {photos.length ? <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="tl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light"/>}>
+              <ProductPhotoGallery key={slug} photos={photos} shape={frame.shape} ratio={frame.ratio} focus={frame.focus} morph={morphName('product-photo', slug)}/>
+            </Stack> : <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="tl" float={plainStat ? <StackStat value={plainStat} tone="light"/> : undefined}>
+              <ShapeFrame shape="arch" ratio={0.9} outline="bronze" outlineOffset={14}>
+                <div className="tp4-plain"><Drawing kind={kindOf(slug)} color="#d3f56b" className="tp4-plain__art"/></div>
+              </ShapeFrame>
+            </Stack>}
           </div>
-          <h1 className={product.name.length > 20 ? 'is-long' : undefined}>{product.name}</h1>
-          <p className="tp-pd-tagline">{guidance.tagline}</p>
-          <p className="tp-pd-lead">{product.description}</p>
-          {photos.length ? null : <ul className="tp-chips tp-pd-apps" aria-label="Ứng dụng">{product.applications.map(item => <li key={item}>{item}</li>)}</ul>}
-          <div className="tp-pd-actions">
-            <QuoteButton/>
-            <a className="tp-btn tp-btn-ghost" href={`tel:${info.hotlines[0].tel}`}><Phone size={18} aria-hidden="true"/>{info.hotlines[0].display}</a>
+          <div className="tp4-pd-copy">
+            <div className="tp-pd-badges"><span className="tp-badge">{product.category}</span></div>
+            <Morph name={morphName('product-title', slug)}><h1 className={product.name.length > 20 ? 'is-long' : undefined}>{product.name}</h1></Morph>
+            <p className="tp-pd-tagline">{guidance.tagline}</p>
+            <p className="tp-pd-lead">{product.description}</p>
+            {photos.length ? null : <ul className="tp-chips tp-pd-apps" aria-label="Ứng dụng">{product.applications.map(item => <li key={item}>{item}</li>)}</ul>}
+            <div className="tp-pd-actions">
+              <QuoteButton/>
+              <a className="tp-btn tp-btn-ghost-light" href={`tel:${info.hotlines[0].tel}`}><Phone size={18} aria-hidden="true"/>{info.hotlines[0].display}</a>
+            </div>
+            {factList}
+            <ScaleChips/>
           </div>
-          {photos.length ? factList : null}
-          <ScaleChips/>
         </div>
-        {photos.length ? null : <aside className="tp-pd-spec" aria-label="Thông số chính">
-          <Drawing kind={kindOf(slug)} color="#16714e" className="tp-pd-draw"/>
-          {factList}
-        </aside>}
-      </section>
+      </FlowSection>
 
-      {table ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2 className="tp-sr">{table.title}</h2></div>
+      {table ? <FlowSection id="bang-chon" tone="light" top="dome" className="tp4-pd-table" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <h2 className="tp4-h2 tp-rv">{table.title}</h2>
         <div className="tp-rv"><ScaleTableView/></div>
-      </div></section> : guidance.highlights ? <section id="bang-chon" className="tp-pd-section tp-pd-table"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2>{guidance.highlights.title}</h2></div>
+      </FlowSection> : guidance.highlights ? <FlowSection id="bang-chon" tone="light" top="dome" className="tp4-pd-table" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <h2 className="tp4-h2 tp-rv">{guidance.highlights.title}</h2>
         <ul className="tp-pill-list tp-rv">{guidance.highlights.items.map(item => <li key={item}>{item}</li>)}</ul>
-      </div></section> : null}
+      </FlowSection> : null}
 
-      <section id="cau-tao" className="tp-pd-section tp-pd-build"><div className={`tp-wrap tp-build-grid${guidance.accessories ? '' : ' is-solo'}`}>
-        <div className="tp-build-head tp-rv">
-          <h2>Cấu tạo và ưu điểm</h2>
-          {guidance.accessories && <div className="tp-accessories"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
+      <FlowSection id="cau-tao" tone="dark" top={table || guidance.highlights ? 'wave' : 'dome'} className="tp4-fs--teal tp4-pd-build" decor={<>
+        <Pattern kind="weave" fade="both" opacity={0.18}/>
+        <Pattern kind="ripple" size="clamp(240px,28vw,420px)" bottom="-6%" left="-6%" opacity={0.4} blend="screen"/>
+      </>}>
+        <div className={`tp4-build${guidance.accessories ? '' : ' is-solo'}`}>
+          <div className="tp4-build__head tp-rv">
+            <h2 className="tp4-h2">Cấu tạo và ưu điểm</h2>
+            {buildPhoto ? <div className="tp4-build__ports"><ShapeFrame shape="porthole-trio" ratio={2.2} outline="light" outlineOffset={10} focus="50% 55%"><img src={buildPhoto.zoom ?? buildPhoto.src} alt="" width={960} height={436} loading="lazy"/></ShapeFrame></div> : null}
+            {guidance.accessories && <div className="tp-accessories"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
+          </div>
+          <ol className="tp-build-list">
+            {guidance.features.map((feature, i) => {
+              const Icon = icons[feature.icon] || Boxes;
+              return <li className="tp-build-row tp-rv" style={{ ['--i' as string]: i }} key={feature.title}><span className="tp4-build__icon"><Icon size={26} aria-hidden="true"/></span><div><h3>{feature.title}</h3><p>{feature.text}</p></div></li>;
+            })}
+          </ol>
         </div>
-        <ol className="tp-build-list">
-          {guidance.features.map((feature, i) => {
-            const Icon = icons[feature.icon] || Boxes;
-            return <li className="tp-build-row tp-rv" style={{ ['--i' as string]: i }} key={feature.title}><Icon size={30} aria-hidden="true"/><div><h3>{feature.title}</h3><p>{feature.text}</p></div></li>;
-          })}
-        </ol>
-      </div></section>
+      </FlowSection>
 
-      <section id="dat-hang" className="tp-pd-section tp-pd-order"><div className="tp-wrap tp-pd-order-grid">
-        <div className="tp-rv">
-          <h2>Thông tin cần cung cấp khi đặt hàng</h2>
-          <ol className="tp-order-list">{guidance.order.map(text => <li key={text}>{text}</li>)}</ol>
+      <FlowSection id="dat-hang" tone="light" top="fade" className="tp4-pd-order" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <h2 className="tp4-h2 tp-rv">Kỹ sư lập phương án dựa trên những thông tin sau</h2>
+        <div className="tp4-order">
+          <div className="tp-rv">
+            <ol className="tp4-order-path">{guidance.order.map(text => <li key={text}>{text}</li>)}</ol>
+          </div>
+          <aside className="tp4-order-aside tp-rv" style={{ ['--i' as string]: 1 }}>
+            <h3>Trao đổi qua Zalo</h3>
+            <p>Quý khách chỉ cần mô tả nhu cầu sử dụng. Kỹ thuật kết bạn Zalo, gửi bảng giá, ảnh thật và bản vẽ.</p>
+            <a className="tp-btn tp-btn-ghost-light" href={`https://zalo.me/${info.zalo}`} target="_blank" rel="noopener noreferrer">Nhắn Zalo</a>
+          </aside>
         </div>
-        <aside className="tp-order-aside tp-rv" style={{ ['--i' as string]: 1 }}>
-          <h3>Chưa có đủ thông tin</h3>
-          <p>Mô tả cách sử dụng là đủ. Kỹ thuật sẽ kết bạn Zalo gửi bảng giá, ảnh thật và bản vẽ trong 15 – 30 phút.</p>
-          <a className="tp-btn tp-btn-ghost" href={`https://zalo.me/${info.zalo}`} target="_blank" rel="noopener noreferrer">Nhắn Zalo</a>
-        </aside>
-      </div></section>
+        {faqItems.length > 0 && <div id="hoi-dap" className="tp4-faq tp-rv"><h2 className="tp-sr">Hỏi đáp liên quan</h2><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></div>}
+      </FlowSection>
 
-      {faqItems.length > 0 && <section id="hoi-dap" className="tp-pd-section tp-pd-faq"><div className="tp-wrap tp-pd-faq-grid is-solo">
-        <div className="tp-section-head tp-rv"><h2 className="tp-sr">Hỏi đáp liên quan</h2></div>
-        <div className="tp-rv"><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></div>
-      </div></section>}
+      <FlowSection tone="light" top="none" className="tp4-pd-related">
+        <h2 className="tp-sr">Sản phẩm liên quan</h2>
+        <div className="tp-grid tp-grid-3">{related.map((item, i) => <ProductCard key={item.slug} product={item} compact index={i} morph/>)}</div>
+      </FlowSection>
 
-      <section id="tu-van" className="tp-form-section"><div className="tp-wrap tp-form-grid">
-        <div className="tp-form-copy tp-rv">
-          <h2>Nhận báo giá</h2>
-          <p className="tp-form-product">{product.name}</p>
-          <ul>
-            <li><CircleCheck size={20} aria-hidden="true"/>Báo giá trong 15 – 60 phút kể từ khi đủ thông tin</li>
-            <li><CircleCheck size={20} aria-hidden="true"/>Vận chuyển và lắp đặt toàn quốc</li>
-            <li><CircleCheck size={20} aria-hidden="true"/>Bảo hành đến 10 năm tùy dòng</li>
-          </ul>
+      <FlowSection id="tu-van" tone="dark" top="arc" className="tp4-pd-form" decor={<>
+        <Pattern kind="resin" fade="both" opacity={0.4}/>
+        <Pattern kind="ripple" size="clamp(240px,30vw,460px)" top="-8%" left="-6%" opacity={0.45} blend="screen"/>
+      </>}>
+        <div className="tp4-form">
+          <div className="tp4-form__copy tp-rv">
+            <h2 className="tp4-h2">Nhận báo giá</h2>
+            <p className="tp-form-product">{product.name}</p>
+            <ul>
+              <li><CircleCheck size={20} aria-hidden="true"/>Báo giá trong 15 – 60 phút kể từ khi đủ thông tin</li>
+              <li><CircleCheck size={20} aria-hidden="true"/>Vận chuyển và lắp đặt toàn quốc</li>
+              <li><CircleCheck size={20} aria-hidden="true"/>Bảo hành đến 10 năm tùy dòng</li>
+            </ul>
+          </div>
+          <div className="tp4-form__card tp-rv" style={{ ['--i' as string]: 1 }}>
+            <InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact hours={info.hours} hotlineTel={info.hotlines[0].tel}/>
+          </div>
         </div>
-        <InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact hours={info.hours} hotlineTel={info.hotlines[0].tel}/>
-      </div></section>
-
-      <section className="tp-pd-section tp-pd-related"><div className="tp-wrap">
-        <div className="tp-section-head tp-rv"><h2 className="tp-sr">Sản phẩm liên quan</h2></div>
-        <div className="tp-grid tp-grid-3">{related.map((item, i) => <ProductCard key={item.slug} product={item} compact index={i}/>)}</div>
-      </div></section>
+      </FlowSection>
     </ScaleProvider>
   </main>;
 }

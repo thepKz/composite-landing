@@ -36,7 +36,7 @@ export default function NewsToolbar({ q, kind, kinds, suggestions }: { q: string
     timer.current = window.setTimeout(() => { if (next.trim() !== q) go(next); }, 300);
   };
 
-  return <section className="container nl-toolbar" aria-label="Tìm và lọc bài viết" aria-busy={pending}>
+  return <section className="nl-toolbar" aria-label="Tìm và lọc bài viết" aria-busy={pending}>
     <nav className="nl-chips" aria-label="Loại nội dung">
       {kinds.map(item => {
         const active = kind === item.value;

@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { ArrowUpRight, BadgeCheck, ClipboardCheck, Eye, HeartHandshake, Lightbulb, Layers, Rocket, Shapes, Sparkles, ShieldCheck, Waypoints } from 'lucide-react';
-import { metrics } from '@/lib/site-facts';
+import { facts, metrics } from '@/lib/site-facts';
 import { editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
 import { variants } from '@/lib/trang-phu-media';
+import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
 import PhotoStrip from '@/components/pages/photo-strip';
-import PageHero from '@/components/pages/page-hero';
+import FlowHero from '@/components/pages/flow-hero';
+import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
 import '@/components/pages/pages.css';
+import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
 
 export const metadata = {
@@ -53,58 +56,99 @@ const fields = [
 const stripAssets = [editorialAssets.bridge, editorialAssets.footer, editorialAssets.gallery[0], editorialAssets.contact, editorialAssets.gallery[1], additionalCustomerAssets[1]];
 const strip = stripAssets.map(asset => { const v = variants(asset.src); return { src: v.r43, srcSet: `${v.r43Small} 520w, ${v.r43} 960w`, alt: asset.alt, label: '' }; });
 
+const parseMetric = (value: string) => ({ n: parseInt(value, 10), plus: value.endsWith('+') });
+
 export default function AboutPage() {
-  const hero = { ...editorialAssets.story, src: variants(editorialAssets.story.src).r32, width: 1400, height: 933 };
-  const field = { ...editorialAssets.hero, src: variants(editorialAssets.hero.src).r32, width: 1400, height: 933 };
-  const shop = { ...editorialAssets.fit, src: variants(editorialAssets.fit.src).r32, width: 1400, height: 933 };
-  return <main id="main" className="public-page tp tp-about">
+  const hero = editorialAssets.hero;
+  const story = editorialAssets.story;
+  const detail = editorialAssets.contact;
+  const shop = editorialAssets.fit;
+  return <main id="main" className="public-page tp tp-about tp4">
     <Reveal/>
-    <PageHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]} title="Về Thành Lợi" image={hero}>
-      <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
-      <Link href="/san-pham" className="tp-btn tp-btn-ghost-light">Xem sản phẩm</Link>
-    </PageHero>
+    <FlowHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]}
+      title="Không nứt như bê tông, không gỉ như kim loại"
+      lead="Từ năm 2010, Thành Lợi chế tạo bể và bồn composite FRP tại Phú Thọ, mỗi sản phẩm qua khảo sát thực tế và kiểm định độ kín."
+      actions={<>
+        <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
+        <Link href="/san-pham" className="tp-btn tp-btn-ghost-light">Xem sản phẩm</Link>
+      </>}
+      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.6 }} floatAt="bl" float={<StackStat value={facts.founded} grouping={false} label="Năm thành lập" tone="light"/>}>
+        <ShapeFrame shape="arch" ratio={0.95} outline="bronze" outlineOffset={14} focus="50% 55%" parallax>
+          <img src={variants(hero.src).sq} alt={hero.alt} width={1000} height={1000} fetchPriority="high"/>
+        </ShapeFrame>
+      </Stack>}/>
 
-    <section className="tp-metrics" aria-label="Số liệu nổi bật"><div className="tp-wrap tp-metrics-grid">
-      {metrics.map((metric, i) => <div className="tp-metric tp-rv" style={{ ['--i' as string]: i }} key={metric.label}>
-        <p className="tp-metric-value">{metric.value}<span>{metric.unit}</span></p>
-        <p className="tp-metric-label">{metricLabel[metric.value] ?? metric.label}</p>
-      </div>)}
-    </div></section>
-
-    <section className="tp-section tp-story"><div className="tp-wrap tp-story-grid">
-      <div className="tp-rv">
-        <h2>Đi tìm vật liệu không nứt, không thấm, không gỉ</h2>
-        <p className="tp-statement">Thành Lợi khởi đầu từ nhu cầu thay bê tông xây gạch hay nứt thấm và kim loại hay gỉ sét trong môi trường khắc nghiệt.</p>
-        <p>Mỗi bể xuất xưởng đều qua khảo sát thực tế, tính độ dày kết cấu và chọn nhựa nền Polyester hoặc Vinyl Ester phù hợp từng khách hàng.</p>
-      </div>
-      <figure className="tp-story-photo tp-rv" style={{ ['--i' as string]: 1 }}>
-        <img src={field.src} alt={field.alt} width={field.width} height={field.height} loading="lazy"/>
-      </figure>
-    </div></section>
-
-    <section className="tp-strip-section" aria-labelledby="tp-strip-title"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2 id="tp-strip-title" className="tp-sr">Ảnh xưởng và công trình</h2></div>
-    </div>
-      <div className="tp-strip-wrap tp-rv"><PhotoStrip photos={strip} label="Ảnh xưởng và công trình, dùng phím mũi tên để xem tiếp"/></div>
-    </section>
-
-    <section className="tp-purpose"><div className="tp-wrap tp-purpose-grid">
-      <article className="tp-rv"><Eye size={32} aria-hidden="true"/><h2>Tầm nhìn</h2><p>Trở thành thương hiệu sản xuất và gia công composite FRP được tin dùng hàng đầu Việt Nam, đưa vật liệu bền vững vào môi trường, nông nghiệp tuần hoàn và công nghiệp hiện đại.</p></article>
-      <article className="tp-rv" style={{ ['--i' as string]: 1 }}><Rocket size={32} aria-hidden="true"/><h2>Sứ mệnh</h2><p>Cung cấp thiết bị composite bền trên 30 năm, tối ưu chi phí dài hạn, đồng hành từ khảo sát, thiết kế đến lắp đặt và bảo hành.</p></article>
-    </div></section>
-
-    <section className="tp-section tp-values"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Bốn giá trị cốt lõi</h2></div>
-      <div className="tp-values-grid">
-        {values.map((value, i) => <article className="tp-value tp-rv" style={{ ['--i' as string]: i }} key={value.title}><value.icon size={30} aria-hidden="true"/><h3>{value.title}</h3><p>{value.text}</p></article>)}
-      </div>
-    </div></section>
-
-    <section className="tp-section tp-capacity"><div className="tp-wrap">
-      <div className="tp-capacity-top">
-        <figure className="tp-capacity-photo tp-rv"><img src={shop.src} alt={shop.alt} width={shop.width} height={shop.height} loading="lazy"/></figure>
+    <FlowSection tone="light" top="dome" className="tp4-about-story" decor={<>
+      <Pattern kind="paper" fade="both" opacity={0.85}/>
+      <Pattern kind="drum" size="clamp(240px,30vw,420px)" top="2%" left="-8%" opacity={0.22} blend="multiply"/>
+    </>}>
+      <h2 className="tp4-h2 tp-rv">Mỗi bể đều qua khảo sát thực tế trước khi sản xuất</h2>
+      <div className="tp4-story">
+        <div className="tp-rv">
+          <p className="tp4-statement">Thành Lợi khởi đầu từ nhu cầu tìm vật liệu thay cho bê tông xây gạch, vốn dễ nứt thấm, và kim loại, vốn dễ gỉ sét trong môi trường khắc nghiệt.</p>
+          <p className="tp4-body">Kỹ sư tính độ dày kết cấu và chọn nhựa nền Polyester hoặc Vinyl Ester phù hợp từng khách hàng.</p>
+        </div>
         <div className="tp-rv" style={{ ['--i' as string]: 1 }}>
-          <h2>Nhà máy phân khu rõ ràng</h2>
+          <Stack pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.5 }} floatAt="br" float={<div className="tp4-ring-float"><ShapeFrame shape="circle" outline="light" outlineOffset={8} focus="50% 50%"><img src={variants(detail.src).sq} alt={detail.alt} width={400} height={400} loading="lazy"/></ShapeFrame></div>}>
+            <ShapeFrame shape="slant" ratio={1.3} outline="bronze" outlineOffset={12} focus="50% 50%" parallax>
+              <img src={variants(story.src).r32} alt={story.alt} width={1400} height={933} loading="lazy"/>
+            </ShapeFrame>
+          </Stack>
+        </div>
+      </div>
+      <div className="tp4-metrics-wrap">
+        <svg className="tp4-wave" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path data-draw d="M0 40 C150 0 250 80 400 40 S650 0 800 40 S1050 80 1200 40" fill="none" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round"/></svg>
+        <ul className="tp4-metrics">
+          {metrics.map((metric, i) => { const m = parseMetric(metric.value); return <li className="tp-rv" style={{ ['--i' as string]: i }} key={metric.label}>
+            <p className="tp4-metric__v"><span data-count={m.n}>{m.n}</span>{m.plus ? <span>+</span> : null}<b>{metric.unit}</b></p>
+            <p className="tp4-metric__l">{metricLabel[metric.value] ?? metric.label}</p>
+          </li>; })}
+        </ul>
+      </div>
+    </FlowSection>
+
+    <FlowSection tone="dark" top="wave" className="tp4-fs--teal tp4-about-strip" aria-labelledby="tp-strip-title" inner={false} decor={<>
+      <Pattern kind="weave" fade="both" opacity={0.2}/>
+      <Pattern kind="ripple" size="clamp(260px,32vw,480px)" top="-4%" right="-6%" opacity={0.45} blend="screen"/>
+    </>}>
+      <div className="tl-fs__inner"><h2 id="tp-strip-title" className="tp4-h2 tp-rv">Thành phẩm từ xưởng Phú Thọ đến chân công trình</h2></div>
+      <div className="tp4-strip tp-rv"><PhotoStrip photos={strip} label="Ảnh xưởng và công trình, dùng phím mũi tên để xem tiếp"/></div>
+    </FlowSection>
+
+    <FlowSection tone="light" top="fade" className="tp4-about-purpose" decor={<>
+      <Pattern kind="paper" fade="both" opacity={0.85}/>
+      <Pattern kind="ripple" size="clamp(240px,30vw,440px)" bottom="-6%" right="-8%" opacity={0.5} blend="multiply"/>
+    </>}>
+      <h2 className="tp4-h2 tp-rv">Mỗi thiết bị hướng tới độ bền trên 30 năm</h2>
+      <div className="tp4-purpose">
+        <article className="tp-rv"><span className="tp4-badge-ico"><Eye size={28} aria-hidden="true"/></span><h3>Tầm nhìn</h3><p>Trở thành thương hiệu sản xuất và gia công composite FRP được tin dùng hàng đầu Việt Nam, đưa vật liệu bền vững vào môi trường, nông nghiệp tuần hoàn và công nghiệp hiện đại.</p></article>
+        <article className="tp-rv" style={{ ['--i' as string]: 1 }}><span className="tp4-badge-ico"><Rocket size={28} aria-hidden="true"/></span><h3>Sứ mệnh</h3><p>Cung cấp thiết bị composite bền trên 30 năm, tối ưu chi phí dài hạn, đồng hành từ khảo sát, thiết kế đến lắp đặt và bảo hành.</p></article>
+      </div>
+      <ul className="tp4-values">
+        {values.map((value, i) => <li className="tp-rv" style={{ ['--i' as string]: i }} key={value.title}><value.icon size={28} aria-hidden="true"/><h3>{value.title}</h3><p>{value.text}</p></li>)}
+      </ul>
+    </FlowSection>
+
+    <FlowSection tone="dark" top="dome" className="tp4-fs--forest tp4-about-factory" decor={<>
+      <Pattern kind="resin" fade="both" opacity={0.4}/>
+      <Pattern kind="drum" size="clamp(220px,26vw,360px)" top="6%" right="-5%" opacity={0.22} blend="screen"/>
+    </>}>
+      <h2 className="tp4-h2 tp-rv">Năm khu chức năng, từ khuôn mẫu đến kiểm định</h2>
+      <div className="tp4-zones-wrap tp-rv">
+        <svg className="tp4-zones-line" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path data-draw d="M40 60 C140 10 200 110 300 60 S440 10 540 60 S700 110 800 60 S900 20 960 60" fill="none" strokeWidth="2" strokeLinecap="round"/></svg>
+        <ol className="tp4-zones" aria-label="Các khu trong nhà máy">
+          {zones.map(zone => <li key={zone.name}><span className="tp4-zone-ico"><zone.icon size={26} aria-hidden="true"/></span><strong>{zone.name}</strong></li>)}
+        </ol>
+      </div>
+      <div className="tp4-materials">
+        <div className="tp-rv">
+          <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.5 }} floatAt="tr" float={<div className="tp4-ring-float is-sm"><ShapeFrame shape="ring" outline="bronze" outlineOffset={8} focus="50% 50%"><img src={variants(stripAssets[0].src).sq} alt="" width={400} height={400} loading="lazy"/></ShapeFrame></div>}>
+            <ShapeFrame shape="circle" outline="bronze" outlineOffset={12} focus="50% 50%" parallax>
+              <img src={variants(shop.src).sq} alt={shop.alt} width={1000} height={1000} loading="lazy"/>
+            </ShapeFrame>
+          </Stack>
+        </div>
+        <div className="tp-rv" style={{ ['--i' as string]: 1 }}>
           <h3>Nguyên vật liệu tuyển chọn</h3>
           <ul className="tp-pill-list">
             <li>Nhựa Polyester không no</li><li>Nhựa Isophthalic</li><li>Nhựa Vinyl Ester</li><li>Sợi thủy tinh Mat</li><li>Sợi Woven Roving</li>
@@ -112,28 +156,28 @@ export default function AboutPage() {
           <p>Nhựa nền chính phẩm kết hợp sợi thủy tinh nhập khẩu, kháng tia UV, kháng axit, kiềm và chịu lực cơ học tốt.</p>
         </div>
       </div>
-      <ol className="tp-zones" aria-label="Các khu trong nhà máy">
-        {zones.map((zone, i) => <li className="tp-zone tp-rv" style={{ ['--i' as string]: i }} key={zone.name}><span className="tp-zone-icon"><zone.icon size={24} aria-hidden="true"/></span><strong>{zone.name}</strong></li>)}
-      </ol>
-    </div></section>
+    </FlowSection>
 
-    <section className="tp-qc"><div className="tp-wrap">
-      <div className="tp-section-head tp-rv"><h2>Chất lượng qua bốn bước</h2></div>
-      <ol className="tp-qc-flow">
-        {qc.map((step, i) => <li className="tp-qc-step tp-rv" style={{ ['--i' as string]: i }} key={step.title}>
-          <span className="tp-qc-no" aria-hidden="true">{i + 1}</span>
+    <FlowSection tone="light" top="arc" className="tp4-about-qc" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
+      <h2 className="tp4-h2 tp-rv">Bốn bước kiểm tra chất lượng</h2>
+      <ol className="tp4-steps">
+        {qc.map((step, i) => <li className="tp-rv" style={{ ['--i' as string]: i }} key={step.title}>
+          <span className="tp4-steps__no" aria-hidden="true">{i + 1}</span>
           <h3>{step.title}</h3>
           <p>{step.text}</p>
         </li>)}
       </ol>
-    </div></section>
+    </FlowSection>
 
-    <section className="tp-fields"><div className="tp-wrap tp-fields-grid is-stack">
-      <h2 className="tp-rv">Lĩnh vực phục vụ</h2>
-      <nav className="tp-fields-links" aria-label="Lĩnh vực phục vụ">
+    <FlowSection tone="dark" top="dome" className="tp4-about-fields" decor={<>
+      <Pattern kind="weave" fade="top" opacity={0.2}/>
+      <Pattern kind="ripple" size="clamp(240px,30vw,440px)" top="-10%" left="-8%" opacity={0.45} blend="screen"/>
+    </>}>
+      <h2 className="tp4-h2 tp-rv">Một vật liệu cho chăn nuôi, thủy sản và môi trường</h2>
+      <nav className="tp4-fields" aria-label="Lĩnh vực phục vụ">
         {fields.map((item, i) => <Link key={item.label} href={item.href} className="tp-rv" style={{ ['--i' as string]: i }}>{item.label}<ArrowUpRight size={20} aria-hidden="true"/></Link>)}
       </nav>
-    </div></section>
-
+    </FlowSection>
+    <FlowCta top="none"/>
   </main>;
 }

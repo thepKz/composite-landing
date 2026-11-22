@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { ArrowUpRight, ChevronDown, Droplets, Fish, Flame, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import { catalogue } from '@/lib/catalogue';
 import { productGroups } from '@/lib/product-groups';
@@ -27,6 +27,8 @@ const links = [
   { href: '/lien-he', label: 'Liên hệ' },
 ];
 
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 const focusable = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
 export default function SiteHeader({ products = catalogue, contact = resolveContact() }: { contact?: ContactInfo; products?: readonly NavigationProduct[] }) {
@@ -36,6 +38,8 @@ export default function SiteHeader({ products = catalogue, contact = resolveCont
   const [mobileProducts, setMobileProducts] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const header = useRef<HTMLElement>(null);
+  const nav = useRef<HTMLElement>(null);
+  const [ink, setInk] = useState<{ x: number; w: number; ready: boolean } | null>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const productsButton = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -50,6 +54,23 @@ export default function SiteHeader({ products = catalogue, contact = resolveCont
   const active = useCallback((href: string, also?: string) => {
     if (href === '/') return pathname === '/';
     return pathname === href || pathname.startsWith(`${href}/`) || (!!also && (pathname === also || pathname.startsWith(`${also}/`)));
+  }, [pathname]);
+
+
+  // Vạch trượt dưới mục menu đang chọn: đo vị trí mục đang chọn, đổi trang thì vạch trượt sang mục mới (chỉ transform).
+  useIsoLayoutEffect(() => {
+    const measure = (ready: boolean) => {
+      const root = nav.current;
+      const current = root?.querySelector<HTMLElement>('a[aria-current=page], .tl-menu-trigger[data-active=true]');
+      if (!root || !current || current.offsetParent === null) { setInk(null); return; }
+      const a = root.getBoundingClientRect(), b = current.getBoundingClientRect();
+      setInk(previous => ({ x: Math.round(b.left - a.left + 14), w: Math.round(b.width - 28), ready: ready || !!previous?.ready }));
+    };
+    measure(false);
+    const frame = requestAnimationFrame(() => measure(true));
+    const onResize = () => measure(true);
+    window.addEventListener('resize', onResize);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', onResize); };
   }, [pathname]);
 
   const closeAll = useCallback(() => { setDrawer(false); setMenu(false); setMobileProducts(false); }, []);
@@ -118,7 +139,8 @@ export default function SiteHeader({ products = catalogue, contact = resolveCont
           <img src="/images/thanh-loi-logo.png" alt="" width="48" height="48" />
           <span>THÀNH LỢI<small>COMPOSITE</small></span>
         </Link>
-        <nav className="tl-nav" aria-label="Điều hướng chính">
+        <nav ref={nav} className="tl-nav" aria-label="Điều hướng chính" data-ink={ink ? (ink.ready ? 'ready' : 'on') : 'off'} style={ink ? ({ '--ink-x': `${ink.x}px`, '--ink-w': `${ink.w}px` } as CSSProperties) : undefined}>
+          <span className="tl-nav-ink" aria-hidden="true" />
           {links.slice(0, 2).map(item => <Link key={item.href} href={item.href} className="pressable" aria-current={active(item.href) ? 'page' : undefined}>{item.label}</Link>)}
           <div className="tl-menu" onPointerEnter={event => { if (event.pointerType === 'mouse') openMenu(); }} onPointerLeave={event => { if (event.pointerType === 'mouse') scheduleClose(); }} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setMenu(false); }}>
             <button ref={productsButton} type="button" className="tl-menu-trigger pressable" data-active={productActive} aria-expanded={menu} aria-controls="tl-products-panel" onClick={() => { if (Date.now() - hoverOpenedAt.current < 700) return; setMenu(value => !value); }} onKeyDown={event => {
