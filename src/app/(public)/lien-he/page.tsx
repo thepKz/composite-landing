@@ -2,17 +2,18 @@ import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { Building2, Clock, Hash, Mail, MapPin, MessageCircle, Phone, ArrowUpRight } from 'lucide-react';
 import InquiryForm from '@/components/inquiry-form';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
+import PhotoFrame from '@/components/pages/photo-frame';
 import FlowHero from '@/components/pages/flow-hero';
 import Reveal from '@/components/pages/reveal';
 import { company } from '@/lib/content';
 import { facts } from '@/lib/site-facts';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
+import { photos } from '@/lib/product-photos';
 import { resolveContact } from '@/lib/contact-info';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = {
   title: 'Liên hệ tư vấn và báo giá',
@@ -25,12 +26,12 @@ export default async function ContactPage() {
   const { hotlines, zalo, email, address, hours } = resolveContact(info);
   const validZalo = /^(?:0\d{9,10}|84\d{9,10})$/.test(zalo);
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facts.shortName} ${address}`)}`;
-  const photo = editorialAssets.gallery[1];
-  const mapFrame = (shape: 'capsule' | 'arch', ratio: number, cls: string) => <div className={`tp4-map ${cls}`}>
-    <ShapeFrame shape={shape} ratio={ratio} outline="light" outlineOffset={12}>
+  const photo = photos.shells;
+  const mapFrame = (ratio: number, cls: string) => <div className={`tp4-map ${cls}`}>
+    <div className="pf tp5-map" style={{ aspectRatio: String(ratio) }}>
       <MapPin className="tp-map-ghost" size={48} aria-hidden="true"/>
       <iframe src={facts.mapEmbed} tabIndex={-1} title={`Bản đồ nhà máy ${facts.shortName}`} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
-    </ShapeFrame>
+    </div>
   </div>;
   return <main id="main" className="public-page tp tp-contact tp4">
     <Reveal/>
@@ -41,10 +42,8 @@ export default async function ContactPage() {
         <a href={`tel:${hotlines[0].tel}`} className="tp-btn tp-btn-cta"><Phone size={18} aria-hidden="true"/>{hotlines[0].display}</a>
         {validZalo && <a href={`https://zalo.me/${zalo.replace(/^\+/, '')}`} target="_blank" rel="noopener noreferrer" className="tp-btn tp-btn-ghost-light"><MessageCircle size={18} aria-hidden="true"/>Nhắn Zalo</a>}
       </>}
-      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="bl" float={<StackStat value="15 – 60 phút" label="Thời gian báo giá" tone="light"/>}>
-        <ShapeFrame shape="slant" ratio={1.45} outline="bronze" outlineOffset={12} focus="50% 55%">
-          <img src={variants(photo.src).r43} alt={photo.alt} width={960} height={720} fetchPriority="high"/>
-        </ShapeFrame>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value="15 – 60 phút" label="Thời gian báo giá" tone="light"/>}>
+        <PhotoFrame photo={photo} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
 
     <FlowSection id="gui-yeu-cau" tone="light" top="dome" className="tp4-contact-body" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
@@ -77,7 +76,7 @@ export default async function ContactPage() {
         <h2 className="tp4-h2">Nhà máy đặt tại Phú Thọ</h2>
         <Link href={mapLink} target="_blank" rel="noopener noreferrer" className="tp-text-link">Mở Google Maps <ArrowUpRight size={18} aria-hidden="true"/></Link>
       </div>
-      <div className="tp-rv">{mapFrame('capsule', 2.7, 'is-wide')}{mapFrame('arch', 1, 'is-narrow')}</div>
+      <div className="tp-rv">{mapFrame(2.7, 'is-wide')}{mapFrame(1.2, 'is-narrow')}</div>
     </FlowSection>
   </main>;
 }

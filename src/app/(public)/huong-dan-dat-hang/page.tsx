@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { ArrowUpRight, Clock, ShieldCheck } from 'lucide-react';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
+import PhotoFrame from '@/components/pages/photo-frame';
 import FlowHero from '@/components/pages/flow-hero';
 import Reveal from '@/components/pages/reveal';
 import OrderTabs, { type OrderLine } from '@/components/pages/order-tabs';
 import { processSteps } from '@/lib/site-facts';
 import { productGuidance } from '@/lib/product-guidance';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
+import { photos } from '@/lib/product-photos';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Hướng dẫn đặt hàng', description: 'Quy trình đặt hàng năm bước, thông tin cần cung cấp theo từng dòng sản phẩm, thời gian báo giá, giao hàng và lắp đặt.', alternates: { canonical: '/huong-dan-dat-hang' } };
 
@@ -36,18 +37,16 @@ const times = [
 const groundSteps = ['Hút cạn nước trong hố đào', 'Gia cố đáy bằng cát đầm chặt hoặc bê tông lót phẳng, không để gạch đá sắc nhọn', 'Hạ bể đúng vị trí rồi bơm nước vào lòng bể để cân bằng với lực đẩy nổi của nước ngầm', 'Lấp đất mịn theo từng lớp và đầm đều tay'];
 
 export default function OrderingGuide() {
-  const hero = editorialAssets.bridge;
-  const truck = editorialAssets.gallery[1];
+  const hero = photos.loading;
+  const truck = photos.pickup;
   return <main id="main" className="public-page tp tp-order tp4">
     <Reveal/>
     <FlowHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Hướng dẫn đặt hàng' }]}
       title="Từ nhu cầu sử dụng đến bảo hành qua năm bước"
       lead="Quý khách chọn quy mô, kỹ sư tư vấn dung tích, hai bên thống nhất báo giá, rồi nhà máy sản xuất và lắp đặt."
       actions={<Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>}
-      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="bl" float={<StackStat value={5} unit="bước" tone="light"/>}>
-        <ShapeFrame shape="arch" ratio={1.05} outline="bronze" outlineOffset={14} focus="50% 55%">
-          <img src={variants(hero.src).sq} alt={hero.alt} width={1000} height={1000} fetchPriority="high"/>
-        </ShapeFrame>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value={5} unit="bước" tone="light"/>}>
+        <PhotoFrame photo={hero} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
 
     <FlowSection tone="light" top="dome" className="tp4-order-steps" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
@@ -81,9 +80,7 @@ export default function OrderingGuide() {
       <div className="tp4-ship">
         <div className="tp-rv">
           <Stack pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.5 }} floatAt="br">
-            <ShapeFrame shape="slant" ratio={1.35} outline="green" outlineOffset={12} focus="50% 55%" parallax>
-              <img src={variants(truck.src).r43} alt={truck.alt} width={960} height={720} loading="lazy"/>
-            </ShapeFrame>
+            <PhotoFrame photo={truck} ratio={4 / 3} sizes="(min-width: 900px) 520px, 92vw"/>
           </Stack>
           <p className="tp4-body">Hỗ trợ xe tải ghép chuyến giao hàng và lắp đặt toàn quốc, hướng dẫn hoặc trực tiếp lắp đặt tại công trình.</p>
         </div>

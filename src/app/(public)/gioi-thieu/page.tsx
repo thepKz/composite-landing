@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { ArrowUpRight, BadgeCheck, ClipboardCheck, Eye, HeartHandshake, Lightbulb, Layers, Rocket, Shapes, Sparkles, ShieldCheck, Waypoints } from 'lucide-react';
 import { facts, metrics } from '@/lib/site-facts';
-import { editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { photos } from '@/lib/product-photos';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
+import PhotoFrame from '@/components/pages/photo-frame';
 import PhotoStrip from '@/components/pages/photo-strip';
 import FlowHero from '@/components/pages/flow-hero';
 import FlowCta from '@/components/pages/flow-cta';
@@ -11,6 +11,7 @@ import Reveal from '@/components/pages/reveal';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = {
   title: 'Giới thiệu Thành Lợi Composite',
@@ -52,17 +53,17 @@ const fields = [
   { label: 'Theo yêu cầu', href: '/san-pham/composite-theo-yeu-cau' },
 ];
 
-// Dải ảnh không lặp ảnh đã dùng ở đầu trang, khối câu chuyện và khối nhà máy.
-const stripAssets = [editorialAssets.bridge, editorialAssets.footer, editorialAssets.gallery[0], editorialAssets.contact, editorialAssets.gallery[1], additionalCustomerAssets[1]];
-const strip = stripAssets.map(asset => { const v = variants(asset.src); return { src: v.r43, srcSet: `${v.r43Small} 520w, ${v.r43} 960w`, alt: asset.alt, label: '' }; });
+// Dải ảnh xưởng và công trình: mỗi ảnh một lần trên trang, hiện trọn theo tỉ lệ gốc.
+const strip = [photos.loading, photos.workshopTanks2, photos.lidded, photos.pickup, photos.yardTanks, photos.horizontalRow, photos.longShell, photos.orangeTank, photos.shells];
 
 const parseMetric = (value: string) => ({ n: parseInt(value, 10), plus: value.endsWith('+') });
 
 export default function AboutPage() {
-  const hero = editorialAssets.hero;
-  const story = editorialAssets.story;
-  const detail = editorialAssets.contact;
-  const shop = editorialAssets.fit;
+  const hero = photos.greenParts;
+  const story = photos.rectWorkshop;
+  const detail = photos.yellow;
+  const shop = photos.roundInstall;
+  const shopSmall = photos.stacked;
   return <main id="main" className="public-page tp tp-about tp4">
     <Reveal/>
     <FlowHero tone="forest" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Giới thiệu' }]}
@@ -72,10 +73,8 @@ export default function AboutPage() {
         <Link href="/lien-he#gui-yeu-cau" className="tp-btn tp-btn-cta">Nhận báo giá <ArrowUpRight size={18} aria-hidden="true"/></Link>
         <Link href="/san-pham" className="tp-btn tp-btn-ghost-light">Xem sản phẩm</Link>
       </>}
-      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.6 }} floatAt="bl" float={<StackStat value={facts.founded} grouping={false} label="Năm thành lập" tone="light"/>}>
-        <ShapeFrame shape="arch" ratio={0.95} outline="bronze" outlineOffset={14} focus="50% 55%" parallax>
-          <img src={variants(hero.src).sq} alt={hero.alt} width={1000} height={1000} fetchPriority="high"/>
-        </ShapeFrame>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value={facts.founded} grouping={false} label="Năm thành lập" tone="light"/>}>
+        <PhotoFrame photo={hero} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
 
     <FlowSection tone="light" top="dome" className="tp4-about-story" decor={<>
@@ -89,10 +88,8 @@ export default function AboutPage() {
           <p className="tp4-body">Kỹ sư tính độ dày kết cấu và chọn nhựa nền Polyester hoặc Vinyl Ester phù hợp từng khách hàng.</p>
         </div>
         <div className="tp-rv" style={{ ['--i' as string]: 1 }}>
-          <Stack pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.5 }} floatAt="br" float={<div className="tp4-ring-float"><ShapeFrame shape="circle" outline="light" outlineOffset={8} focus="50% 50%"><img src={variants(detail.src).sq} alt={detail.alt} width={400} height={400} loading="lazy"/></ShapeFrame></div>}>
-            <ShapeFrame shape="slant" ratio={1.3} outline="bronze" outlineOffset={12} focus="50% 50%" parallax>
-              <img src={variants(story.src).r32} alt={story.alt} width={1400} height={933} loading="lazy"/>
-            </ShapeFrame>
+          <Stack clear pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.4 }} floatAt="br" float={<div className="tp4-ring-float"><PhotoFrame photo={detail} ratio={4 / 3} size="t" sizes="220px"/></div>}>
+            <PhotoFrame photo={story} ratio={4 / 3} sizes="(min-width: 900px) 520px, 92vw"/>
           </Stack>
         </div>
       </div>
@@ -142,10 +139,8 @@ export default function AboutPage() {
       </div>
       <div className="tp4-materials">
         <div className="tp-rv">
-          <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.5 }} floatAt="tr" float={<div className="tp4-ring-float is-sm"><ShapeFrame shape="ring" outline="bronze" outlineOffset={8} focus="50% 50%"><img src={variants(stripAssets[0].src).sq} alt="" width={400} height={400} loading="lazy"/></ShapeFrame></div>}>
-            <ShapeFrame shape="circle" outline="bronze" outlineOffset={12} focus="50% 50%" parallax>
-              <img src={variants(shop.src).sq} alt={shop.alt} width={1000} height={1000} loading="lazy"/>
-            </ShapeFrame>
+          <Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.4 }} floatAt="tr" float={<div className="tp4-ring-float is-sm"><PhotoFrame photo={shopSmall} ratio={3 / 4} size="t" sizes="200px"/></div>}>
+            <PhotoFrame photo={shop} ratio={4 / 3} sizes="(min-width: 900px) 520px, 92vw"/>
           </Stack>
         </div>
         <div className="tp-rv" style={{ ['--i' as string]: 1 }}>

@@ -11,7 +11,7 @@ import './home.css';
 
 export const metadata = { alternates: { canonical: '/' } };
 
-// Nhịp nền: tối (banner) rồi sáng (giới thiệu, sản phẩm, dải ảnh) rồi tối (lý do, quy trình) rồi sáng (hỏi đáp, tin, báo giá) rồi tối (chân trang).
+// Nhịp nền: tối (banner) rồi sáng (giới thiệu, sản phẩm, dải ảnh) rồi tối (lý do, quy trình) rồi sáng (hỏi đáp, báo giá, tin tức) rồi tối (chân trang). Thứ tự theo người mua: bán gì, sản phẩm, vì sao tin, cách đặt, hỏi đáp, báo giá, rồi mới tới tin tức.
 // Mối nối: cung, vòm, sóng, mờ dần. Không khối nào có mép ngang thẳng giữa hai màu.
 export default async function Home() {
   const [items, posts, info] = await Promise.all([products(), publishedPosts(3), contact()]);
@@ -23,7 +23,7 @@ export default async function Home() {
     <WhySection />
     <ProcessSection />
     <FaqSection hotline={info.hotlines[0]} />
-    <NewsSection posts={posts} />
     <QuoteSection form={<InquiryForm demo={isDemoMode()} hours={info.hours} hotlineTel={info.hotlines[0].tel} />} />
+    <NewsSection posts={posts} />
   </main>;
 }

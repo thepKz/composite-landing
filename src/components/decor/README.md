@@ -4,15 +4,17 @@ Nhập từ một chỗ: `import { ShapeFrame, Pattern, FlowSection, Stack, Stac
 Trang mẫu chạy được: `/thu-khung` (không vào menu, sitemap, noindex). Ảnh hoa văn xuất từ `assets/decor-originals/` bằng `node scripts/build-decor.mjs`.
 
 ## ShapeFrame
-Khung ảnh không vuông. Dáng: `arch` (vòm), `circle`, `ring` (vành khuyên), `capsule` (viên nang), `slant` và `slant-reverse` (cạnh vát thùng xe), `porthole-trio` (một ảnh qua ba ô vòm).
+Khung ảnh chữ nhật hoặc vuông, bo góc nhẹ (mặc định 12px). Từ vòng năm (22/11/2026, theo lời khách "lấy full hình, đừng cắt góc, thay hết vuông chữ nhật") mọi `shape` (`arch`, `circle`, `ring`, `capsule`, `slant`, `slant-reverse`, `porthole-trio`) đều hiện thành chữ nhật. Tên dáng giữ để các trang cũ không vỡ, dáng chỉ còn quyết định tỉ lệ mặc định. Không clip-path, không mặt nạ, không cắt góc. `porthole-trio` là một ảnh liền.
 ```tsx
-<ShapeFrame shape="arch" outline="bronze" focus="50% 60%" parallax morph={morphName('product-photo', slug)}>
-  <img src="/images/home/hero-be-biogas-1080.webp" alt="Bể biogas composite" />
+<ShapeFrame shape="arch" ratio={photo.ratio} outline="bronze" morph={morphName('product-photo', slug)}>
+  <img src="/images/home/ph-white-spherical-tank-720.webp" alt="Bể composite dạng cầu" width={720} height={960} />
 </ShapeFrame>
 ```
-Props: `shape`, `children` (img), `ratio` (rộng/cao, có mặc định theo dáng), `outline` (`true`|'bronze'|'light'|'green'|'navy'), `outlineOffset` (14), `outlineDirection` ('br'|'bl'|'tr'|'tl'), `parallax` (`true` = 0.12 hoặc số 0.04 đến 0.3), `focus` (object-position, đặt cho từng ảnh để không cắt mất sản phẩm), `morph` (tên view transition), `className`, `style`.
-Khung rộng 100% khối cha: đặt bề rộng ở khối bọc. Cho chỗ trống bên phải và dưới bằng đúng độ lệch viền nếu cần (ví dụ `padding: 0 14px 14px 0`), nếu không viền ló ra ngoài mép. Hậu bị: `data-sf`, `data-shape`, `data-sf-media`, `data-parallax` để GSAP bám.
-Không hỗ trợ clip-path tham chiếu SVG thì bo góc gần đúng, bỏ viền.
+Props: `shape`, `children` (img), `ratio` (rộng/cao; với ảnh sản phẩm đặt đúng width/height thật của ảnh để thấy trọn ảnh), `fit` ('contain' mặc định | 'cover'), `outline` (`true`|'bronze'|'light'|'green'|'navy', viền mảnh hình chữ nhật lệch một nhịp), `outlineOffset` (14), `outlineDirection` ('br'|'bl'|'tr'|'tl'), `radius` (12), `parallax` (chỉ có tác dụng khi `fit='cover'`), `focus` (object-position), `morph`, `className`, `style`.
+- `fit='contain'` (an toàn cho ảnh sản phẩm): ảnh nằm trọn trong khung, khoảng thừa là nền giấy (`--sf-bg`, mặc định #e9efe9). Ở lưới cần các ô bằng nhau, đặt chung một `ratio` cho cả hàng, ảnh khác tỉ lệ sẽ nằm giữa nền giấy.
+- `fit='cover'` chỉ dùng cho ảnh trang trí hoặc khi `ratio` đã bằng tỉ lệ ảnh. Bộ quét `scripts/kiem-khung-anh-v5.mjs` báo lỗi khi tỉ lệ khung lệch tỉ lệ ảnh quá 3% mà vẫn dùng cover.
+- Khung rộng 100% khối cha: đặt bề rộng ở khối bọc, chừa chỗ phải và dưới bằng đúng độ lệch viền (ví dụ `padding: 0 10px 10px 0`) nếu dùng `outline`.
+- Hậu bị: `data-sf`, `data-shape`, `data-fit`, `data-sf-media`, `data-parallax`. `framePath` và `clipId` đã bỏ.
 
 ## Pattern
 Lớp trang trí tuyệt đối: `aria-hidden`, `alt=""`, tải lười, không nhận chuột. Đặt trong khối cha `position: relative` (FlowSection đã có, dùng prop `decor`).
@@ -40,12 +42,12 @@ Quy tắc:
 ## Stack
 Cụm chồng tối đa ba lớp: hoa văn (sau) + tiêu điểm (children) + lớp nổi.
 ```tsx
-<Stack pattern={{ kind: 'ripple', blend: 'screen' }} floatAt="br"
+<Stack clear pattern={{ kind: 'ripple', blend: 'screen' }} floatAt="br"
        float={<StackStat value={2010} grouping={false} label="Năm thành lập" tone="light" />}>
   <ShapeFrame shape="arch">...</ShapeFrame>
 </Stack>
 ```
-`StackStat` ({value, unit?, label?, decimals?, grouping?, tone?}) là số lớn, số thì tự đếm một lần khi cuộn tới. `StackCard` ({children, tone?}) là thẻ chữ đè góc. Ở 390px lớp nổi nhỏ lại và nằm sát mép, hoa văn lùi vào trong, không tràn ngang. `depth={false}` để tắt tách lớp theo độ sâu.
+`StackStat` ({value, unit?, label?, decimals?, grouping?, tone?}) là số lớn, số thì tự đếm một lần khi cuộn tới. `StackCard` ({children, tone?}) là thẻ chữ đè góc. Ở 390px lớp nổi nhỏ lại và nằm sát mép, hoa văn lùi vào trong, không tràn ngang. `depth={false}` để tắt tách lớp theo độ sâu. `clear`: lớp nổi nằm dưới ảnh, chỉ chạm mép dưới 20px, không che sản phẩm (dùng cho mọi ảnh sản phẩm).
 
 ## FlowBackdrop (client)
 Nền cố định đổi dần theo cuộn giữa các tông `data-flow-tone` của FlowSection.
@@ -83,3 +85,8 @@ Next 16.4 (React 19.3) bật view transition sẵn, không cần cấu hình (c�
 - Chân trang (`FlowSection as="footer"` ở `site-footer.tsx`) tự nối với khối đứng trước: `chrome.css` đặt `--fs-join` theo `data-tone` của FlowSection cuối `main` (tối, ảnh, sáng) và tô vào góc cung. Không còn số cứng 140px; `.art::after` ở `article/list.css` giờ thừa, agent bài viết có thể bỏ.
 - Lời kêu gọi riêng của trang: thêm thuộc tính `data-has-cta` vào bất kỳ phần tử nào trong trang thì chân trang ẩn dải kêu gọi của nó. Các lớp cũ `.tl-form`, `.tp-cta-band`, `.art-cta-card`, `.nl-cta-card` vẫn có tác dụng.
 - `motion.css`: chuyển trang giữ trang cũ đục tới khi trang mới phủ, nền `::view-transition` xanh đen, không còn khung giữa chừng trắng.
+
+## Thay đổi vòng năm (22/11/2026), lời khách thắng tài liệu cũ
+- Bỏ yêu cầu khung dáng lạ. `ShapeFrame` chỉ còn chữ nhật hoặc vuông bo nhẹ, thêm `fit`, `radius`; `Stack` thêm `clear`.
+- Ảnh sản phẩm thật xuất đủ khung vào `public/images/home/ph-*.webp` bằng `scripts/xu-ly-anh-trang-chu-v5.mjs`, dữ liệu ở `src/components/home/photos-real.ts` (tỉ lệ đo từ ảnh gốc). Ảnh gốc ở `products-2026` giữ nguyên.
+- Nền khối (`FlowSection` backdrop, mép cong, ảnh tan dần) vẫn được cover. Đó là nền trang trí, không phải ảnh sản phẩm.

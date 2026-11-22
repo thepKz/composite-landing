@@ -7,6 +7,7 @@ import FlowCta from './flow-cta';
 import './pages.css';
 import './pages-v4.css';
 import '@/app/(public)/secondary-pages.css';
+import './pages-v5.css';
 
 // Trang 404: huy hiệu trống đồng làm nền số 404, lối về ngay màn đầu, gợi ý ba dòng sản phẩm mũi nhọn.
 export default async function NotFoundView() {

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight, Check, Clock, Layers, Phone, ShieldCheck, Truck, Wrench } from 'lucide-react';
 import { comparison, facts, faqs, processSteps, reasons } from '@/lib/site-facts';
-import { productAssetBySlug } from '@/lib/customer-product-assets';
 import PostCard, { type CardPost } from '@/components/article/post-card';
 import { FlowSection, Morph, Pattern, ShapeFrame, Stack, StackCard, StackStat, morphName } from '@/components/decor';
 import { Drawing } from '@/components/pages/product-tile';
@@ -10,6 +9,7 @@ import ScrollDots from './scroll-dots';
 import PhotoStrip from './photo-strip';
 import EagerImages from './eager-images';
 import { heightOf, photos, srcOf, srcSet } from './images';
+import { realHeight, realPhotos, realSrc, realSrcSet, type RealKey } from './photos-real';
 
 type Group = { slug: string };
 const reveal = (index = 0) => ({ ['--reveal-index' as string]: index }) as CSSProperties;
@@ -26,9 +26,9 @@ export function AboutSection({ metricsSlot }: { address?: string; metricsSlot: R
       <Title id="tl-about-h">Composite khắc phục điểm yếu của gạch và kim loại</Title>
       <div className="tl-about">
         <div className="tl-about-visual" data-reveal>
-          <Stack pattern={{ kind: 'drum', size: 'clamp(220px,30vw,400px)', opacity: 0.42, blend: 'multiply' }} floatAt="br" float={<StackStat value={String(facts.founded)} label="Năm thành lập" tone="dark" />}>
-            <ShapeFrame shape="arch" ratio={0.86} outline="bronze" focus="50% 55%" parallax>
-              <img src={srcOf(image, 960)} srcSet={srcSet(image)} sizes="(max-width: 960px) 80vw, 480px" alt={image.alt} width={960} height={heightOf(image, 960)} loading="lazy" decoding="async" />
+          <Stack clear pattern={{ kind: 'drum', size: 'clamp(220px,30vw,400px)', opacity: 0.42, blend: 'multiply' }}>
+            <ShapeFrame shape="arch" ratio={image.ratio} outline="bronze">
+              <img src={srcOf(image, 960)} srcSet={srcSet(image)} sizes="(max-width: 960px) 90vw, 520px" alt={image.alt} width={960} height={heightOf(image, 960)} loading="lazy" decoding="async" />
             </ShapeFrame>
           </Stack>
         </div>
@@ -57,9 +57,9 @@ export function WhySection() {
       <Title id="tl-why-h">Bể đúc liền khối bền hơn bể xây và bồn kim loại</Title>
       <div className="tl-why">
         <div className="tl-why-visual" data-reveal>
-          <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.7 }} floatAt="bl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light" />}>
-            <ShapeFrame shape="circle" outline="light" focus="50% 50%" parallax={0.08}>
-              <img src={srcOf(photos.fishTank, 720)} srcSet={srcSet(photos.fishTank)} sizes="(max-width: 960px) 70vw, 420px" alt={photos.fishTank.alt} width={720} height={heightOf(photos.fishTank, 720)} loading="lazy" decoding="async" />
+          <Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.7 }} floatAt="bl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light" />}>
+            <ShapeFrame shape="circle" ratio={realPhotos['rectangular-tanks-workshop'].ratio} outline="light">
+              <img src={realSrc(realPhotos['rectangular-tanks-workshop'], 720)} srcSet={realSrcSet(realPhotos['rectangular-tanks-workshop'])} sizes="(max-width: 960px) 90vw, 460px" alt={realPhotos['rectangular-tanks-workshop'].alt} width={720} height={realHeight(realPhotos['rectangular-tanks-workshop'], 720)} loading="lazy" decoding="async" />
             </ShapeFrame>
           </Stack>
         </div>
@@ -96,30 +96,50 @@ export function WhySection() {
   </FlowSection>;
 }
 
-type Lead = { slug: string; name: string; text: string; shape: 'arch' | 'ring' | 'circle'; ratio: number; focus?: string; photo?: { src: string; alt: string; width: number; height: number; srcSet?: string }; stat?: string };
+type Card = { slug: string; name: string; text: string; photo?: RealKey; thumbs?: RealKey[]; stat?: string; spec?: 'septic' | 'tank' };
 
-const leads: Lead[] = [
-  { slug: 'be-biogas-composite', name: 'Bể biogas composite', shape: 'arch', ratio: 0.8, focus: '50% 62%', photo: productAssetBySlug['be-biogas-composite'], text: 'Dung tích từ 1,5 m³ đến trên 13 m³, từ hộ nuôi nhỏ đến trang trại lớn. Kín khí, sinh gas mạnh, tự đẩy bã ra ngoài.' },
-  { slug: 'be-phot-va-xu-ly-nuoc-thai', name: 'Bể phốt, nước thải', shape: 'ring', ratio: 1, stat: 'Từ 1 m³', text: 'Từ 1 m³ cho gia đình ba đến sáu người đến trên 100 m³ cho nhà trọ, khách sạn, trường học và nhà máy.' },
-  { slug: 'be-nuoi-trong-thuy-san', name: 'Bể cá Koi và thủy sản', shape: 'circle', ratio: 1, focus: '50% 52%', text: 'Hồ cá Koi sân vườn có vách lọc, bể trữ hải sản nhà hàng, bể đáy phễu nuôi tôm cá.' },
+const leads: Card[] = [
+  { slug: 'be-biogas-composite', name: 'Bể biogas composite', photo: 'white-spherical-tank', text: 'Dung tích từ 1,5 m³ đến trên 13 m³, từ hộ nuôi nhỏ đến trang trại lớn. Kín khí, sinh gas mạnh, tự đẩy bã ra ngoài.' },
+  { slug: 'be-phot-va-xu-ly-nuoc-thai', name: 'Bể phốt, nước thải', spec: 'septic', stat: 'Từ 1 m³', text: 'Từ 1 m³ cho gia đình ba đến sáu người đến trên 100 m³ cho nhà trọ, khách sạn, trường học và nhà máy.' },
+  { slug: 'be-nuoi-trong-thuy-san', name: 'Bể cá Koi và thủy sản', photo: 'round-tanks-installation', thumbs: ['round-blue-tanks-site', 'blue-open-tanks-yard'], text: 'Hồ cá Koi sân vườn có vách lọc, bể trữ hải sản nhà hàng, bể đáy phễu nuôi tôm cá.' },
 ];
 
-type Minor = { slug: string; name: string; text: string; shape: 'slant' | 'slant-reverse' | 'capsule'; ratio: number; focus?: string; photo?: { src: string; alt: string; width: number; height: number }; stat?: string };
-
-const minors: Minor[] = [
-  { slug: 'bon-chua-hoa-chat', name: 'Bồn chứa hóa chất', shape: 'capsule', ratio: 1.25, stat: 'Kháng ăn mòn', text: 'Kháng axit, kiềm, muối và dung dịch ăn mòn cho nhà máy sản xuất và xử lý nước.' },
-  { slug: 'thung-cho-tom-ca', name: 'Thùng chở hải sản sống', shape: 'slant', ratio: 1.25, focus: '50% 55%', photo: productAssetBySlug['thung-cho-tom-ca'], text: 'Ba lớp bảo ôn PU Foam, vách chắn sóng, vừa xe từ 500 kg đến 15 tấn.' },
-  { slug: 'xe-gom-rac', name: 'Thùng rác, xe gom rác', shape: 'slant-reverse', ratio: 1.25, focus: '50% 58%', photo: productAssetBySlug['xe-gom-rac'], text: 'Thùng 60 đến 240 L, xe gom 400 đến 1000 L, không gỉ.' },
-  { slug: 'composite-theo-yeu-cau', name: 'Sản phẩm theo yêu cầu', shape: 'slant', ratio: 1.25, focus: '50% 50%', photo: productAssetBySlug['composite-theo-yeu-cau'], text: 'Gia công theo bản vẽ hoặc ý tưởng, gồm bể bơi, tháp xử lý khí, vỏ thiết bị và bọc phủ chống thấm.' },
+const minors: Card[] = [
+  { slug: 'bon-chua-hoa-chat', name: 'Bồn chứa hóa chất', spec: 'tank', stat: 'Kháng ăn mòn', text: 'Kháng axit, kiềm, muối và dung dịch ăn mòn cho nhà máy sản xuất và xử lý nước.' },
+  { slug: 'thung-cho-tom-ca', name: 'Thùng chở hải sản sống', photo: 'aerated-transport-tank', thumbs: ['pickup-blue-tank', 'blue-tanks-loading'], text: 'Ba lớp bảo ôn PU Foam, vách chắn sóng, vừa xe từ 500 kg đến 15 tấn.' },
+  { slug: 'xe-gom-rac', name: 'Thùng rác, xe gom rác', photo: 'green-wheeled-bin', text: 'Thùng 60 đến 240 L, xe gom 400 đến 1000 L, không gỉ.' },
+  { slug: 'composite-theo-yeu-cau', name: 'Sản phẩm theo yêu cầu', photo: 'blue-composite-boat', thumbs: ['custom-shells-workshop', 'blue-long-tank-shell', 'yellow-tank-detail'], text: 'Gia công theo bản vẽ hoặc ý tưởng, gồm bể bơi, tháp xử lý khí, vỏ thiết bị và bọc phủ chống thấm.' },
 ];
 
-function Spec({ kind, stat, big = false }: { kind: 'septic' | 'tank'; stat?: string; big?: boolean }) {
-  return <div className={`tl-spec${big ? ' is-big' : ''}`} data-kind={kind}>
-    <Pattern kind="resin" opacity={0.7} />
+/* Ô chữ nhật có hoa văn và thông số cho nhóm chưa có ảnh thật. */
+function Spec({ kind, stat }: { kind: 'septic' | 'tank'; stat?: string }) {
+  return <div className="tl-spec" data-kind={kind}>
     <Pattern kind="ripple" size="90%" left="5%" top="8%" opacity={0.55} blend="screen" />
-    {kind === 'tank' && <Drawing kind="tank" className="tl-spec-art" />}
-    {stat && kind === 'tank' && <strong>{stat}</strong>}
+    <Drawing kind={kind} className="tl-spec-art" />
+    {stat && <strong>{stat}</strong>}
   </div>;
+}
+
+/* Ảnh thật đủ khung: khung đặt theo hàng, ảnh khác tỉ lệ nằm trọn trên nền giấy. */
+function Media({ card, ratio, sizes, outline, offset }: { card: Card; ratio: number; sizes: string; outline?: 'bronze' | 'green'; offset?: number }) {
+  const photo = card.photo ? realPhotos[card.photo] : undefined;
+  return <ShapeFrame shape="arch" ratio={ratio} outline={outline} outlineOffset={offset} morph={morphName('product-photo', card.slug)}>
+    {photo
+      ? <img src={realSrc(photo, photo.ratio < 1 ? 540 : 720)} srcSet={realSrcSet(photo)} sizes={sizes} alt={photo.alt} width={photo.ratio < 1 ? 540 : 720} height={realHeight(photo, photo.ratio < 1 ? 540 : 720)} loading="lazy" decoding="async" />
+      : <Spec kind={card.spec ?? 'tank'} stat={card.stat} />}
+  </ShapeFrame>;
+}
+
+/* Hai đến ba ảnh nhỏ thật của cùng nhóm, đủ khung. */
+function Thumbs({ keys }: { keys?: RealKey[] }) {
+  if (!keys?.length) return null;
+  return <ul className="tl-thumbs" aria-hidden="true">{keys.map(key => {
+    const photo = realPhotos[key];
+    const w = photo.ratio < 1 ? 360 : 480;
+    return <li key={key}><ShapeFrame shape="circle" ratio={1} radius={8}>
+      <img src={realSrc(photo, w)} alt="" width={w} height={realHeight(photo, w)} loading="lazy" decoding="async" />
+    </ShapeFrame></li>;
+  })}</ul>;
 }
 
 export function ProductsSection({ groups, children }: { groups: Group[]; children?: ReactNode }) {
@@ -129,39 +149,29 @@ export function ProductsSection({ groups, children }: { groups: Group[]; childre
     <div className="tl-wrap">
       <Title id="tl-products-h">Mỗi sản phẩm được tính kết cấu theo công trình</Title>
       <div id="tl-lead-row" className="tl-leads">
-        {leads.map((lead, index) => {
-          const photo = lead.slug === 'be-nuoi-trong-thuy-san' ? undefined : lead.photo;
-          return <Link key={lead.slug} href={hrefOf(lead.slug)} className="tl-lead pressable" data-reveal style={reveal(index)}>
-            <div className="tl-lead-media">
-              <ShapeFrame shape={lead.shape} ratio={lead.ratio} outline={lead.shape === 'circle' ? 'green' : 'bronze'} focus={lead.focus} morph={morphName('product-photo', lead.slug)}>
-                {lead.shape === 'ring'
-                  ? <Spec kind="septic" />
-                  : lead.slug === 'be-nuoi-trong-thuy-san'
-                    ? <img src={srcOf(photos.fishTank, 720)} srcSet={srcSet(photos.fishTank)} sizes="(max-width: 760px) 70vw, 380px" alt={photos.fishTank.alt} width={720} height={heightOf(photos.fishTank, 720)} loading="lazy" decoding="async" />
-                    : photo && <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />}
-              </ShapeFrame>
-              {lead.stat && <p className="tl-lead-stat">{lead.stat}</p>}
-            </div>
-            <div className="tl-lead-body">
-              <Morph name={morphName('product-title', lead.slug)}><h3>{lead.name}</h3></Morph>
-              <p>{lead.text}</p>
-              <span className="tl-lead-more" aria-hidden="true"><ArrowRight size={20} /></span>
-            </div>
-          </Link>;
-        })}
+        {leads.map((lead, index) => <Link key={lead.slug} href={hrefOf(lead.slug)} className="tl-lead pressable" data-reveal style={reveal(index)}>
+          <div className="tl-lead-media">
+            <Media card={lead} ratio={1} sizes="(max-width: 760px) 74vw, 400px" outline={index === 2 ? 'green' : 'bronze'} offset={10} />
+          </div>
+          <div className="tl-lead-body">
+            <Morph name={morphName('product-title', lead.slug)}><h3>{lead.name}</h3></Morph>
+            <p>{lead.text}</p>
+            <Thumbs keys={lead.thumbs} />
+            <span className="tl-lead-more" aria-hidden="true"><ArrowRight size={20} /></span>
+          </div>
+        </Link>)}
       </div>
       <ScrollDots target="tl-lead-row" label="Ba nhóm chủ lực" />
       <ul className="tl-minors">
         {minors.map((item, index) => <li key={item.slug} data-reveal style={reveal(index)}>
           <Link href={hrefOf(item.slug)} className="tl-minor pressable">
             <div className="tl-minor-media">
-              <ShapeFrame shape={item.shape} ratio={item.ratio} focus={item.focus} outline={item.photo ? undefined : 'bronze'} outlineOffset={8} morph={morphName('product-photo', item.slug)}>
-                {item.photo ? <img src={item.photo.src} alt={item.photo.alt} width={item.photo.width} height={item.photo.height} loading="lazy" decoding="async" /> : <Spec kind="tank" stat={item.stat} />}
-              </ShapeFrame>
+              <Media card={item} ratio={0.75} sizes="(max-width: 760px) 104px, (max-width: 1100px) 45vw, 280px" />
             </div>
             <div className="tl-minor-body">
               <Morph name={morphName('product-title', item.slug)}><h3>{item.name}</h3></Morph>
               <p>{item.text}</p>
+              <Thumbs keys={item.thumbs} />
             </div>
           </Link>
         </li>)}
@@ -241,14 +251,14 @@ export function QuoteSection({ form }: { form: ReactNode }) {
   const image = photos.loading;
   const cover = { src: '/images/home/hero-xe-ban-tai-1600.webp', srcSet: '/images/home/hero-xe-ban-tai-960.webp 960w, /images/home/hero-xe-ban-tai-1600.webp 1600w' };
   return <FlowSection tone="light" top="none" id="tu-van" aria-labelledby="tl-quote-h" inner={false} className="tl-quote-section"
-    backdrop={{ ...cover, sizes: '100vw', position: '50% 55%', overlay: 0.9, fade: 'top', parallax: true }}>
+    backdrop={{ ...cover, sizes: '100vw', position: '50% 55%', overlay: 0.9, fade: 'both', parallax: true }}>
     <div className="tl-wrap">
       <Title id="tl-quote-h">Gửi nhu cầu, kỹ sư báo giá trong 15 đến 60 phút</Title>
       <div className="tl-quote-grid">
         <div className="tl-quote-copy" data-reveal>
           <div className="tl-quote-visual">
-            <Stack pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.55 }} floatAt="br" float={<StackCard tone="dark"><p>Mẫu bể tiêu chuẩn giao trong khoảng 2 đến 3 ngày.</p></StackCard>}>
-              <ShapeFrame shape="porthole-trio" outline="bronze" outlineOffset={10} focus="50% 55%">
+            <Stack clear pattern={{ kind: 'ripple', blend: 'multiply', opacity: 0.55 }} floatAt="br" float={<StackCard tone="dark"><p>Mẫu bể tiêu chuẩn giao trong khoảng 2 đến 3 ngày.</p></StackCard>}>
+              <ShapeFrame shape="porthole-trio" ratio={image.ratio} outline="bronze" outlineOffset={10}>
                 <img src={srcOf(image, 720)} srcSet={srcSet(image)} sizes="(max-width: 1100px) 90vw, 520px" alt={image.alt} width={720} height={heightOf(image, 720)} loading="lazy" decoding="async" />
               </ShapeFrame>
             </Stack>

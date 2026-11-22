@@ -4,18 +4,17 @@ import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Phone, Play } from 'lucide-react';
 import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
-import { heightOf, photos, srcOf, srcSet } from './images';
+import { realHeight, realPhotos, realSrc, realSrcSet } from './photos-real';
 import { facts } from '@/lib/site-facts';
 
-// Ba cảnh theo mục 2.1 của hồ sơ, viết lại thành câu trọn vẹn, bỏ cam kết tuyệt đối. Ảnh đã xử lý đồng tông (scripts/xu-ly-anh-trang-chu.mjs).
-// Mỗi cảnh một dáng khung lấy từ sản phẩm: cạnh vát (bể tròn lắp tại công trình), vòm (bể biogas), cạnh vát ngược (thùng trên xe).
+// Ba cảnh theo mục 2.1 của hồ sơ, viết lại thành câu trọn vẹn, bỏ cam kết tuyệt đối.
+// Ảnh là ảnh gốc đủ khung (không cắt), khung chữ nhật theo đúng tỉ lệ ảnh.
 const scenes = [
   {
     kicker: 'Thành Lợi Composite',
     title: 'Composite bền vững cho môi trường và sản xuất, chế tạo tại Phú Thọ',
     text: 'Bể biogas, bể phốt, bể xử lý nước thải, bồn hóa chất, bể thủy sản và sản phẩm theo yêu cầu đều chống ăn mòn và không gỉ.',
-    image: photos.heroInstall,
-    shape: 'slant', ratio: 1.3, focus: '30% 58%',
+    image: realPhotos['round-tanks-installation'],
     stat: { value: '15+', unit: 'năm', label: 'Sản xuất composite FRP' },
     more: { href: '/san-pham', label: 'Xem sản phẩm' },
   },
@@ -23,8 +22,7 @@ const scenes = [
     kicker: 'Bể biogas và bể phốt',
     title: 'Bể biogas và bể phốt liền khối, kín khí, lắp đặt trong một đến hai ngày',
     text: 'Giải pháp xử lý chất thải cho nông hộ, trang trại, nhà ở, nhà trọ, khách sạn và khu công nghiệp.',
-    image: photos.heroBiogas,
-    shape: 'arch', ratio: 0.8, focus: '50% 62%',
+    image: realPhotos['white-spherical-tank'],
     stat: { value: '1 đến 2', unit: 'ngày', label: 'Lắp đặt tại công trình' },
     more: { href: '/san-pham/be-biogas-composite', label: 'Xem bể biogas' },
   },
@@ -32,8 +30,7 @@ const scenes = [
     kicker: 'Thủy sản và vận tải',
     title: 'Bể nuôi thủy sản đáy phễu, hồ cá Koi và thùng chở hải sản sống',
     text: 'Bể đáy phễu thu cặn tự động, bề mặt láng bóng dễ vệ sinh, quy mô từ sân vườn gia đình đến trại nuôi RAS. Thùng chở lắp vừa xe bán tải đến xe tải.',
-    image: photos.heroPickup,
-    shape: 'slant-reverse', ratio: 1.3, focus: '56% 55%',
+    image: realPhotos['pickup-blue-tank'],
     stat: { value: '500 kg', unit: 'đến 15 tấn', label: 'Thùng lắp vừa xe' },
     more: { href: '/san-pham/thung-cho-tom-ca', label: 'Xem thùng chở' },
   },
@@ -109,10 +106,10 @@ export default function HeroSlider({ hotline = facts.hotlines[0] }: { hotline?: 
                   <a href={`tel:${hotline.tel}`} className="tl-hero-call pressable"><Phone size={18} aria-hidden="true" />Gọi {hotline.display}</a>
                 </div>
               </div>
-              <div className="tl-hero-visual" style={{ ['--fr' as string]: scene.ratio }}>
-                <Stack depth={false} pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.6 }} floatAt="br" float={<StackStat value={scene.stat.value} unit={scene.stat.unit} label={scene.stat.label} tone="light" />}>
-                  <ShapeFrame shape={scene.shape} ratio={scene.ratio} outline="bronze" focus={scene.focus}>
-                    {show && <img src={srcOf(scene.image, 960)} srcSet={srcSet(scene.image)} sizes={scene.shape === 'arch' ? '(max-width: 760px) 70vw, 420px' : '(max-width: 760px) 90vw, 600px'} alt={active ? scene.image.alt : ''} width={960} height={heightOf(scene.image, 960)} fetchPriority={position === 0 ? 'high' : 'low'} loading={position === 0 ? 'eager' : 'lazy'} decoding={position === 0 ? 'sync' : 'async'} />}
+              <div className="tl-hero-visual" style={{ ['--fr' as string]: scene.image.ratio }}>
+                <Stack depth={false} clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.6 }} floatAt="br" float={<StackStat value={scene.stat.value} unit={scene.stat.unit} label={scene.stat.label} tone="light" />}>
+                  <ShapeFrame shape="slant" ratio={scene.image.ratio} outline="bronze" outlineOffset={10}>
+                    {show && <img src={realSrc(scene.image, scene.image.ratio < 1 ? 720 : 960)} srcSet={realSrcSet(scene.image)} sizes={scene.image.ratio < 1 ? '(max-width: 760px) 70vw, 420px' : '(max-width: 760px) 90vw, 560px'} alt={active ? scene.image.alt : ''} width={scene.image.ratio < 1 ? 720 : 960} height={realHeight(scene.image, scene.image.ratio < 1 ? 720 : 960)} fetchPriority={position === 0 ? 'high' : 'low'} loading={position === 0 ? 'eager' : 'lazy'} decoding={position === 0 ? 'sync' : 'async'} />}
                   </ShapeFrame>
                 </Stack>
               </div>

@@ -1,23 +1,12 @@
-/* Khung ảnh không vuông. Đường cắt do clip-path tham chiếu SVG, lớp dưới đây lo bố cục, viền lệch và dự phòng. */
+/* Khung ảnh chữ nhật hoặc vuông, bo góc nhẹ. Không clip-path, không mặt nạ. */
 .tl-sf{position:relative;width:100%;aspect-ratio:var(--sf-ratio,1);isolation:isolate}
-.tl-sf__defs{position:absolute;width:0;height:0;overflow:hidden;visibility:visible}
-.tl-sf__mask{position:absolute;inset:0;overflow:hidden;background:#0d2f40}
+.tl-sf__mask{position:absolute;inset:0;overflow:hidden;border-radius:var(--sf-radius,12px);background:var(--sf-bg,#e9efe9)}
 .tl-sf__media{position:absolute;inset:0;will-change:auto}
 .tl-sf[data-sf-parallax] .tl-sf__media{inset:calc(var(--sf-par,.12)*-140%) 0;will-change:transform}
-.tl-sf__media :is(img,picture,video){display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:var(--sf-focus,50% 50%)}
+.tl-sf__media :is(img,picture,video){display:block;width:100%;height:100%;max-width:none;object-fit:contain;object-position:var(--sf-focus,50% 50%)}
+.tl-sf[data-fit=cover] .tl-sf__media :is(img,picture,video){object-fit:cover}
 .tl-sf__media picture>img{width:100%;height:100%}
-.tl-sf__outline{position:absolute;inset:0;width:100%;height:100%;z-index:-1;overflow:visible;color:var(--sf-outline,var(--decor-bronze,#c9985a));transform:translate(var(--sf-ox,14px),var(--sf-oy,14px));pointer-events:none}
-.tl-sf__outline path{stroke-linejoin:round}
+.tl-sf__outline{position:absolute;inset:0;z-index:-1;border:1.25px solid var(--sf-outline,var(--decor-bronze,#c9985a));border-radius:var(--sf-radius,12px);transform:translate(var(--sf-ox,14px),var(--sf-oy,14px));pointer-events:none}
 @media (max-width:640px){
   .tl-sf__outline{transform:translate(calc(var(--sf-ox,14px)*.6),calc(var(--sf-oy,14px)*.6))}
-}
-/* Dự phòng: trình duyệt không hiểu clip-path tham chiếu SVG thì dùng bo góc, giữ dáng gần đúng. */
-@supports not (clip-path:url(#a)){
-  .tl-sf[data-shape=arch] .tl-sf__mask{border-radius:999px 999px 0 0}
-  .tl-sf[data-shape=circle] .tl-sf__mask,.tl-sf[data-shape=ring] .tl-sf__mask{border-radius:50%}
-  .tl-sf[data-shape=capsule] .tl-sf__mask{border-radius:999px}
-  .tl-sf[data-shape=slant] .tl-sf__mask{border-radius:56px 0 0 0}
-  .tl-sf[data-shape=slant-reverse] .tl-sf__mask{border-radius:0 56px 0 0}
-  .tl-sf[data-shape=porthole-trio] .tl-sf__mask{border-radius:999px 999px 0 0}
-  .tl-sf__outline{display:none}
 }

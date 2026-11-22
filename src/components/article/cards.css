@@ -14,8 +14,7 @@
 
 .pc-media{position:relative;display:grid;place-items:center;aspect-ratio:16/10;overflow:hidden;color:#7fb596;background:radial-gradient(120% 120% at 20% 0%,#1b6a55 0%,#0f4a3d 55%,#0b3a31 100%);flex:none}
 .pc-media.is-fill{position:absolute;inset:0;aspect-ratio:auto}
-.pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:var(--sf-focus,center);transition:transform var(--dur-slow,520ms) var(--ease-out,ease-out)}
-.pc-card:hover .pc-media img{transform:scale(1.04)}
+.pc-media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .pc-media-ph{display:grid;place-items:center;position:absolute;inset:0;color:#7fb596}
 .pc-media-empty{color:#9ccbb0}
 .pc-media-empty::before{content:"";position:absolute;inset:-30%;background:repeating-radial-gradient(circle at 78% 18%,transparent 0 46px,#ffffff10 46px 47px);pointer-events:none}
@@ -69,3 +68,4 @@
   .public-site .pc-card:hover,.public-site .pc-card:active{transform:none}
   .pc-card:hover .pc-media img,.pc-card:hover .pc-more svg{transform:none}
 }
+.pc-media:not(.pc-media-empty){background:#e9efe9}

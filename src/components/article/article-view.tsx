@@ -81,7 +81,7 @@ export default function ArticleView({ title, excerpt, kind, document, cover, cov
         </div>
         {cover && <figure className="art-cover">
           <Stack depth={false} className="art-cover-stack">
-            <ShapeFrame shape="arch" ratio={0.95} outline="bronze" outlineOffset={14} focus="50% 45%" parallax={preview ? undefined : 0.06} morph={morph ? morphName('post-cover', slug) : undefined}>
+            <ShapeFrame shape="arch" ratio={4 / 3} outline="bronze" outlineOffset={14} fit="contain" morph={morph ? morphName('post-cover', slug) : undefined}>
               <button type="button" className="art-zoom" {...(preview ? {} : { 'data-zoom': true })} aria-label="Xem ảnh bìa lớn"><img src={cover} alt={coverAlt || title} decoding="async" {...(preview ? {} : { fetchPriority: 'high' as const })} /></button>
             </ShapeFrame>
           </Stack>

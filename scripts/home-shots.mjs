@@ -25,9 +25,9 @@ for (const [width, height] of sizes) {
   for (let y = 0; y < total; y += Math.round(height * 0.8)) { await page.evaluate(v => window.scrollTo(0, v), y); await page.waitForTimeout(350); steps.push(y); }
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForTimeout(900);
-  if (width === 1366) {
+  if (width === 1366 || (process.env.FOLDS === 'all' && width === 390)) {
     let i = 0;
-    for (const y of steps) { await page.evaluate(v => window.scrollTo(0, v), y); await page.waitForTimeout(700); await page.screenshot({ path: join(out, `khung-nhin-1366-${String(i).padStart(2, '0')}.png`) }); i += 1; }
+    for (const y of steps) { await page.evaluate(v => window.scrollTo(0, v), y); await page.waitForTimeout(700); await page.screenshot({ path: join(out, `khung-nhin-${width}-${String(i).padStart(2, '0')}.png`) }); i += 1; }
   }
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(600);

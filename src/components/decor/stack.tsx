@@ -13,6 +13,8 @@ export type StackProps = {
   floatAt?: 'br' | 'bl' | 'tr' | 'tl';
   /** Lớp nổi và hoa văn tách nhẹ theo độ sâu khi cuộn (cần ScrollFx). Mặc định true. */
   depth?: boolean;
+  /** Lớp nổi nằm dưới ảnh, chỉ chạm mép dưới 20px, để không che sản phẩm. Dùng cho mọi ảnh sản phẩm. */
+  clear?: boolean;
   className?: string;
   style?: CSSProperties;
 };
@@ -20,10 +22,10 @@ export type StackProps = {
 const OPPOSITE = { br: 'tl', bl: 'tr', tr: 'bl', tl: 'br' } as const;
 
 /** Cụm chồng lớp tối đa ba lớp. Ở 390px các lớp gọn lại, không ló quá mép khung nhìn. */
-export default function Stack({ children, pattern, float, floatAt = 'br', depth = true, className, style }: StackProps) {
+export default function Stack({ children, pattern, float, floatAt = 'br', depth = true, clear = false, className, style }: StackProps) {
   const corner = OPPOSITE[floatAt];
   return (
-    <div className={`tl-stack${className ? ` ${className}` : ''}`} data-float-at={floatAt} style={style}>
+    <div className={`tl-stack${className ? ` ${className}` : ''}`} data-float-at={floatAt} data-clear={clear ? "" : undefined} style={style}>
       {pattern ? (
         <div className="tl-stack__pattern" data-corner={corner} data-depth={depth ? '-0.5' : undefined} aria-hidden="true">
           <Pattern {...pattern} className={`tl-stack__pt${pattern.className ? ` ${pattern.className}` : ''}`} />

@@ -57,8 +57,10 @@ export default async function SiteFooter() {
         <p><Phone size={18} aria-hidden="true" /><span>{hotlines.map((line, index) => <span key={line.tel}>{index > 0 && ', '}<a href={`tel:${line.tel}`}>{line.display}</a></span>)}</span></p>
         <p><Mail size={18} aria-hidden="true" /><a href={`mailto:${email}`}>{email}</a></p>
         <p><Clock size={18} aria-hidden="true" /><span>{hours}</span></p>
-        <FooterMap src={facts.mapEmbed} address={address} title="Bản đồ nhà máy Thành Lợi Composite" />
       </div>
+    </div>
+    <div className="tl-wrap tl-footer-maprow">
+      <FooterMap src={facts.mapEmbed} address={address} title="Bản đồ nhà máy Thành Lợi Composite" />
     </div>
     <div className="tl-wrap tl-footer-bottom">
       <span>© {new Date().getFullYear()} {facts.legalName}. Mã số thuế: {facts.taxCode}. Bảo lưu mọi quyền.</span>

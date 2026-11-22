@@ -1,0 +1,158 @@
+{
+ "aerated-transport-tank": {
+  "w": 900,
+  "h": 1200,
+  "fw": 960,
+  "fh": 1280
+ },
+ "blue-box-tank-front": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1200,
+  "fh": 1600
+ },
+ "blue-composite-boat": {
+  "w": 900,
+  "h": 1200,
+  "fw": 960,
+  "fh": 1280
+ },
+ "blue-long-tank-shell": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1200,
+  "fh": 1600
+ },
+ "blue-open-tanks-yard": {
+  "w": 1200,
+  "h": 899,
+  "fw": 1276,
+  "fh": 956
+ },
+ "blue-tanks-loading": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1600,
+  "fh": 1200
+ },
+ "blue-white-lidded-tanks": {
+  "w": 1200,
+  "h": 899,
+  "fw": 1276,
+  "fh": 956
+ },
+ "custom-shells-workshop": {
+  "w": 1200,
+  "h": 899,
+  "fw": 1276,
+  "fh": 956
+ },
+ "green-components-workshop": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1600,
+  "fh": 1200
+ },
+ "green-wheeled-bin": {
+  "w": 900,
+  "h": 1200,
+  "fw": 960,
+  "fh": 1280
+ },
+ "pickup-blue-tank": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1600,
+  "fh": 1200
+ },
+ "rectangular-tanks-workshop": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1600,
+  "fh": 1200
+ },
+ "round-blue-tanks-site": {
+  "w": 904,
+  "h": 1200,
+  "fw": 964,
+  "fh": 1280
+ },
+ "round-tanks-installation": {
+  "w": 1200,
+  "h": 900,
+  "fw": 2000,
+  "fh": 1500
+ },
+ "white-double-lid-tank": {
+  "w": 900,
+  "h": 1200,
+  "fw": 960,
+  "fh": 1280
+ },
+ "white-spherical-tank": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1200,
+  "fh": 1600
+ },
+ "white-tanks-yard": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1200,
+  "fh": 1600
+ },
+ "yellow-tank-detail": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1600,
+  "fh": 1200
+ },
+ "customer-01": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1350,
+  "fh": 1800
+ },
+ "customer-02": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1800,
+  "fh": 1350
+ },
+ "customer-03": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1800,
+  "fh": 1350
+ },
+ "customer-04": {
+  "w": 1200,
+  "h": 900,
+  "fw": 1800,
+  "fh": 1350
+ },
+ "customer-05": {
+  "w": 1200,
+  "h": 675,
+  "fw": 1800,
+  "fh": 1013
+ },
+ "customer-06": {
+  "w": 900,
+  "h": 1200,
+  "fw": 1350,
+  "fh": 1800
+ },
+ "customer-07": {
+  "w": 1200,
+  "h": 899,
+  "fw": 1276,
+  "fh": 956
+ },
+ "customer-08": {
+  "w": 675,
+  "h": 1200,
+  "fw": 958,
+  "fh": 1704
+ }
+}

@@ -1,19 +1,23 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { ShapeFrame } from '@/components/decor';
-import { heightOf, srcOf, srcSet, strip } from './images';
+import { realHeight, realPhotos, realSrc, realSrcSet, stripOrder } from './photos-real';
 
-// Mỗi ảnh một dáng khung theo thứ tự trong dải: cạnh vát, viên nang, vòm (ảnh dọc), cạnh vát ngược, viên nang, cạnh vát.
-const frames = [
-  { shape: 'slant', ratio: 1.4, focus: '50% 55%' },
-  { shape: 'capsule', ratio: 1.9, focus: '50% 58%' },
-  { shape: 'arch', ratio: 0.78, focus: '50% 50%' },
-  { shape: 'slant-reverse', ratio: 1.4, focus: '50% 55%' },
-  { shape: 'capsule', ratio: 1.9, focus: '50% 55%' },
-  { shape: 'slant', ratio: 1.4, focus: '50% 55%' },
-] as const;
+// Ảnh nào nhận ra được nhóm sản phẩm thì dẫn tới nhóm đó, còn lại dẫn tới danh sách sản phẩm.
+const groupOf: Partial<Record<(typeof stripOrder)[number], string>> = {
+  'white-spherical-tank': 'be-biogas-composite',
+  'round-tanks-installation': 'be-nuoi-trong-thuy-san',
+  'round-blue-tanks-site': 'be-nuoi-trong-thuy-san',
+  'aerated-transport-tank': 'thung-cho-tom-ca',
+  'pickup-blue-tank': 'thung-cho-tom-ca',
+  'green-wheeled-bin': 'xe-gom-rac',
+  'blue-composite-boat': 'composite-theo-yeu-cau',
+};
+const strip = stripOrder.map(key => ({ key, photo: realPhotos[key], href: groupOf[key] ? `/san-pham/${groupOf[key]}` : '/san-pham' }));
+
 
 // Dải ảnh thật: cùng chiều cao, ảnh dọc hẹp hơn ảnh ngang, cuộn ngang bằng ngón tay, nút mũi tên hoặc phím.
 // Bấm ảnh mở hộp xem lớn (tiêu điểm vào trong, Esc đóng, tiêu điểm về ảnh đã bấm).
@@ -59,7 +63,7 @@ export default function PhotoStrip() {
   }
   const move = (direction: number) => setSelected(index => (index + direction + strip.length) % strip.length);
   const current = strip[selected];
-  const big = current.widths[current.widths.length - 1];
+  const big = current.photo.widths[current.photo.widths.length - 1];
 
   return <div className="tl-strip">
     <ul className="tl-strip-track" ref={track} aria-label="Dải ảnh sản phẩm thật" tabIndex={0} onKeyDown={event => {
@@ -67,12 +71,13 @@ export default function PhotoStrip() {
       if (event.key === 'ArrowLeft') { event.preventDefault(); slide(-1); }
     }}>
       {strip.map((item, index) => {
-        const frame = frames[index % frames.length];
-        return <li key={item.base} className="tl-strip-item" style={{ ['--ratio' as string]: frame.ratio }}>
+        const { photo } = item;
+        const w = photo.widths[1];
+        return <li key={item.key} className="tl-strip-item" style={{ ['--ratio' as string]: photo.ratio }}>
           <figure>
-            <button type="button" className="tl-strip-photo" aria-label={`Xem ảnh lớn: ${item.alt}`} onClick={event => open(index, event.currentTarget)}>
-              <ShapeFrame shape={frame.shape} ratio={frame.ratio} focus={frame.focus}>
-                <img src={srcOf(item, item.widths[1])} srcSet={srcSet(item)} sizes="(max-width: 760px) 80vw, 560px" alt={item.alt} width={item.widths[1]} height={heightOf(item, item.widths[1])} loading="eager" decoding={index < 3 ? 'sync' : 'async'} />
+            <button type="button" className="tl-strip-photo" aria-label={`Xem ảnh lớn: ${photo.alt}`} onClick={event => open(index, event.currentTarget)}>
+              <ShapeFrame shape="slant" ratio={photo.ratio}>
+                <img src={realSrc(photo, w)} srcSet={realSrcSet(photo)} sizes="(max-width: 760px) 80vw, 480px" alt={photo.alt} width={w} height={realHeight(photo, w)} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />
               </ShapeFrame>
               <span className="tl-strip-expand" aria-hidden="true"><ArrowUpRight size={22} /></span>
             </button>
@@ -92,8 +97,8 @@ export default function PhotoStrip() {
       onKeyDown={event => { if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); } if (event.key === 'ArrowRight') { event.preventDefault(); move(1); } }}>
       <button className="tl-lightbox-close" autoFocus type="button" aria-label="Đóng ảnh" onClick={() => dialog.current?.close()}><X size={24} aria-hidden="true" /></button>
       <figure>
-        <img src={srcOf(current)} alt={current.alt} width={big} height={heightOf(current, big)} style={{ backgroundImage: `url(${current.lqip})` }} />
-        <figcaption><span>{selected + 1} trên {strip.length}</span></figcaption>
+        <img src={realSrc(current.photo)} alt={current.photo.alt} width={big} height={realHeight(current.photo, big)} />
+        <figcaption><span>{selected + 1} trên {strip.length}</span><Link href={current.href} className="tl-lightbox-link pressable">{current.href === '/san-pham' ? 'Xem sản phẩm' : 'Xem sản phẩm này'}<ArrowUpRight size={18} aria-hidden="true" /></Link></figcaption>
       </figure>
       <div className="tl-lightbox-controls">
         <button type="button" className="pressable" onClick={() => move(-1)}><ChevronLeft size={20} aria-hidden="true" />Ảnh trước</button>

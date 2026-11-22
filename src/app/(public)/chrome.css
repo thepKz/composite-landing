@@ -83,8 +83,9 @@
 .tl-footer-contact a{display:inline-flex;align-items:center;min-height:36px}
 .tl-footer-contact p svg{flex-shrink:0;margin-top:4px;color:var(--tl-lime)}
 .tl-footer-contact h3+p{margin-top:0}
-.tl-footer-map{margin-top:16px}
-.tl-footer-map-frame{position:relative;aspect-ratio:4/3;border:1px solid #7ea5b8;border-radius:999px 999px 16px 16px;overflow:hidden;background:#12425a}
+.tl-footer-maprow{padding-bottom:32px}
+.tl-footer-map{display:grid;gap:12px}
+.tl-footer-map-frame{position:relative;aspect-ratio:21/8;min-height:260px;border:1px solid #7ea5b8;border-radius:12px;overflow:hidden;background:#12425a}
 .tl-footer-map-holder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;color:#e4eee6}
 .tl-footer-map-holder svg{color:var(--tl-lime)}
 .tl-footer-contact .tl-footer-map-holder p{display:block;max-width:24ch;margin:0}
@@ -92,7 +93,8 @@
 .tl-footer-map[data-ready=true] iframe{opacity:1}
 .tl-footer-map-open{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 20px;border:1.5px solid #7ea5b8;border-radius:10px;background:transparent;color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .tl-footer-map-open:hover{background:#fff;color:var(--tl-navy-deep)}
-.tl-footer-map-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:4px;font-weight:700;color:var(--tl-lime)!important}
+.tl-footer-map-link{justify-self:start;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 24px;border-radius:999px;background:var(--tl-lime);font-size:16px;font-weight:700;color:#12301f!important}
+.tl-footer-map-link:hover{background:#fff;text-decoration:none!important}
 .tl-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;padding-block:20px;border-top:1px solid #2b5164;font-size:15px}
 .tl-footer-bottom div{display:flex;gap:20px;flex-wrap:wrap}
 @media(min-width:761px){.tl-footer-bottom{padding-right:96px}}
@@ -105,7 +107,7 @@
   .tl-footer-contact{grid-column:1/-1}
   .tl-footer-bottom{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
 }
-@media(max-width:480px){.tl-footer-contact{font-size:15px}.tl-footer-grid{gap:20px 16px;padding-block:32px}.tl-footer-grid nav a{min-height:44px;font-size:16px;line-height:1.35}.tl-footer-about p{max-width:none}.tl-footer-map-frame{aspect-ratio:16/10}}
+@media(max-width:480px){.tl-footer-contact{font-size:15px}.tl-footer-grid{gap:20px 16px;padding-block:32px}.tl-footer-grid nav a{min-height:44px;font-size:16px;line-height:1.35}.tl-footer-about p{max-width:none}.tl-footer-map-frame{aspect-ratio:4/3;min-height:240px}.tl-footer-map-link{justify-self:stretch}}
 @media(prefers-reduced-motion:reduce){.tl-page-enter{animation:none}.tl-progress span{transition:none!important}}
 
 /* Điện thoại: mọi liên kết ở chân trang đủ cao 44px */

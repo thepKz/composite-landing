@@ -14,7 +14,7 @@
 .tl-form-dot{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid #9fb6a9;background:#fff;color:#113d4c;font-size:16px;font-weight:700;transition:background-color var(--dur-base,280ms) var(--ease-out,ease),border-color var(--dur-base,280ms) var(--ease-out,ease),color var(--dur-base,280ms) var(--ease-out,ease)}
 .tl-form-steps [data-state=current] .tl-form-dot{background:#187447;border-color:#187447;color:#fff}
 .tl-form-steps [data-state=done] .tl-form-dot{background:#eaf4e6;border-color:#187447;color:#187447}
-.tl-form-step-name{font-size:14px;font-weight:500;line-height:1.2}
+.tl-form-step-name{font-size:16px;font-weight:500;line-height:1.2}
 .tl-form-steps [data-state=current] .tl-form-step-name{font-weight:700;color:#187447}
 
 /* Khung bước */

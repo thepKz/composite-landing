@@ -22,14 +22,14 @@ export function PostMedia({ post, sizes, fill = false }: { post: CardPost; sizes
 }
 
 type Look = { shape: FrameShape; ratio: number; outline: 'bronze' | 'green' | 'navy'; dir: 'br' | 'bl' };
-/** Bốn dáng xen kẽ theo thứ tự thẻ: thùng xe vát trái, vòm bể, thùng xe vát phải, bồn nằm. Bài nổi bật luôn là vòm lớn. */
+/** Mọi thẻ cùng một khung chữ nhật 4:3 để các thẻ trong hàng bằng nhau. Chỉ đổi màu và hướng viền lệch cho khỏi đơn điệu. */
 const CYCLE: Look[] = [
-  { shape: 'slant', ratio: 1.4, outline: 'bronze', dir: 'br' },
-  { shape: 'arch', ratio: 1, outline: 'green', dir: 'bl' },
-  { shape: 'slant-reverse', ratio: 1.4, outline: 'navy', dir: 'bl' },
-  { shape: 'capsule', ratio: 1.8, outline: 'bronze', dir: 'br' },
+  { shape: 'slant', ratio: 4 / 3, outline: 'bronze', dir: 'br' },
+  { shape: 'arch', ratio: 4 / 3, outline: 'green', dir: 'bl' },
+  { shape: 'slant-reverse', ratio: 4 / 3, outline: 'navy', dir: 'bl' },
+  { shape: 'capsule', ratio: 4 / 3, outline: 'bronze', dir: 'br' },
 ];
-const FEATURED: Look = { shape: 'arch', ratio: 1.05, outline: 'bronze', dir: 'br' };
+const FEATURED: Look = { shape: 'arch', ratio: 4 / 3, outline: 'bronze', dir: 'br' };
 
 export default function PostCard({ post, featured = false, index = 0, titleTag = 'h3' }: { post: CardPost; featured?: boolean; index?: number; titleTag?: 'h2' | 'h3' }) {
   const Title = titleTag;
@@ -37,7 +37,7 @@ export default function PostCard({ post, featured = false, index = 0, titleTag =
   const look = featured ? FEATURED : CYCLE[index % CYCLE.length];
   return <article className={`pc-card${featured ? ' is-featured' : ''}`} data-shape={look.shape} data-art-reveal style={{ '--i': index } as CSSProperties}>
     <div className="pc-frame" data-dir={look.dir}>
-      <ShapeFrame shape={look.shape} ratio={look.ratio} outline={look.outline} outlineOffset={featured ? 16 : 12} outlineDirection={look.dir} focus="50% 50%" morph={morphName('post-cover', post.slug)}>
+      <ShapeFrame shape={look.shape} ratio={look.ratio} outline={look.outline} outlineOffset={featured ? 16 : 12} outlineDirection={look.dir} fit="contain" morph={morphName('post-cover', post.slug)}>
         <PostMedia post={post} fill />
       </ShapeFrame>
     </div>

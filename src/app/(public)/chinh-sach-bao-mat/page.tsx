@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { ArrowUpRight, Cookie, ListChecks, ShieldCheck, UserRoundCheck } from 'lucide-react';
-import { FlowSection, Pattern, ShapeFrame, Stack } from '@/components/decor';
+import { FlowSection, Pattern, Stack } from '@/components/decor';
 import FlowHero from '@/components/pages/flow-hero';
 import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Chính sách bảo mật', description: 'Thành Lợi dùng họ tên, số điện thoại và nhu cầu sản phẩm trong biểu mẫu để liên hệ tư vấn. Biểu mẫu không đăng công khai thông tin của quý khách.', alternates: { canonical: '/chinh-sach-bao-mat' } };
 
@@ -24,9 +25,9 @@ export default function Privacy() {
       title="Biểu mẫu chỉ dùng thông tin để liên hệ tư vấn"
       lead="Họ tên, số điện thoại và nhu cầu sản phẩm được lưu trong hệ thống quản trị, không đăng công khai."
       visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="br">
-        <ShapeFrame shape="arch" ratio={1.1} outline="bronze" outlineOffset={12}>
+        <div className="pf tp5-plain" style={{ aspectRatio: '4 / 3' }}>
           <div className="tp4-plain"><ShieldCheck className="tp4-plain__art is-icon" strokeWidth={1.25} aria-hidden="true"/></div>
-        </ShapeFrame>
+        </div>
       </Stack>}/>
     <FlowSection tone="light" top="dome" className="tp4-privacy-body" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
       <div className="tp4-privacy">

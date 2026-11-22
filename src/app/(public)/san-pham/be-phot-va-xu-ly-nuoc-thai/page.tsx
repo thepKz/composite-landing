@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight, Home, Factory } from 'lucide-react';
 import { shortStat } from '@/components/product-card';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
 import FlowHero from '@/components/pages/flow-hero';
 import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
@@ -15,6 +15,7 @@ import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../../secondary-pages.css';
 import '../[slug]/product-detail.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Bể phốt và bể xử lý nước thải composite', description: 'Chọn bể phốt dân dụng hoặc module xử lý nước thải hợp khối bằng composite FRP theo số người dùng và lưu lượng nước thải.', alternates: { canonical: '/san-pham/be-phot-va-xu-ly-nuoc-thai' } };
 
@@ -28,10 +29,10 @@ export default async function WastewaterGroup() {
     <FlowHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm', href: '/san-pham' }, { label: 'Bể phốt và xử lý nước thải' }]}
       title="Chọn bể phốt và bể xử lý theo số người dùng"
       lead="Dung tích bắt đầu từ 1 m³ cho gia đình ba đến sáu người và mở rộng theo quy mô công trình."
-      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="tl" float={<StackStat value="1 – 100+ m³" tone="light"/>}>
-        <ShapeFrame shape="capsule" ratio={1.9} outline="bronze" outlineOffset={12}>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value="1 – 100+ m³" tone="light"/>}>
+        <div className="pf tp5-plain" style={{ aspectRatio: '4 / 3' }}>
           <div className="tp4-plain"><Drawing kind="septic" color="#d3f56b" className="tp4-plain__art"/></div>
-        </ShapeFrame>
+        </div>
       </Stack>}/>
     <ScaleProvider table={table} productName="Bể phốt composite">
       <FlowSection tone="light" top="dome" className="tp4-group-pick" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>

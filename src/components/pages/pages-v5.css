@@ -1,0 +1,109 @@
+/* Vòng 5 (22/11/2026): theo lời khách. Mọi ảnh ở trang phụ là khung chữ nhật bo nhẹ, thấy trọn sản phẩm, không cắt góc.
+   Ảnh nền trang trí vẫn được phủ kín (cover). Tải sau pages-v4.css nên thắng khi trùng độ ưu tiên. */
+
+/* Khung ảnh chữ nhật chung */
+.pf { position: relative; margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--tp-edge, #a6bcac); border-radius: 14px; background: #e9eee1; }
+.public-site .pf img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 0; border-radius: 0; }
+.pf.is-natural { background: transparent; }
+
+/* Trang chi tiết sản phẩm: màn đầu = tên, ảnh, nút báo giá và gọi, thông số. Điện thoại: tên rồi ảnh rồi nút. */
+.public-site .tp.tp4 .tp5-pd-grid { margin-top: 24px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-areas: "media head" "media body" "media ."; grid-template-rows: auto auto 1fr; column-gap: clamp(32px, 4vw, 56px); align-items: start; }
+.tp5-pd-grid .tp5-pd-head { grid-area: head; min-width: 0; }
+.tp5-pd-grid .tp4-pd-media { grid-area: media; padding: 0; position: sticky; top: 96px; }
+.tp5-pd-grid .tp5-pd-body { grid-area: body; min-width: 0; }
+.public-site .tp.tp4 .tp5-pd-head h1 { font-size: clamp(28px, 3vw, 42px); color: #fff; line-height: 1.2; margin: 0; }
+.public-site .tp.tp4 .tp5-pd-head h1.is-long { font-size: clamp(26px, 2.5vw, 34px); }
+.public-site .tp.tp4 .tp5-pd-head .tp-pd-tagline { color: var(--tp-lime, #d3f56b); margin-top: 12px; }
+.tp5-pd-head .tp-pd-badges { margin-bottom: 14px; }
+.public-site .tp.tp4 .tp5-pd-body .tp-pd-lead { color: #e8f1de; max-width: 56ch; margin-top: 16px; font-size: 16px; }
+.public-site .tp.tp4 .tp5-pd-head .tp-badge { background: transparent; border-color: #ffffff80; color: #fff; }
+.tp5-pd-grid .tp4-pd-media .tp-gallery, .tp5-pd-grid .tp4-pd-media .tl-stack { max-width: 600px; margin-inline: 0 auto; }
+.tp5-pd-grid .tp4-pd-media .tl-stack__main { position: relative; }
+.public-site .tp.tp4 .tp5-pd-body .tp-pd-facts dt { font-size: 16px; }
+.public-site .tp.tp4 .tp5-pd-body .tp-pd-actions .tp-btn { min-height: 48px; }
+
+/* Ảnh chưa có (ba nhóm chưa được khách xác nhận ảnh): khung chữ nhật chứa hình vẽ nét */
+.tp5-plain { aspect-ratio: 4 / 3; display: grid; place-items: center; background: linear-gradient(135deg, #103b50ee, #187447e0), url('/images/decor/song-nhua-960.webp') center / cover; border-color: #ffffff40; }
+.tp5-plain .tp4-plain__art { width: 56%; height: auto; }
+.tp5-plain__stat { position: absolute; left: 20px; bottom: 16px; font-size: 24px; font-weight: 700; color: var(--tp-lime, #d3f56b); }
+
+@media (max-width: 900px) {
+  .public-site .tp.tp4 .tp5-pd-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "body"; row-gap: 20px; margin-top: 8px; }
+  .tp5-pd-grid .tp4-pd-media { position: static; }
+  .tp5-pd-grid .tp4-pd-media .tp-gallery, .tp5-pd-grid .tp4-pd-media .tl-stack { max-width: none; margin-inline: 0; }
+}
+@media (max-width: 640px) {
+  .tp5-pd-grid .pg-stage { aspect-ratio: var(--pg-ratio, 1.2); }
+  .tp5-pd-grid .tp5-pd-body { display: flex; flex-direction: column; }
+  .tp5-pd-grid .tp5-pd-body .tp-pd-actions { order: -1; margin-top: 0; }
+  .public-site .tp.tp4 .tp5-pd-head h1, .public-site .tp.tp4 .tp5-pd-head h1.is-long { font-size: 26px; max-width: none; }
+  .tp5-pd-head .tp-pd-badges { margin-bottom: 8px; }
+  .public-site .tp.tp4 .tp5-pd-head .tp-pd-tagline { font-size: 18px; margin-top: 8px; }
+}
+/* Màn ngang thấp (600x360): ảnh một bên, chữ một bên, ảnh vừa chiều cao màn */
+@media (max-height: 520px) and (min-width: 560px) and (max-width: 1000px) {
+  .public-site .tp.tp4 .tp5-pd-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); grid-template-areas: "media head" "media body" "media ."; grid-template-rows: auto auto 1fr; column-gap: 24px; row-gap: 0; }
+  .tp5-pd-grid .tp4-pd-media { position: sticky; top: 8px; }
+  .tp5-pd-grid .tp4-pd-media .pg-stage { aspect-ratio: auto; height: min(300px, calc(100svh - 120px)); }
+  .tp5-pd-grid .pg-thumbs { display: none; }
+  .public-site .tp.tp4 .tp5-pd-head h1, .public-site .tp.tp4 .tp5-pd-head h1.is-long { font-size: 22px; }
+}
+
+/* Thẻ sản phẩm: khung ảnh chữ nhật, ảnh hiện trọn */
+.tp-card-frame { position: absolute; inset: 0; }
+.public-site .tp-card-frame .tp-card-photo { object-fit: contain; }
+
+/* Dải ảnh ngang: mỗi ảnh một khung theo đúng tỉ lệ, cùng chiều cao, không so le */
+.public-site .tp.tp4 .tp4-strip .tp-strip-item:nth-child(even) { margin-top: 0; }
+.public-site .tp.tp4 .tp4-strip .tp-strip-item .pf { width: 100%; }
+.public-site .tp.tp4 .tp4-strip .tp-strip-item .pf img { aspect-ratio: auto; }
+
+/* Trang Dự án: dải ảnh thật dạng lưới ô bằng nhau, ảnh hiện trọn */
+.da-void-float { width: 100%; }
+.da-photos { margin-top: 56px; }
+.public-site .da-photos h2 { margin: 0 0 24px; max-width: 24ch; font-size: clamp(26px, 2.8vw, 36px); line-height: 1.3; font-weight: 700; letter-spacing: -.02em; color: #0f3a31; }
+.da-photo-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .da-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .da-photos { margin-top: 40px; } .da-photo-grid { gap: 12px; } }
+
+/* Bản đồ liên hệ: khung chữ nhật bo nhẹ */
+.tp4-map { padding: 0; }
+.tp5-map { border-color: #ffffff59; background: #0d3b4f; }
+
+/* Đầu trang phụ: ảnh thật to hơn, cân hai cột */
+.tp4-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.tp4-hero__visual .tl-stack { max-width: min(540px, 100%); }
+.tp4-hero__visual { padding: 8px 14px 16px 24px; }
+@media (max-width: 900px) { .tp4-hero__grid { grid-template-columns: minmax(0, 1fr); } .tp4-hero__visual .tl-stack { max-width: none; } .tp4-hero__visual { padding: 16px 8px 16px 0; } }
+
+@media (max-width: 640px) {
+  .tp5-pd-grid .pg-stage { aspect-ratio: var(--pg-ratio, 1.33); }
+  /* Đường dẫn một dòng, cuộn ngang, không để dấu gạch lẻ đầu dòng */
+  .public-site .tp.tp4 .tp4-crumbs { flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .tp4-crumbs::-webkit-scrollbar { display: none; }
+}
+
+/* Chọn quy mô: các nút xếp thành hàng, không mỗi nút một dòng, để bảng dung tích không bị đẩy xa */
+@media (max-width: 640px) {
+  .public-site .tp.tp4 .tp-scale-chips { flex-direction: row; gap: 8px; }
+  .public-site .tp.tp4 .tp-scale-chip { width: auto; min-height: 44px; padding: 8px 14px; }
+}
+
+/* Hàng đầu trang chi tiết không giãn ra khi cột ảnh cao */
+.public-site .tp.tp4 .tp5-pd-grid { align-content: start; }
+/* Chỉ một ảnh: khung theo đúng tỉ lệ ảnh, không cao hơn màn */
+.pg.is-single .pg-stage { max-width: calc(min(70svh, 600px) * var(--pg-ratio, 1.25)); }
+@media (max-width: 900px) { .pg.is-single .pg-stage { max-width: calc(min(60svh, 520px) * var(--pg-ratio, 1.25)); margin-inline: auto; } }
+.public-site .tp.tp4 .tp5-pd-grid { row-gap: 0; }
+@media (max-width: 900px) { .public-site .tp.tp4 .tp5-pd-grid { row-gap: 20px; } }
+
+/* Chữ thân tối thiểu 16px ở các chỗ còn 14 và 15 */
+.public-site .tp.tp4 .tp4-path li p, .public-site .tp.tp4 .tp4-hotline p, .public-site .tp.tp4 .tp4-metric__l, .public-site .tp.tp4 .tl-stat__label { font-size: 16px; }
+.public-site .tp.tp4 .tp-card-body .tp-chips li, .public-site .tp-card-body .tp-chips li { font-size: 16px; padding: 2px 12px; }
+
+/* Thẻ sản phẩm vòng 5: ảnh trong khung chữ nhật 4:3, hiện trọn, nền trung tính */
+.public-site .tp.tp4 .tp-card-media, .public-site .tp.tp4 .tp-card.is-wide .tp-card-media, .public-site .tp.tp4 .tp-card.is-feature .tp-card-media { position: relative; padding: 0; aspect-ratio: 4 / 3; min-height: 0; overflow: hidden; background: #e9eee1; border: 1px solid var(--tp-edge, #a6bcac); border-radius: 14px; }
+.public-site .tp.tp4 .tp-card.is-wide .tp-card-media { flex: 0 0 44%; }
+.public-site .tp.tp4 .tp-card.is-feature .tp-card-media { flex: none; }
+@media (max-width: 900px) { .public-site .tp.tp4 .tp-card.is-wide .tp-card-media { flex: none; width: 100%; } }
+.public-site .tp.tp4 ul.tp-chips li, .public-site .tp.tp4 .tp-card .tp-card-body ul.tp-chips li { font-size: 16px; }

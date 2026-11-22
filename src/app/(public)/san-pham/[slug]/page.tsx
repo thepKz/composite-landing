@@ -10,20 +10,19 @@ import ProductPhotoGallery from '@/components/product-photo-gallery';
 import ProductCard from '@/components/product-card';
 import Reveal from '@/components/pages/reveal';
 import { Crumbs } from '@/components/pages/flow-hero';
-import { FlowSection, Morph, Pattern, ShapeFrame, Stack, StackStat, morphName } from '@/components/decor';
-import type { FrameShape } from '@/components/decor';
+import { FlowSection, Morph, Pattern, Stack, morphName } from '@/components/decor';
 import { shortStat } from '@/components/product-card';
 import FaqList from '@/components/pages/faq-list';
 import { QuoteButton, ScaleChips, ScaleProvider, ScaleTableView, StickyBuyBar } from '@/components/pages/scale-picker';
 import { productGuidance, type Feature } from '@/lib/product-guidance';
 import { groupOfProduct } from '@/lib/product-groups';
-import { productAssetBySlug, editorialAssets, additionalCustomerAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
+import { productPhotos } from '@/lib/product-photos';
 import { Drawing, kindOf } from '@/components/pages/product-tile';
 import '@/components/pages/pages.css';
 import '@/components/product-assets.css';
 import '@/components/pages/pages-v4.css';
 import './product-detail.css';
+import '@/components/pages/pages-v5.css';
 
 type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props) {
@@ -31,27 +30,6 @@ export async function generateMetadata({ params }: Props) {
   const p = (await products()).find(p => p.slug === slug);
   return { title: p?.name ?? 'Sản phẩm', description: p?.description, alternates: { canonical: `/san-pham/${slug}` } };
 }
-
-// Chỉ bổ sung ảnh cho dòng mà hình dáng và công dụng nhìn thấy rõ trong ảnh khách cung cấp.
-const supportingPhotos = {
-  'be-biogas-composite': [editorialAssets.gallery[2]],
-  // Ảnh có người nhỏ đứng ở mép bể (round-blue-tanks-site) để cuối, không đứng đầu.
-  'be-nuoi-trong-thuy-san': [editorialAssets.fit, { src: '/images/products-2026/round-blue-tanks-site.webp', alt: 'Các bể composite tròn màu xanh được bố trí ngoài trời', label: 'Bể tròn composite', width: 964, height: 1280 }],
-  'thung-cho-tom-ca': [editorialAssets.gallery[1], additionalCustomerAssets[2]],
-  'composite-theo-yeu-cau': [editorialAssets.story],
-};
-
-// Ảnh đã cắt đúng khung vuông, cân tông; bản đủ khung dùng cho hộp phóng to.
-const toPhoto = (a: { src: string; alt: string; label?: string }) => { const v = variants(a.src); return { src: v.sq, alt: a.alt, label: a.label, zoom: v.full }; };
-
-// Dáng khung ảnh chính lấy từ chính sản phẩm: vòm bể biogas, bể tròn, thùng xe, bồn nằm.
-const heroShape: Record<string, { shape: FrameShape; ratio: number; focus?: string }> = {
-  'be-biogas-composite': { shape: 'arch', ratio: 0.85, focus: '50% 55%' },
-  'be-nuoi-trong-thuy-san': { shape: 'circle', ratio: 1, focus: '50% 55%' },
-  'thung-cho-tom-ca': { shape: 'slant', ratio: 1.1, focus: '50% 50%' },
-  'xe-gom-rac': { shape: 'slant-reverse', ratio: 1.1, focus: '50% 55%' },
-  'composite-theo-yeu-cau': { shape: 'capsule', ratio: 1.25, focus: '50% 50%' },
-};
 
 const icons: Record<Feature['icon'], LucideIcon> = { shape: Shapes, seal: ShieldCheck, bolt: Zap, layers: Layers, drop: Droplets, funnel: Funnel, move: Move, flask: FlaskConical, truck: Truck, wind: Wind, tool: Wrench, recycle: Recycle, shield: ShieldCheck, ruler: Ruler };
 
@@ -62,10 +40,10 @@ export default async function ProductPage({ params }: Props) {
   const index = items.findIndex(p => p.slug === slug);
   const product = items[index];
   if (!product) notFound();
-  const asset = productAssetBySlug[slug];
-  const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name, zoom: undefined as string | undefined } : asset ? toPhoto(asset) : undefined;
-  const extra = (supportingPhotos[slug as keyof typeof supportingPhotos] || []).map(toPhoto);
-  const photos = image ? [image, ...extra].filter((photo, i, all) => all.findIndex(item => item.src === photo.src) === i) : [];
+  // Ảnh admin chọn làm ảnh đại diện đứng đầu, rồi đến mọi ảnh thật đúng sản phẩm này (không lặp, không mượn ảnh sản phẩm khác).
+  const own = (productPhotos[slug] || []).map(p => ({ src: p.src, thumb: p.thumb, full: p.full, alt: p.alt, label: p.label, width: p.width, height: p.height }));
+  const photos = [...(product.cover_id ? [{ src: `/api/media/${product.cover_id}`, alt: product.name, label: product.name }] : []), ...own];
+  const image = photos[0];
   const guidance = productGuidance(slug);
   const group = groupOfProduct(slug);
   const faqItems = guidance.faqs.map(i => faqs[i]).filter(Boolean);
@@ -97,9 +75,7 @@ export default async function ProductPage({ params }: Props) {
   }
   const factList = <dl className="tp-pd-facts">{rows.map(row => <div key={row.label ?? row.sr} className={row.label ? undefined : 'is-bare'}>{row.label ? <dt>{row.label}</dt> : <dt className="tp-sr">{row.sr}</dt>}<dd>{row.value}</dd></div>)}</dl>;
 
-  const frame = heroShape[slug] ?? { shape: 'arch' as FrameShape, ratio: 0.85 };
   const plainStat = shortStat(product.specifications[0]?.value.split(':')[0]) ?? '';
-  const buildPhoto = photos[Math.min(1, photos.length - 1)];
 
   return <main id="main" className="public-page tp tp-product tp4">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
@@ -113,26 +89,24 @@ export default async function ProductPage({ params }: Props) {
         <Pattern kind="ripple" size="clamp(260px,34vw,520px)" top="-12%" right="-8%" opacity={0.45} blend="screen"/>
       </>}>
         <Crumbs crumbs={[{ label: 'Trang chủ', href: '/' }, ...crumbs]}/>
-        <div className={`tp4-pd-grid${photos.length ? '' : ' is-plain'}`}>
-          <div className="tp4-pd-media">
-            {photos.length ? <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="tl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light"/>}>
-              <ProductPhotoGallery key={slug} photos={photos} shape={frame.shape} ratio={frame.ratio} focus={frame.focus} morph={morphName('product-photo', slug)}/>
-            </Stack> : <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="tl" float={plainStat ? <StackStat value={plainStat} tone="light"/> : undefined}>
-              <ShapeFrame shape="arch" ratio={0.9} outline="bronze" outlineOffset={14}>
-                <div className="tp4-plain"><Drawing kind={kindOf(slug)} color="#d3f56b" className="tp4-plain__art"/></div>
-              </ShapeFrame>
-            </Stack>}
-          </div>
-          <div className="tp4-pd-copy">
+        <div className={`tp4-pd-grid tp5-pd-grid${photos.length ? '' : ' is-plain'}`}>
+          <div className="tp5-pd-head">
             <div className="tp-pd-badges"><span className="tp-badge">{product.category}</span></div>
             <Morph name={morphName('product-title', slug)}><h1 className={product.name.length > 20 ? 'is-long' : undefined}>{product.name}</h1></Morph>
             <p className="tp-pd-tagline">{guidance.tagline}</p>
+          </div>
+          <div className="tp4-pd-media">
+            {photos.length ? <Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.35 }} floatAt="tl">
+              <ProductPhotoGallery key={slug} photos={photos} morph={morphName('product-photo', slug)}/>
+            </Stack> : <div className="pf tp5-plain"><Drawing kind={kindOf(slug)} color="#d3f56b" className="tp4-plain__art"/>{plainStat ? <strong className="tp5-plain__stat">{plainStat}</strong> : null}</div>}
+          </div>
+          <div className="tp5-pd-body">
             <p className="tp-pd-lead">{product.description}</p>
-            {photos.length ? null : <ul className="tp-chips tp-pd-apps" aria-label="Ứng dụng">{product.applications.map(item => <li key={item}>{item}</li>)}</ul>}
             <div className="tp-pd-actions">
               <QuoteButton/>
               <a className="tp-btn tp-btn-ghost-light" href={`tel:${info.hotlines[0].tel}`}><Phone size={18} aria-hidden="true"/>{info.hotlines[0].display}</a>
             </div>
+            {photos.length ? null : <ul className="tp-chips tp-pd-apps" aria-label="Ứng dụng">{product.applications.map(item => <li key={item}>{item}</li>)}</ul>}
             {factList}
             <ScaleChips/>
           </div>
@@ -154,7 +128,6 @@ export default async function ProductPage({ params }: Props) {
         <div className={`tp4-build${guidance.accessories ? '' : ' is-solo'}`}>
           <div className="tp4-build__head tp-rv">
             <h2 className="tp4-h2">Cấu tạo và ưu điểm</h2>
-            {buildPhoto ? <div className="tp4-build__ports"><ShapeFrame shape="porthole-trio" ratio={2.2} outline="light" outlineOffset={10} focus="50% 55%"><img src={buildPhoto.zoom ?? buildPhoto.src} alt="" width={960} height={436} loading="lazy"/></ShapeFrame></div> : null}
             {guidance.accessories && <div className="tp-accessories"><h3>{guidance.accessories.title}</h3><ul>{guidance.accessories.items.map(item => <li key={item}><CircleCheck size={18} aria-hidden="true"/>{item}</li>)}</ul></div>}
           </div>
           <ol className="tp-build-list">

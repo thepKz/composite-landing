@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import type { Product } from '@/lib/catalogue';
-import { productAssetBySlug } from '@/lib/customer-product-assets';
+import { productPhotos } from '@/lib/product-photos';
 import ProductTile from '@/components/pages/product-tile';
-import { variants } from '@/lib/trang-phu-media';
-import { Morph, morphName, ShapeFrame } from '@/components/decor';
-import type { FrameShape } from '@/components/decor';
+import { Morph, morphName } from '@/components/decor';
 import './product-assets.css';
 
 type Props = {
@@ -30,35 +28,28 @@ type Props = {
   feature?: boolean;
   /** Gắn tên morph để ảnh và tên biến thành đầu trang chi tiết. Chỉ bật khi thẻ dẫn đúng tới trang của chính sản phẩm */
   morph?: boolean;
-  /** Dáng khung ảnh. Mặc định xoay vòng theo thứ tự thẻ */
-  shape?: FrameShape;
+  /** Không còn dùng: khung ảnh luôn là chữ nhật bo nhẹ. Giữ để các nơi gọi cũ không gãy */
+  shape?: string;
 };
-
-// Dáng khung lấy từ sản phẩm: vòm bể biogas, thùng xe vát cạnh, bể tròn, viên nang bồn nằm.
-const SHAPES: { shape: FrameShape; ratio: number }[] = [
-  { shape: 'arch', ratio: 0.85 }, { shape: 'slant', ratio: 1.3 }, { shape: 'circle', ratio: 1 }, { shape: 'slant-reverse', ratio: 1.3 }, { shape: 'capsule', ratio: 1.6 },
-];
 
 // Rút gọn con số lớn trong ô thay thế: "Từ 1 m³ đến 100 m³ trở lên" thành "1 – 100+ m³".
 export const shortStat = (value?: string) => value?.replace(/^Từ\s+([\d.,]+)\s*m³\s+đến\s+([\d.,]+)\s*m³\s+trở lên$/i, '$1 – $2+ m³');
 
 // Thẻ sản phẩm. Ảnh thật đúng sản phẩm đặt trong khung có nền mờ cùng ảnh, ảnh nét nằm giữa.
 // Sản phẩm chưa có ảnh xác nhận thì thẻ dựa vào thông số, không gán ảnh sai.
-export default function ProductCard({ product, compact = false, href, title, rank, index = 0, still = false, wide = false, feature = false, showCategory = true, morph = false, shape }: Props) {
-  const asset = productAssetBySlug[product.slug];
-  const v = asset ? variants(asset.src) : null;
-  const picked = feature ? { shape: 'arch' as FrameShape, ratio: 0.8 } : wide ? { shape: 'circle' as FrameShape, ratio: 1 } : shape ? { shape, ratio: SHAPES.find(item => item.shape === shape)?.ratio ?? 1.2 } : SHAPES[index % SHAPES.length];
-  const tall = picked.ratio < 1.2;
-  const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, srcSet: undefined as string | undefined } : asset && v ? (tall ? { src: v.sq, alt: asset.alt, srcSet: `${v.sqSmall} 560w, ${v.sq} 1000w` } : { src: v.r43, alt: asset.alt, srcSet: `${v.r43Small} 520w, ${v.r43} 960w` }) : undefined;
+export default function ProductCard({ product, compact = false, href, title, rank, index = 0, still = false, wide = false, feature = false, showCategory = true, morph = false }: Props) {
+  const own = productPhotos[product.slug]?.[0];
+  const image = product.cover_id ? { src: `/api/media/${product.cover_id}`, alt: product.name, width: 1200, height: 900 } : own ? { src: own.src, alt: own.alt, width: own.width, height: own.height } : undefined;
   const name = title || product.name;
-  const frame = <ShapeFrame shape={picked.shape} ratio={picked.ratio} outline={rank ? 'bronze' : 'green'} outlineOffset={10} focus="50% 45%" morph={morph && image ? morphName('product-photo', product.slug) : undefined}>
+  const frame = <div className="tp-card-frame">
     {image
-      ? <img className="tp-card-photo" src={image.src} srcSet={image.srcSet} sizes={feature ? '(min-width: 1000px) 480px, 92vw' : wide ? '(min-width: 1000px) 280px, 92vw' : '(min-width: 1000px) 300px, 92vw'} alt={image.alt} width={960} height={tall ? 960 : 720} loading="lazy"/>
+      ? <img className="tp-card-photo" src={image.src} sizes={feature ? '(min-width: 1000px) 480px, 92vw' : wide ? '(min-width: 1000px) 280px, 92vw' : '(min-width: 1000px) 300px, 92vw'} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async"/>
       : <ProductTile slug={product.slug} stat={shortStat(product.specifications[0]?.value.split(':')[0])} />}
-  </ShapeFrame>;
+  </div>;
+  const media = morph && image ? <Morph name={morphName('product-photo', product.slug)}>{frame}</Morph> : frame;
   const heading = <h3 className={name.length > 26 ? 'is-long' : undefined}>{name}</h3>;
   return <Link href={href || `/san-pham/${product.slug}`} className={`tp-card${wide ? ' is-wide' : ''}${feature ? ' is-feature' : ''}${rank ? ' is-flagship' : ''}${image ? '' : ' no-photo'}${still ? '' : ' tp-rv'}`} style={{ ['--i' as string]: index }}>
-    <div className="tp-card-media">{frame}</div>
+    <div className="tp-card-media">{media}</div>
     <div className="tp-card-body">
       {showCategory && <span className="tp-card-category">{product.category}</span>}
       {morph ? <Morph name={morphName('product-title', product.slug)}>{heading}</Morph> : heading}

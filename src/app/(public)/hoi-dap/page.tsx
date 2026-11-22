@@ -1,25 +1,26 @@
 import Link from 'next/link';
 import { ArrowUpRight, Phone } from 'lucide-react';
-import { FlowSection, Pattern, ShapeFrame, Stack } from '@/components/decor';
+import { FlowSection, Pattern, Stack } from '@/components/decor';
+import PhotoFrame from '@/components/pages/photo-frame';
 import FlowHero from '@/components/pages/flow-hero';
 import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
 import FaqList from '@/components/pages/faq-list';
 import { faqs } from '@/lib/site-facts';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
+import { photos } from '@/lib/product-photos';
 import { contact } from '@/lib/content';
 import { jsonLd } from '@/lib/seo';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Hỏi đáp về bể composite', description: 'Câu hỏi thường gặp khi mua bể composite FRP: độ bền, độ dày, sửa chữa, lắp đặt vùng đất trũng, thời gian báo giá và giao hàng.', alternates: { canonical: '/hoi-dap' } };
 
 export default async function FaqPage() {
   const hotline = (await contact()).hotlines[0];
   const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(item => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
-  const photo = editorialAssets.gallery[0];
+  const photo = photos.lidded;
   return <main id="main" className="public-page tp tp-faq-page tp4">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }}/>
     <Reveal/>
@@ -27,9 +28,7 @@ export default async function FaqPage() {
       title="Những câu khách hàng hỏi trước khi chọn bể"
       lead="Năm câu hỏi về độ bền, độ dày, sửa chữa, lắp đặt và giao hàng."
       visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="br">
-        <ShapeFrame shape="circle" ratio={1.15} outline="bronze" outlineOffset={12} focus="50% 50%">
-          <img src={variants(photo.src).r43} alt={photo.alt} width={960} height={720} fetchPriority="high"/>
-        </ShapeFrame>
+        <PhotoFrame photo={photo} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
     <FlowSection tone="light" top="dome" className="tp4-faq-page-body" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
       <div className="tp4-faq-layout">

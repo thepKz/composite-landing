@@ -2,15 +2,17 @@ import { isDemoMode } from '@/lib/demo-mode';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Building2, Factory, Fish, Sprout, Trash2 } from 'lucide-react';
 import { db } from '@/lib/db';
-import { editorialAssets } from '@/lib/customer-product-assets';
 import { variants } from '@/lib/trang-phu-media';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { photos } from '@/lib/product-photos';
+import PhotoFrame from '@/components/pages/photo-frame';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
 import PostCard, { type CardPost } from '@/components/article/post-card';
 import ListHero from '@/components/article/list-hero';
 import QuoteBand from '@/components/article/quote-band';
 import Reveal from '@/components/article/reveal';
 import '@/components/article/list.css';
 import './du-an.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Dự án Thành Lợi Composite', description: 'Các lĩnh vực và dự án ứng dụng composite FRP do Thành Lợi thực hiện và công bố.', alternates: { canonical: '/du-an' } };
 
@@ -23,10 +25,9 @@ const fields = [
 ];
 
 // Khi chưa có dự án đăng riêng, trang dùng ảnh công trình và xưởng thật đã có, không chú thích, không gán cho nhóm chưa xác nhận.
-const photo = (asset: { src: string; alt: string }, kind: 'r43' | 'r169' = 'r43') => { const v = variants(asset.src); return { src: kind === 'r169' ? v.r169 : v.r43, small: v.r43Small, alt: asset.alt }; };
-const heroPhoto = photo(editorialAssets.hero, 'r169');
-const archPhoto = photo(editorialAssets.hero);
-const capsulePhoto = photo(editorialAssets.fit);
+// Ảnh nền đầu trang là ảnh trang trí nên được phủ kín. Ảnh nội dung bên dưới hiện trọn, không cắt.
+const heroPhoto = { src: variants('/images/products-2026/round-tanks-installation.webp').r169 };
+const gallery = [photos.roundInstall, photos.roundSite, photos.loading, photos.pickup, photos.sphere, photos.workshopTanks, photos.lidded, photos.bin];
 
 type Row = CardPost & { published_at: Date };
 
@@ -45,17 +46,19 @@ export default async function ProjectsPage() {
         <PostCard post={first} featured titleTag="h3" />
         {rest.length > 0 && <div className="da-grid">{rest.map((post, index) => <PostCard key={post.id} post={post} index={index} titleTag="h3" />)}</div>}
       </div> : <div className="da-void">
-        <Stack className="da-void-stack" pattern={{ kind: 'ripple', opacity: 0.7 }} floatAt="br"
-          float={<ShapeFrame shape="capsule" ratio={1.8} outline="green" outlineOffset={8} focus="50% 50%"><img src={capsulePhoto.small} alt={capsulePhoto.alt} sizes="240px" loading="lazy" decoding="async" /></ShapeFrame>}>
-          <ShapeFrame shape="arch" ratio={0.92} outline="bronze" focus="50% 55%" parallax>
-            <img src={archPhoto.src} srcSet={`${archPhoto.small} 520w, ${archPhoto.src} 960w`} sizes="(max-width:900px) 80vw, 460px" alt={archPhoto.alt} loading="lazy" decoding="async" />
-          </ShapeFrame>
+        <Stack clear className="da-void-stack" pattern={{ kind: 'ripple', opacity: 0.5 }}>
+          <PhotoFrame photo={photos.workshopTanks} ratio={4 / 3} sizes="(max-width:900px) 90vw, 460px"/>
         </Stack>
         <div className="da-void-text" data-art-reveal>
           <h2>Hồ sơ từng công trình sẽ được đăng tại đây</h2>
           <p>Trong lúc chờ, năm lĩnh vực dưới đây cho thấy nơi các sản phẩm composite của Thành Lợi đã được lắp đặt.</p>
         </div>
       </div>}
+
+      <section className="da-photos" aria-labelledby="da-photos-title">
+        <h2 id="da-photos-title" data-art-reveal>Thành phẩm từ xưởng Phú Thọ đến chân công trình</h2>
+        <ul className="da-photo-grid">{gallery.map(photo => <li key={photo.id}><PhotoFrame photo={photo} ratio={4 / 3} sizes="(min-width: 900px) 280px, 46vw"/></li>)}</ul>
+      </section>
 
       <div className="da-fields">
         <h2 data-art-reveal>Năm lĩnh vực công trình</h2>

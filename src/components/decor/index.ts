@@ -1,4 +1,4 @@
-export { default as ShapeFrame, framePath } from './shape-frame';
+export { default as ShapeFrame } from './shape-frame';
 export type { ShapeFrameProps, FrameShape } from './shape-frame';
 export { default as Pattern } from './pattern';
 export type { PatternProps, PatternKind } from './pattern';

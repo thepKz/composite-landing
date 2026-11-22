@@ -1,13 +1,14 @@
 import { FileText, Ruler, Wrench, ScrollText } from 'lucide-react';
-import { FlowSection, Pattern, ShapeFrame, Stack, StackStat } from '@/components/decor';
+import { FlowSection, Pattern, Stack, StackStat } from '@/components/decor';
+import PhotoFrame from '@/components/pages/photo-frame';
 import FlowHero from '@/components/pages/flow-hero';
 import FlowCta from '@/components/pages/flow-cta';
 import Reveal from '@/components/pages/reveal';
-import { editorialAssets } from '@/lib/customer-product-assets';
-import { variants } from '@/lib/trang-phu-media';
+import { photos } from '@/lib/product-photos';
 import '@/components/pages/pages.css';
 import '@/components/pages/pages-v4.css';
 import '../secondary-pages.css';
+import '@/components/pages/pages-v5.css';
 
 export const metadata = { title: 'Chính sách bảo hành', description: 'Bảo hành đến 10 năm tùy dòng sản phẩm composite Thành Lợi. Độ dày, loại nhựa, trọng lượng ghi trong hợp đồng, bể va đập có thể sửa chữa tại chỗ.', alternates: { canonical: '/chinh-sach-bao-hanh' } };
 
@@ -19,16 +20,14 @@ const points = [
 ];
 
 export default function WarrantyPage() {
-  const photo = editorialAssets.fit;
+  const photo = photos.rectWorkshop;
   return <main id="main" className="public-page tp tp-warranty tp4">
     <Reveal/>
     <FlowHero tone="teal" crumbs={[{ label: 'Trang chủ', href: '/' }, { label: 'Chính sách bảo hành' }]}
       title="Bảo hành đến 10 năm tùy dòng sản phẩm"
       lead="Độ dày thành bồn, chủng loại nhựa và trọng lượng tiêu chuẩn đều ghi trong hợp đồng và kiểm tra được khi nghiệm thu."
-      visual={<Stack pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.55 }} floatAt="bl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light"/>}>
-        <ShapeFrame shape="circle" ratio={1.2} outline="bronze" outlineOffset={12} focus="50% 50%">
-          <img src={variants(photo.src).r43} alt={photo.alt} width={960} height={720} fetchPriority="high"/>
-        </ShapeFrame>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value={10} unit="năm" label="Bảo hành tối đa" tone="light"/>}>
+        <PhotoFrame photo={photo} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
     <FlowSection tone="light" top="dome" className="tp4-warranty-body" decor={<Pattern kind="paper" fade="both" opacity={0.85}/>}>
       <h2 className="tp-sr">Điều cần biết về bảo hành</h2>
