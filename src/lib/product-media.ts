@@ -9,7 +9,13 @@ export function dedupeIds<T>(ids: readonly T[]): T[] {
 }
 
 /** Danh sách mã ảnh gửi lên: mã hợp lệ, bỏ trùng, tối đa 20 ảnh. */
-export const productMediaIdsSchema = z.array(z.uuid()).max(60).transform(dedupeIds).pipe(z.array(z.uuid()).max(MAX_PRODUCT_PHOTOS, `Mỗi sản phẩm chỉ có tối đa ${MAX_PRODUCT_PHOTOS} ảnh.`));
+const TOO_MANY = `Mỗi sản phẩm tối đa ${MAX_PRODUCT_PHOTOS} ảnh.`;
+const BAD_ID = 'Có ảnh không đúng. Vui lòng chọn lại ảnh.';
+const tooMany = (limit: number) => (list: readonly unknown[]) => list.length <= limit;
+export const productMediaIdsSchema = z.array(z.uuid({ error: BAD_ID }), { error: 'Danh sách ảnh không đúng. Vui lòng tải lại trang.' })
+  .refine(tooMany(60), { error: TOO_MANY, params: { headline: true } })
+  .transform(dedupeIds)
+  .pipe(z.array(z.uuid({ error: BAD_ID })).refine(tooMany(MAX_PRODUCT_PHOTOS), { error: TOO_MANY, params: { headline: true } }));
 
 /** Ảnh đại diện theo danh sách: ảnh đầu danh sách, danh sách rỗng thì không có ảnh đại diện. */
 export function coverFromList(ids: readonly string[]): string | null {
@@ -29,9 +35,9 @@ export function mergePhotos<A extends { src: string }, B extends { src: string }
 
 /** Dòng đếm cho người dùng. */
 export function photoCountText(count: number): string {
-  if (count === 0) return 'Chưa có ảnh, nên có khoảng 10';
+  if (count === 0) return `Chưa có ảnh, nên có khoảng ${RECOMMENDED_PRODUCT_PHOTOS} ảnh`;
   if (count >= RECOMMENDED_PRODUCT_PHOTOS) return `${count} ảnh, đã đủ nhiều`;
-  return `${count} ảnh, nên có khoảng ${RECOMMENDED_PRODUCT_PHOTOS}`;
+  return `${count} ảnh, nên có khoảng ${RECOMMENDED_PRODUCT_PHOTOS} ảnh`;
 }
 
 /** Đổi chỗ một ảnh lên hoặc xuống một bậc, ngoài biên thì giữ nguyên. */

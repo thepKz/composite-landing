@@ -25,7 +25,8 @@ export default function ProductPhotos({ ids, onChange, onAdd, status, statusKind
   }
 
   return <section className="admin-panel settings-form pp-section" aria-labelledby="pp-title">
-    <div className="panel-title"><h2 id="pp-title">Ảnh sản phẩm</h2><p className="pp-count" role="status">{photoCountText(ids.length)}</p></div>
+    <div className="panel-title"><h2 id="pp-title">Ảnh sản phẩm</h2><button ref={addButton} type="button" className="button button-outline" disabled={disabled || full} onClick={onAdd}><ImagePlus size={17} aria-hidden="true" />Thêm ảnh</button></div>
+    <p className="pp-count" role="status">{photoCountText(ids.length)}</p>
     <p className="field-help">Ảnh đầu tiên là ảnh đại diện. Dùng nút mũi tên để đổi chỗ ảnh.</p>
     {ids.length ? <ol className="pp-grid" aria-label="Ảnh của sản phẩm theo thứ tự">
       {ids.map((id, index) => <li key={id} className="pp-tile" data-first={index === 0 || undefined}>
@@ -40,7 +41,6 @@ export default function ProductPhotos({ ids, onChange, onAdd, status, statusKind
     </ol> : <p className="product-cover-empty">{hasBuiltIn ? 'Bạn chưa thêm ảnh nào. Website đang dùng ảnh có sẵn của sản phẩm này.' : 'Chưa có ảnh. Hãy thêm ảnh thật để khách nhìn thấy sản phẩm.'}</p>}
     {ids.length > 0 && hasBuiltIn && <p className="field-help">Ảnh có sẵn của website vẫn hiện sau ảnh bạn thêm.</p>}
     <div className="inline-actions pp-foot">
-      <button ref={addButton} type="button" className="button button-outline" disabled={disabled || full} onClick={onAdd}><ImagePlus size={17} aria-hidden="true" />Thêm ảnh</button>
       {full && <span className="field-help">Đã đủ {MAX_PRODUCT_PHOTOS} ảnh, bỏ bớt ảnh để thêm ảnh khác.</span>}
       {status && <span className={`pp-status${statusKind ? ` is-${statusKind}` : ''}`} role={statusKind === 'error' ? 'alert' : 'status'}>{status}</span>}
     </div>

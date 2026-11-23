@@ -55,7 +55,7 @@ test('ảnh admin đứng trước ảnh có sẵn và không lặp địa chỉ
 });
 
 test('dòng đếm ảnh nói bằng lời thường', () => {
-  assert.equal(photoCountText(6), '6 ảnh, nên có khoảng 10');
-  assert.equal(photoCountText(0), 'Chưa có ảnh, nên có khoảng 10');
+  assert.equal(photoCountText(6), '6 ảnh, nên có khoảng 10 ảnh');
+  assert.equal(photoCountText(0), 'Chưa có ảnh, nên có khoảng 10 ảnh');
   assert.equal(photoCountText(12), '12 ảnh, đã đủ nhiều');
 });

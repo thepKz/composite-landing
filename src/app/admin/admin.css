@@ -535,3 +535,5 @@
 .pp-status.is-ok { color: var(--a-green); }
 @media (max-width: 800px) { .pp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .pp-actions { gap: 4px; padding-inline: 6px; } .pp-actions .icon-button { min-width: 44px; min-height: 44px; } }
 @media (max-width: 800px) { .adm-pick-bar.is-multi { flex-wrap: wrap; } .adm-pick-bar.is-multi span { flex: 1 1 100%; } .adm-pick-bar.is-multi .button { flex: 1 1 0; } }
+/* Thanh chọn nhiều ảnh: câu dài thì xuống dòng ở ranh giới cụm, không cắt bằng dấu ba chấm */
+.adm-pick-bar.is-multi span { overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: break-word; }

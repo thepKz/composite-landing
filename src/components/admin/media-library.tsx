@@ -138,8 +138,8 @@ export default function MediaLibrary({ onSelect, onSelectMany, taken = [], room 
     onDrop={event => { event.preventDefault(); setOver(false); const files = [...event.dataTransfer.files]; if (files.length) void uploadAll(files); }}>
     <div className="adm-dropzone" data-over={over}>
       <Upload size={28} aria-hidden="true" />
-      <div><strong>Kéo thả ảnh vào đây để tải lên</strong><span className="field-help" style={{ display: 'block' }}>{imagesOnly ? 'Ảnh JPG, PNG, WebP, AVIF tối đa 10 MB mỗi ảnh.' : 'Ảnh tối đa 10 MB, video MP4 hoặc WebM tối đa 100 MB. Chọn được nhiều tệp một lần.'}</span></div>
-      <button type="button" className="button" onClick={() => input.current?.click()}><Upload size={17} />Chọn tệp</button>
+      <div><strong>Kéo thả ảnh vào đây để tải lên</strong><span className="field-help" style={{ display: 'block' }}>{imagesOnly ? 'Mỗi ảnh nặng tối đa 10 MB.' : 'Ảnh tối đa 10 MB, video MP4 hoặc WebM tối đa 100 MB. Chọn được nhiều tệp một lần.'}</span></div>
+      <button type="button" className={imagesOnly ? 'button button-outline' : 'button'} onClick={() => input.current?.click()}><Upload size={17} />Chọn tệp</button>
       <input ref={input} type="file" multiple hidden accept={imagesOnly ? 'image/jpeg,image/png,image/webp,image/avif' : 'image/jpeg,image/png,image/webp,image/avif,video/mp4,video/webm'} onChange={event => { const files = [...(event.target.files ?? [])]; event.target.value = ''; if (files.length) void uploadAll(files); }} />
     </div>
     {queue.length > 0 && <ul className="adm-uploads" aria-label="Tiến trình tải lên">{queue.map(item => <li key={item.key} data-error={item.error ? 'true' : undefined}>
@@ -147,20 +147,20 @@ export default function MediaLibrary({ onSelect, onSelectMany, taken = [], room 
       {item.error ? <span role="alert" style={{ gridColumn: '2 / -1', display: 'flex', gap: 6, alignItems: 'center' }}><AlertCircle size={16} />{item.error}</span> : <><progress value={item.progress} max={100} aria-label={`Tiến trình ${item.name}`} /><span>{item.done ? 'Xong' : `${item.progress}%`}</span></>}
     </li>)}</ul>}
     <div className="list-controls" style={{ marginBottom: 0 }}>
-      <div className="filter-tabs" role="group" aria-label="Lọc loại tệp">
+      {!imagesOnly && <div className="filter-tabs" role="group" aria-label="Lọc loại tệp">
         {([['all', 'Tất cả'], ['image', 'Ảnh'], ['video', 'Video']] as const).filter(([value]) => !imagesOnly || value !== 'video').map(([value, label]) => <button key={value} type="button" aria-pressed={kind === value} onClick={() => setKind(value)}>{label}</button>)}
-      </div>
+      </div>}
       {!onSelect && !choosing && <button type="button" className="button button-outline" aria-pressed={multi} onClick={() => { setMulti(value => !value); setPicked([]); setSelected(null); }}><ListChecks size={17} />{multi ? 'Xong' : 'Chọn nhiều'}</button>}
-      <label className="search-control"><Search size={17} /><input aria-label="Tìm ảnh hoặc video" placeholder="Tìm theo tên hoặc mô tả" value={search} onChange={event => setSearch(event.target.value)} /></label>
+      <label className="search-control"><Search size={17} /><input aria-label={imagesOnly ? 'Tìm ảnh' : 'Tìm ảnh hoặc video'} placeholder="Tìm theo tên hoặc mô tả" value={search} onChange={event => setSearch(event.target.value)} /></label>
     </div>
     {error && <p className="error-message" role="alert">{error} <button type="button" className="link-button" onClick={() => void load()}>Tải lại</button></p>}
     {multi && <div className="adm-bulkbar" role="status"><strong>{picked.length ? `Đã chọn ${picked.length} tệp` : 'Bấm vào ảnh để chọn'}</strong><span className="adm-bulk-actions"><button type="button" className="button button-outline" disabled={!picked.length || bulkBusy} onClick={() => setPicked([])}>Bỏ chọn</button><button type="button" className="button button-danger" disabled={!picked.length || bulkBusy} onClick={() => void removePicked()}><Trash2 size={17} />{bulkBusy ? 'Đang xoá' : `Xoá ${picked.length || ''}`.trim()}</button></span></div>}
     <div className="adm-media-layout" data-selected={Boolean(selected)}>
       <div>
-        {loading ? <SkeletonRows rows={3} height={150} /> : shown.length ? <div className="adm-media-grid">{shown.map(item => { const have = choosing && taken.includes(item.id); const locked = have || (multi && Number(item.used_count) > 0); const on = picked.includes(item.id); const full = choosing && !on && picked.length >= room; return <button type="button" key={item.id} className="adm-media-tile" data-picked={on || undefined} disabled={locked} aria-disabled={full || undefined} aria-pressed={multi || choosing ? on : selected?.id === item.id} onClick={() => { if (multi || choosing) { if (full) { toast('Đã đủ 20 ảnh cho sản phẩm này.', 'error'); return; } setPicked(previous => on ? previous.filter(id => id !== item.id) : [...previous, item.id]); } else setSelected({ ...item }); }}>
-          <span className="adm-media-frame">{item.mime_type.startsWith('image/') ? <img src={`/api/media/${item.id}`} alt={item.alt || item.original_name} loading="lazy" /> : <Film size={36} />}</span>
+        {loading ? <SkeletonRows rows={3} height={150} /> : shown.length ? <div className="adm-media-grid">{shown.map((item, index) => { const have = choosing && taken.includes(item.id); const locked = have || (multi && Number(item.used_count) > 0); const on = picked.includes(item.id); const full = choosing && !on && picked.length >= room; return <button type="button" key={item.id} className="adm-media-tile" aria-label={imagesOnly ? `${item.alt || `Ảnh số ${index + 1}`}, ${sizeText(Number(item.size_bytes))}` : undefined} data-picked={on || undefined} disabled={locked} aria-disabled={full || undefined} aria-pressed={multi || choosing ? on : selected?.id === item.id} onClick={() => { if (multi || choosing) { if (full) { toast('Đã đủ 20 ảnh cho sản phẩm này.', 'error'); return; } setPicked(previous => on ? previous.filter(id => id !== item.id) : [...previous, item.id]); } else setSelected({ ...item }); }}>
+          <span className="adm-media-frame">{item.mime_type.startsWith('image/') ? <img src={`/api/media/${item.id}`} alt={item.alt || (imagesOnly ? `Ảnh số ${index + 1}` : item.original_name)} loading="lazy" /> : <Film size={36} />}</span>
           {have ? <span className="adm-media-used">Đã thêm</span> : !choosing && Number(item.used_count) > 0 && <span className="adm-media-used">Đang dùng</span>}
-          <span className="adm-media-meta"><strong title={item.original_name}>{item.alt || item.original_name}</strong><small>{item.mime_type.startsWith('video/') ? 'Video' : 'Ảnh'}, {sizeText(Number(item.size_bytes))}</small></span>
+          <span className="adm-media-meta"><strong title={item.alt || undefined}>{item.alt || (imagesOnly ? 'Ảnh chưa có mô tả' : item.original_name)}</strong><small>{item.mime_type.startsWith('video/') ? 'Video' : 'Ảnh'}, {sizeText(Number(item.size_bytes))}</small></span>
         {on && <span className="adm-media-check" aria-hidden="true"><Check size={16} /></span>}
         </button>; })}</div> : <div className="admin-empty"><ImageIcon size={32} /><h3>{search || kind !== 'all' ? 'Không thấy tệp phù hợp' : 'Thư viện đang trống'}</h3></div>}
       </div>
@@ -189,13 +189,13 @@ export default function MediaLibrary({ onSelect, onSelectMany, taken = [], room 
       </aside>}
     </div>
     {choosing && <div className="adm-pick-bar is-multi" role="region" aria-label="Ảnh đang chọn">
-      <span role="status">{picked.length ? `Đã chọn ${picked.length} ảnh` : 'Bấm vào ảnh để chọn, chọn được nhiều ảnh'}</span>
+      <span role="status">{picked.length ? `Đã chọn ${picked.length} ảnh` : 'Bấm ảnh để chọn nhiều ảnh'}</span>
       <button type="button" className="button button-outline" disabled={!picked.length} onClick={() => setPicked([])}>Bỏ chọn</button>
       <button type="button" className="button" disabled={!picked.length} onClick={() => onSelectMany?.(picked.map(id => items.find(item => item.id === id)).filter((item): item is Media => Boolean(item)))}><Check size={17} />{picked.length ? `Thêm ${picked.length} ảnh` : 'Thêm ảnh'}</button>
     </div>}
     {onSelect && selected && !multi && <div className="adm-pick-bar" role="region" aria-label="Ảnh đang chọn">
       {isImage ? <img src={`/api/media/${selected.id}`} alt="" /> : <Film size={24} aria-hidden="true" />}
-      <span title={selected.original_name}>{selected.alt || selected.original_name}</span>
+      <span title={selected.alt || undefined}>{selected.alt || (imagesOnly ? 'Ảnh chưa có mô tả' : selected.original_name)}</span>
       <button type="button" className="button" onClick={() => onSelect(selected)}><Check size={17} />{selectLabel ?? (imagesOnly ? 'Chọn ảnh này' : 'Chèn tệp này')}</button>
     </div>}
     {editing && selected && <ImageEditor mediaId={selected.id} onClose={() => setEditing(false)} onSaved={media => { setEditing(false); setItems(previous => [media, ...previous]); setSelected(media); }} />}

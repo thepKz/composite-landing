@@ -98,7 +98,7 @@ async function flow(browser: Browser, tag: 'desktop' | 'mobile', slug: string, s
   await expect(dialog).toBeHidden();
   let order = await gridIds();
   check(JSON.stringify(order) === JSON.stringify([a, b, c]), 'thứ tự sau khi thêm sai: ' + order.join(','));
-  await expect(section.getByText('3 ảnh, nên có khoảng 10')).toBeVisible();
+  await expect(section.getByText('3 ảnh, nên có khoảng 10 ảnh')).toBeVisible();
 
   // Đổi thứ tự bằng nút: a b c, đưa ảnh 3 lên trước thành a c b, đưa ảnh 1 xuống sau thành c a b.
   await section.getByRole('button', { name: 'Đưa ảnh 3 lên trước' }).click();
