@@ -18,7 +18,9 @@
   --tp-gutter: 48px;
 }
 .public-site .tp { background: var(--tp-paper); color: var(--tp-ink); font-size: 16px; line-height: 1.7; overflow-x: clip; }
-.public-site .tp p { text-align: left; text-align-last: auto; }
+.public-site .tp p { text-align: justify; text-align-last: auto; }
+/* Nhãn ngắn dưới con số không căn đều, kẻo chữ bị giãn. */
+.public-site .tp p.tp4-metric__l, .public-site .tp p.tp4-metric__v { text-align: left; }
 .public-site .tp h1, .public-site .tp h2, .public-site .tp h3 { text-wrap: wrap; letter-spacing: -0.02em; line-height: 1.22; margin: 0; }
 .public-site .tp h1 { font-size: clamp(34px, 4.2vw, 56px); font-weight: 700; }
 .public-site .tp h2 { font-size: clamp(28px, 3vw, 40px); font-weight: 700; }

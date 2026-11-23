@@ -53,7 +53,7 @@
 /* Thân bài: cột đọc 60 tới 72 ký tự mỗi dòng ở máy bàn (640px, chữ 18px) */
 .public-site .art .art-prose{font-size:18px;line-height:1.85;color:#1d3b35;overflow-wrap:break-word}
 .public-site .art .art-prose::after{content:'';display:block;clear:both}
-.public-site .art .art-prose p{margin:0 0 1.3em;max-width:none;text-align:left;text-align-last:auto}
+.public-site .art .art-prose p{margin:0 0 1.3em;max-width:none;text-align:justify;text-align-last:auto}
 .public-site .art .art-prose>p:first-child{font-size:20px;line-height:1.75;color:#0f3a31}
 .public-site .art .art-prose h2{margin:64px 0 20px;padding-top:32px;border-top:1px solid #cfddd5;font-size:30px;line-height:1.3;font-weight:700;letter-spacing:-.02em;color:#0f3a31;scroll-margin-top:120px;overflow-wrap:anywhere}
 .public-site .art .art-prose>h2:first-child{margin-top:0;padding-top:0;border-top:0}

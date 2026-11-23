@@ -1,7 +1,8 @@
 /* Khung chung trang công khai: nền chữ, thanh tiến trình, chuyển trang, nút ghim, chân trang.
    Nạp sau cùng nên thắng các lớp cũ cùng độ ưu tiên. */
 .public-site{--tl-cta:#b94918;--tl-cta-dark:#963711;--tl-navy:#103b50;--tl-navy-deep:#082b3e;--tl-green:#187447;--tl-lime:#d3f56b;--tl-paper:#f5f6f0;--tl-line:#d5dfd9;--tl-ink:#113d4c;--tl-muted:#113d4c;font-size:16px;line-height:1.7;overflow-x:clip}
-.public-site p{text-align:left;text-align-last:auto}
+/* Đoạn chữ căn đều hai bên (lời chủ dự án 23/11/2026), dòng cuối về trái. Chỗ cần căn giữa tự khai riêng. */
+.public-site p{text-align:justify;text-align-last:auto;text-justify:inter-word;hyphens:manual}
 .public-site a:focus-visible,.public-site button:focus-visible,.public-site summary:focus-visible{outline:3px solid #d4a633;outline-offset:3px}
 
 .tl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
