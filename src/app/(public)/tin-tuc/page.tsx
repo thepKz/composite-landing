@@ -82,8 +82,8 @@ export default async function News({ searchParams }: Props) {
           </ShapeFrame>
         </Stack>
         <div className="nl-void-text" data-art-reveal>
-          <h2 id="nl-void-title">Kiến thức và công trình sẽ được đăng tại đây</h2>
-          <p>Trong lúc chờ, phần Hỏi đáp đã có sẵn lời giải đáp về độ bền, loại nhựa, cách lắp đặt và cách sửa chữa bể composite.</p>
+          <h2 id="nl-void-title">Những điều khách hay hỏi về bể composite</h2>
+          <p>Phần Hỏi đáp giải thích độ bền, loại nhựa, cách lắp đặt và cách sửa chữa bể composite.</p>
           <div className="nl-void-actions">
             <Link href="/lien-he#gui-yeu-cau" className="lh-btn-quote pressable">Nhận báo giá<ArrowUpRight size={18} aria-hidden="true" /></Link>
             <Link href="/hoi-dap" className="lh-btn-ghost pressable">Hỏi đáp</Link>

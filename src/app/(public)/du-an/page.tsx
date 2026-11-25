@@ -50,8 +50,8 @@ export default async function ProjectsPage() {
           <PhotoFrame photo={photos.workshopTanks} ratio={4 / 3} sizes="(max-width:900px) 90vw, 460px"/>
         </Stack>
         <div className="da-void-text" data-art-reveal>
-          <h2>Hồ sơ từng công trình sẽ được đăng tại đây</h2>
-          <p>Trong lúc chờ, năm lĩnh vực dưới đây cho thấy nơi các sản phẩm composite của Thành Lợi đã được lắp đặt.</p>
+          <h2>Bồn bể composite Thành Lợi phục vụ năm lĩnh vực</h2>
+          <p>Chăn nuôi, dân dụng, thủy sản, công nghiệp và vệ sinh đô thị, mỗi lĩnh vực dùng một dòng bồn bể riêng làm tại xưởng Phú Thọ.</p>
         </div>
       </div>}
 
