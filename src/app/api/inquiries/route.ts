@@ -5,6 +5,7 @@ import { inquirySchema, inquiryMessage } from '@/lib/inquiry-details';
 import { db } from '@/lib/db';
 import { consumeLimit, consumePublicLimit, validOrigin } from '@/lib/auth';
 import { readJson, RequestError } from '@/lib/http';
+export const maxDuration = 30;
 
 export async function POST(request:Request){
   if(!validOrigin(request)) return Response.json({error:'Yêu cầu không hợp lệ.'},{status:403});

@@ -1,8 +1,6 @@
-import { unlink } from 'node:fs/promises';
-import path from 'node:path';
 import { requireAdmin, apiError } from '@/lib/admin-api';
 import { db } from '@/lib/db';
-import { receiveUpload, uploadRoot } from '@/lib/upload';
+import { receiveUpload, removeMediaFile } from '@/lib/upload';
 
 export const runtime = 'nodejs';
 
@@ -28,7 +26,7 @@ export async function POST(request: Request) {
       );
       return Response.json(result.rows[0], { status: 201 });
     } catch (error) {
-      await unlink(path.join(uploadRoot(), media.storage_key)).catch(() => {});
+      await removeMediaFile(media.storage_key).catch(() => console.error('Media rollback cleanup failed:', media.id));
       throw error;
     }
   } catch (error) { return apiError(error); }

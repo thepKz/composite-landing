@@ -1,6 +1,7 @@
 {
   "name": "thanh-loi-composite",
   "version": "1.0.0",
+  "engines": { "node": "24.x" },
   "description": "",
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",

@@ -3,6 +3,7 @@ import pg from 'pg';
 const globalDatabase = globalThis as unknown as { databasePool?: pg.Pool };
 export const db = globalDatabase.databasePool ?? new pg.Pool({
   connectionString: process.env.DATABASE_URL,
+  ...(process.env.DATABASE_SSL_CA ? { ssl: { ca: process.env.DATABASE_SSL_CA.replace(/\\n/g, '\n'), rejectUnauthorized: true } } : {}),
   max: 10,
   connectionTimeoutMillis: 5000,
   idleTimeoutMillis: 30000,

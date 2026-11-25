@@ -5,7 +5,7 @@ const config: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ['file-type'],
   // file-type loads strtok3's Node entry dynamically; include it in standalone output.
-  outputFileTracingIncludes: { '/api/admin/media': ['./node_modules/strtok3/**/*'] },
+  outputFileTracingIncludes: { '/api/admin/media': ['./node_modules/strtok3/**/*'], '/api/admin/media/upload': ['./node_modules/strtok3/**/*'] },
   turbopack: { root: process.cwd() },
   outputFileTracingExcludes: { '/*': ['./data/**/*','./backups/**/*','./.env*','./.impeccable/**/*'] },
   async headers() {

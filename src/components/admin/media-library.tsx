@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Upload, ImageIcon, Search, Check, Film, Copy, Trash2, Wand2, X, AlertCircle, ListChecks } from 'lucide-react';
-import { api, jsonOptions, uploadFile, checkUpload } from './client-api';
+import { api, jsonOptions, uploadFile, checkUpload, videoUploadLimit } from './client-api';
 import { searchText } from '@/lib/text';
 import { useConfirm, useToast, SkeletonRows } from './ui';
 import ImageEditor from './image-editor';
@@ -138,7 +138,7 @@ export default function MediaLibrary({ onSelect, onSelectMany, taken = [], room 
     onDrop={event => { event.preventDefault(); setOver(false); const files = [...event.dataTransfer.files]; if (files.length) void uploadAll(files); }}>
     <div className="adm-dropzone" data-over={over}>
       <Upload size={28} aria-hidden="true" />
-      <div><strong>Kéo thả ảnh vào đây để tải lên</strong><span className="field-help" style={{ display: 'block' }}>{imagesOnly ? 'Mỗi ảnh nặng tối đa 10 MB.' : 'Ảnh tối đa 10 MB, video MP4 hoặc WebM tối đa 100 MB. Chọn được nhiều tệp một lần.'}</span></div>
+      <div><strong>Kéo thả ảnh vào đây để tải lên</strong><span className="field-help" style={{ display: 'block' }}>{imagesOnly ? 'Mỗi ảnh nặng tối đa 10 MB.' : `Ảnh tối đa 10 MB, video MP4 hoặc WebM tối đa ${Math.floor(videoUploadLimit / 1048576)} MB. Chọn được nhiều tệp một lần.`}</span></div>
       <button type="button" className={imagesOnly ? 'button button-outline' : 'button'} onClick={() => input.current?.click()}><Upload size={17} />Chọn tệp</button>
       <input ref={input} type="file" multiple hidden accept={imagesOnly ? 'image/jpeg,image/png,image/webp,image/avif' : 'image/jpeg,image/png,image/webp,image/avif,video/mp4,video/webm'} onChange={event => { const files = [...(event.target.files ?? [])]; event.target.value = ''; if (files.length) void uploadAll(files); }} />
     </div>

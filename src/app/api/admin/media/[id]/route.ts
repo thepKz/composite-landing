@@ -1,11 +1,9 @@
-import { unlink } from 'node:fs/promises';
-import path from 'node:path';
 import sharp from 'sharp';
 import { z } from 'zod';
 import { requireAdmin, apiError } from '@/lib/admin-api';
 import { db, transaction } from '@/lib/db';
 import { readJson, RequestError } from '@/lib/http';
-import { uploadRoot } from '@/lib/upload';
+import { readMediaFile, removeMediaFile } from '@/lib/upload';
 
 export const runtime = 'nodejs';
 const safeKey = /^[a-f0-9-]+\.(webp|mp4|webm)$/;
@@ -27,7 +25,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     if (!media) throw new RequestError('Tệp không còn tồn tại.', 404);
     let size: { width: number; height: number } | null = null;
     if (media.mime_type.startsWith('image/') && safeKey.test(media.storage_key)) {
-      const meta = await sharp(path.join(uploadRoot(), media.storage_key)).metadata().catch(() => null);
+      const meta = await readMediaFile(media.storage_key).then(bytes => sharp(bytes).metadata()).catch(() => null);
       if (meta?.width && meta.height) size = { width: meta.width, height: meta.height };
     }
     const used = await usage(id);
@@ -63,7 +61,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       await client.query('DELETE FROM media_assets WHERE id=$1', [id]);
       return media;
     });
-    if (safeKey.test(removed.storage_key)) await unlink(path.join(uploadRoot(), removed.storage_key)).catch(() => {});
+    if (safeKey.test(removed.storage_key)) await removeMediaFile(removed.storage_key).catch(() => console.error('Deleted media object cleanup failed:', id));
     return Response.json({ ok: true });
   } catch (error) { return apiError(error); }
 }

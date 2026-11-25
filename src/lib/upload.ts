@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { createWriteStream } from 'node:fs';
-import { mkdir, stat, rename, unlink } from 'node:fs/promises';
+import { mkdir, stat, rename, unlink, readFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
@@ -8,17 +9,34 @@ import busboy from 'busboy';
 import { fileTypeFromFile } from 'file-type';
 import sharp from 'sharp';
 import { RequestError } from './http';
+import { usesSupabaseStorage, storageUploadLimit, uploadStorageFile, readStorageObject, deleteStorageFile, validStorageKey } from './supabase-storage';
 
 // Tắt bộ nhớ đệm tệp của sharp để Windows không giữ khoá trên ảnh vừa xử lý (cần khi xoá ảnh sau khi chỉnh).
 sharp.cache(false);
 
 // Media is supplied by a persistent runtime volume, never bundled into the server build.
 export const uploadRoot=()=>path.resolve(/* turbopackIgnore: true */ process.env.UPLOAD_DIR||'./data/uploads');
+export const processingRoot=()=>usesSupabaseStorage()?path.join(tmpdir(),'thanhloi-media'):uploadRoot();
+export async function persistMediaFile(key:string,file:string,mime:string){
+  if(usesSupabaseStorage()){
+    await uploadStorageFile(key,file,mime);
+    await unlink(file).catch(()=>{});
+  }
+}
+export async function readMediaFile(key:string){
+  if(!validStorageKey(key))throw new RequestError('Tên tệp lưu trữ không hợp lệ.',400);
+  return usesSupabaseStorage()?Buffer.from(await (await readStorageObject(key)).arrayBuffer()):readFile(path.join(uploadRoot(),key));
+}
+export async function removeMediaFile(key:string){
+  if(!validStorageKey(key))throw new RequestError('Tên tệp lưu trữ không hợp lệ.',400);
+  if(usesSupabaseStorage())await deleteStorageFile(key);
+  else await unlink(path.join(uploadRoot(),key));
+}
 export async function receiveUpload(request:Request){
-  const root=uploadRoot();await mkdir(root,{recursive:true});
+  const root=processingRoot();await mkdir(root,{recursive:true});
   const id=randomUUID();const temporary=path.join(root,`${id}.part`);
-  let finalPath='';let filename='';let fileCount=0;let truncated=false;let writer:Promise<void>|undefined;let parseError:Error|undefined;
-  const maximum=100*1024*1024;
+  let filename='';let fileCount=0;let truncated=false;let writer:Promise<void>|undefined;let parseError:Error|undefined;
+  const maximum=usesSupabaseStorage()?storageUploadLimit():100*1024*1024;
   try{
     if(!request.body)throw new RequestError('Vui lòng chọn tệp.',400);
     let parser;
@@ -33,28 +51,43 @@ export async function receiveUpload(request:Request){
     parser.on('fieldsLimit',()=>{parseError=new RequestError('Chỉ gửi tệp, không thêm trường dữ liệu.',400);});
     parser.on('partsLimit',()=>{parseError=new RequestError('Mỗi lần chỉ tải một tệp.',400);});
     let received=0;
-    const limiter=new Transform({transform(chunk,_encoding,callback){received+=chunk.length;callback(received>maximum+65536?new RequestError('Video tối đa 100 MB.',413):null,chunk);}});
+    const limiter=new Transform({transform(chunk,_encoding,callback){received+=chunk.length;callback(received>maximum+65536?new RequestError(`Video tối đa ${Math.floor(maximum/1048576)} MB.`,413):null,chunk);}});
     await pipeline(Readable.fromWeb(request.body as never),limiter,parser);
     if(writer)await writer;
     if(parseError)throw parseError;
     if(fileCount!==1)throw new RequestError('Vui lòng chọn một tệp.',400);
-    if(truncated)throw new RequestError('Video tối đa 100 MB.',413);
+    if(truncated)throw new RequestError(`Video tối đa ${Math.floor(maximum/1048576)} MB.`,413);
+    return await processUploadFile(temporary,filename,id);
+  }catch(error){
+    if(writer)await writer.catch(()=>{});
+    await unlink(temporary).catch(()=>{});
+    throw error;
+  }
+}
+
+export async function processUploadFile(temporary:string,filename:string,id=randomUUID()){
+  const root=processingRoot();let finalPath='';
+  try{
+    await mkdir(root,{recursive:true});
     const detected=await fileTypeFromFile(temporary).catch(()=>undefined);
     const images=['image/jpeg','image/png','image/webp','image/avif'];
     const videos=['video/mp4','video/webm'];
     if(!detected||(!images.includes(detected.mime)&&!videos.includes(detected.mime)))throw new RequestError('Chỉ nhận JPG, PNG, WebP, AVIF, MP4 hoặc WebM.',415);
     const size=(await stat(temporary)).size;
+    if(size>(usesSupabaseStorage()?storageUploadLimit():100*1024*1024))throw new RequestError('Tệp vượt quá dung lượng cho phép của kho lưu trữ.',413);
     if(images.includes(detected.mime)){
       if(size>10*1024*1024)throw new RequestError('Ảnh tối đa 10 MB.',413);
       const key=`${id}.webp`;finalPath=path.join(root,key);
       try{await sharp(temporary,{limitInputPixels:40000000}).rotate().resize({width:2400,height:2400,fit:'inside',withoutEnlargement:true}).webp({quality:88}).toFile(finalPath);}catch{throw new RequestError('Không đọc được ảnh hoặc kích thước ảnh quá lớn.',400);}
       await unlink(temporary);
-      return {id,storage_key:key,original_name:filename,mime_type:'image/webp',size_bytes:(await stat(/* turbopackIgnore: true */ finalPath)).size};
+      const outputSize=(await stat(/* turbopackIgnore: true */ finalPath)).size;
+      await persistMediaFile(key,finalPath,'image/webp');
+      return {id,storage_key:key,original_name:filename,mime_type:'image/webp',size_bytes:outputSize};
     }
     const key=`${id}.${detected.ext}`;finalPath=path.join(/* turbopackIgnore: true */ root,key);await rename(temporary,finalPath);
+    await persistMediaFile(key,finalPath,detected.mime);
     return {id,storage_key:key,original_name:filename,mime_type:detected.mime,size_bytes:size};
   }catch(error){
-    if(writer)await writer.catch(()=>{});
     await unlink(temporary).catch(()=>{});
     if(finalPath)await unlink(finalPath).catch(()=>{});
     throw error;
@@ -114,7 +147,7 @@ export function cropRectangle(width: number, height: number, crop: NonNullable<I
 }
 
 /** Xoay, lật rồi cắt theo đúng thứ tự mà màn xem trước dùng. Ghi ra tệp WebP mới. */
-export async function applyImageEdit(source: string, destination: string, edit: ImageEdit) {
+export async function applyImageEdit(source: string | Buffer, destination: string, edit: ImageEdit) {
   let stage = sharp(source, { limitInputPixels: 40000000 });
   if (edit.rotate) stage = stage.rotate(edit.rotate);
   const rotated = await stage.png({ compressionLevel: 1 }).toBuffer();

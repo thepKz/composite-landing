@@ -3,6 +3,7 @@ import { consumeLimit, consumePublicLimit, createSession, validOrigin } from '@/
 import { verifyPassword, sessionHash } from '@/lib/security';
 import { readJson, RequestError } from '@/lib/http';
 import { loginSchema } from '@/lib/auth-policy';
+import { usesSupabaseAuth, verifySupabasePassword } from '@/lib/supabase-auth';
 
 const dummyHash='scrypt:'+'0'.repeat(32)+':'+'0'.repeat(128);
 function reply(body: { ok?: boolean; error?: string }, status = 200) {
@@ -18,7 +19,9 @@ export async function POST(request:Request){
     const limitKey=`login:${sessionHash(email)}`;
     if(!await consumeLimit(limitKey,8,900))return reply({error:'Đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau 15 phút.'},429);
     const user=(await db.query('SELECT id,password_hash FROM users WHERE email=$1',[email])).rows[0];
-    const valid=await verifyPassword(parsed.data.password,user?.password_hash ?? dummyHash);
+    const valid=usesSupabaseAuth()
+      ? await verifySupabasePassword(email,parsed.data.password)
+      : await verifyPassword(parsed.data.password,user?.password_hash ?? dummyHash);
     if(!user || !valid)return reply({error:'Email hoặc mật khẩu chưa đúng.'},401);
     await db.query('DELETE FROM rate_limits WHERE key=$1',[limitKey]);
     await createSession(user.id);

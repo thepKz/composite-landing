@@ -7,6 +7,8 @@ import { db } from '@/lib/db';
 import { currentUser } from '@/lib/auth';
 import { uploadRoot } from '@/lib/upload';
 import { mediaCacheHeaders,etagMatches } from '@/lib/media-cache';
+import { usesSupabaseStorage, readStorageObject } from '@/lib/supabase-storage';
+import { RequestError } from '@/lib/http';
 export const runtime='nodejs';
 export async function GET(request:Request,{params}:{params:Promise<{id:string}>}){
   const id=z.uuid().safeParse((await params).id);if(!id.success)return new Response(null,{status:404});
@@ -14,12 +16,23 @@ export async function GET(request:Request,{params}:{params:Promise<{id:string}>}
   const media=result.rows[0];const admin=media&&!media.public?await currentUser():null;if(!media||(!media.public&&!admin))return new Response(null,{status:404});
   if(!/^[a-f0-9-]+\.(webp|mp4|webm)$/.test(media.storage_key))return new Response(null,{status:404});
   const file=path.join(uploadRoot(),media.storage_key);
-  let size:number;try{size=(await stat(file)).size;}catch{return new Response(null,{status:404});}
+  const remote=usesSupabaseStorage();
+  let size:number;try{size=remote?Number(media.size_bytes):(await stat(file)).size;}catch{return new Response(null,{status:404});}
+  if(!Number.isSafeInteger(size)||size<=0)return new Response(null,{status:404});
   const headers:Record<string,string>={'Content-Type':media.mime_type,'Accept-Ranges':'bytes','X-Content-Type-Options':'nosniff','Content-Disposition':'inline'};
   const cache=mediaCacheHeaders(Boolean(media.public),media);headers['Cache-Control']=cache.cacheControl;if(cache.etag){headers['ETag']=cache.etag;if(etagMatches(request.headers.get('if-none-match'),cache.etag))return new Response(null,{status:304,headers:{'ETag':cache.etag,'Cache-Control':cache.cacheControl,'X-Content-Type-Options':'nosniff'}});}
   let start=0,end=size-1,status=200;
   const range=request.headers.get('range');
   if(range){const match=/^bytes=(\d*)-(\d*)$/.exec(range);if(!match||(!match[1]&&!match[2]))return new Response(null,{status:416,headers:{'Content-Range':`bytes */${size}`}});if(!match[1]){start=Math.max(0,size-Number(match[2]));}else{start=Number(match[1]);end=match[2]?Math.min(Number(match[2]),size-1):size-1;}if(start>end||start>=size)return new Response(null,{status:416,headers:{'Content-Range':`bytes */${size}`}});status=206;headers['Content-Range']=`bytes ${start}-${end}/${size}`;}
   headers['Content-Length']=String(end-start+1);
+  if(remote){
+    try{
+      const response=await readStorageObject(media.storage_key,range?`bytes=${start}-${end}`:undefined);
+      if(response.status!==status||(range&&response.headers.get('content-range')!==headers['Content-Range'])){
+        await response.body?.cancel();return new Response(null,{status:503});
+      }
+      return new Response(response.body,{status,headers});
+    }catch(error){return new Response(null,{status:error instanceof RequestError?error.status:503});}
+  }
   return new Response(Readable.toWeb(createReadStream(file,{start,end})) as ReadableStream,{status,headers});
 }
