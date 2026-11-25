@@ -42,7 +42,7 @@ export default async function ContactPage() {
         <a href={`tel:${hotlines[0].tel}`} className="tp-btn tp-btn-cta"><Phone size={18} aria-hidden="true"/>{hotlines[0].display}</a>
         {validZalo && <a href={`https://zalo.me/${zalo.replace(/^\+/, '')}`} target="_blank" rel="noopener noreferrer" className="tp-btn tp-btn-ghost-light"><MessageCircle size={18} aria-hidden="true"/>Nhắn Zalo</a>}
       </>}
-      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value="15 – 60 phút" label="Thời gian báo giá" tone="light"/>}>
+      visual={<Stack clear pattern={{ kind: 'ripple', blend: 'screen', opacity: 0.45 }} floatAt="bl" float={<StackStat value="15 – 60" unit="phút" label="Thời gian báo giá" tone="light"/>}>
         <PhotoFrame photo={photo} ratio={4 / 3} sizes="(min-width: 1000px) 480px, 92vw" priority/>
       </Stack>}/>
 
