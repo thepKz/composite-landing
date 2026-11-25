@@ -262,6 +262,7 @@ export default function PostEditor({ id }: { id?: string }) {
       return true;
     } catch (failure) {
       const message = (failure as Error).message;
+      if (!silent) toast(message, 'error');
       if (failure instanceof ApiError && failure.status === 409 && message.startsWith('Bài viết đã được cập nhật')) setConflict(true);
       else setError(message);
       return false;

@@ -121,8 +121,8 @@ export default function SidePanel(props: SidePanelProps) {
     </Section>
 
     {Boolean(post.revisions?.length) && <Section title="Lịch sử đã lưu" icon={<History size={18} />} badge={<span className="ed-pill">{post.revisions?.length}</span>}>
-      <p className="field-help">Website chỉ đổi khi anh chị bấm lưu.</p>
-      <div className="ed-stack">{post.revisions?.map(revision => <button type="button" key={revision.id} className="button button-outline button-small" onClick={() => props.onRestore(revision)}>{formatVietnamDateTime(revision.created_at)}</button>)}</div>
+      <p className="field-help">Các phiên bản trước mỗi lần lưu. Chọn một bản để khôi phục vào trình soạn thảo, rồi lưu để áp dụng.</p>
+      <div className="ed-stack">{post.revisions?.map(revision => <button type="button" key={revision.id} className="button button-outline button-small" onClick={() => props.onRestore(revision)}>Bản {revision.snapshot.version ?? '?'} · {revision.snapshot.status === 'draft' ? 'Nháp' : revision.snapshot.published_at && new Date(revision.snapshot.published_at) > new Date(revision.created_at) ? 'Hẹn giờ' : 'Đã đăng'} · {new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', dateStyle: 'short', timeStyle: 'medium' }).format(new Date(revision.created_at))}</button>)}</div>
     </Section>}
   </div>;
 }

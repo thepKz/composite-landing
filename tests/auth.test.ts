@@ -38,3 +38,13 @@ test('password verification rejects oversized and malformed hashes without throw
     assert.equal(await verifyPassword(password, invalid), false);
   }
 });
+
+test('explicit alternate origins work without allowing sibling or lookalike domains', () => {
+  const primary = 'https://thanhloicomposite.com';
+  const allowed = ['https://thanhloi-composite.vercel.app'];
+  assert.equal(requestOriginMatches(primary, primary, allowed), true);
+  assert.equal(requestOriginMatches(allowed[0], primary, allowed), true);
+  for (const origin of [null, 'https://evil.vercel.app', 'https://thanhloi-composite.vercel.app.evil.test', 'https://thanhloi-composite.vercel.app/path', 'http://thanhloi-composite.vercel.app']) {
+    assert.equal(requestOriginMatches(origin, primary, allowed), false);
+  }
+});

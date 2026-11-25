@@ -34,7 +34,7 @@ export async function destroySession() {
 }
 
 export function validOrigin(request: Request) {
-  return requestOriginMatches(request.headers.get('origin'), process.env.SITE_URL);
+  return requestOriginMatches(request.headers.get('origin'), process.env.SITE_URL, process.env.SITE_ADDITIONAL_ORIGINS?.split(',').map(value => value.trim()).filter(Boolean));
 }
 
 export async function consumeLimit(key: string, maximum: number, seconds: number) {

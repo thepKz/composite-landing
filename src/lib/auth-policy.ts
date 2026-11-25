@@ -5,7 +5,8 @@ export const loginSchema = z.object({
   password: z.string().min(1).max(256),
 });
 
-export function requestOriginMatches(origin: string | null, site: string | undefined) {
+export function requestOriginMatches(origin: string | null, site: string | undefined, additionalSites: string[] = []): boolean {
+  if (additionalSites.length) return [site, ...additionalSites].some(expected => requestOriginMatches(origin, expected));
   if (!origin || !site) return false;
   try {
     const incoming = new URL(origin);
