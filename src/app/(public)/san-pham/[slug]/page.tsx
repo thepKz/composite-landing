@@ -8,6 +8,8 @@ import { siteUrl, jsonLd } from '@/lib/seo';
 import { facts, faqs } from '@/lib/site-facts';
 import InquiryForm from '@/components/inquiry-form';
 import ProductPhotoGallery from '@/components/product-photo-gallery';
+import ProductSectionMedia from '@/components/product-section-media';
+import type { ProductSection } from '@/lib/product-layout';
 import ProductCard from '@/components/product-card';
 import Reveal from '@/components/pages/reveal';
 import { Crumbs } from '@/components/pages/flow-hero';
@@ -55,6 +57,7 @@ export default async function ProductPage({ params }: Props) {
   const faqItems = guidance.faqs.map(i => faqs[i]).filter(Boolean);
   const related = [...items.slice(index + 1), ...items.slice(0, index)].slice(0, 3);
   const table = guidance.scale;
+  const sectionMedia = (section: ProductSection) => product.section_images?.find(item => item.section === section);
 
   const anchors = [
     ...(table ? [{ id: 'bang-chon', label: 'Chọn dung tích' }] : guidance.highlights ? [{ id: 'bang-chon', label: guidance.highlights.title }] : []),
@@ -120,17 +123,22 @@ export default async function ProductPage({ params }: Props) {
       </FlowSection>
 
       {table ? <FlowSection id="bang-chon" tone="light" top="dome" className="tp4-pd-table" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <ProductSectionMedia value={sectionMedia('scale')} productName={product.name}>
         <h2 className="tp4-h2 tp-rv">{table.title}</h2>
         <div className="tp-rv"><ScaleTableView/></div>
+        </ProductSectionMedia>
       </FlowSection> : guidance.highlights ? <FlowSection id="bang-chon" tone="light" top="dome" className="tp4-pd-table" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <ProductSectionMedia value={sectionMedia('scale')} productName={product.name}>
         <h2 className="tp4-h2 tp-rv">{guidance.highlights.title}</h2>
         <ul className="tp-pill-list tp-rv">{guidance.highlights.items.map(item => <li key={item}>{item}</li>)}</ul>
-      </FlowSection> : null}
+        </ProductSectionMedia>
+      </FlowSection> : sectionMedia('scale')?.images.length ? <FlowSection id="bang-chon" tone="light" top="dome" className="tp4-pd-table"><ProductSectionMedia value={sectionMedia('scale')} productName={product.name}><h2 className="tp4-h2">Quy cách sản phẩm</h2></ProductSectionMedia></FlowSection> : null}
 
       <FlowSection id="cau-tao" tone="dark" top={table || guidance.highlights ? 'wave' : 'dome'} className="tp4-fs--teal tp4-pd-build" decor={<>
         <Pattern kind="weave" fade="both" opacity={0.18}/>
         <Pattern kind="ripple" size="clamp(240px,28vw,420px)" bottom="-6%" left="-6%" opacity={0.4} blend="screen"/>
       </>}>
+        <ProductSectionMedia value={sectionMedia('features')} productName={product.name}>
         <div className={`tp4-build${guidance.accessories ? '' : ' is-solo'}`}>
           <div className="tp4-build__head tp-rv">
             <h2 className="tp4-h2">Cấu tạo và ưu điểm</h2>
@@ -143,9 +151,11 @@ export default async function ProductPage({ params }: Props) {
             })}
           </ol>
         </div>
+        </ProductSectionMedia>
       </FlowSection>
 
       <FlowSection id="dat-hang" tone="light" top="fade" className="tp4-pd-order" decor={<Pattern kind="paper" fade="both" opacity={0.8}/>}>
+        <ProductSectionMedia value={sectionMedia('ordering')} productName={product.name}>
         <h2 className="tp4-h2 tp-rv">Kỹ sư lập phương án dựa trên những thông tin sau</h2>
         <div className="tp4-order">
           <div className="tp-rv">
@@ -157,7 +167,8 @@ export default async function ProductPage({ params }: Props) {
             <a className="tp-btn tp-btn-ghost-light" href={`https://zalo.me/${info.zalo}`} target="_blank" rel="noopener noreferrer">Nhắn Zalo</a>
           </aside>
         </div>
-        {faqItems.length > 0 && <div id="hoi-dap" className="tp4-faq tp-rv"><h2 className="tp-sr">Hỏi đáp liên quan</h2><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></div>}
+        </ProductSectionMedia>
+        {(faqItems.length > 0 || sectionMedia('faq')?.images.length) && <div id="hoi-dap" className="tp4-faq tp-rv"><ProductSectionMedia value={sectionMedia('faq')} productName={product.name}><h2 className="tp-sr">Hỏi đáp liên quan</h2><FaqList items={faqItems} name={`hoi-dap-${slug}`}/></ProductSectionMedia></div>}
       </FlowSection>
 
       <FlowSection tone="light" top="none" className="tp4-pd-related">
@@ -169,6 +180,7 @@ export default async function ProductPage({ params }: Props) {
         <Pattern kind="resin" fade="both" opacity={0.4}/>
         <Pattern kind="ripple" size="clamp(240px,30vw,460px)" top="-8%" left="-6%" opacity={0.45} blend="screen"/>
       </>}>
+        <ProductSectionMedia value={sectionMedia('inquiry')} productName={product.name}>
         <div className="tp4-form">
           <div className="tp4-form__copy tp-rv">
             <h2 className="tp4-h2">Nhận báo giá</h2>
@@ -183,6 +195,7 @@ export default async function ProductPage({ params }: Props) {
             <InquiryForm demo={isDemoMode()} key={slug} product={product.name} compact hours={info.hours} hotlineTel={info.hotlines[0].tel}/>
           </div>
         </div>
+        </ProductSectionMedia>
       </FlowSection>
     </ScaleProvider>
   </main>;

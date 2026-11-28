@@ -1,0 +1,26 @@
+.product-layout-section { border-top: 1px solid var(--admin-border, #d8dfdc); }
+.product-layout-section summary { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; font-weight: 650; cursor: pointer; }
+.product-layout-section summary span { font-size: 13px; font-weight: 400; color: #53635b; }
+.product-layout-section summary:focus-visible { outline: 2px solid #176349; outline-offset: 4px; }
+.product-layout-body { display: grid; gap: 16px; padding-bottom: 20px; }
+.product-layout-images { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
+.product-layout-images > li { padding-top: 12px; border-top: 1px solid #d8dfdc; }
+.product-layout-image-head { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.product-layout-image-head .inline-actions { margin-left: auto; }
+.product-layout-image-fields { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 16px; }
+.product-layout-image-fields > img { width: 120px; height: 100px; object-fit: contain; background: #f0f3f1; border-radius: 8px; }
+.product-layout-image-fields > div { display: grid; gap: 12px; min-width: 0; }
+.product-layout-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; background: #eef3ef; border-radius: 12px; }
+.product-layout-preview__copy { align-self: center; display: grid; gap: 6px; color: #214334; }
+.product-layout-preview__copy span { font-size: 12px; }
+.product-layout-preview__images { display: grid; gap: 6px; }
+.product-layout-preview__images.is-grid { grid-template-columns: 1fr 1fr; }
+.product-layout-preview__images img { width: 100%; max-height: 160px; min-width: 0; background: white; border-radius: 6px; }
+.product-layout-preview.is-left .product-layout-preview__images { order: -1; }
+.product-layout-preview.is-before, .product-layout-preview.is-after { grid-template-columns: 1fr; }
+.product-layout-preview.is-before .product-layout-preview__images { order: -1; }
+@media(max-width: 600px) {
+  .product-layout-image-fields { grid-template-columns: 1fr; }
+  .product-layout-section summary { flex-wrap: wrap; gap: 6px; }
+  .product-layout-image-fields .form-row { grid-template-columns: 1fr; }
+}

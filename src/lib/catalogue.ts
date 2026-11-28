@@ -1,3 +1,4 @@
+import type { SectionLayout } from './product-layout';
 // Danh mục sản phẩm theo hồ sơ nội dung bản Final V2 (mục 1, 2.5, 4.2 đến 4.8).
 // Thứ tự trong mảng cũng là thứ tự hiển thị: ba dòng mũi nhọn đứng đầu.
 // Giữ nguyên slug cũ để không gãy liên kết. Số đường kính biogas lấy theo bảng mới của hồ sơ.
@@ -109,4 +110,4 @@ export const catalogue = [
   },
 ] as const;
 
-export type Product = { id?: string; slug: string; name: string; category: string; description: string; specifications: {label:string;value:string}[]; applications: string[]; cover_id?: string | null; type?: string };
+export type Product = { id?: string; slug: string; name: string; category: string; description: string; specifications: {label:string;value:string}[]; applications: string[]; cover_id?: string | null; section_images?: SectionLayout[]; type?: string };

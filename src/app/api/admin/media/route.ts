@@ -5,7 +5,7 @@ import { receiveUpload, removeMediaFile } from '@/lib/upload';
 export const runtime = 'nodejs';
 
 const listSql = `SELECT m.*,
-  ((SELECT count(*) FROM post_media pm WHERE pm.media_id=m.id) + (SELECT count(DISTINCT p.id) FROM products p WHERE p.cover_id=m.id OR EXISTS(SELECT 1 FROM product_media pm WHERE pm.product_id=p.id AND pm.media_id=m.id)))::int AS used_count
+  ((SELECT count(*) FROM post_media pm WHERE pm.media_id=m.id) + (SELECT count(DISTINCT p.id) FROM products p WHERE p.cover_id=m.id OR jsonb_path_exists(p.section_images, '$[*].images[*] ? (@.media_id == $media)', jsonb_build_object('media',m.id::text)) OR EXISTS(SELECT 1 FROM product_media pm WHERE pm.product_id=p.id AND pm.media_id=m.id)))::int AS used_count
   FROM media_assets m ORDER BY m.created_at DESC LIMIT 1000`;
 
 export async function GET(request: Request) {

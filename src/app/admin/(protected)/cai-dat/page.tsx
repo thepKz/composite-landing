@@ -1,2 +1,3 @@
 import SettingsForm from '@/components/admin/settings-form';
-export default function Page(){return <SettingsForm/>;}
+import GeminiSettings from '@/components/admin/gemini-settings';
+export default function Page(){return <><SettingsForm/><GeminiSettings/></>;}

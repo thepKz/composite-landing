@@ -20,6 +20,7 @@ import PreviewPane from './editor/preview-pane';
 import { buildExtensions } from './editor/extensions';
 import { readingMinutes, type Template } from './editor/guidance';
 import { emptyPost, type MediaKind, type Post } from './editor/types';
+import ArticleTranslation from './article-translation';
 
 type Upload = { key: number; name: string; progress: number; error?: string };
 type Saved = Post & { updated_at?: string };
@@ -463,6 +464,7 @@ export default function PostEditor({ id }: { id?: string }) {
       {panelOpen && <div className="ed-scrim" onClick={() => setPanelOpen(false)} aria-hidden="true" />}
       <aside className="ed-aside" id="ed-aside" ref={drawerRef} data-open={panelOpen} aria-label="Thiết lập bài viết">
         <div className="ed-aside-head"><strong>Thiết lập bài</strong><button type="button" className="button button-outline button-small ed-aside-close" data-autofocus onClick={() => setPanelOpen(false)}><X size={17} />Đóng</button></div>
+        <ArticleTranslation disabled={busy || !editor || post.title.trim().length < 3} snapshot={() => ({ ...latest.current.post, content: (editor?.getJSON() ?? latest.current.post.content) as RichNode })} />
         <SidePanel post={post} state={state} busy={busy} doc={doc} scheduleInput={scheduleInput} scheduleMin={vietnamDateTimeInput(now + 60000)}
           onScheduleInput={value => { setScheduleInput(value); markDirty(); }}
           onChange={change}
